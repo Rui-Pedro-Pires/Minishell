@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 18:00:03 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/04 12:27:59 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/09 17:17:19 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/09 17:33:22 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,24 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned int	i;
-	char			*s1;
+	char	*new_str;
+	int		i;
 
 	i = 0;
-	s1 = malloc(sizeof(char) * ft_strlen(s) + 1);
-	if (s1 == NULL)
+	if (!s)
+	{
 		return (NULL);
+	}
+	new_str = malloc(ft_strlen(s) + 1);
+	if (!new_str)
+	{
+		return (NULL);
+	}
 	while (s[i])
 	{
-		s1[i] = f(i, s[i]);
+		new_str[i] = f(i, s[i]);
 		i++;
 	}
-	s1[i] = '\0';
-	return (s1);
+	new_str[i] = '\0';
+	return (new_str);
 }
-
-// int	 main(void)
-// {
-// 	char	*s1;
-
-// 	s1 = ft_strmapi("abcdef", *ft_test);
-// 	printf("%s", s1);
-// }

@@ -3,30 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 12:19:01 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/03 12:21:58 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/03 12:53:51 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/09 09:42:58 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *str, int c, size_t n)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	unsigned char	*s1;
-	unsigned char	c1;
+	unsigned char	*str;
+	unsigned int	i;
 
-	c1 = c;
-	s1 = str;
-	while (n--)
-		*s1++ = c1;
-	return (str);
+	str = s;
+	i = 0;
+	while (i < n)
+	{
+		*str++ = c;
+		i++;
+	}
+	return ((void *)s);
 }
-
-// int	main(void)
-// {
-// 	char s1[] = "cao e gato"; 
-// 	ft_memset(s1, 'h', 4);
-// 	printf("%s", s1);
-// }

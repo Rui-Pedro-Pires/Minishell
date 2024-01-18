@@ -3,31 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 09:12:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/04 15:31:07 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/03 15:19:54 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/09 12:31:34 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *str, int c)
+// The strchr() function returns a pointer
+// to the first occurrence of the character c in the string s.
+char	*ft_strchr(const char *s, int c)
 {
-	char	*ptr;
-
-	ptr = (char *)str;
-	while (*ptr != (unsigned char)c && *ptr)
-		ptr++;
-	if (*ptr == (unsigned char)c)
-		return (ptr);
+	while (*s && *s != (char)c)
+	{
+		s++;
+	}
+	if (*s == (char)c)
+	{
+		return ((char *)s);
+	}
 	return (NULL);
 }
-
-// int	main(void)
-// {
-// 	char s1[] = "cao e gato";
-// 	char s2[] = "cao e gato";
-// 	printf("%s", ft_strchr(s1, '\0'));
-// 	printf("%s", strchr(s2, '\0'));
-// }

@@ -3,33 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 10:28:49 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/09 12:02:04 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/03 11:16:21 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/06 14:52:17 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
+#include <string.h>
 
-int	ft_memcmp(const void *str1, const void *str2, size_t n)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	unsigned const char	*s1;
-	unsigned const char	*s2;
+	size_t				i;
+	unsigned const char	*string1;
+	unsigned const char	*string2;
 
-	s1 = str1;
-	s2 = str2;
-	while (n--)
+	string1 = s1;
+	string2 = s2;
+	i = 0;
+	while (n)
 	{
-		if (*s1 != *s2)
-			return (*s1 - *s2);
-		s1++;
-		s2++;
+		if (string1[i] != string2[i])
+		{
+			return (string1[i] - string2[i]);
+		}
+		i++;
+		n--;
 	}
 	return (0);
 }
 
 // int	main(void)
 // {
-// 	printf("%d", ft_memcmp("hao", "cao", 3));
+// 	printf("\n%d\n", ft_memcmp("abc", "abc", 7));
+// 	printf("\n%d",memcmp("abc", "abc", 7));
 // }

@@ -3,36 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kelho <kelho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 12:35:00 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/09 11:59:26 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/03 15:18:19 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/09 22:29:57 by kelho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+void	*ft_memcpy_overlap(void *dest, const void *src, size_t n);
+
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	unsigned char		*dest1;
-	unsigned const char	*src1;
+	unsigned char		*dst;
+	unsigned const char	*s;
 
-	dest1 = dest;
-	src1 = src;
-	if (!src1 && !dest)
-		return (NULL);
-	if (dest < src)
-		return (ft_memcpy(dest, src, n));
-	while (n--)
-		dest1[n] = src1[n];
+	dst = dest;
+	s = src;
+	if (dst < s)
+	{
+		ft_memcpy(dst, s, n);
+	}
+	else
+	{
+		ft_memcpy_overlap(dst, s, n);
+	}
 	return (dest);
 }
 
-// int	main(void)
-// {
-// 	// char s1[20];
-// 	char s2[] = "animal";
-// 	//memmove(s2, s2 + 2, 3);
-// 	char *s1 = ft_memmove(s2 + 2, s2, 2);
-// 	printf("%s", s1);
-// }
+void	*ft_memcpy_overlap(void *dest, const void *src, size_t n)
+{
+	unsigned char	*dst;
+	unsigned char	*s;
+
+	dst = (unsigned char *)dest;
+	s = (unsigned char *)src;
+	s = s + n - 1;
+	dst = dst + n - 1;
+	if (!src && !dest)
+	{
+		return (dest);
+	}
+	while (n--)
+	{
+		*dst-- = *s--;
+	}
+	return (dest);
+}

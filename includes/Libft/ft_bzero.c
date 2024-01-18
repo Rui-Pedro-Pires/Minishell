@@ -3,22 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kelho <kelho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 12:35:25 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/04 11:22:34 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/03 15:23:33 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/09 22:29:30 by kelho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s1, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
-	ft_memset(s1, '\0', n);
-}
+	unsigned char	*str;
 
-// int	main(void)
-// {
-// 	char	s1[] = "cao e gato";
-// 	ft_bzero(s1, 5);
-// }
+	str = s;
+	ft_memset(str, '\0', n);
+}

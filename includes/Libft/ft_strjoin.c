@@ -3,39 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 12:35:10 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/04 10:40:34 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/04 14:59:10 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/09 12:35:15 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+// Allocates (with malloc(3)) and returns a new string,
+// which is the result of the concatenation of ’s1’ and ’s2’.
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*join_string;
+	char	*new_str;
 	int		i;
-	int		x;
+	int		n;
 
-	i = 0;
-	x = 0;
-	join_string = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
-	if (join_string == NULL)
+	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!new_str)
 		return (NULL);
-	while (s1[i])
-		join_string[x++] = s1[i++];
 	i = 0;
-	while (s2[i])
-		join_string[x++] = s2[i++];
-	join_string[x] = '\0';
-	return (join_string);
+	n = 0;
+	while (s1[i] != '\0')
+	{
+		new_str[n] = s1[i];
+		i++;
+		n++;
+	}
+	i = 0;
+	while (s2[i] != '\0')
+	{
+		new_str[n] = s2[i];
+		i++;
+		n++;
+	}
+	new_str[n] = '\0';
+	return (new_str);
 }
-
-// int	main(void)
-// {
-// 	char 	*s1;
-
-// 	s1 = ft_strjoin("cao e", "");
-// 	printf("%s", s1);
-// }

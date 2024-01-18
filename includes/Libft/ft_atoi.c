@@ -3,45 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 11:08:13 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/03 12:20:39 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/03 09:04:51 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/06 13:18:42 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+static void	skip_spaces(unsigned char *str, int *ptr);
+static int	check_plus_minus(unsigned char *str, int *ptr);
 
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	rec;
-	int	dest;
+	unsigned char	*s;
+	int				*ptr;
+	int				i;
+	int				minus_count;
+	int				n;
 
+	s = (unsigned char *)str;
 	i = 0;
-	rec = 0;
-	dest = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
-		i++;
-	if (str[i] == '+')
-		i++;
-	else if (str[i] == '-')
+	n = 0;
+	minus_count = 0;
+	ptr = &i;
+	skip_spaces(s, ptr);
+	minus_count = check_plus_minus(s, ptr);
+	while (s[i] >= '0' && s[i] <= '9' && s[i] != '\0')
 	{
-		rec = 1;
+		n = n * 10;
+		n = n + (s[i] - '0');
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		dest = dest * 10 + (str[i] - '0');
-		i++;
-	}
-	if (rec == 1)
-		return (dest *= -1);
-	return (dest);
+	if (minus_count == -1)
+		n = n * (-1);
+	return (n);
 }
 
-// int	main(void)
-// {
-// 	printf("%d\n", ft_atoi("         3647"));
-// 	printf("%d", atoi("   2145"));
-// }
+static void	skip_spaces(unsigned char *str, int *ptr)
+{
+	int	i;
+
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+	{
+		i++;
+	}
+	*ptr = i;
+}
+
+static int	check_plus_minus(unsigned char *str, int *ptr)
+{
+	int	i;
+
+	i = *ptr;
+	if (str[i] == '+')
+	{
+		i++;
+	}
+	else if (str[i] == '-')
+	{
+		i++;
+		*ptr = i;
+		return (-1);
+	}
+	*ptr = i;
+	return (0);
+}

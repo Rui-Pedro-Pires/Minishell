@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 12:13:12 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/03 12:21:06 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/02 13:07:39 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/05 11:33:11 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_isprint(int c)
+// Checks if 'n' is a printable character
+int	ft_isprint(int n)
 {
-	if (c >= 32 && c <= 126)
+	if (n >= 32 && n <= 126)
+	{
 		return (1);
-	return (0);
+	}
+	else
+	{
+		return (0);
+	}
 }
-
-// int	main(void)
-// {
-// 	printf("%d", ft_isprint('h'));
-// }

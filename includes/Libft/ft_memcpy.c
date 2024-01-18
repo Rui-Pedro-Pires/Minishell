@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 12:41:36 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/09 11:57:30 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/03 15:25:17 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/06 15:04:33 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,18 @@
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	unsigned char		*dest1;
-	unsigned const char	*src1;
+	unsigned char	*dst;
+	unsigned char	*s;
 
-	dest1 = dest;
-	src1 = src;
-	if (!src1 && !dest)
-		return (NULL);
+	dst = (unsigned char *)dest;
+	s = (unsigned char *)src;
+	if (!src && !dest)
+	{
+		return (dest);
+	}
 	while (n--)
 	{
-		*dest1 = *src1;
-		dest1++;
-		src1++;
+		*dst++ = *s++;
 	}
 	return (dest);
 }
-
-// int	main(void)
-// {
-// 	char s1[] = "cao e gato";
-// 	char s2[] = "";
-// 	char *s3 = ft_memcpy(s1, s2, 3);
-// 	printf("%s", s3);
-// }

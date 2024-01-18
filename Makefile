@@ -1,31 +1,58 @@
-SRC = ./src/main.c
-
-OBJ = $(SRC:.c=.o)
-
-INCLUDE = ./includes/minishell.h
-
-CFLAGS = -Wall -Werror -Wextra
+NAME = minishell
 
 LIBFT = ./includes/Libft/libft.a
 
+RED = \033[0;31m
+GRN = \033[0;32m
+YEL = \033[0;33m
+BLU = \033[0;34m
+MAG = \033[0;35m
+CYN = \033[0;36m
+WHT = \033[0;37m
+RES = \033[0m
+
 CC = cc
 
-RM = rm -f
+CFLAGS = -Werror -Wall -Wextra -g 
 
-NAME = minishell
+LFLAG = -lreadline
 
-all: $(NAME)
+RM = rm -rf
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -I INCLUDE -lreadline
+SDIR := src
+ODIR := obj
+
+SOURCES := main.c \
+
+OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
+
+
+all : ${NAME}
+
+${NAME} : ${OBJECTS} ${LIBFT}
+	@${CC} ${CFLAGS} ${OBJECTS} ${LIBFT} -o ${NAME} $(LFLAG)
+	@echo "\n$(GRN)➾ Minishell created$(RES)"
 
 $(LIBFT):
-	make -C ./include/Libft -s
+	make -C ./includes/Libft/
+	@echo "${GRN}➾ $@ created ${RES}"
 
-clean:
-	$(RM) $(OBJ)
+$(ODIR)/%.o: $(SDIR)/%.c | $(ODIR)
+	@$(CC) $(CFLAGS) -c -o $@ $<
+	@echo "${GRN}➾ $@ created ${RES}"
 
-fclean: clean
-	$(RM) $(NAME)
+$(ODIR):
+	@mkdir -p $@	
 
-re: fclean all
+clean :
+	@${RM} ${OBJECTS}
+	@${RM} ${ODIR}
+	@echo "${RED}➾ Minishell objects deleted${RES}"
+
+fclean : clean
+	@${RM} ${NAME}
+	@echo "${RED}➾ Minishell deleted${RES}"
+
+re : fclean all
+
+.PHONY: bonus

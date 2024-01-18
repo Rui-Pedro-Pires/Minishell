@@ -3,37 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 12:24:50 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/09 10:41:48 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/04 10:29:43 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/09 12:30:14 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+// Allocates (with malloc(3)) and returns a substring from the string ’s’.
+// The substring begins at index ’start’ and is of maximum size ’len’
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*s1;
-	size_t	size;
+	char			*s2;
+	unsigned int	size;
 
-	if (!s)
-		return (NULL);
 	if (start >= ft_strlen(s))
+	{
 		return (ft_strdup(""));
+	}
+	if (!s)
+	{
+		return (NULL);
+	}
 	size = ft_strlen(s + start);
 	if (size < len)
+	{
 		len = size;
-	s1 = malloc(sizeof(char) * (len + 1));
-	if (!s1)
+	}
+	s2 = malloc(len + 1);
+	if (!s2)
+	{
 		return (NULL);
-	ft_strlcpy(s1, s + start, len + 1);
-	return (s1);
+	}
+	ft_strlcpy(s2, s + start, len + 1);
+	return (s2);
 }
-
-// int	main(void)
-// {
-// 	char *s1;
-// 	s1 = ft_substr("cao e gato", 3, 10);
-// 	printf("%s", s1);
-// }

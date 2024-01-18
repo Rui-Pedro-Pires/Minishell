@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 12:17:45 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/03 12:41:04 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/02 13:09:56 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/09 11:33:10 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,9 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
+	while (str[i] != '\0')
+	{
 		i++;
+	}
 	return (i);
 }
-
-// int	main(int ac, char **av)
-// {
-// 	printf("%d", ft_strlen(av[1]));
-// }

@@ -3,33 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 09:17:37 by ruiolive          #+#    #+#             */
-/*   Updated: 2023/10/09 11:10:07 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/03 15:24:51 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/09 10:57:21 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *str, int c)
+// The strrchr() function returns a pointer to the
+// last occurrence of the character c in the string s.
+char	*ft_strrchr(const char *s, int c)
 {
-	char	*ptr;
+	int	n;
 
-	ptr = (char *)str;
-	while (*ptr)
-		ptr++;
-	while (*ptr != (unsigned char)c && ptr != (char *)str)
-		ptr--;
-	if (*ptr == (unsigned char)c)
-		return (ptr);
+	n = ft_strlen(s);
+	s += n;
+	while (n >= 0 && *s != (char)c)
+	{
+		s--;
+		n--;
+	}
+	if (*s == (char)c)
+	{
+		return ((char *)s);
+	}
 	return (NULL);
 }
-
-// int	main(void)
-// {
-// 	char s1[] = "cao e gato";
-// 	char s2[] = "cao e gato";
-// 	printf("%s\n", ft_strrchr(s1, '\0'));
-// 	printf("%s", strrchr(s2, '\0'));
-// }

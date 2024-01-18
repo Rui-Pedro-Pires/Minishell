@@ -3,38 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/08 22:52:21 by inessilva         #+#    #+#             */
-/*   Updated: 2023/10/09 15:08:02 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/10 12:47:15 by jorteixe          #+#    #+#             */
+/*   Updated: 2023/10/10 14:24:31 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_listt	*ft_lstmap(t_listt *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_listt	*new_list;
-	t_listt	*tail;
+	t_list	*ptr;
+	t_list	*buffer;
 
 	if (!lst || !f || !del)
 		return (NULL);
-	new_list = ft_lstnew(f(lst->content));
-	if (!new_list)
+	ptr = ft_lstnew(f(lst->content));
+	if (!ptr)
 		return (NULL);
-	tail = new_list;
+	buffer = ptr;
 	lst = lst->next;
-	while (lst)
+	while (lst != NULL)
 	{
-		tail->next = ft_lstnew(f(lst->content));
-		if (!tail->next)
+		ptr->next = ft_lstnew(f(lst->content));
+		if (!ptr->next)
 		{
-			ft_lstclear(&new_list, del);
-			return (NULL);
+			del(ptr->content);
+			free(ptr);
+			return (0);
 		}
 		lst = lst->next;
-		tail = tail->next;
+		ptr = ptr->next;
 	}
-	tail->next = NULL;
-	return (new_list);
+	ptr->next = NULL;
+	return (buffer);
 }
