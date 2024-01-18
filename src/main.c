@@ -12,6 +12,19 @@
 
 #include "../includes/minishell.h"
 
+void    free_args(char **args)
+{
+    int i;
+    
+    i = 0;
+    while (args[i])
+    {
+        free(args[i]);
+        i++;
+    }
+    free(args);
+}
+
 int main(void)
 {
     char *input;
@@ -23,18 +36,24 @@ int main(void)
     path = "/usr/bin/";
     while (1)
     {
+        input = readline("");
+        if (input && *input)
+            add_history(input);
+        args = ft_split(input, ' ');
+        cmd = ft_strjoin(path, args[0]);
+        if (ft_strncmp(args[0], "cd", 2) == 0)
+            chdir(args[1]);
         pid = fork();
         if (pid == 0)
         {
-            input = readline("");
-            if (input && *input)
-                add_history(input);
-            args = ft_split(input, ' ');
-            cmd = ft_strjoin(path, args[0]);
             execve(cmd, args, NULL);
-            free(input);
             return (0);
         }
+        waitpid(pid, NULL, 0);
+        free(input);
+        free_args(args);
+        free(cmd);
+
     }
     rl_clear_history();
 }
