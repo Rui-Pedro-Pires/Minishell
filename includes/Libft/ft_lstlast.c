@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive  <ruiolive@student.42.fr   >      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/18 12:02:05 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/08 19:20:59 by inessilva         #+#    #+#             */
+/*   Updated: 2023/10/09 11:14:31 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "./Libft/libft.h"
+#include "libft.h"
+
+t_listt	*ft_lstlast(t_listt *lst)
+{
+	t_listt	*tmp1;
+	t_listt	*tmp2;
+
+	tmp1 = lst;
+	if (!tmp1)
+		return (tmp1);
+	while (tmp1)
+	{
+		tmp2 = tmp1;
+		tmp1 = tmp1->next;
+	}
+	return (tmp2);
+}

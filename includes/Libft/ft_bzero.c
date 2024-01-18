@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive  <ruiolive@student.42.fr   >      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/18 12:02:05 by ruiolive         ###   ########.fr       */
+/*   Created: 2023/10/02 12:35:25 by ruiolive          #+#    #+#             */
+/*   Updated: 2023/10/04 11:22:34 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "./Libft/libft.h"
+#include "libft.h"
+
+void	ft_bzero(void *s1, size_t n)
+{
+	ft_memset(s1, '\0', n);
+}
+
+// int	main(void)
+// {
+// 	char	s1[] = "cao e gato";
+// 	ft_bzero(s1, 5);
+// }
