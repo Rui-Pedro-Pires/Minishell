@@ -12,36 +12,10 @@
 
 #include "../includes/minishell.h"
 
-int pipe_check(char *input)
+void	error_handler(int type)
 {
-	int	i;
-
-	i = 0;
-	while (input[i] == '|')
-		i++;
-	if (i > 2)
-	{
-		//error_handler();
-		printf("ERROR");
-		exit(1);
-	}
-	return (i);
-}
-
-int ampersand_check(char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i] == '&')
-		i++;
-	if (i > 2)
-	{
-		//error_handler();
-		printf("ERROR");
-		exit(1);
-	}
-	return (i);
+	if (type == 1)
+		printf("ERROR\n");
 }
 
 int signs_check(char *input, char sign)
@@ -50,21 +24,15 @@ int signs_check(char *input, char sign)
 
 	i = 0;
 	if (sign == '>')
-	{
-		while (input[i] == '>')
-			i++;
-	}
+		while (input[++i] == '>');
 	else if (sign == '<')
-	{
-		while (input[i] == '<')
-			i++;
-	}
+		while (input[++i] == '<');
+	else if (sign == '|')
+		while (input[++i] == '|');
+	else if (sign == '&')
+		while (input[++i] == '&');
 	if (i > 2)
-	{
-		//error_handler();
-		printf("ERROR");
-		exit(1);
-	}
+		error_handler(1);
 	return (i);
 }
 
@@ -76,19 +44,16 @@ void	wrong_specialch_syntax(char *input)
     while (input[i])
     {
 		if (input[i] == '|')
-			i += pipe_check(input + i);
+			i += signs_check(input + i, '|');
 		else if (input[i] == '&')
-			i += ampersand_check(input + i);
+			i += signs_check(input + i, '&');
 		else if (input[i] == '>')
 			i += signs_check(input + i, '>');
 		else if (input[i] == '<')
 			i += signs_check(input + i, '<');
 		else if (input[i] == '\\' || input[i] == ';')
-		{
-			//error_handler();
-			printf("ERROR");
-			exit(1);
-		}
-		i++;
+			error_handler(1);
+		else
+			i++;
     }
 }
