@@ -6,19 +6,23 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/22 14:43:05 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/22 14:56:05 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int main(void)
+int main(int argc, char **argv, char **env)
 {
     char    *input;
 
-    input = readline("COMMAND: ");
-    // check for more then allowed special caracters
-    wrong_specialch_syntax(input);
-    free(input);
-    return (0);
+    while (1)
+    {
+        input = readline("");
+        if (input && *input)
+            add_history(input);
+        wrong_specialch_syntax(input);
+        free(input);
+    }
+    rl_clear_history();
 }
