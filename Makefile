@@ -38,7 +38,7 @@ ${NAME} : ${OBJECTS} ${LIBFT}
 	@echo "\n$(GRN)➾ Minishell created$(RES)"
 
 $(LIBFT):
-	make -C ./includes/Libft/ -s
+	@make -C ./includes/Libft/ -s
 	@echo "${GRN}➾ $@ created ${RES}"
 
 $(ODIR)/%.o: $(SDIR)/%.c | $(ODIR)
@@ -52,12 +52,12 @@ clean :
 	@${RM} ${OBJECTS}
 	@${RM} ${ODIR}
 	@echo "${RED}➾ Minishell objects deleted${RES}"
-	make clean -C./includes/Libft/ -s
+	@make clean -C./includes/Libft/ -s
 
 fclean : clean
 	@${RM} ${NAME}
 	@echo "${RED}➾ Minishell deleted${RES}"
-	make fclean -C ./includes/Libft/ -s
+	@make fclean -C ./includes/Libft/ -s
 
 re : fclean all
 
