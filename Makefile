@@ -23,7 +23,8 @@ SDIR := src
 ODIR := obj
 
 SOURCES := main.c \
-			special_chars_parsers.c
+			special_chars_parsers.c \
+			spaces_add.c \
 
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
