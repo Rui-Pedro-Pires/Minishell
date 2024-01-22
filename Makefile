@@ -24,6 +24,7 @@ ODIR := obj
 
 SOURCES := main.c \
 			special_chars_parsers.c \
+			creat_list.c\
 
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 

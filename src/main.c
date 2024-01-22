@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/22 14:56:05 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:49:41 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,24 @@
 int main(int argc, char **argv, char **env)
 {
     char    *input;
+    t_data  *head;
 
+    head = NULL;
+    (void)env;
+    (void)argv;
+    (void)argc;
     while (1)
     {
         input = readline("");
         if (input && *input)
             add_history(input);
         wrong_specialch_syntax(input);
+        creat_list(&head, input);
+        while (head)
+        {
+            printf("%c\n", head->c);
+            head = head->next;
+        }
         free(input);
     }
     rl_clear_history();
