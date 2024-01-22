@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/22 14:37:26 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/22 14:59:20 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@
 # define DOUBLEQUOTE 34
 
 void	wrong_specialch_syntax(char *input);
-char    *add_spaces(char *input);
 
 #endif
