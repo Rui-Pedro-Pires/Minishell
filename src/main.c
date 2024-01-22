@@ -18,24 +18,26 @@ int main(int argc, char **argv, char **env)
     t_data  *head;
 
     head = NULL;
-    (void)env;
     (void)argv;
-    (void)argc;
-    while (1)
+    if (argc == 1)
     {
-        input = readline("");
-        if (input && *input)
-            add_history(input);
-        check_unfinished_quotes(input);
-        wrong_specialch_syntax(input);
-        creat_list(&head, input);
-        while (head)
+        while (1)
         {
-            printf("CMD: %s\n", head->cmd);
-            printf("PIPE_TYPE: %d\n", head->pipe_type);
-            head = head->next;
+            input = readline("");
+            if (input && *input)
+                add_history(input);
+            check_unfinished_quotes(input);
+            wrong_specialch_syntax(input);
+            creat_list(&head, input);
+            while (head)
+            {
+                printf("CMD: %s\n", head->cmd);
+                printf("PIPE_TYPE: %d\n", head->pipe_type);
+                head = head->next;
+            }
+            execute_command(head, env);
+            free(input);
         }
-        free(input);
+        rl_clear_history();
     }
-    rl_clear_history();
 }
