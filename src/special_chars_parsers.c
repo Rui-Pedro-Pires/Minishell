@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:12:35 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/22 15:55:04 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:17:50 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int check_for_command(char *input);
 static int	quotes_check(char *input, char c);
-static int signs_check(char *input, char sign);
+static int signs_check(char *input, char sign, char *ptr);
 
 void check_unfinished_quotes(char *input)
 {
@@ -47,20 +47,20 @@ void	wrong_specialch_syntax(char *input)
     i = 0;
     while (input[i])
     {
-		if (input[i] == DOUBLEQUOTE)
-			i += quotes_check(input + i, DOUBLEQUOTE);
-		else if (input[i] == SINGLEQUOTE)
-			i += quotes_check(input + i, SINGLEQUOTE);
+		if (input[i] == D_QUOTES)
+			i += quotes_check(input + i, D_QUOTES);
+		else if (input[i] == S_QUOTES)
+			i += quotes_check(input + i, S_QUOTES);
 		else if (input[i] == '|')
-			i += signs_check(input + i, '|');
+			i += signs_check(input + i, '|', input);
 		else if (input[i] == '&')
-			i += signs_check(input + i, '&');
+			i += signs_check(input + i, '&', input);
 		else if (input[i] == '>')
-			i += signs_check(input + i, '>');
+			i += signs_check(input + i, '>', input);
 		else if (input[i] == '<')
-			i += signs_check(input + i, '<');
+			i += signs_check(input + i, '<', input);
 		else if (input[i] == '\\' || input[i] == ';')
-			error_handler(1, input);
+			error_handler(ERROR_SPECIAL_CHAR, input, NULL);
 		else
 			i++;
     }
@@ -89,7 +89,7 @@ static int	quotes_check(char *input, char c)
 	return (i + 1);
 }
 
-static int signs_check(char *input, char sign)
+static int signs_check(char *input, char sign, char *ptr)
 {
 	int	i;
 
@@ -103,6 +103,6 @@ static int signs_check(char *input, char sign)
 	else if (sign == '&')
 		while (input[++i] == '&');
 	if (i > 2 || !check_for_command(input + i))
-		error_handler(1, input);
+		error_handler(ERROR_SPECIAL_CHAR, ptr, NULL);
 	return (i);
 }
