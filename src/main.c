@@ -18,7 +18,14 @@ int main(void)
 
     input = readline("");
     // check for more then allowed special caracters
-    wrong_specialch_syntax(input);
+    // wrong_specialch_syntax(input);
+	char **splited = ft_split(input, ' ');
+	int	i = 0;
+	while (splited[i])
+	{
+		printf("%s\n", splited[i]);
+		i++;
+	}
     free(input);
     return (0);
 }

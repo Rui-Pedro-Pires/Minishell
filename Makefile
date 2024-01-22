@@ -49,10 +49,12 @@ clean :
 	@${RM} ${OBJECTS}
 	@${RM} ${ODIR}
 	@echo "${RED}➾ Minishell objects deleted${RES}"
+	make clean -C./includes/Libft/ -s
 
 fclean : clean
 	@${RM} ${NAME}
 	@echo "${RED}➾ Minishell deleted${RES}"
+	make fclean -C ./includes/Libft/ -s
 
 re : fclean all
 
