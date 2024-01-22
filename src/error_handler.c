@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/22 16:05:27 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/01/22 15:57:37 by ruiolive          #+#    #+#             */
+/*   Updated: 2024/01/22 16:12:48 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int main(int argc, char **argv, char **env)
+void	error_handler(int error_msg, void *param, void **param2)
 {
-    char    *input;
-    t_data  *head;
-
-    head = NULL;
-    (void)env;
-    (void)argv;
-    (void)argc;
-    while (1)
-    {
-        input = readline("");
-        if (input && *input)
-            add_history(input);
-        check_unfinished_quotes(input);
-        wrong_specialch_syntax(input);
-        creat_list(&head, input);
-        free(input);
-    }
-    rl_clear_history();
+	if (error_msg == ERROR_UNFINISHED_QUOTE)
+	{
+		(void)param2;
+		printf("Unfinished Quote\n");
+		free(param);
+	}
+    if (error_msg == ERROR_SPECIAL_CHAR)
+	{
+		(void)param2;
+		printf("Wrong Special Char\n");
+		free(param);
+	}
+	exit(1);
 }

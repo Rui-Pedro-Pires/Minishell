@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   memory_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/22 16:05:27 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/01/22 14:57:46 by ruiolive          #+#    #+#             */
+/*   Updated: 2024/01/22 14:58:02 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int main(int argc, char **argv, char **env)
+void    free_memory(char **args)
 {
-    char    *input;
-    t_data  *head;
-
-    head = NULL;
-    (void)env;
-    (void)argv;
-    (void)argc;
-    while (1)
+    int i;
+    
+    i = 0;
+    while (args[i])
     {
-        input = readline("");
-        if (input && *input)
-            add_history(input);
-        check_unfinished_quotes(input);
-        wrong_specialch_syntax(input);
-        creat_list(&head, input);
-        free(input);
+        free(args[i]);
+        i++;
     }
-    rl_clear_history();
+    free(args);
 }

@@ -23,6 +23,10 @@ SDIR := src
 ODIR := obj
 
 SOURCES := main.c \
+			special_chars_parsers.c \
+			creat_list.c\
+			error_handler.c\
+			free_memory.c\
 
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
@@ -48,10 +52,12 @@ clean :
 	@${RM} ${OBJECTS}
 	@${RM} ${ODIR}
 	@echo "${RED}➾ Minishell objects deleted${RES}"
+	make clean -C./includes/Libft/ -s
 
 fclean : clean
 	@${RM} ${NAME}
 	@echo "${RED}➾ Minishell deleted${RES}"
+	make fclean -C ./includes/Libft/ -s
 
 re : fclean all
 
