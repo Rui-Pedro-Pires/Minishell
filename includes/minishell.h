@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/22 15:40:17 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:54:46 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ typedef struct s_data
 
 void	wrong_specialch_syntax(char *input);
 void    creat_list(t_data **head, char *input);
+void    check_unfinished_quotes(char *input);
 
 #endif

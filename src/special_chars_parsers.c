@@ -6,16 +6,39 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:12:35 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/22 14:42:47 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:55:04 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	error_handler(int type, char *input);
 static int check_for_command(char *input);
 static int	quotes_check(char *input, char c);
 static int signs_check(char *input, char sign);
+
+void check_unfinished_quotes(char *input)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (input[i] != '\0')
+	{
+		if (input[i] == D_QUOTES || input[i] == S_QUOTES)
+		{
+			j = i;
+			i++;
+			while (input[i] != input[j])
+			{
+				if (input[i] == '\0')
+					error_handler(ERROR_UNFINISHED_QUOTE, input, NULL);
+				i++;
+			}
+		}
+		i++;
+	}
+}
 
 void	wrong_specialch_syntax(char *input)
 {
@@ -41,17 +64,6 @@ void	wrong_specialch_syntax(char *input)
 		else
 			i++;
     }
-}
-
-static void	error_handler(int type, char *input)
-{
-	(void)input;
-	if (type == 1)
-	{
-		printf("ERROR\n");
-		// free (input);
-		exit(1);
-	}
 }
 
 static int check_for_command(char *input)
