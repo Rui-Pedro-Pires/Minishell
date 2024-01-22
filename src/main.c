@@ -29,6 +29,12 @@ int main(int argc, char **argv, char **env)
         check_unfinished_quotes(input);
         wrong_specialch_syntax(input);
         creat_list(&head, input);
+        while (head)
+        {
+            printf("CMD: %s\n", head->cmd);
+            printf("PIPE_TYPE: %d\n", head->pipe_type);
+            head = head->next;
+        }
         free(input);
     }
     rl_clear_history();

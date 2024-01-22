@@ -27,8 +27,9 @@
 
 typedef struct s_data
 {
-    struct s_data *next;
-    char c;
+    struct s_data 	*next;
+    char		*cmd;
+    int			pipe_type;
 } t_data;
 
 /********************/
@@ -67,7 +68,13 @@ void    check_unfinished_quotes(char *input);
 /*			LIST			*/
 /****************************/
 
-void    creat_list(t_data **head, char *input);
+void    	creat_list(t_data **head, char *input);
+
+typedef enum e_pipe
+{
+	S_PIPE,
+	D_PIPE
+}	t_pipe;
 
 /****************************/
 /*			FREE			*/
