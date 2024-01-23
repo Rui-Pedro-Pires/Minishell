@@ -1,70 +1,79 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_list.c                                       :+:      :+:    :+:   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:43:48 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 11:47:25 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:09:11 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static t_pipes   *find_last_node(t_pipes *head);
-static void    add_list(t_pipes **head, char *formated, t_type_pipe pipe_type);
+static t_pipes	*find_last_node(t_pipes *head);
+static void		add_list(t_pipes **head, char *formated, t_type_pipe pipe_type);
+static void		check_last_node(t_pipes **head);
 
-void    creat_list(t_pipes **head, char *input)
+void	creat_list(t_pipes **head, char *input)
 {
-    int			i;
-    t_type_pipe		pipe_type;
-    char	*formated;
-    
-    i = 0;
-    while (input[i])
-    {
-        formated = trim_str(input + i, &pipe_type);
-        add_list(head, formated, pipe_type);
-        while (input[i] != '|' && input[i])
-        {
-            if (input[i] == D_QUOTES)
-                i += quotes_check(input + i, D_QUOTES);
-            else if (input[i] == S_QUOTES)
-                i += quotes_check(input + i, S_QUOTES);
-            else
-                i++;
-        }
-	    if (input[i + 1] == '|' && input[i + 2])
-		    i += 2;
-	    else
-		    i++;
-    }
+	int					i;
+	t_type_pipe			pipe_type;
+	char				*formated;
+
+	i = 0;
+	while (input[i])
+	{
+		formated = trim_str(input + i, &pipe_type);
+		add_list(head, formated, pipe_type);
+		while (input[i] && input[i] != '|')
+		{
+			if (input[i] == D_QUOTES)
+				i += quotes_check(input + i, D_QUOTES);
+			else if (input[i] == S_QUOTES)
+				i += quotes_check(input + i, S_QUOTES);
+			else
+				i++;
+		}
+		if (input[i + 1] && input[i + 1] == '|')
+			i += 2;
+		else
+			i++;
+	}
+	check_last_node(head);
 }
 
-static void    add_list(t_pipes **head, char *formated, t_type_pipe pipe_type)
+static void	add_list(t_pipes **head, char *formated, t_type_pipe pipe_type)
 {
-    t_pipes  *new_node;
-    t_pipes  *last_node;
+	t_pipes	*new_node;
+	t_pipes	*last_node;
 
-    new_node = malloc(sizeof(t_pipes));
-    if (!new_node)
-        return ;
-    last_node = find_last_node(*head);
-    if (!last_node)
-        *head = new_node;
-    else
-        last_node->next = new_node;
-    new_node->input_string = formated;
-    new_node->pipe_type = pipe_type;
-    new_node->next = NULL;
+	new_node = malloc(sizeof(t_pipes));
+	if (!new_node)
+		return ;
+	last_node = find_last_node(*head);
+	if (!last_node)
+		*head = new_node;
+	else
+		last_node->next = new_node;
+	new_node->input_string = formated;
+	new_node->pipe_type = pipe_type;
+	new_node->next = NULL;
 }
 
-static t_pipes   *find_last_node(t_pipes *head)
+static t_pipes	*find_last_node(t_pipes *head)
 {
-    if (!head)
-        return (NULL);
-    while (head->next)
-        head = head->next;
-    return (head);
+	if (!head)
+		return (NULL);
+	while (head->next)
+		head = head->next;
+	return (head);
+}
+
+static void	check_last_node(t_pipes **head)
+{
+	if ((find_last_node(*head))->pipe_type == D_PIPE \
+	|| (find_last_node(*head))->pipe_type == S_PIPE)
+		add_list(head, NULL, N_PIPE);
 }

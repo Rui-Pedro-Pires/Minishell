@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 10:45:36 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:43:18 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ typedef enum e_type_pipe
 
 typedef struct s_data
 {
-	char *path_command;    // path + command
-	char **command_n_args; // [0] -> command [1] -> args
-	t_special_char			special_char;
-	t_command_type			command_type;
+	char			*path_command;
+	char			**command_n_args;
+	t_special_char	special_char;
+	t_command_type	command_type;
 }					t_data;
 
 typedef struct s_pipes
@@ -108,8 +108,6 @@ int					quotes_check(char *input, char c);
 /****************************/
 
 void				creat_list(t_pipes **head, char *input);
-
-
 
 /****************************/
 /*			FREE			*/
