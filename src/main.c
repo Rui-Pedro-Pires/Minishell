@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **env)
 			check_unfinished_quotes(input);
 			wrong_specialch_syntax(input);
 			creat_list(&head, input);
-			organize_list(head);
+			// organize_list(head);
 			// printf("CMD: %s", data.command_n_args[0]);
 			// printf("ARGS: %s", data.command_n_args[1]);
 			// while (head)
