@@ -13,12 +13,12 @@
 #include "../includes/minishell.h"
 
 static t_pipes   *find_last_node(t_pipes *head);
-static void    add_list(t_pipes **head, char *formated, int pipe_type);
+static void    add_list(t_pipes **head, char *formated, t_type_pipe pipe_type);
 
 void    creat_list(t_pipes **head, char *input)
 {
     int			i;
-    int		pipe_type;
+    t_type_pipe		pipe_type;
     char	*formated;
     
     i = 0;
@@ -43,7 +43,7 @@ void    creat_list(t_pipes **head, char *input)
     }
 }
 
-static void    add_list(t_pipes **head, char *formated, int pipe_type)
+static void    add_list(t_pipes **head, char *formated, t_type_pipe pipe_type)
 {
     t_pipes  *new_node;
     t_pipes  *last_node;
@@ -56,7 +56,7 @@ static void    add_list(t_pipes **head, char *formated, int pipe_type)
         *head = new_node;
     else
         last_node->next = new_node;
-    new_node->cmd = formated;
+    new_node->input_string = formated;
     new_node->pipe_type = pipe_type;
     new_node->next = NULL;
 }
@@ -69,3 +69,8 @@ static t_pipes   *find_last_node(t_pipes *head)
         head = head->next;
     return (head);
 }
+
+// organize_list(t_pipes)
+// {
+
+// }

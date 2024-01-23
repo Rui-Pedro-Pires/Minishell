@@ -16,7 +16,7 @@ static char *build_str(char *formated, char *input);
 static void double_quotes_add(char **formated, char *input, int *i, int *x);
 static void single_quotes_add(char **formated, char *input, int *i, int *x);
 
-char    *trim_str(char *input, int *pipe_check)
+char    *trim_str(char *input, t_type_pipe *pipe_check)
 {
     int 		    i;
    	char	*formated;
