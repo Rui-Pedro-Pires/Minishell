@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/22 16:05:27 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 10:43:29 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 int main(int argc, char **argv, char **env)
 {
     char    *input;
-    t_data  *head;
+    t_pipes  *head;
 
     head = NULL;
     (void)argv;
+    (void)env;
     if (argc == 1)
     {
         while (1)
@@ -35,7 +36,7 @@ int main(int argc, char **argv, char **env)
                 printf("PIPE_TYPE: %d\n", head->pipe_type);
                 head = head->next;
             }
-            execute_command(head, env);
+            // execute_command(head, env);
             free(input);
         }
         rl_clear_history();

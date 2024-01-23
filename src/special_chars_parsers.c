@@ -6,14 +6,13 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:12:35 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/22 16:17:50 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 09:22:48 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 static int check_for_command(char *input);
-static int	quotes_check(char *input, char c);
 static int signs_check(char *input, char sign, char *ptr);
 
 void check_unfinished_quotes(char *input)
@@ -65,6 +64,15 @@ void	wrong_specialch_syntax(char *input)
 			i++;
     }
 }
+int	quotes_check(char *input, char c)
+{
+	int	i;
+
+	i = 1;
+	while (input[i] && input[i] != c)	
+		i++;
+	return (i + 1);
+}
 
 static int check_for_command(char *input)
 {
@@ -78,15 +86,6 @@ static int check_for_command(char *input)
 		|| input[i] == '<' || input[i] == '>')
 		return (0);
 	return (1);
-}
-static int	quotes_check(char *input, char c)
-{
-	int	i;
-
-	i = 1;
-	while (input[i] && input[i] != c)	
-		i++;
-	return (i + 1);
 }
 
 static int signs_check(char *input, char sign, char *ptr)

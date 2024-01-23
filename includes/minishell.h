@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/22 16:11:50 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 10:45:36 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,16 @@
 
 typedef struct s_data
 {
-    struct s_data 	*next;
-    char		*cmd;
-    int			pipe_type;
+    int x;
 } t_data;
+
+typedef struct s_pipes
+{
+    struct s_pipes 	*next;
+    char		    *cmd;
+    int			pipe_type;
+    t_data          *data;
+} t_pipes;
 
 /********************/
 /*		COLORS		*/
@@ -63,15 +69,17 @@ typedef enum e_error
 
 void	wrong_specialch_syntax(char *input);
 void    check_unfinished_quotes(char *input);
+int	    quotes_check(char *input, char c);
 
 /****************************/
 /*			LIST			*/
 /****************************/
 
-void    	creat_list(t_data **head, char *input);
+void    	creat_list(t_pipes **head, char *input);
 
 typedef enum e_pipe
 {
+    N,PIPE,
 	S_PIPE,
 	D_PIPE
 }	t_pipe;
@@ -81,5 +89,11 @@ typedef enum e_pipe
 /****************************/
 
 void    free_memory(char **args);
+
+/****************************/
+/*			STRINGS			*/
+/****************************/
+
+char    *trim_str(char *input, int *pipe_check);
 
 #endif

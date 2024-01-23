@@ -27,6 +27,7 @@ SOURCES := main.c \
 			creat_list.c\
 			error_handler.c\
 			free_memory.c\
+			cmd_utils.c\
 
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
