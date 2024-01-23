@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 10:43:29 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:36:07 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ int	main(int argc, char **argv, char **env)
 			wrong_specialch_syntax(input);
 			creat_list(&head, input);
 			// organize_list(head);
-			// printf("CMD: %s", data.command_n_args[0]);
-			// printf("ARGS: %s", data.command_n_args[1]);
-			// while (head)
-			// {
-			// 	printf("CMD: %s\n", head->input_string);
-			// 	printf("PIPE_TYPE: %d\n", head->pipe_type);
-			// 	head = head->next;
-			// }
+			while (head)
+			{
+				printf("CMD: %s\n", head->input_string);
+				printf("PIPE_TYPE: %d\n", head->pipe_type);
+				head = head->next;
+			}
 			// execute_command(head, env);
 			free(input);
 		}
