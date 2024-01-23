@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:12:35 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 09:22:48 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:49:43 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 static int	check_for_command(char *input);
 static int	signs_check(char *input, char sign, char *ptr);
+<<<<<<< HEAD
+=======
+static int	pipe_amper_check(char *input, char sign, char *ptr);
+>>>>>>> 481c3d9294aab4d2978077f6e7e800c53b803bd3
 
 void	check_unfinished_quotes(char *input)
 {
@@ -51,9 +55,9 @@ void	wrong_specialch_syntax(char *input)
 		else if (input[i] == S_QUOTES)
 			i += quotes_check(input + i, S_QUOTES);
 		else if (input[i] == '|')
-			i += signs_check(input + i, '|', input);
+			i += pipe_amper_check(input + i, '|', input);
 		else if (input[i] == '&')
-			i += signs_check(input + i, '&', input);
+			i += pipe_amper_check(input + i, '&', input);
 		else if (input[i] == '>')
 			i += signs_check(input + i, '>', input);
 		else if (input[i] == '<')
@@ -63,6 +67,7 @@ void	wrong_specialch_syntax(char *input)
 		else
 			i++;
 	}
+<<<<<<< HEAD
 }
 int	quotes_check(char *input, char c)
 {
@@ -72,6 +77,8 @@ int	quotes_check(char *input, char c)
 	while (input[i] && input[i] != c)
 		i++;
 	return (i + 1);
+=======
+>>>>>>> 481c3d9294aab4d2978077f6e7e800c53b803bd3
 }
 
 static int	check_for_command(char *input)
@@ -93,6 +100,7 @@ static int	signs_check(char *input, char sign, char *ptr)
 
 	i = 0;
 	if (sign == '>')
+<<<<<<< HEAD
 		while (input[++i] == '>')
 			;
 	else if (sign == '<')
@@ -104,6 +112,37 @@ static int	signs_check(char *input, char sign, char *ptr)
 	else if (sign == '&')
 		while (input[++i] == '&')
 			;
+=======
+	{
+		while (input[++i] == '>')
+			;
+	}
+	else if (sign == '<')
+	{
+		while (input[++i] == '<')
+			;
+	}
+	if (i > 2 || !check_for_command(input + i))
+		error_handler(ERROR_SPECIAL_CHAR, ptr, NULL);
+	return (i);
+}
+
+static int	pipe_amper_check(char *input, char sign, char *ptr)
+{
+	int	i;
+
+	i = 0;
+	if (sign == '|')
+	{
+		while (input[++i] == '|')
+			;
+	}
+	else if (sign == '&')
+	{
+		while (input[++i] == '&')
+			;
+	}
+>>>>>>> 481c3d9294aab4d2978077f6e7e800c53b803bd3
 	if (i > 2 || !check_for_command(input + i))
 		error_handler(ERROR_SPECIAL_CHAR, ptr, NULL);
 	return (i);

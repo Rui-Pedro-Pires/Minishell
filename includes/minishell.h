@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 10:45:36 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:43:18 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ typedef struct s_data
 {
 	char *path_command;    // path + command
 	char **command_n_args; // [0] -> command [1] -> args
-	t_special_char	special_char;
-	t_command_type	command_type;
+	t_special_char			special_char;
+	t_command_type			command_type;
 }					t_data;
 
 typedef struct s_pipes
@@ -109,12 +109,8 @@ int					quotes_check(char *input, char c);
 /****************************/
 
 void				creat_list(t_pipes **head, char *input);
-void				organize_list(t_pipes *pipe_struct);
-int					count_input(t_pipes *pipe);
-int					count_larrow(char *str);
-int					count_rarrow(char *str);
-int					count_amperz(char *str);
-int					fill_data(t_pipes *pipe_struct, int count);
+
+
 
 /****************************/
 /*			FREE			*/

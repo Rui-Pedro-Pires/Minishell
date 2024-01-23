@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_list.c                                       :+:      :+:    :+:   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:43:48 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 11:24:22 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:09:11 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,33 @@
 
 static t_pipes	*find_last_node(t_pipes *head);
 static void		add_list(t_pipes **head, char *formated, t_type_pipe pipe_type);
+<<<<<<< HEAD
 
 void	creat_list(t_pipes **head, char *input)
 {
 	int			i;
 	t_type_pipe	pipe_type;
 	char		*formated;
+=======
+static void		check_last_node(t_pipes **head);
+
+void	creat_list(t_pipes **head, char *input)
+{
+	int					i;
+	t_type_pipe			pipe_type;
+	char				*formated;
+>>>>>>> 481c3d9294aab4d2978077f6e7e800c53b803bd3
 
 	i = 0;
 	while (input[i])
 	{
 		formated = trim_str(input + i, &pipe_type);
 		add_list(head, formated, pipe_type);
+<<<<<<< HEAD
 		while (input[i] != '|' && input[i])
+=======
+		while (input[i] && input[i] != '|')
+>>>>>>> 481c3d9294aab4d2978077f6e7e800c53b803bd3
 		{
 			if (input[i] == D_QUOTES)
 				i += quotes_check(input + i, D_QUOTES);
@@ -35,11 +49,19 @@ void	creat_list(t_pipes **head, char *input)
 			else
 				i++;
 		}
+<<<<<<< HEAD
 		if (input[i + 1] == '|' && input[i + 2])
+=======
+		if (input[i + 1] && input[i + 1] == '|')
+>>>>>>> 481c3d9294aab4d2978077f6e7e800c53b803bd3
 			i += 2;
 		else
 			i++;
 	}
+<<<<<<< HEAD
+=======
+	check_last_node(head);
+>>>>>>> 481c3d9294aab4d2978077f6e7e800c53b803bd3
 }
 
 static void	add_list(t_pipes **head, char *formated, t_type_pipe pipe_type)
@@ -69,6 +91,7 @@ static t_pipes	*find_last_node(t_pipes *head)
 	return (head);
 }
 
+<<<<<<< HEAD
 void	organize_list(t_pipes *pipe_struct)
 {
 	int	count;
@@ -81,4 +104,11 @@ void	organize_list(t_pipes *pipe_struct)
 		fill_data(pipe_struct, count);
 		pipe_struct = pipe_struct->next;
 	}
+=======
+static void	check_last_node(t_pipes **head)
+{
+	if ((find_last_node(*head))->pipe_type == D_PIPE \
+	|| (find_last_node(*head))->pipe_type == S_PIPE)
+		add_list(head, NULL, N_PIPE);
+>>>>>>> 481c3d9294aab4d2978077f6e7e800c53b803bd3
 }
