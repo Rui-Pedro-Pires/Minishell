@@ -24,7 +24,7 @@ ODIR := obj
 
 SOURCES := main.c \
 			special_chars_parsers.c \
-			creat_list.c\
+			list_utils.c\
 			error_handler.c\
 			free_memory.c\
 			cmd_utils.c\
@@ -39,7 +39,7 @@ ${NAME} : ${OBJECTS} ${LIBFT}
 	@echo "\n$(GRN)➾ Minishell created$(RES)"
 
 $(LIBFT):
-	@make -C ./includes/Libft/ -s
+	@make bonus -C ./includes/Libft/ -s
 	@echo "${GRN}➾ $@ created ${RES}"
 
 $(ODIR)/%.o: $(SDIR)/%.c | $(ODIR)
