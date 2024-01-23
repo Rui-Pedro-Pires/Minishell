@@ -24,7 +24,7 @@ ODIR := obj
 
 SOURCES := main.c \
 			special_chars_parsers.c \
-			creat_list.c\
+			list_utils.c\
 			error_handler.c\
 			free_memory.c\
 			cmd_utils.c\
