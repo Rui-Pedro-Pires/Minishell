@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:31:11 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 10:34:07 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 11:23:24 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void double_quotes_add(char **formated, char *input, int *i, int *x)
 static void single_quotes_add(char **formated, char *input, int *i, int *x)
 {
     (*formated)[(*x)] = input[(*i)++];
-    while (input[(*i)] != D_QUOTES && input[(*i)])
+    while (input[(*i)] != S_QUOTES && input[(*i)])
     {
         (*formated)[(*x)] = input[(*i)];
         (*x)++;

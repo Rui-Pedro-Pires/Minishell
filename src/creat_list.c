@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:43:48 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 10:44:23 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 11:24:22 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void    creat_list(t_pipes **head, char *input)
 		    i += 2;
 	    else
 		    i++;
-	
     }
 }
 
