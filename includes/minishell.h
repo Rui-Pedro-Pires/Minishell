@@ -103,6 +103,7 @@ typedef enum e_error
 void				wrong_specialch_syntax(char *input);
 void				check_unfinished_quotes(char *input);
 int					quotes_check(char *input, char c);
+void				organize_list(t_pipes *pipe_struct);
 int					count_rarrow(char *str);
 int					count_larrow(char *str);
 int					count_amperz(char *str);

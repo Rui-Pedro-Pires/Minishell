@@ -77,3 +77,17 @@ static void	check_last_node(t_pipes **head)
 	|| (find_last_node(*head))->pipe_type == S_PIPE)
 		add_list(head, NULL, N_PIPE);
 }
+
+void	organize_list(t_pipes *pipe_struct)
+{
+	int	count;
+
+	count = 0;
+	while (pipe_struct != NULL)
+	{
+		count = count_input(pipe_struct);
+		pipe_struct->data = malloc(sizeof(t_data) * (count + 1));
+		fill_data(pipe_struct, count);
+		pipe_struct = pipe_struct->next;
+	}
+}
