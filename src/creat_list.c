@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:43:48 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 11:24:22 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 11:47:25 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,3 @@ static t_pipes   *find_last_node(t_pipes *head)
         head = head->next;
     return (head);
 }
-
-// organize_list(t_pipes)
-// {
-
-// }

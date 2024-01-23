@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:31:11 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 11:23:24 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 11:48:36 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char    *trim_str(char *input, t_type_pipe *pipe_check)
 		*pipe_check = D_PIPE;
 	else if (!input[i] || input[i + 1] != '|')
 		*pipe_check = S_PIPE;
+    else
+        *pipe_check = N_PIPE;
 	return (build_str(formated, input));
 }
 
