@@ -39,7 +39,7 @@ ${NAME} : ${OBJECTS} ${LIBFT}
 	@echo "\n$(GRN)➾ Minishell created$(RES)"
 
 $(LIBFT):
-	@make -C ./includes/Libft/ -s
+	@make bonus -C ./includes/Libft/ -s
 	@echo "${GRN}➾ $@ created ${RES}"
 
 $(ODIR)/%.o: $(SDIR)/%.c | $(ODIR)
