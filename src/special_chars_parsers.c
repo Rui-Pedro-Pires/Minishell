@@ -6,41 +6,18 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:12:35 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 14:49:43 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:23:19 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 static int	check_for_command(char *input);
-static int	signs_check(char *input, char sign, char *ptr);
-static int	pipe_amper_check(char *input, char sign, char *ptr);
+static int	signs_check(char *input, char sign, int *i);
+static int	pipe_amper_check(char *input, char sign, int *i);
+static int	check_signs(char *input, int *i);
 
-void	check_unfinished_quotes(char *input)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (input[i] != '\0')
-	{
-		if (input[i] == D_QUOTES || input[i] == S_QUOTES)
-		{
-			j = i;
-			i++;
-			while (input[i] != input[j])
-			{
-				if (input[i] == '\0')
-					error_handler(ERROR_UNFINISHED_QUOTE, input, NULL);
-				i++;
-			}
-		}
-		i++;
-	}
-}
-
-void	wrong_specialch_syntax(char *input)
+int	wrong_specialch_syntax(char *input)
 {
 	int	i;
 
@@ -48,22 +25,49 @@ void	wrong_specialch_syntax(char *input)
 	while (input[i])
 	{
 		if (input[i] == D_QUOTES)
-			i += quotes_check(input + i, D_QUOTES);
+			quotes_check(input + i, D_QUOTES);
 		else if (input[i] == S_QUOTES)
-			i += quotes_check(input + i, S_QUOTES);
-		else if (input[i] == '|')
-			i += pipe_amper_check(input + i, '|', input);
-		else if (input[i] == '&')
-			i += pipe_amper_check(input + i, '&', input);
-		else if (input[i] == '>')
-			i += signs_check(input + i, '>', input);
-		else if (input[i] == '<')
-			i += signs_check(input + i, '<', input);
+			quotes_check(input + i, S_QUOTES);
+		else if (input[i] == '|' || input[i] == '&' \
+		|| input[i] == '<' || input[i] == '>')
+		{
+			if (!check_signs(input, &i))
+				return (error_handler(ERROR_SPECIAL_CHAR, input, NULL), 0);
+		}
 		else if (input[i] == '\\' || input[i] == ';')
+		{
 			error_handler(ERROR_SPECIAL_CHAR, input, NULL);
+			return (0);
+		}
 		else
 			i++;
 	}
+	return (1);
+}
+
+static int	check_signs(char *input, int *i)
+{
+	if (input[(*i)] == '|')
+	{
+		if (!pipe_amper_check(input, '|', i))
+			return (0);
+	}
+	else if (input[(*i)] == '&')
+	{
+		if (!pipe_amper_check(input, '&', i))
+			return (0);
+	}
+	else if (input[(*i)] == '>')
+	{
+		if (!signs_check(input, '>', i))
+			return (0);
+	}
+	else if (input[(*i)] == '<')
+	{
+		if (!signs_check(input, '<', i))
+			return (0);
+	}
+	return (1);
 }
 
 static int	check_for_command(char *input)
@@ -79,42 +83,42 @@ static int	check_for_command(char *input)
 	return (1);
 }
 
-static int	signs_check(char *input, char sign, char *ptr)
+static int	signs_check(char *input, char sign, int *i)
 {
-	int	i;
+	int	x;
 
-	i = 0;
+	x = *i;
 	if (sign == '>')
 	{
-		while (input[++i] == '>')
+		while (input[++(*i)] == '>')
 			;
 	}
 	else if (sign == '<')
 	{
-		while (input[++i] == '<')
+		while (input[++(*i)] == '<')
 			;
 	}
-	if (i > 2 || !check_for_command(input + i))
-		error_handler(ERROR_SPECIAL_CHAR, ptr, NULL);
-	return (i);
+	if ((*i) - x > 2 || !check_for_command(input + (*i)))
+		return (0);
+	return (1);
 }
 
-static int	pipe_amper_check(char *input, char sign, char *ptr)
+static int	pipe_amper_check(char *input, char sign, int *i)
 {
-	int	i;
+	int	x;
 
-	i = 0;
+	x = *i;
 	if (sign == '|')
 	{
-		while (input[++i] == '|')
+		while (input[++(*i)] == '|')
 			;
 	}
 	else if (sign == '&')
 	{
-		while (input[++i] == '&')
+		while (input[++(*i)] == '&')
 			;
 	}
-	if (i > 2 || !check_for_command(input + i))
-		error_handler(ERROR_SPECIAL_CHAR, ptr, NULL);
-	return (i);
+	if ((*i) - x > 2 || !check_for_command(input + (*i)))
+		return (0);
+	return (1);
 }

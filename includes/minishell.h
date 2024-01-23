@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 14:43:18 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:39:25 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,42 +88,44 @@ typedef struct s_pipes
 /*			ERRORS			*/
 /****************************/
 
-void				error_handler(int error_msg, void *param, void **param2);
+void			error_handler(int error_msg, void *param, void **param2);
 
 typedef enum e_error
 {
 	ERROR_UNFINISHED_QUOTE,
-	ERROR_SPECIAL_CHAR
+	ERROR_SPECIAL_CHAR,
+	ERROR_WRONG_INPUT
 }					t_error;
 
 /****************************/
 /*			PARSER			*/
 /****************************/
 
-void				wrong_specialch_syntax(char *input);
-void				check_unfinished_quotes(char *input);
-int					quotes_check(char *input, char c);
-int					count_rarrow(char *str);
-int					count_larrow(char *str);
-int					count_amperz(char *str);
-int					fill_data(t_pipes *pipe_struct, int count);
+int				wrong_specialch_syntax(char *input);
+int				check_unfinished_quotes(char *input);
+int				quotes_check(char *input, char c);
+int				count_rarrow(char *str);
+int				count_larrow(char *str);
+int				count_amperz(char *str);
+int				fill_data(t_pipes *pipe_struct, int count);
+int				check_input(char *input);
 
 /****************************/
 /*			LIST			*/
 /****************************/
 
-void				creat_list(t_pipes **head, char *input);
+void			creat_list(t_pipes **head, char *input);
 
 /****************************/
 /*			FREE			*/
 /****************************/
 
-void				free_memory(char **args);
+void			free_memory(char **args);
 
 /****************************/
 /*			STRINGS			*/
 /****************************/
 
-char				*trim_str(char *input, t_type_pipe *pipe_check);
+char			*trim_str(char *input, t_type_pipe *pipe_check);
 
 #endif
