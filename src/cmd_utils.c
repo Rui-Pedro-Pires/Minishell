@@ -12,25 +12,25 @@
 
 #include "../includes/minishell.h"
 
-static char *build_str(char *formated, char *input);
-static void double_quotes_add(char **formated, char *input, int *i, int *x);
-static void single_quotes_add(char **formated, char *input, int *i, int *x);
+static char	*build_str(char *formated, char *input);
+static void	double_quotes_add(char **formated, char *input, int *i, int *x);
+static void	single_quotes_add(char **formated, char *input, int *i, int *x);
 
-char    *trim_str(char *input, t_type_pipe *pipe_check)
+char	*trim_str(char *input, t_type_pipe *pipe_check)
 {
-    int 		    i;
-   	char	*formated;
-    
-   	i = 0;
-   	while (input[i] != '|' && input[i])
-    {
-        if (input[i] == D_QUOTES)
+	int		i;
+	char	*formated;
+
+	i = 0;
+	while (input[i] != '|' && input[i])
+	{
+		if (input[i] == D_QUOTES)
 			i += quotes_check(input + i, D_QUOTES);
 		else if (input[i] == S_QUOTES)
 			i += quotes_check(input + i, S_QUOTES);
-        else
-            i++;
-    }
+		else
+			i++;
+	}
 	formated = malloc(sizeof(char) * i + 1);
 	if (!formated)
 		return (NULL);
@@ -41,50 +41,50 @@ char    *trim_str(char *input, t_type_pipe *pipe_check)
 	return (build_str(formated, input));
 }
 
-static char *build_str(char *formated, char *input)
+static char	*build_str(char *formated, char *input)
 {
-    int i;
-    int x;
+	int	i;
+	int	x;
 
-    i = 0;
-    x = 0;
-    while (input[i] != '|' && input[i])
+	i = 0;
+	x = 0;
+	while (input[i] != '|' && input[i])
 	{
-        if (input[i] == D_QUOTES)
-            double_quotes_add(&formated, input, &i, &x);
+		if (input[i] == D_QUOTES)
+			double_quotes_add(&formated, input, &i, &x);
 		else if (input[i] == S_QUOTES)
-            single_quotes_add(&formated, input, &i, &x);
+			single_quotes_add(&formated, input, &i, &x);
 		else
-        {
-            formated[x] = input[i];
-            x++;
-            i++;
-        }
+		{
+			formated[x] = input[i];
+			x++;
+			i++;
+		}
 	}
 	formated[x] = '\0';
 	return (formated);
 }
 
-static void double_quotes_add(char **formated, char *input, int *i, int *x)
+static void	double_quotes_add(char **formated, char *input, int *i, int *x)
 {
-    (*formated)[(*x)] = input[(*i)++];
-    while (input[(*i)] != D_QUOTES && input[(*i)])
-    {
-        (*formated)[(*x)] = input[(*i)];
-        (*x)++;
-        (*i)++;
-    }
-    (*formated)[(*x)] = input[(*i)++];
+	(*formated)[(*x)] = input[(*i)++];
+	while (input[(*i)] != D_QUOTES && input[(*i)])
+	{
+		(*formated)[(*x)] = input[(*i)];
+		(*x)++;
+		(*i)++;
+	}
+	(*formated)[(*x)] = input[(*i)++];
 }
 
-static void single_quotes_add(char **formated, char *input, int *i, int *x)
+static void	single_quotes_add(char **formated, char *input, int *i, int *x)
 {
-    (*formated)[(*x)] = input[(*i)++];
-    while (input[(*i)] != S_QUOTES && input[(*i)])
-    {
-        (*formated)[(*x)] = input[(*i)];
-        (*x)++;
-        (*i)++;
-    }
-    (*formated)[(*x)] = input[(*i)++];
+	(*formated)[(*x)] = input[(*i)++];
+	while (input[(*i)] != S_QUOTES && input[(*i)])
+	{
+		(*formated)[(*x)] = input[(*i)];
+		(*x)++;
+		(*i)++;
+	}
+	(*formated)[(*x)] = input[(*i)++];
 }

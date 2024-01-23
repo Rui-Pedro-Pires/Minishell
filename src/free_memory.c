@@ -12,15 +12,15 @@
 
 #include "../includes/minishell.h"
 
-void    free_memory(char **args)
+void	free_memory(char **args)
 {
-    int i;
-    
-    i = 0;
-    while (args[i])
-    {
-        free(args[i]);
-        i++;
-    }
-    free(args);
+	int i;
+
+	i = 0;
+	while (args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args);
 }

@@ -30,13 +30,15 @@ int	main(int argc, char **argv, char **env)
 			check_unfinished_quotes(input);
 			wrong_specialch_syntax(input);
 			creat_list(&head, input);
-			// organize_list(head);
-			while (head)
-			{
-				printf("CMD: %s\n", head->input_string);
-				printf("PIPE_TYPE: %d\n", head->pipe_type);
-				head = head->next;
-			}
+			organize_list(head);
+			// printf("CMD: %s", data.command_n_args[0]);
+			// printf("ARGS: %s", data.command_n_args[1]);
+			// while (head)
+			// {
+			// 	printf("CMD: %s\n", head->input_string);
+			// 	printf("PIPE_TYPE: %d\n", head->pipe_type);
+			// 	head = head->next;
+			// }
 			// execute_command(head, env);
 			free(input);
 		}
