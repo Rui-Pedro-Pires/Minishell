@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 13:47:25 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/01/24 13:58:53 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:06:04 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	fill_data(t_pipes *pipe_struct, int count)
 		prepare_split(&data[i], pipe_struct, &back, &front);
 		i++;
 	}
+	return (0);
 }
 
 
