@@ -98,6 +98,7 @@ int	fill_data(t_pipes *pipe_struct, int count)
 	while (i < count)
 	{
 		prepare_split(&data[i], pipe_struct, &back, &front);
+		special_splitens(pipe_struct->input_string + back, &front, 32);
 		i++;
 	}
 	return (0);
