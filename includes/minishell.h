@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 16:39:25 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:02:45 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ int				count_rarrow(char *str);
 int				count_larrow(char *str);
 int				count_amperz(char *str);
 int				fill_data(t_pipes *pipe_struct, int count);
-int				check_input(char *input);
+int				check_input(char *input, int *i);
+int				check_for_command(char *input);
+int				check_pipe_amper_next(char *input);
+int				check_if_command_exits(char *input);
 
 /****************************/
 /*			LIST			*/

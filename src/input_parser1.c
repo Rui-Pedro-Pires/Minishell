@@ -6,31 +6,33 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:47:33 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 16:37:50 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:41:21 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	check_input(char *input)
+int	check_input(char *input, int *i)
 {
-	int	i;
+	int	x;
 
-	i = 0;
-	while (input[i] && (input[i] == ' ' \
-	|| input[i] == '\t' || input[i] == '\n'))
-		i++;
-	if (!input[i])
-	{
-		error_handler(ERROR_WRONG_INPUT, input, NULL);
+	while (input[(*i)] && (input[(*i)] == ' ' \
+	|| input[(*i)] == '\t' || input[(*i)] == '\n'))
+		(*i)++;
+	if (!input[(*i)])
 		return (0);
-	}
-	if (input[i] && (input[i] == '|' || input[i] == '<' \
-	|| input[i] == '>' || input[i] == '&'))
+	if (input[(*i)] && input[(*i) + 1] && \
+	input[(*i)] == '>' && input[(*i) + 1] == '|')
 	{
-		error_handler(ERROR_WRONG_INPUT, input, NULL);
-		return (0);
+		(*i) += 2;
+		x = *i;
+		if (!check_if_command_exits(input + (*i)))
+			return (0);
+		return (1);
 	}
+	else if (input[(*i)] && (input[(*i)] == '|' || input[(*i)] == '<' \
+	|| input[(*i)] == '>' || input[(*i)] == '&'))
+		return (0);
 	return (1);
 }
 
@@ -41,8 +43,6 @@ int	check_unfinished_quotes(char *input)
 
 	i = 0;
 	j = 0;
-	if (!check_input(input))
-		return (0);
 	while (input[i] != '\0')
 	{
 		if (input[i] == D_QUOTES || input[i] == S_QUOTES)
@@ -59,5 +59,42 @@ int	check_unfinished_quotes(char *input)
 		}
 		i++;
 	}
+	return (1);
+}
+
+int	check_pipe_amper_next(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i] && input[i] == ' ')
+		i++;
+	if (input[i] && input[i] == '&')
+		return (0);
+	return (1);
+}
+
+int	check_for_command(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i] == ' ' && input[i])
+		i++;
+	if (input[i] && (input[i] == '<' || input[i] == '>' \
+	|| input[i] == '&' || input[i] == '|'))
+		return (0);
+	return (1);
+}
+
+int	check_if_command_exits(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i] && input[i] == ' ')
+		i++;
+	if (!input[i])
+		return (0);
 	return (1);
 }
