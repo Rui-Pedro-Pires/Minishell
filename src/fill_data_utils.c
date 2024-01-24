@@ -20,12 +20,13 @@ void	prepare_split(t_data *data, t_pipes *pipe, int *back, int *front)
 	char	*og_str;
 
 	og_str = pipe->input_string;
+	printf("%s", og_str);
 	*back = *front;
-	while (og_str[*front] && !ft_strchr("<>&", og_str[*front]))
+	while (og_str[(*front)] && !ft_strchr("<>&", og_str[(*front)]))
 	{
-		if (pipe->input_string[*front] == D_QUOTES)
+		if (pipe->input_string[(*front)] == D_QUOTES)
 			*front += quotes_check(pipe->input_string + (*front), D_QUOTES);
-		else if (pipe->input_string[*front] == S_QUOTES)
+		else if (pipe->input_string[(*front)] == S_QUOTES)
 			*front += quotes_check(pipe->input_string + (*front), S_QUOTES);
 		else
 			front++;
@@ -55,7 +56,7 @@ void	check_specialz(char *str, t_data *data, int *front)
 		data->special_char = NO_SPECIAL;
 }
 
-char	**special_splitens(char *str, int *front, char c)
+char	**special_splitens(char *str,int *back, int *front, char c)
 {
 	char	**str_array;
 	int		i;
@@ -68,16 +69,16 @@ char	**special_splitens(char *str, int *front, char c)
 	str_array = malloc(sizeof(char *) * (word_counter(str, c) + 1));
 	if (!str_array)
 		return (NULL);
-	while (str[i] != '\0' && i < *front)
+	while (str[i] != '\0' && i < (*front - *back))
 	{
-		while (str[i] == c && str[i] != '\0')
+		while (str[i] == c && str[i] != '\0' && i < (*front - *back))
 			i++;
 		if (str[i] != '\0')
 		{
 			str_array[j] = ft_substr(str, i, string_size(str + i, c));
 			j++;
 		}
-		while (str[i] != c && str[i] != '\0')
+		while (str[i] != c && str[i] != '\0' && i < (*front - *back))
 			i++;
 	}
 	str_array[j] = 0;

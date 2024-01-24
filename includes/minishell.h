@@ -112,6 +112,7 @@ int					check_input(char *input, int *i);
 int					check_for_command(char *input);
 int					check_pipe_amper_next(char *input);
 int					check_if_command_exits(char *input);
+char	**special_splitens(char *str,int *back, int *front, char c);
 
 /****************************/
 /*			LIST			*/

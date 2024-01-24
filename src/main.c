@@ -31,11 +31,11 @@ int	main(int argc, char **argv, char **env)
 			|| !wrong_specialch_syntax(input))
 				continue ;
 			creat_list(&head, input);
-			// organize_list(head);
+			organize_list(head);
 			while (head)
 			{
-				printf("CMD: %s\n", head->input_string);
-				printf("PIPE_TYPE: %d\n", head->pipe_type);
+				printf("CMD: %s\n", head->data[0].command_n_args[0]);
+				// printf("PIPE_TYPE: %d\n", head->pipe_type);
 				head = head->next;
 			}
 			// execute_command(head, env);

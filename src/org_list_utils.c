@@ -84,7 +84,7 @@ int	count_amperz(char *str)
 int	fill_data(t_pipes *pipe_struct, int count)
 {
 	int		i;
-	int 	back;
+	int		back;
 	int		front;
 	t_data	*data;
 
@@ -98,40 +98,35 @@ int	fill_data(t_pipes *pipe_struct, int count)
 	while (i < count)
 	{
 		prepare_split(&data[i], pipe_struct, &back, &front);
-		special_splitens(pipe_struct->input_string + back, &front, 32);
+		data[i].command_n_args = special_splitens(pipe_struct->input_string
+				+ back, &back, &front, 32);
 		i++;
 	}
 	return (0);
 }
 
-
-
-
-
-
-
 void	command_decider(t_data *data)
 {
-	if (ft_strncmp(data->command_n_args[0], "echo", 5) == 0 \
-	|| ft_strncmp(data->command_n_args[0], "\"echo\"", 7) == 0)
+	if (ft_strncmp(data->command_n_args[0], "echo", 5) == 0
+		|| ft_strncmp(data->command_n_args[0], "\"echo\"", 7) == 0)
 		data->command_type = ECHO;
-	else if (ft_strncmp(data->command_n_args[0], "cd", 3) == 0 \
-	|| ft_strncmp(data->command_n_args[0], "\"cd\"", 5) == 0)
+	else if (ft_strncmp(data->command_n_args[0], "cd", 3) == 0
+		|| ft_strncmp(data->command_n_args[0], "\"cd\"", 5) == 0)
 		data->command_type = CD;
-	else if (ft_strncmp(data->command_n_args[0], "pwd", 4) == 0 \
-	|| ft_strncmp(data->command_n_args[0], "\"pwd\"", 6) == 0)
+	else if (ft_strncmp(data->command_n_args[0], "pwd", 4) == 0
+		|| ft_strncmp(data->command_n_args[0], "\"pwd\"", 6) == 0)
 		data->command_type = PWD;
-	else if (ft_strncmp(data->command_n_args[0], "export", 7) == 0 \
-	|| ft_strncmp(data->command_n_args[0], "\"export\"", 9) == 0)
+	else if (ft_strncmp(data->command_n_args[0], "export", 7) == 0
+		|| ft_strncmp(data->command_n_args[0], "\"export\"", 9) == 0)
 		data->command_type = EXPORT;
-	else if (ft_strncmp(data->command_n_args[0], "unset", 6) == 0 \
-	|| ft_strncmp(data->command_n_args[0], "\"unset\"", 8) == 0)
+	else if (ft_strncmp(data->command_n_args[0], "unset", 6) == 0
+		|| ft_strncmp(data->command_n_args[0], "\"unset\"", 8) == 0)
 		data->command_type = UNSET;
-	else if (ft_strncmp(data->command_n_args[0], "env", 4) == 0 \
-	|| ft_strncmp(data->command_n_args[0], "\"env\"", 6) == 0)
+	else if (ft_strncmp(data->command_n_args[0], "env", 4) == 0
+		|| ft_strncmp(data->command_n_args[0], "\"env\"", 6) == 0)
 		data->command_type = ENV;
-	else if (ft_strncmp(data->command_n_args[0], "exit", 5) == 0 \
-	|| ft_strncmp(data->command_n_args[0], "\"exit\"", 7) == 0)
+	else if (ft_strncmp(data->command_n_args[0], "exit", 5) == 0
+		|| ft_strncmp(data->command_n_args[0], "\"exit\"", 7) == 0)
 		data->command_type = EXIT;
 	else
 		data->command_type = NOT_BUILTIN;
