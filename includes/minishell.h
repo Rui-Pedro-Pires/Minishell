@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/24 12:14:49 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:58:44 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,18 @@ typedef enum e_error
 /*			PARSER			*/
 /****************************/
 
-int				wrong_specialch_syntax(char *input);
-int				check_unfinished_quotes(char *input);
-int				quotes_check(char *input, char c);
-int				check_input(char *input, int *i);
-int				check_for_command(char *input);
-int				check_pipe_amper_next(char *input);
-int				check_if_command_exits(char *input);
+void				wrong_specialch_syntax(char *input);
+void				check_unfinished_quotes(char *input);
+int					quotes_check(char *input, char c);
+int					count_rarrow(char *str);
+void				organize_list(t_pipes *pipe_struct);
+int					count_larrow(char *str);
+int					count_amperz(char *str);
+int					fill_data(t_pipes *pipe_struct, int count);
+int					check_input(char *input, int *i);
+int					check_for_command(char *input);
+int					check_pipe_amper_next(char *input);
+int					check_if_command_exits(char *input);
 
 /****************************/
 /*			LIST			*/

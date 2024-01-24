@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 13:47:25 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/01/24 12:09:54 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:58:53 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,26 @@ int	count_amperz(char *str)
 	return (count);
 }
 
-// int	fill_data(t_pipes *pipe_struct, int count)
-// {
-// 	int		i;
-// 	t_data	*data;
+int	fill_data(t_pipes *pipe_struct, int count)
+{
+	int		i;
+	int 	back;
+	int		front;
+	t_data	*data;
 
-// 	data = pipe_struct->data;
-// 	if (pipe_struct->input_string == NULL)
-// 		return ((pipe_struct->empty_node = true), 1);
-// 	else
-// 		pipe_struct->empty_node = false;
-// 	i = 0;
-// 	while (i < count)
-// 	{
-// 		data[i].command_n_args = ft_special_split(pipe_struct->input_string,
-// 				32);
-// 	}
-// }
+	data = pipe_struct->data;
+	if (pipe_struct->input_string == NULL /*check if its only spaces*/)
+		return ((pipe_struct->empty_node = true), 1);
+	else
+		pipe_struct->empty_node = false;
+	i = 0;
+	front = 0;
+	while (i < count)
+	{
+		prepare_split(&data[i], pipe_struct, &back, &front);
+		i++;
+	}
+}
 
 
 
