@@ -23,12 +23,13 @@ SDIR := src
 ODIR := obj
 
 SOURCES := main.c \
-			special_chars_parsers.c \
 			list_utils.c\
 			error_handler.c\
 			free_memory.c\
 			cmd_utils.c\
 			org_list_utils.c\
+			input_parser1.c\
+			input_parser1.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
