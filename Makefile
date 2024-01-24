@@ -29,7 +29,7 @@ SOURCES := main.c \
 			cmd_utils.c\
 			org_list_utils.c\
 			input_parser1.c\
-			input_parser1.c\
+			input_parser2.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 

@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/24 11:02:45 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:14:49 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,15 @@ void			free_memory(char **args);
 /****************************/
 
 char			*trim_str(char *input, t_type_pipe *pipe_check);
+
+/****************************/
+/*			DATA			*/
+/****************************/
+
+void			command_decider(t_data *data);
+int				fill_data(t_pipes *pipe_struct, int count);
+int				count_rarrow(char *str);
+int				count_larrow(char *str);
+int				count_amperz(char *str);
 
 #endif
