@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_data_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe  <jorteixe@student.42.fr   >      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 01:00:00 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/01/24 11:01:56 by jorteixe         ###   ########.fr       */
+/*   Updated: 2024/01/24 15:34:30 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	prepare_split(t_data *data, t_pipes *pipe, int *back, int *front)
 	char	*og_str;
 
 	og_str = pipe->input_string;
-	printf("%s", og_str);
 	*back = *front;
 	while (og_str[(*front)] && !ft_strchr("<>&", og_str[(*front)]))
 	{
@@ -29,7 +28,7 @@ void	prepare_split(t_data *data, t_pipes *pipe, int *back, int *front)
 		else if (pipe->input_string[(*front)] == S_QUOTES)
 			*front += quotes_check(pipe->input_string + (*front), S_QUOTES);
 		else
-			front++;
+			(*front)++;
 	}
 	check_specialz(og_str, data, front);
 }

@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/24 13:54:52 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/24 15:40:35 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	t_pipes	*head;
+	int i;
+	int j;
+	int x = 0;
 
 	head = NULL;
 	(void)argv;
@@ -34,9 +37,20 @@ int	main(int argc, char **argv, char **env)
 			organize_list(head);
 			while (head)
 			{
-				printf("CMD: %s\n", head->data[0].command_n_args[0]);
+				i = 0;
+				while (head->data[i].command_n_args)
+				{
+					j = 0;
+					while (head->data[i].command_n_args[j])
+					{
+						printf("CMD[%d]: %s\n",x , head->data[i].command_n_args[j]);
+						j++;
+					}
+					i++;
+				}
 				// printf("PIPE_TYPE: %d\n", head->pipe_type);
 				head = head->next;
+				x++;
 			}
 			// execute_command(head, env);
 			free(input);
