@@ -89,10 +89,6 @@ int	fill_data(t_pipes *pipe_struct, int count)
 	t_data	*data;
 
 	data = pipe_struct->data;
-	if (pipe_struct->input_string == NULL /*check if its only spaces*/)
-		return ((pipe_struct->empty_node = true), 1);
-	else
-		pipe_struct->empty_node = false;
 	i = 0;
 	front = 0;
 	while (i < count)

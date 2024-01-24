@@ -18,9 +18,9 @@ static void		check_last_node(t_pipes **head);
 
 void	creat_list(t_pipes **head, char *input)
 {
-	int					i;
-	t_type_pipe			pipe_type;
-	char				*formated;
+	int			i;
+	t_type_pipe	pipe_type;
+	char		*formated;
 
 	i = 0;
 	while (input[i])
@@ -73,18 +73,26 @@ static t_pipes	*find_last_node(t_pipes *head)
 
 static void	check_last_node(t_pipes **head)
 {
-	if ((find_last_node(*head))->pipe_type == D_PIPE \
-	|| (find_last_node(*head))->pipe_type == S_PIPE)
+	if ((find_last_node(*head))->pipe_type == D_PIPE
+		|| (find_last_node(*head))->pipe_type == S_PIPE)
 		add_list(head, NULL, N_PIPE);
 }
 
 void	organize_list(t_pipes *pipe_struct)
 {
-	int	count;
+	int count;
 
 	count = 0;
 	while (pipe_struct != NULL)
 	{
+		if (pipe_struct->input_string == NULL /*check if its only spaces*/)
+		{
+			pipe_struct->empty_node = true;
+			pipe_struct = pipe_struct->next;
+			continue ;
+		}
+		else
+			pipe_struct->empty_node = false;
 		count = count_input(pipe_struct);
 		pipe_struct->data = malloc(sizeof(t_data) * (count + 1));
 		fill_data(pipe_struct, count);

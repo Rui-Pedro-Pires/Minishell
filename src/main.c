@@ -16,10 +16,11 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	t_pipes	*head;
-	int i;
-	int j;
-	int x = 0;
+	int		i;
+	int		j;
+	int		x;
 
+	x = 0;
 	head = NULL;
 	(void)argv;
 	(void)env;
@@ -30,8 +31,8 @@ int	main(int argc, char **argv, char **env)
 			input = readline("");
 			if (input && *input)
 				add_history(input);
-			if (!check_unfinished_quotes(input) \
-			|| !wrong_specialch_syntax(input))
+			if (!check_unfinished_quotes(input)
+				|| !wrong_specialch_syntax(input))
 				continue ;
 			creat_list(&head, input);
 			organize_list(head);
@@ -40,13 +41,20 @@ int	main(int argc, char **argv, char **env)
 			{
 				i = 0;
 				printf("Input String: %s", head->input_string);
+				if (head->empty_node == true)
+				{
+					head = head->next;
+					continue ;
+				}
 				while (head->data[i].command_n_args)
 				{
 					j = 0;
 					while (head->data[i].command_n_args[j])
 					{
-						printf("CMD[%d][%d]: %s\n",x, j , head->data[i].command_n_args[j]);
-						printf("CMN TYPE[%d]: %d\n",x , head->data[i].command_type);
+						printf("CMD[%d][%d]: %s\n", x, j,
+							head->data[i].command_n_args[j]);
+						printf("CMN TYPE[%d]: %d\n", x,
+							head->data[i].command_type);
 						j++;
 					}
 					i++;
