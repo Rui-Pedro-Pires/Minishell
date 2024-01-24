@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   org_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe  <jorteixe@student.42porto.>      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 13:47:25 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/01/23 13:47:25 by jorteixe         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:09:54 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,3 +98,36 @@ int	count_amperz(char *str)
 // 				32);
 // 	}
 // }
+
+
+
+
+
+
+
+void	command_decider(t_data *data)
+{
+	if (ft_strncmp(data->command_n_args[0], "echo", 5) == 0 \
+	|| ft_strncmp(data->command_n_args[0], "\"echo\"", 7) == 0)
+		data->command_type = ECHO;
+	else if (ft_strncmp(data->command_n_args[0], "cd", 3) == 0 \
+	|| ft_strncmp(data->command_n_args[0], "\"cd\"", 5) == 0)
+		data->command_type = CD;
+	else if (ft_strncmp(data->command_n_args[0], "pwd", 4) == 0 \
+	|| ft_strncmp(data->command_n_args[0], "\"pwd\"", 6) == 0)
+		data->command_type = PWD;
+	else if (ft_strncmp(data->command_n_args[0], "export", 7) == 0 \
+	|| ft_strncmp(data->command_n_args[0], "\"export\"", 9) == 0)
+		data->command_type = EXPORT;
+	else if (ft_strncmp(data->command_n_args[0], "unset", 6) == 0 \
+	|| ft_strncmp(data->command_n_args[0], "\"unset\"", 8) == 0)
+		data->command_type = UNSET;
+	else if (ft_strncmp(data->command_n_args[0], "env", 4) == 0 \
+	|| ft_strncmp(data->command_n_args[0], "\"env\"", 6) == 0)
+		data->command_type = ENV;
+	else if (ft_strncmp(data->command_n_args[0], "exit", 5) == 0 \
+	|| ft_strncmp(data->command_n_args[0], "\"exit\"", 7) == 0)
+		data->command_type = EXIT;
+	else
+		data->command_type = NOT_BUILTIN;
+}
