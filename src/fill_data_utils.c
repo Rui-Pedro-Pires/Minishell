@@ -18,7 +18,7 @@ void	prepare_split(t_data *data, t_pipes *pipe, int *back, int *front)
 
 	og_str = pipe->input_string;
 	*back = *front;
-	while (og_str[*front] && og_str[*front] != ft_strchr("<>&", og_str[*front]))
+	while (og_str[*front] && !ft_strchr("<>&", og_str[*front]))
 	{
 		if (pipe->input_string[*front] == D_QUOTES)
 			*front += quotes_check(pipe->input_string + (*front), D_QUOTES);
@@ -46,7 +46,7 @@ void	check_specialz(char *str, t_data *data, int *front)
 			data->special_char = S_RIGHT_ARROW;
 	}
 	else if (str[*front] == '&' && str[*front + 1] == '&')
-		data->special_char == AMPERZ;
+		data->special_char = AMPERZ;
 	else
-		data->special_char == NO_SPECIAL;
+		data->special_char = NO_SPECIAL;
 }
