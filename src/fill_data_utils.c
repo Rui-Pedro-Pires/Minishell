@@ -26,22 +26,27 @@ void	prepare_split(t_data *data, t_pipes *pipe, int *back, int *front)
 			*front += quotes_check(pipe->input_string + (*front), S_QUOTES);
 		front++;
 	}
+	check_specialz(og_str, data, front);
 }
 
 void	check_specialz(char *str, t_data *data, int *front)
 {
 	if (str[*front] == '<')
 	{
-		if (str[*front +1] == '<')
-			
+		if (str[*front + 1] == '<')
+			data->special_char = D_LEFT_ARROW;
+		else
+			data->special_char = S_LEFT_ARROW;
 	}
-	else if (str[*front] == '<')
+	else if (str[*front] == '>')
 	{
-		/* code */
+		if (str[*front + 1] == '>')
+			data->special_char = D_RIGHT_ARROW;
+		else
+			data->special_char = S_RIGHT_ARROW;
 	}
-	else if (str[*front] == '&')
-	{
-		/* code */
-	}
+	else if (str[*front] == '&' && str[*front + 1] == '&')
+		data->special_char == AMPERZ;
 	else
+		data->special_char == NO_SPECIAL;
 }

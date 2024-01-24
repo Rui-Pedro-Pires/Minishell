@@ -98,8 +98,6 @@ int	fill_data(t_pipes *pipe_struct, int count)
 	while (i < count)
 	{
 		prepare_split(&data[i], pipe_struct, &back, &front);
-		// data[i].command_n_args = ft_special_split(pipe_struct->input_string,
-				32);
 		i++;
 	}
 }
