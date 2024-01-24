@@ -27,11 +27,11 @@ int	wrong_specialch_syntax(char *input)
 	while (input[i])
 	{
 		if (input[i] == D_QUOTES)
-			quotes_check(input + i, D_QUOTES);
+			i += quotes_check(input + i, D_QUOTES);
 		else if (input[i] == S_QUOTES)
-			quotes_check(input + i, S_QUOTES);
-		else if (input[i] == '|' || input[i] == '&' \
-		|| input[i] == '<' || input[i] == '>')
+			i += quotes_check(input + i, S_QUOTES);
+		else if (input[i] == '|' || input[i] == '&' || input[i] == '<'
+			|| input[i] == '>')
 		{
 			if (!check_signs(input, &i))
 				return (error_handler(ERROR_SPECIAL_CHAR, input, NULL), 0);
@@ -120,13 +120,12 @@ static int	check_last_pipe(char *input)
 		i++;
 	while (i >= 0 && input[i] == ' ')
 		i--;
-	if (input[i] != '|' && input[i] != '&' \
-	&& input[i] != '<' && input[i] != '>')
+	if (input[i] != '|' && input[i] != '&' && input[i] != '<'
+		&& input[i] != '>')
 		return (1);
 	while (input[i])
 	{
-		if (input[i] == '>' || input[i] == '<' \
-		|| input[i] == '&')
+		if (input[i] == '>' || input[i] == '<' || input[i] == '&')
 			return (0);
 		i++;
 	}

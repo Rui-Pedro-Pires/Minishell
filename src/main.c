@@ -35,15 +35,18 @@ int	main(int argc, char **argv, char **env)
 				continue ;
 			creat_list(&head, input);
 			organize_list(head);
+			x = 0;
 			while (head)
 			{
 				i = 0;
+				printf("Input String: %s", head->input_string);
 				while (head->data[i].command_n_args)
 				{
 					j = 0;
 					while (head->data[i].command_n_args[j])
 					{
-						printf("CMD[%d]: %s\n",x , head->data[i].command_n_args[j]);
+						printf("CMD[%d][%d]: %s\n",x, j , head->data[i].command_n_args[j]);
+						printf("CMN TYPE[%d]: %d\n",x , head->data[i].command_type);
 						j++;
 					}
 					i++;
