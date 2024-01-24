@@ -84,6 +84,8 @@ int	count_amperz(char *str)
 int	fill_data(t_pipes *pipe_struct, int count)
 {
 	int		i;
+	int 	back;
+	int		front;
 	t_data	*data;
 
 	data = pipe_struct->data;
@@ -92,10 +94,12 @@ int	fill_data(t_pipes *pipe_struct, int count)
 	else
 		pipe_struct->empty_node = false;
 	i = 0;
+	front = 0;
 	while (i < count)
 	{
-
-		data[i].command_n_args = ft_special_split(pipe_struct->input_string,
+		prepare_split(&data[i], pipe_struct, &back, &front);
+		// data[i].command_n_args = ft_special_split(pipe_struct->input_string,
 				32);
+		i++;
 	}
 }
