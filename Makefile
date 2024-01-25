@@ -31,6 +31,7 @@ SOURCES := main.c \
 			input_parser1.c\
 			input_parser2.c\
 			fill_data_utils.c\
+			testerzzzz.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 

@@ -6,13 +6,13 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:57:46 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 12:45:24 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:30:45 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_memory(char **args)
+void	free_args(char **args)
 {
 	int	i;
 
@@ -23,4 +23,24 @@ void	free_memory(char **args)
 		i++;
 	}
 	free(args);
+}
+
+void	coador(t_pipes **head)
+{
+	int	i;
+	t_pipes	*tail;
+	
+	while ((*head))
+	{
+		i = 0;
+		tail = (*head)->next;
+		while ((*head)->data[i].command_n_args)
+		{
+			free_args((*head)->data[i].command_n_args);
+			i++;
+		}
+		free((*head)->data);
+		free(*head);
+		(*head) = tail;
+	}
 }

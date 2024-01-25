@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/24 15:56:30 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:41:56 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int					check_input(char *input, int *i);
 int					check_for_command(char *input);
 int					check_pipe_amper_next(char *input);
 int					check_if_command_exits(char *input);
-char	**special_splitens(char *str,int *back, int *front, char c);
+char				**special_splitens(char *str,int *back, int *front, char c);
 
 /****************************/
 /*			LIST			*/
@@ -124,13 +124,14 @@ void			creat_list(t_pipes **head, char *input);
 /*			FREE			*/
 /****************************/
 
-void			free_memory(char **args);
+void			free_args(char **args);
+void			coador(t_pipes **head);
 
 /****************************/
 /*			STRINGS			*/
 /****************************/
 
-char			*trim_str(char *input, t_type_pipe *pipe_check);
+char			*trim_str(char *input, t_type_pipe *pipe_check, int *i);
 
 /****************************/
 /*			DATA			*/
@@ -145,5 +146,12 @@ int				count_amperz(char *str);
 int				count_input(t_pipes *pipe);
 void			prepare_split(t_data *data, t_pipes *pipe, int *back, int *front);
 void			check_specialz(char *str, t_data *data, int *front);
+
+/****************************/
+/*			TESTERZZZ		*/
+/****************************/
+
+void	tester(t_pipes *head);
+void    input_str_tester(t_pipes *head);
 
 #endif

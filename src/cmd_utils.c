@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:31:11 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/23 14:49:39 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:55:22 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,31 @@ static char	*build_str(char *formated, char *input);
 static void	double_quotes_add(char **formated, char *input, int *i, int *x);
 static void	single_quotes_add(char **formated, char *input, int *i, int *x);
 
-char	*trim_str(char *input, t_type_pipe *pipe_check)
+char	*trim_str(char *input, t_type_pipe *pipe_check, int *i)
 {
-	int		i;
 	char	*formated;
-
-	i = 0;
-	while (input[i] && input[i] != '|')
+	int		save;
+	
+	save = *i;
+	while (input[(*i)] && input[(*i)] != '|')
 	{
-		if (input[i] == D_QUOTES)
-			i += quotes_check(input + i, D_QUOTES);
-		else if (input[i] == S_QUOTES)
-			i += quotes_check(input + i, S_QUOTES);
+		if (input[(*i)] == D_QUOTES)
+			(*i) += quotes_check(input + (*i), D_QUOTES);
+		else if (input[(*i)] == S_QUOTES)
+			(*i) += quotes_check(input + (*i), S_QUOTES);
 		else
-			i++;
+			(*i)++;
 	}
-	formated = malloc(sizeof(char) * i + 1);
+	formated = ft_calloc(sizeof(char), (((*i) - save) + 1));
 	if (!formated)
 		return (NULL);
-	if (input[i + 1] && input[i + 1] == '|')
-		*pipe_check = D_PIPE;
-	else if (input[i] == '|')
-		*pipe_check = S_PIPE;
-	else
-	{
+	if (!input[(*i)])
 		*pipe_check = N_PIPE;
-	}
-	return (build_str(formated, input));
+	else if (input[(*i) + 1] && input[(*i) + 1] == '|')
+		*pipe_check = D_PIPE;
+	else if (input[(*i)] && input[(*i)] == '|')
+		*pipe_check = S_PIPE;
+	return (build_str(formated, input + save));
 }
 
 int	quotes_check(char *input, char c)
@@ -62,7 +60,9 @@ static char	*build_str(char *formated, char *input)
 
 	i = 0;
 	x = 0;
-	while (input[i] != '|' && input[i])
+	if (!input)
+		return (NULL);
+	while (input[i] && input[i] != '|')
 	{
 		if (input[i] == D_QUOTES)
 			double_quotes_add(&formated, input, &i, &x);
@@ -75,7 +75,6 @@ static char	*build_str(char *formated, char *input)
 			i++;
 		}
 	}
-	formated[x] = '\0';
 	return (formated);
 }
 

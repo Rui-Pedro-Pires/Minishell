@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 13:47:25 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/01/24 15:57:03 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/25 09:33:50 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,28 +79,6 @@ int	count_amperz(char *str)
 		i++;
 	}
 	return (count);
-}
-
-int	fill_data(t_pipes *pipe_struct, int count)
-{
-	int		i;
-	int		back;
-	int		front;
-	t_data	*data;
-
-	data = pipe_struct->data;
-	i = 0;
-	front = 0;
-	while (i < count)
-	{
-		prepare_split(&data[i], pipe_struct, &back, &front);
-		data[i].command_n_args = special_splitens(pipe_struct->input_string
-				+ back, &back, &front, 32);
-		if (!command_decider1(&data[i]) && !command_decider2(&data[i]))
-			data[i].command_type = NOT_BUILTIN;
-		i++;
-	}
-	return (0);
 }
 
 int	command_decider1(t_data *data)
