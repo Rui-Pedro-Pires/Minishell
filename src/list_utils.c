@@ -67,7 +67,7 @@ static t_pipes	*find_last_node(t_pipes *head)
 
 static void	check_last_node(t_pipes **head)
 {
-	t_pipes *last_node;
+	t_pipes	*last_node;
 
 	last_node = find_last_node(*head);
 	if (!last_node)
@@ -78,13 +78,13 @@ static void	check_last_node(t_pipes **head)
 
 void	organize_list(t_pipes *pipe_struct)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (pipe_struct != NULL)
 	{
-		if (pipe_struct->input_string == NULL \
-		|| check_only_spaces(pipe_struct->input_string))
+		if (pipe_struct->input_string == NULL
+			|| check_only_spaces(pipe_struct->input_string))
 		{
 			pipe_struct->empty_node = true;
 			pipe_struct = pipe_struct->next;
@@ -102,10 +102,10 @@ void	organize_list(t_pipes *pipe_struct)
 static int	check_only_spaces(char *input_str)
 {
 	int	i;
-	
+
 	i = 0;
-	while (input_str[i] && (input_str[i] == ' ' \
-	|| input_str[i] == '\t' || input_str[i] == '\n'))
+	while (input_str[i] && (input_str[i] == ' ' || input_str[i] == '\t'
+			|| input_str[i] == '\n'))
 		i++;
 	if (input_str[i])
 		return (0);

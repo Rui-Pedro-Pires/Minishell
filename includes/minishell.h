@@ -88,7 +88,7 @@ typedef struct s_pipes
 /*			ERRORS			*/
 /****************************/
 
-void			error_handler(int error_msg, void *param, void **param2);
+void				error_handler(int error_msg, void *param, void **param2);
 
 typedef enum e_error
 {
@@ -112,46 +112,48 @@ int					check_input(char *input, int *i);
 int					check_for_command(char *input);
 int					check_pipe_amper_next(char *input);
 int					check_if_command_exits(char *input);
-char				**special_splitens(char *str,int *back, int *front, char c);
+char				**special_splitens(char *str, int *back, int *front,
+						char c);
 
 /****************************/
 /*			LIST			*/
 /****************************/
 
-void			creat_list(t_pipes **head, char *input);
+void				creat_list(t_pipes **head, char *input);
 
 /****************************/
 /*			FREE			*/
 /****************************/
 
-void			free_args(char **args);
-void			coador(t_pipes **head);
+void				free_args(char **args);
+void				coador(t_pipes **head);
 
 /****************************/
 /*			STRINGS			*/
 /****************************/
 
-char			*trim_str(char *input, t_type_pipe *pipe_check, int *i);
+char				*trim_str(char *input, t_type_pipe *pipe_check, int *i);
 
 /****************************/
 /*			DATA			*/
 /****************************/
 
-int				command_decider1(t_data *data);
-int				command_decider2(t_data *data);
-int				fill_data(t_pipes *pipe_struct, int count);
-int				count_rarrow(char *str);
-int				count_larrow(char *str);
-int				count_amperz(char *str);
-int				count_input(t_pipes *pipe);
-void			prepare_split(t_data *data, t_pipes *pipe, int *back, int *front);
-void			check_specialz(char *str, t_data *data, int *front);
+int					command_decider1(t_data *data);
+int					command_decider2(t_data *data);
+int					fill_data(t_pipes *pipe_struct, int count);
+int					count_rarrow(char *str);
+int					count_larrow(char *str);
+int					count_amperz(char *str);
+int					count_input(t_pipes *pipe);
+void				prepare_split(t_data *data, t_pipes *pipe, int *back,
+						int *front);
+void				check_specialz(char *str, t_data *data, int *front);
 
 /****************************/
 /*			TESTERZZZ		*/
 /****************************/
 
-void	tester(t_pipes *head);
-void    input_str_tester(t_pipes *head);
+void				tester(t_pipes *head);
+void				input_str_tester(t_pipes *head);
 
 #endif

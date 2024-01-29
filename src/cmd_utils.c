@@ -20,7 +20,7 @@ char	*trim_str(char *input, t_type_pipe *pipe_check, int *i)
 {
 	char	*formated;
 	int		save;
-	
+
 	save = *i;
 	while (input[(*i)] && input[(*i)] != '|')
 	{

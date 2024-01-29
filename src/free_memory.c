@@ -27,9 +27,9 @@ void	free_args(char **args)
 
 void	coador(t_pipes **head)
 {
-	int	i;
+	int		i;
 	t_pipes	*tail;
-	
+
 	while ((*head))
 	{
 		i = 0;

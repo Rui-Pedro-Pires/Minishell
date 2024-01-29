@@ -55,7 +55,7 @@ void	check_specialz(char *str, t_data *data, int *front)
 		data->special_char = NO_SPECIAL;
 }
 
-char	**special_splitens(char *str,int *back, int *front, char c)
+char	**special_splitens(char *str, int *back, int *front, char c)
 {
 	char	**str_array;
 	int		i;
@@ -111,7 +111,7 @@ static int	word_counter(char const *s, char c)
 
 static int	string_size(char const *s, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] != c && s[i] != '\0')
