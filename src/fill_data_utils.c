@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-static int	word_counter(char const *s, char c);
+int			word_counter(char const *s, char c);
 static int	string_size(char const *s, char c);
 
 void	prepare_split(t_data *data, t_pipes *pipe, int *back, int *front)

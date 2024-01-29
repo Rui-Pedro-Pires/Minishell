@@ -31,7 +31,7 @@ int	command_decider2(t_data *data)
 	return (1);
 }
 
-static int	check_only_spaces(char *input_str)
+int	check_only_spaces(char *input_str)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ static int	check_only_spaces(char *input_str)
 	return (1);
 }
 
-static int	word_counter(char const *s, char c)
+int	word_counter(char const *s, char c)
 {
 	int	i;
 	int	counter;

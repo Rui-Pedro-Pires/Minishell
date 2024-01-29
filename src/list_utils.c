@@ -15,7 +15,7 @@
 static t_pipes	*find_last_node(t_pipes *head);
 static void		add_list(t_pipes **head, char *formated, t_type_pipe pipe_type);
 static void		check_last_node(t_pipes **head);
-static int		check_only_spaces(char *input_str);
+int		check_only_spaces(char *input_str);
 
 void	creat_list(t_pipes **head, char *input)
 {
