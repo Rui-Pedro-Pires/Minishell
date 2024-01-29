@@ -84,31 +84,6 @@ char	**special_splitens(char *str, int *back, int *front, char c)
 	return (str_array);
 }
 
-static int	word_counter(char const *s, char c)
-{
-	int	i;
-	int	counter;
-
-	i = 0;
-	counter = 0;
-	while (s[i] != '\0')
-	{
-		while (s[i] == c && s[i] != '\0')
-		{
-			i++;
-		}
-		if (s[i] != '\0')
-		{
-			counter++;
-		}
-		while (s[i] != c && s[i] != '\0')
-		{
-			i++;
-		}
-	}
-	return (counter);
-}
-
 static int	string_size(char const *s, char c)
 {
 	int	i;

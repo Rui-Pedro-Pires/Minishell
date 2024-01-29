@@ -98,16 +98,3 @@ void	organize_list(t_pipes *pipe_struct)
 		pipe_struct = pipe_struct->next;
 	}
 }
-
-static int	check_only_spaces(char *input_str)
-{
-	int	i;
-
-	i = 0;
-	while (input_str[i] && (input_str[i] == ' ' || input_str[i] == '\t'
-			|| input_str[i] == '\n'))
-		i++;
-	if (input_str[i])
-		return (0);
-	return (1);
-}
