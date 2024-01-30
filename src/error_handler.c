@@ -16,20 +16,20 @@ void	error_handler(int error_msg, void *param, void **param2)
 {
 	if (error_msg == ERROR_UNFINISHED_QUOTE)
 	{
+		(void)param;
 		(void)param2;
 		printf("Unfinished Quote\n");
-		free(param);
 	}
 	else if (error_msg == ERROR_SPECIAL_CHAR)
 	{
+		(void)param;
 		(void)param2;
 		printf("Wrong Special Char\n");
-		free(param);
 	}
 	else if (error_msg == ERROR_WRONG_INPUT)
 	{
+		(void)param;
 		(void)param2;
 		printf("Wrong input\n");
-		free(param);
 	}
 }
