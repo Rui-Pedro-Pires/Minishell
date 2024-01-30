@@ -38,19 +38,34 @@ void	check_specialz(char *str, t_data *data, int *front)
 	if (str[*front] == '<')
 	{
 		if (str[*front + 1] && str[*front + 1] == '<')
+		{
 			data->special_char = D_LEFT_ARROW;
+			*front += 2;
+		}
 		else
+		{
 			data->special_char = S_LEFT_ARROW;
+			*front += 1;
+		}
 	}
 	else if (str[*front] == '>')
 	{
 		if (str[*front + 1] && str[*front + 1] == '>')
+		{
 			data->special_char = D_RIGHT_ARROW;
+			*front += 2;
+		}
 		else
+		{
 			data->special_char = S_RIGHT_ARROW;
+			*front += 1;
+		}
 	}
 	else if (str[*front + 1] && str[*front] == '&' && str[*front + 1] == '&')
+	{
 		data->special_char = AMPERZ;
+		*front += 1;
+	}
 	else
 		data->special_char = NO_SPECIAL;
 }
