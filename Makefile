@@ -15,6 +15,8 @@ CC = cc
 
 CFLAGS = -Werror -Wall -Wextra -g 
 
+VG	=	valgrind --leak-check=full --suppressions=sup --track-origins=yes --log-file=leaks.log
+
 LFLAG = -lreadline
 
 RM = rm -rf
@@ -63,8 +65,45 @@ clean :
 fclean : clean
 	@${RM} ${NAME}
 	@echo "${RED}➾ Minishell deleted${RES}"
+	@${RM} sup
+	@echo "${RED}➾ Sup File deleted${RES}"
+	@${RM} leaks.log
+	@echo "${RED}➾ Leaks.log deleted${RES}"
 	@make fclean -C ./includes/Libft/ -s
 
 re : fclean all
 
+debug: all sup_file
+	@echo "$(GREEN)Minishell compiled in debug mode!$(DEF_COLOR)"
+
+leaks: ./minishell
+	$(VG) ./minishell
+
 .PHONY: bonus
+
+define SUP_BODY
+{
+   name
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   obj:*/libreadline.so.*
+   ...
+}
+{
+    leak readline
+    Memcheck:Leak
+    ...
+    fun:readline
+}
+{
+    leak add_history
+    Memcheck:Leak
+    ...
+    fun:add_history
+}
+endef
+
+sup_file:
+	$(file > sup,$(SUP_BODY))
+	@echo "$(MAG)Created suppression file to use with valgrind --suppressions=sup$(DEF_COLOR)"
