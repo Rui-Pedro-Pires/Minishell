@@ -6,22 +6,23 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 14:36:21 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/30 14:48:03 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:19:12 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	unfinished_str(char *input)
+static char	*trim_cwd(char *trimmed_cwd);
+
+int	unfinished_command_line(char *input)
 {
 	int	i;
 
 	i = 0;
 	if (!input || !(*input))
 		return (0);
-	while (input[i])
+	while (input[i + 1])
 		i++;
-	i--;
 	while (i >= 0 && input[i] == ' ')
 		i--;
 	if (input[i] == '|' || input[i] == '&')
@@ -44,14 +45,6 @@ void	count_parenthesis(char *input, int *parenthesis)
 			(*parenthesis)--;
 		i++;
 	}
-}
-
-int	parse_input(char *input)
-{
-	if (!check_unfinished_quotes(input)
-		|| !wrong_specialch_syntax(input))
-		return (0);
-	return (1);
 }
 
 char	*ft_strjoin_v2(char *s1, char *s2)
@@ -81,12 +74,34 @@ char	*creat_cwd(void)
 {
 	char	*cwd;
 	char	*cwd_complete;
-	char	*pwd;
+	char	*trimmed_cwd;
 
-	pwd = getcwd(NULL, 0);
-	cwd = ft_strjoin("ruiolive&&jorteixe@minishell:", pwd);
+	trimmed_cwd = getcwd(NULL, 0);
+	trimmed_cwd = trim_cwd(trimmed_cwd);
+	cwd = ft_strjoin("ruiolive&&jorteixe@minishell:~", trimmed_cwd);
 	cwd_complete = ft_strjoin(cwd, "$ ");
 	free(cwd);
-	free(pwd);
+	free(trimmed_cwd);
 	return (cwd_complete);
+}
+
+static char	*trim_cwd(char *trimmed_cwd)
+{
+	int		i;
+	int		counter;
+	char	*trimmed;
+	
+	i = 0;
+	counter = 0;
+	while (trimmed_cwd[i])
+	{
+		if (trimmed_cwd[i] == '/')
+			counter++;
+		if (counter > 3)
+			break;
+		i++;
+	}
+	trimmed = ft_substr(trimmed_cwd, i, (ft_strlen(trimmed_cwd) - i));
+	free(trimmed_cwd);
+	return (trimmed);
 }

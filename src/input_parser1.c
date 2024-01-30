@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:47:33 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/30 09:30:34 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/30 15:39:32 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_unfinished_quotes(char *input)
 			{
 				if (input[i] == '\0')
 					return (\
-					error_handler(ERROR_UNFINISHED_QUOTE, input, NULL), 0);
+					error_handler(ERROR_UNFINISHED_QUOTE, input, NULL), 0); /*#TODO Add aspas to the error message*/
 				i++;
 			}
 		}

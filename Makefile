@@ -108,4 +108,4 @@ endef
 
 sup_file:
 	$(file > sup,$(SUP_BODY))
-	@echo "$(MAG)Created suppression file to use with valgrind --suppressions=sup$(DEF_COLOR)"
+	@echo "$(MAG)Created suppression file to use with valgrind --suppressions=sup$(RES)"
