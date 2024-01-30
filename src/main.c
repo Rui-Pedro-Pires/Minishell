@@ -6,11 +6,13 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/25 12:00:49 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/30 14:51:47 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	freezzzz(char *input);
 
 int	main(int argc, char **argv, char **env)
 {
@@ -24,22 +26,23 @@ int	main(int argc, char **argv, char **env)
 	{
 		while (1)
 		{
-			input = readline("");
+			input = line_read();
 			if (input && *input)
 				add_history(input);
-			else
-				continue ;
-			if (!check_unfinished_quotes(input)
-				|| !wrong_specialch_syntax(input))
-				continue ;
-			creat_list(&head, input);
-			free(input);
+			freezzzz(input);
+			// creat_list(&head, input);			
+			// free(input);
 			// input_str_tester(head);
-			organize_list(head);
+			// organize_list(head);
 			// tester(head);
 			// execute_command(head, env);
 			// coador(&head);
 		}
 		rl_clear_history();
 	}
+}
+
+void	freezzzz(char *input)
+{
+	free(input);
 }

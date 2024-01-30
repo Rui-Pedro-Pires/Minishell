@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:47:33 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/25 10:44:25 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/30 09:30:34 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	check_input(char *input, int *i)
 {
-	int	x;
-
 	while (input[(*i)] && (input[(*i)] == ' ' \
 	|| input[(*i)] == '\t' || input[(*i)] == '\n'))
 		(*i)++;
@@ -25,7 +23,6 @@ int	check_input(char *input, int *i)
 	input[(*i)] == '>' && input[(*i) + 1] == '|')
 	{
 		(*i) += 2;
-		x = *i;
 		if (!check_if_command_exits(input + (*i)))
 			return (0);
 		return (1);
