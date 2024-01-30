@@ -83,15 +83,6 @@ void	organize_list(t_pipes *pipe_struct)
 	count = 0;
 	while (pipe_struct != NULL)
 	{
-		if (pipe_struct->input_string == NULL
-			|| check_only_spaces(pipe_struct->input_string))
-		{
-			pipe_struct->empty_node = true;
-			pipe_struct = pipe_struct->next;
-			continue ;
-		}
-		else
-			pipe_struct->empty_node = false;
 		count = count_input(pipe_struct);
 		pipe_struct->data = malloc(sizeof(t_data) * (count + 1));
 		fill_data(pipe_struct, count);
