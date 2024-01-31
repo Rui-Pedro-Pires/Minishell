@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/30 16:42:46 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 10:01:04 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,20 +101,23 @@ typedef enum e_error
 /*			PARSER			*/
 /****************************/
 
-int					wrong_specialch_syntax(char *input);
-int					check_unfinished_quotes(char *input);
+int					parse_input(char *input);
+int					signs_parser(char *input, int i);
+int					quotes_parser(char *input);
+int					check_begin_case(char *input, int *i);
+
+/****************************/
+/*		PARSER	UTILS		*/
+/****************************/
+
 int					quotes_check(char *input, char c);
-int					count_rarrow(char *str);
-void				organize_list(t_pipes *pipe_struct);
-int					count_larrow(char *str);
-int					count_amperz(char *str);
-int					check_input(char *input, int *i);
 int					check_for_command(char *input);
 int					check_pipe_amper_next(char *input);
-int					check_if_command_exits(char *input);
-char				**special_splitens(char *str, int *back, int *front,
-						char c);
-int					parse_input(char *input);
+int					check_end(char *input);
+int					check_signs(char *input, int *i);
+int					amper_count(char *input, int *i);
+int					pipe_count(char *input, int *i);
+int					signs_check(char *input, char sign, int *i);
 
 /****************************/
 /*			LIST			*/
@@ -161,6 +164,9 @@ void				prepare_split(t_data *data, t_pipes *pipe, int *back,
 void				check_specialz(char *str, t_data *data, int *front);
 int					check_only_spaces(char *input_str);
 int					word_counter(char const *s, char c);
+void				organize_list(t_pipes *pipe_struct);
+char				**special_splitens(char *str, int *back, int *front,
+						char c);
 
 /****************************/
 /*			TESTERZZZ		*/

@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 09:36:46 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/30 16:42:18 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 09:51:53 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ char    *line_read(void) /*#TODO add error messages*/
 			return (add_history(input), free(input), NULL);
 	while (unfinished_command_line(input) || parenthesis != 0)
 	{
-		if (!parse_input(input) || parenthesis < 0) 
-			return (add_history(input), free(input), NULL);
 		new_line = readline("> ");
 		if (!(*new_line))
 		{
@@ -37,6 +35,8 @@ char    *line_read(void) /*#TODO add error messages*/
 		if (!count_parenthesis(new_line, &parenthesis))
 			return (NULL);
 		input = ft_strjoin_v2(input, new_line);
+		if (!parse_input(input) || parenthesis < 0) 
+			return (add_history(input), free(input), NULL);
 	}
 	return (input);
 }
@@ -54,8 +54,14 @@ static char *get_input(void)
 
 int	parse_input(char *input)
 {
-	if (!check_unfinished_quotes(input)
-		|| !wrong_specialch_syntax(input))
+	int	i;
+
+	i = 0;
+	if (!quotes_parser(input))
+		return (0);
+	if (!check_begin_case(input, &i))
+		return (0);
+	if (!signs_parser(input, i))
 		return (0);
 	return (1);
 }

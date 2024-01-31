@@ -30,8 +30,8 @@ SOURCES := main.c \
 			free_memory.c\
 			cmd_utils.c\
 			org_list_utils.c\
-			input_parser1.c\
-			input_parser2.c\
+			parser_input.c\
+			parser_utils.c\
 			fill_data_utils.c\
 			testerzzzz.c\
 			placeholder.c\
