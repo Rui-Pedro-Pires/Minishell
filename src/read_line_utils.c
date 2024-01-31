@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 14:36:21 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 14:51:59 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 14:58:48 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	count_parenthesis(char *input, int *parenthesis, int *check_empty)
 			i += quotes_check(input + i, D_QUOTES);
 		else if (input[i] == S_QUOTES)
 			i += quotes_check(input + i, S_QUOTES);
-		if ((*parenthesis) != 1 && input[i] && input[i] == '(')
+		if (input[i] && input[i] == '(')
 		{
 			if (!check_for_command_before(input, i))
 				return (0);
@@ -123,9 +123,12 @@ static char	*trim_cwd(char *trimmed_cwd)
 
 int	check_for_command_before(char *input, int i)
 {
+	if (i == 0)
+		return (1);
+	i--;
 	while (i >= 0 && input[i] == ' ')
 		i--;
-	if (input[i] && !ft_strchr("|&<>()", input[i]))
-		return (0);
-	return (1);
+	if (input[i] && ft_strchr("|&<>()", input[i]))
+		return (1);
+	return (0);
 }

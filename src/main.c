@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 12:32:54 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:14:18 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	main(int argc, char **argv, char **env)
 			input = line_read();
 			if (input && *input)
 				add_history(input);
-			printf("%s\n", input);
+			else
+				continue;
 			freezzzz(input);
 			// creat_list(&head, input);			
 			// free(input);
