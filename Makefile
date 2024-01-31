@@ -32,6 +32,7 @@ SOURCES := main.c \
 			org_list_utils.c\
 			parser_input.c\
 			parser_utils.c\
+			parser_signs.c\
 			fill_data_utils.c\
 			testerzzzz.c\
 			placeholder.c\

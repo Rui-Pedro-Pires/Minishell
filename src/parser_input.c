@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_parser.c                                     :+:      :+:    :+:   */
+/*   parser_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:47:33 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 10:03:08 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:06:01 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,30 +79,6 @@ int	check_begin_case(char *input, int *i)
 	else if (input[(*i)] && ft_strchr("<>&|", input[(*i)]))
 		return (0);
 	if (!check_for_command(input + (*i)))
-		return (0);
-	return (1);
-}
-
-int	check_pipe_amper_next(char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i] && input[i] == ' ')
-		i++;
-	if (input[i] && ft_strchr("&|", input[i]))
-		return (0);
-	return (1);
-}
-
-int	check_for_command(char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i] == ' ' && input[i])
-		i++;
-	if (input[i] && ft_strchr("<>&|", input[i]))
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 10:01:04 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:15:02 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,9 @@ int					check_end(char *input);
 int					check_signs(char *input, int *i);
 int					amper_count(char *input, int *i);
 int					pipe_count(char *input, int *i);
-int					signs_check(char *input, char sign, int *i);
+int					major_sig_count(char *input, int *i);
+int					minor_sig_count(char *input, int *i);
+
 
 /****************************/
 /*			LIST			*/
