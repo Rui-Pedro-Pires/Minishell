@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:47:33 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 11:06:01 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:53:14 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	signs_parser(char *input, int i)
 	return (1);
 }
 
-int	check_begin_case(char *input, int *i)
+int	check_begin_case(char *input, int *i) /*#TODO error handlers*/
 {
 	while (input[(*i)] && (input[(*i)] == ' ' \
 	|| input[(*i)] == '\t' || input[(*i)] == '\n'))
