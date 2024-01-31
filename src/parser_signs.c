@@ -12,27 +12,27 @@
 
 #include "../includes/minishell.h"
 
-int	check_signs(char *input, int *i)
+int	check_signs(char *input, int *i, char *myChar)
 {
 	if (input[(*i)] == '|')
 	{
 		if (!pipe_count(input, i))
-			return (0);
+			return (*myChar='|', 0);
 	}
 	else if (input[(*i)] == '&')
 	{
 		if (!amper_count(input, i))
-			return (0);
+			return (*myChar='&', 0);
 	}
 	else if (input[(*i)] == '>')
 	{
 		if (!major_sig_count(input, i))
-			return (0);
+			return (*myChar='>', 0);
 	}
 	else if (input[(*i)] == '<')
 	{
 		if (!minor_sig_count(input, i))
-			return (0);
+			return (*myChar='<', 0);
 	}
 	return (1);
 }
