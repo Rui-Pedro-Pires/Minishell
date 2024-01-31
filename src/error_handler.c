@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:57:37 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/30 11:30:39 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:27:37 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,11 @@ void	error_handler(int error_msg, void *param, void **param2)
 		(void)param2;
 		printf("minishell: syntax error near unexpected token `%c'\n",
 			*(char *)param);
+	}
+	else if (error_msg == ERROR_NEWLINE)
+	{
+		(void)param2;
+		printf("minishell: syntax error near unexpected token `%s'\n",
+			(char *)param);
 	}
 }
