@@ -58,8 +58,8 @@ int	signs_parser(char *input, int i)
 		else
 			i++;
 	}
-	if (!check_end(input))
-		return (error_handler(ERROR_SPECIAL_CHAR, NULL, NULL), 0);
+	// if (!check_end(input))
+		// return (error_handler(ERROR_SPECIAL_CHAR, NULL, NULL), 0);
 	return (1);
 }
 
