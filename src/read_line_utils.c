@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 14:36:21 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 11:28:30 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:41:13 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	unfinished_command_line(char *input)
 	return (0);
 }
 
-int	count_parenthesis(char *input, int *parenthesis)
+int	count_parenthesis(char *input, int *parenthesis, int *check_empty)
 {
 	int	i;
 
@@ -39,18 +39,26 @@ int	count_parenthesis(char *input, int *parenthesis)
 		return (1);
 	while (input[i])
 	{
+		if (!ft_strchr("|<>&()", input[i]))
+			(*check_empty) = 0;
 		if (input[i] == D_QUOTES)
 			i += quotes_check(input + i, D_QUOTES);
 		else if (input[i] == S_QUOTES)
 			i += quotes_check(input + i, S_QUOTES);
-		if (input[i] == '(')
+		if (input[i] && input[i] == '(')
+		{
 			(*parenthesis)++;
-		else if (input[i] == ')')
+			(*check_empty) = 1;
+		}
+		else if (input[i] && input[i] == ')' && (*check_empty) == 0)
 			(*parenthesis)--;
-		if ((*parenthesis) < 0)
+		else if ((input[i] && input[i] == ')' \
+		&& (*check_empty) == 1) || (*parenthesis) < 0)
 			return (0);
 		i++;
 	}
+	if (*check_empty == 1)
+		return (0);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 11:15:02 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:11:33 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ char				*trim_str(char *input, t_type_pipe *pipe_check, int *i);
 
 char				*line_read(void);
 int					unfinished_command_line(char *input);
-int					count_parenthesis(char *input, int *parenthesis);
+int					count_parenthesis(char *input, int *parenthesis, int *check_empty);
 char				*ft_strjoin_v2(char *s1, char *s2);
 char				*creat_cwd(void);
 
