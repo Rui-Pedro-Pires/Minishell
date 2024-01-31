@@ -18,7 +18,7 @@ void	error_handler(int error_msg, void *param, void **param2)
 	{
 		(void)param;
 		(void)param2;
-		printf("Unfinished Quote\n");
+		printf("bash: syntax error near unexpected token `('");
 	}
 	else if (error_msg == ERROR_SPECIAL_CHAR)
 	{
