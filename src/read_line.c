@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 09:36:46 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 12:24:17 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:35:26 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char *get_input(void)
 	return (input);
 }
 
-int	parse_input(char *input)
+int	parse_input(char *input) /*#TODO correct errors messages: |&<> there some differences*/
 {
 	int	i;
 
