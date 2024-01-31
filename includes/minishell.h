@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 14:49:16 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:27:19 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ typedef enum e_error
 {
 	ERROR_UNFINISHED_QUOTE,
 	ERROR_SPECIAL_CHAR,
-	ERROR_WRONG_INPUT
+	ERROR_NEWLINE
 }					t_error;
 
 /****************************/

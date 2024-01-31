@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 14:36:21 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 14:58:48 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:26:06 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ int	count_parenthesis(char *input, int *parenthesis, int *check_empty)
 		if (input[i] && input[i] == '(')
 		{
 			if (!check_for_command_before(input, i))
-				return (0);
+				return (error_handler(ERROR_NEWLINE, &"newline", NULL), 0);
 			(*parenthesis)++;
 			(*check_empty) = 1;
 		}
 		else if (input[i] && input[i] == ')' && (*check_empty) == 0)
 			(*parenthesis)--;
-		else if ((input[i] && input[i] == ')' \
+		if ((input[i] && input[i] == ')' \
 		&& (*check_empty) == 1) || (*parenthesis) < 0)
-			return (0);
+			return (error_handler(ERROR_SPECIAL_CHAR, &")", NULL), 0);
 		i++;
 	}
 	return (1);
