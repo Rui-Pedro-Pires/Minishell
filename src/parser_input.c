@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:47:33 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 12:53:14 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 14:48:16 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ int	check_begin_case(char *input, int *i) /*#TODO error handlers*/
 	input[(*i)] == '>' && input[(*i) + 1] == '|')
 	{
 		(*i) += 2;
-		if (!check_for_command(input + (*i)))
+		if (!check_for_command_after(input + (*i)))
 			return (0);
 		return (1);
 	}
 	else if (input[(*i)] && ft_strchr("<>&|", input[(*i)]))
 		return (0);
-	if (!check_for_command(input + (*i)))
+	if (!check_for_command_after(input + (*i)))
 		return (0);
 	return (1);
 }

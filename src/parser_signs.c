@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:05:34 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 11:15:28 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 14:48:16 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	major_sig_count(char *input, int *i)
 	x = *i;
 	while (input[++(*i)] == '>')
 			;
-	if ((*i) - x < 2 && input[(*i)] == '|' && check_for_command(input + ((*i) + 1)))
+	if ((*i) - x < 2 && input[(*i)] == '|' && check_for_command_after(input + ((*i) + 1)))
 		return (1);
-	if ((*i) - x > 2 || !check_for_command(input + (*i)))
+	if ((*i) - x > 2 || !check_for_command_after(input + (*i)))
 		return (0);
 	return (1);
 }
@@ -58,7 +58,7 @@ int	minor_sig_count(char *input, int *i)
 	x = *i;
 	while (input[++(*i)] == '<')
 			;
-	if ((*i) - x > 2 || !check_for_command(input + (*i)))
+	if ((*i) - x > 2 || !check_for_command_after(input + (*i)))
 		return (0);
 	return (1);
 }

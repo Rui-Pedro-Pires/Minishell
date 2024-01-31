@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 12:11:33 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 14:49:16 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int					check_begin_case(char *input, int *i);
 /****************************/
 
 int					quotes_check(char *input, char c);
-int					check_for_command(char *input);
+int					check_for_command_after(char *input);
 int					check_pipe_amper_next(char *input);
 int					check_end(char *input);
 int					check_signs(char *input, int *i, char *myChar);
@@ -119,6 +119,7 @@ int					amper_count(char *input, int *i);
 int					pipe_count(char *input, int *i);
 int					major_sig_count(char *input, int *i);
 int					minor_sig_count(char *input, int *i);
+int					check_for_command_before(char *input, int i);
 
 /****************************/
 /*			LIST			*/

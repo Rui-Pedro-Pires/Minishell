@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:12:35 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 11:17:08 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/31 14:48:16 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_end(char *input)
 	return (1);
 }
 
-int	check_for_command(char *input)
+int	check_for_command_after(char *input)
 {
 	int	i;
 
