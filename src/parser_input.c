@@ -29,7 +29,7 @@ int	quotes_parser(char *input)
 			{
 				if (input[i] == '\0')
 					return (\
-					error_handler(ERROR_UNFINISHED_QUOTE, input, NULL), 0); /*#TODO Add aspas to the error message*/
+					error_handler(ERROR_UNFINISHED_QUOTE, &input[j], NULL), 0);
 				i++;
 			}
 		}
@@ -40,6 +40,8 @@ int	quotes_parser(char *input)
 
 int	signs_parser(char *input, int i)
 {
+	char errorChar;
+
 	while (input[i])
 	{
 		if (input[i] == D_QUOTES)
@@ -48,8 +50,8 @@ int	signs_parser(char *input, int i)
 			i += quotes_check(input + i, S_QUOTES);
 		else if (ft_strchr("<>&|", input[i]))
 		{
-			if (!check_signs(input, &i))
-				return (error_handler(ERROR_SPECIAL_CHAR, NULL, NULL), 0);
+			if (!check_signs(input, &i, &errorChar))
+				return (error_handler(ERROR_SPECIAL_CHAR, &errorChar, NULL), 0);
 		}
 		else if (ft_strchr("\\;", input[i]))
 			return (error_handler(ERROR_SPECIAL_CHAR, &input[i], NULL), 0);
