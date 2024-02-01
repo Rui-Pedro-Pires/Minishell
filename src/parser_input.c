@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:47:33 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 15:33:21 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/02/01 14:51:26 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,21 @@ int	check_begin_case(char *input, int *i) /*#TODO error handlers*/
 		return (error_handler(ERROR_SPECIAL_CHAR, &input[(*i)], NULL), 0);
 	if (!check_for_command_after(input + (*i)))
 		return (error_handler(ERROR_SPECIAL_CHAR, &input[(*i)], NULL), 0);
+	return (1);
+}
+
+int	parse_input(char *input, int *parenthesis, int *check_empty, int *x) /*#TODO correct errors messages: |&<> there some differences*/
+{
+	int	i;
+
+	i = 0;
+	if (!count_parenthesis(input, parenthesis, check_empty, x))
+		return (0);
+	if (*parenthesis == 0 && !quotes_parser(input))
+		return (0);
+	if (*parenthesis == 0 && !check_begin_case(input, &i))
+		return (0);
+	if (*parenthesis == 0 && !signs_parser(input, i))
+		return (0);
 	return (1);
 }

@@ -38,6 +38,7 @@ SOURCES := main.c \
 			placeholder.c\
 			read_line.c\
 			read_line_utils.c\
+			read_line_parser.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 

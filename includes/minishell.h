@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/31 15:27:19 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/02/01 10:24:23 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,10 @@ typedef enum e_error
 /*			PARSER			*/
 /****************************/
 
-int					parse_input(char *input);
 int					signs_parser(char *input, int i);
 int					quotes_parser(char *input);
 int					check_begin_case(char *input, int *i);
-
+int					parse_input(char *input, int *parenthesis, int *check_empty, int *x);
 /****************************/
 /*		PARSER	UTILS		*/
 /****************************/
@@ -119,7 +118,6 @@ int					amper_count(char *input, int *i);
 int					pipe_count(char *input, int *i);
 int					major_sig_count(char *input, int *i);
 int					minor_sig_count(char *input, int *i);
-int					check_for_command_before(char *input, int i);
 
 /****************************/
 /*			LIST			*/
@@ -145,10 +143,20 @@ char				*trim_str(char *input, t_type_pipe *pipe_check, int *i);
 /****************************/
 
 char				*line_read(void);
-int					unfinished_command_line(char *input);
-int					count_parenthesis(char *input, int *parenthesis, int *check_empty);
+char				*get_input(void);
 char				*ft_strjoin_v2(char *s1, char *s2);
 char				*creat_cwd(void);
+char				*trim_cwd(char *trimmed_cwd);
+
+/****************************/
+/*		READ LINE PARSER	*/
+/****************************/
+
+int					unfinished_command_line(char *input);
+int					check_separator_after(char *input, int i);
+int					check_separator_before(char *input, int i);
+int					count_parenthesis(char *input, int *parenthesis, int *check_empty, int *x);
+int					parenthesis_parser(char *input, int i, int *parenthesis, int *check_empty);
 
 /****************************/
 /*			DATA			*/
