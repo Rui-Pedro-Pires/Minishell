@@ -77,8 +77,6 @@ int	check_begin_case(char *input, int *i)
 		(*i)++;
 	if (!input[(*i)])
 		return (0);
-	if (signs_case(input + (*i)))
-		return (error_handler_2(ERROR_STRING_TYPE, signs_case(input + (*i)), NULL), 0);
 	if (input[(*i)] && input[(*i) + 1] && \
 	input[(*i)] == '>' && input[(*i) + 1] == '|')
 	{
@@ -92,6 +90,8 @@ int	check_begin_case(char *input, int *i)
 	}
 	else if (input[(*i)] && ft_strchr("&|", input[(*i)]))
 		return (error_handler_2(ERROR_STRING_TYPE, search_char(input + (*i)), NULL), 0);
+	else if (signs_case(input + (*i)))
+		return (error_handler_2(ERROR_STRING_TYPE, signs_case(input + (*i)), NULL), 0);
 	if (!check_for_command_after(input + (*i)))
 		return (0);
 	return (1);

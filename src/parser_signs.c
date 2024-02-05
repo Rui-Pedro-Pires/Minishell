@@ -14,18 +14,14 @@
 
 int	check_signs(char *input, int *i, char **myChar)
 {
-	int	x;
-
-	x = *i;
-	if (input[x] == '|')
-		return (pipe_checker(input, &x, myChar));
-	else if (input[x] == '&')
-		return (amper_checker(input, &x, myChar));
-	else if (input[x] == '>')
-		return (major_checker(input, &x, myChar));
-	else if (input[x] == '<')
-		return (minor_checker(input, &x, myChar));
-	(*i) = x;
+	if (input[(*i)] && input[(*i)] == '|')
+		return (pipe_checker(input, i, myChar));
+	else if (input[(*i)] && input[(*i)] == '&')
+		return (amper_checker(input, i, myChar));
+	else if (input[(*i)] && input[(*i)] == '>')
+		return (major_checker(input, i, myChar));
+	else if (input[(*i)] && input[(*i)] == '<')
+		return (minor_checker(input, i, myChar));
 	return (1);
 }
 
@@ -34,15 +30,14 @@ int	major_sig_count(char *input, int *i)
 	int	x;
 
 	x = *i;
-	while (input[++x] == '>')
+	while (input[++ (*i)] == '>')
 			;
-	if (x - (*i) < 2 && input[(*i)] == '|' && check_for_command_after(input + (x + 1)))
+	if ( (*i) - x < 2 && input[(*i)] == '|' && check_for_command_after(input + ((*i) + 1)))
 		return (1);
-	if (x - (*i) > 2)
+	if ( (*i) - x > 2)
 		return (0);
-	if (!check_for_command_after(input + x))
+	if (!check_for_command_after(input +  (*i)))
 		return (-1);
-	(*i) = x;
 	return (1);
 }
 
@@ -51,13 +46,12 @@ int	minor_sig_count(char *input, int *i)
 	int	x;
 
 	x = *i;
-	while (input[++x] == '<')
+	while (input[++ (*i)] == '<')
 			;
-	if (x - (*i) > 2)
+	if ( (*i)- x > 2)
 		return (0);
-	if (!check_for_command_after(input + x))
+	if (!check_for_command_after(input +  (*i)))
 		return (-1);
-	(*i) = x;
 	return (1);
 }
 

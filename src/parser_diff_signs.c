@@ -12,15 +12,15 @@
 
 #include "../includes/minishell.h"
 
-int	pipe_checker(char *input, int *x, char **myChar)
+int	pipe_checker(char *input, int *i, char **myChar)
 {
 	int	checker;
 
-	checker = pipe_count(input, x);
+	checker = pipe_count(input, i);
 	if (!checker)
 	{
-		*x += 2;
-		*myChar = search_char(input + (*x));
+		*i += 2;
+		*myChar = search_char(input + (*i));
 		return (0);
 	}
 	else if (checker == -1)
@@ -28,15 +28,15 @@ int	pipe_checker(char *input, int *x, char **myChar)
 	return (1);
 }
 
-int	amper_checker(char *input, int *x, char **myChar)
+int	amper_checker(char *input, int *i, char **myChar)
 {
 	int	checker;
 
-	checker = amper_count(input, x);
+	checker = amper_count(input, i);
 	if (!checker)
 	{
-		*x += 2;
-		*myChar = search_char(input + (*x));
+		*i += 2;
+		*myChar = search_char(input + (*i));
 		return (0);
 	}
 	else if (checker == -1)
@@ -44,15 +44,15 @@ int	amper_checker(char *input, int *x, char **myChar)
 	return (1);
 }
 
-int	major_checker(char *input, int *x, char **myChar)
+int	major_checker(char *input, int *i, char **myChar)
 {
 	int	checker;
 
-	checker = major_sig_count(input, x);
+	checker = major_sig_count(input, i);
 	if (!checker)
 	{
-		*x += 2;
-		*myChar = search_char(input + (*x));
+		*i += 2;
+		*myChar = search_char(input + (*i));
 		return (0);
 	}
 	else if (checker == -1)
@@ -60,15 +60,15 @@ int	major_checker(char *input, int *x, char **myChar)
 	return (1);
 }
 
-int	minor_checker(char *input, int *x, char **myChar)
+int	minor_checker(char *input, int *i, char **myChar)
 {
 	int	checker;
 
-	checker = minor_sig_count(input, x);
+	checker = minor_sig_count(input, i);
 	if (!checker)
 	{
-		*x += 2;
-		*myChar = search_char(input + (*x));
+		*i += 2;
+		*myChar = search_char(input + (*i));
 		return (0);
 	}
 	else if (checker == -1)
