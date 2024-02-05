@@ -40,8 +40,11 @@ int	quotes_parser(char *input)
 
 int	signs_parser(char *input, int i)
 {
-	char errorChar;
+	char *errorChars;
+	int	checker;
 
+	errorChars = NULL;
+	checker = 0;
 	while (input[i])
 	{
 		if (input[i] == D_QUOTES)
@@ -50,18 +53,17 @@ int	signs_parser(char *input, int i)
 			i += quotes_check(input + i, S_QUOTES);
 		else if (ft_strchr("<>&|", input[i]))
 		{
-			if (check_signs(input, &i, &errorChar) == -2)
-				return (error_handler(ERROR_SPECIAL_CHAR_DOUBLE, &errorChar, NULL), 0);
-			else if (check_signs(input, &i, &errorChar) == -1)
-				return (error_handler(ERROR_SPECIAL_CHAR, &errorChar, NULL), 0);
+			checker = check_signs(input, &i, &errorChars);
+			if (!checker)
+				return (error_handler(ERROR_STRING_TYPE, errorChars, NULL), 0);
+			else if (checker == -1)
+				return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
 		}
 		else if (ft_strchr("\\;", input[i]))
 			return (error_handler(ERROR_SPECIAL_CHAR, &input[i], NULL), 0);
 		else
 			i++;
 	}
-	// if (!check_end(input))
-		// return (error_handler(ERROR_SPECIAL_CHAR, NULL, NULL), 0);
 	return (1);
 }
 
@@ -72,18 +74,20 @@ int	check_begin_case(char *input, int *i)
 		(*i)++;
 	if (!input[(*i)])
 		return (0);
+	if (signs_case(input + (*i)))
+		return (error_handler(ERROR_STRING_TYPE, signs_case(input + (*i)), NULL), 0);
 	if (input[(*i)] && input[(*i) + 1] && \
 	input[(*i)] == '>' && input[(*i) + 1] == '|')
 	{
 		(*i) += 2;
-		if (check_for_command_after(input + (*i)) == -1)
+		if (check_for_command_after(input + (*i)) == 0)
 			return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
-		else if (check_for_command_after(input + (*i)) == -2)
-			return (error_handler(ERROR_SPECIAL_CHAR, search_char(input + (*i)), NULL), 0);
+		else if (check_for_command_after(input + (*i)) == -1)
+			return (error_handler(ERROR_STRING_TYPE, search_char(input + (*i)), NULL), 0);
 		return (1);
 	}
-	else if (input[(*i)] && ft_strchr("<>&|", input[(*i)]))
-		return (error_handler(ERROR_SPECIAL_CHAR, &input[(*i)], NULL), 0);
+	else if (input[(*i)] && ft_strchr("&|", input[(*i)]))
+		return (error_handler(ERROR_STRING_TYPE, search_char(input + (*i)), NULL), 0);
 	if (!check_for_command_after(input + (*i)))
 		return (0);
 	return (1);

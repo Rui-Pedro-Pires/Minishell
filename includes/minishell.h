@@ -116,7 +116,7 @@ int					quotes_check(char *input, char c);
 int					check_for_command_after(char *input);
 int					check_pipe_amper_next(char *input);
 int					check_end(char *input);
-int					check_signs(char *input, int *i, char *myChar);
+int					check_signs(char *input, int *i, char **myChar);
 int					amper_count(char *input, int *i);
 int					pipe_count(char *input, int *i);
 int					major_sig_count(char *input, int *i);
