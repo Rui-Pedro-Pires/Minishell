@@ -89,6 +89,7 @@ typedef struct s_pipes
 /****************************/
 
 void				error_handler(int error_msg, void *param, void **param2);
+void				error_handler_2(int error_msg, void *param, void **param2);
 
 typedef enum e_error
 {
