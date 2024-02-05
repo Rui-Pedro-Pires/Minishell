@@ -128,6 +128,10 @@ char				*parenthesis_search(char *input);
 char				*pipe_amper_search(char *input);
 char				*signs_search(char *input);
 char				*signs_case(char *input);
+int					pipe_checker(char *input, int *x, char **myChar);
+int					amper_checker(char *input, int *x, char **myChar);
+int					major_checker(char *input, int *x, char **myChar);
+int					minor_checker(char *input, int *x, char **myChar);
 
 /****************************/
 /*			LIST			*/

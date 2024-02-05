@@ -63,6 +63,7 @@ int	signs_parser(char *input, int i)
 			return (error_handler(ERROR_SPECIAL_CHAR, &input[i], NULL), 0);
 		else
 			i++;
+		
 	}
 	return (1);
 }

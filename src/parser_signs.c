@@ -15,58 +15,16 @@
 int	check_signs(char *input, int *i, char **myChar)
 {
 	int	x;
-	int	checker;
 
 	x = *i;
-	checker = 0;
 	if (input[x] == '|')
-	{
-		checker = pipe_count(input, &x);
-		if (!checker)
-		{
-			x += 2;
-			*myChar = search_char(input + x);
-			return (0);
-		}
-		else if (checker == -1)
-			return (-1);
-	}
+		return (pipe_checker(input, &x, myChar));
 	else if (input[x] == '&')
-	{
-		checker = amper_count(input, &x);
-		if (!checker)
-		{
-			x += 2;
-			*myChar = search_char(input + x);
-			return (0);
-		}
-		else if (checker == -1)
-			return (-1);
-	}
+		return (amper_checker(input, &x, myChar));
 	else if (input[x] == '>')
-	{
-		checker = major_sig_count(input, &x);
-		if (!checker)
-		{
-			x += 2;
-			*myChar = search_char(input + x);
-			return (0);
-		}
-		else if (checker == -1)
-			return (-1);
-	}
+		return (major_checker(input, &x, myChar));
 	else if (input[x] == '<')
-	{
-		checker = minor_sig_count(input, &x);
-		if (!checker)
-		{
-			x += 2;
-			*myChar = search_char(input + x);
-			return (0);
-		}
-		else if (checker == -1)
-			return (-1);
-	}
+		return (minor_checker(input, &x, myChar));
 	(*i) = x;
 	return (1);
 }
