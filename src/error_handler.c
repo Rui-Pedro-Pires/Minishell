@@ -48,3 +48,4 @@ void error_handler_2(int error_msg, void *param, void **param2)
 		printf("minishell: syntax error near unexpected token `%s'\n",
 			(char *)param);
 	}
+}
