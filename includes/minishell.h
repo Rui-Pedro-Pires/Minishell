@@ -94,7 +94,8 @@ typedef enum e_error
 {
 	ERROR_UNFINISHED_QUOTE,
 	ERROR_SPECIAL_CHAR,
-	ERROR_NEWLINE
+	ERROR_NEWLINE,
+	ERROR_SPECIAL_CHAR_DOUBLE
 }					t_error;
 
 /****************************/
