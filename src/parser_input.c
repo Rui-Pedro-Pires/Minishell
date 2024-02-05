@@ -63,7 +63,7 @@ int	signs_parser(char *input, int i)
 	return (1);
 }
 
-int	check_begin_case(char *input, int *i) /*#TODO error handlers*/
+int	check_begin_case(char *input, int *i)
 {
 	while (input[(*i)] && (input[(*i)] == ' ' \
 	|| input[(*i)] == '\t' || input[(*i)] == '\n'))
@@ -74,8 +74,10 @@ int	check_begin_case(char *input, int *i) /*#TODO error handlers*/
 	input[(*i)] == '>' && input[(*i) + 1] == '|')
 	{
 		(*i) += 2;
-		if (!check_for_command_after(input + (*i)))
-			return (error_handler(ERROR_SPECIAL_CHAR, "newline", NULL), 0);
+		if (check_for_command_after(input + (*i)) == -1)
+			return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
+		else if (check_for_command_after(input + (*i)) == -2)
+			return (error_handler(ERROR_SPECIAL_CHAR, search_char(input + (*i)), NULL), 0);
 		return (1);
 	}
 	else if (input[(*i)] && ft_strchr("<>&|", input[(*i)]))

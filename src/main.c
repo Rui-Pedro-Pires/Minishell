@@ -17,9 +17,9 @@ void	freezzzz(char *input);
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
-	t_pipes	*head;
+	// t_pipes	*head;
 
-	head = NULL;
+	// head = NULL;
 	(void)argv;
 	(void)env;
 	if (argc == 1)

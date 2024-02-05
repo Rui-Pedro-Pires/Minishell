@@ -120,6 +120,7 @@ int					pipe_count(char *input, int *i);
 int					major_sig_count(char *input, int *i);
 int					minor_sig_count(char *input, int *i);
 int					check_for_command_before(char *input, int i);
+char				*search_char(char  *input);
 
 /****************************/
 /*			LIST			*/
