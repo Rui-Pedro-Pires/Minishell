@@ -95,7 +95,8 @@ typedef enum e_error
 	ERROR_UNFINISHED_QUOTE,
 	ERROR_SPECIAL_CHAR,
 	ERROR_NEWLINE,
-	ERROR_SPECIAL_CHAR_DOUBLE
+	ERROR_SPECIAL_CHAR_DOUBLE,
+	ERROR_STRING_TYPE
 }					t_error;
 
 /****************************/
@@ -122,6 +123,10 @@ int					major_sig_count(char *input, int *i);
 int					minor_sig_count(char *input, int *i);
 int					check_for_command_before(char *input, int i);
 char				*search_char(char  *input);
+char				*parenthesis_search(char *input);
+char				*pipe_amper_search(char *input);
+char				*signs_search(char *input);
+char				*signs_case(char *input);
 
 /****************************/
 /*			LIST			*/
