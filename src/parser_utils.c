@@ -65,8 +65,10 @@ int	pipe_count(char *input, int *i)
 	x = *i;
 	while (input[++(*i)] == '|')
 			;
+	if ((*i) - x > 3 || !check_pipe_amper_next(input + (*i)))
+		return (-2);
 	if ((*i) - x > 2 || !check_pipe_amper_next(input + (*i)))
-		return (0);
+		return (-1);
 	return (1);
 }
 
@@ -77,8 +79,10 @@ int	amper_count(char *input, int *i)
 	x = *i;
 	while (input[++(*i)] == '&')
 			;
+	if ((*i) - x > 3 || !check_pipe_amper_next(input + (*i)))
+		return (-2);
 	if ((*i) - x != 2 || !check_pipe_amper_next(input + (*i)))
-		return (0);
+		return (-1);
 	return (1);
 }
 
