@@ -50,14 +50,15 @@ int	major_sig_count(char *input, int *i)
 	int	x;
 
 	x = *i;
-	while (input[++(*i)] == '>')
+	while (input[++x] == '>')
 			;
-	if ((*i) - x < 2 && input[(*i)] == '|' && check_for_command_after(input + ((*i) + 1)))
+	if (x - (*i)< 2 && input[(*i)] == '|' && check_for_command_after(input + (x + 1)))
 		return (1);
-	if ((*i) - x > 3 || !check_for_command_after(input + (*i)))
+	if (x - (*i) > 3 || !check_for_command_after(input + x))
 		return (-2);
-	if ((*i) - x > 2 || !check_for_command_after(input + (*i)))
+	if (x - (*i) > 2 || !check_for_command_after(input + x))
 		return (-1);
+	(*i) = x;
 	return (1);
 }
 
@@ -66,11 +67,12 @@ int	minor_sig_count(char *input, int *i)
 	int	x;
 
 	x = *i;
-	while (input[++(*i)] == '<')
+	while (input[++x] == '<')
 			;
-	if ((*i) - x > 3 || !check_for_command_after(input + (*i)))
+	if (x - (*i) > 3 || !check_for_command_after(input + x))
 		return (-2);
-	if ((*i) - x > 2 || !check_for_command_after(input + (*i)))
+	if (x - (*i) > 2 || !check_for_command_after(input + x))
 		return (-1);
+	(*i) = x;
 	return (1);
 }

@@ -50,10 +50,10 @@ int	signs_parser(char *input, int i)
 			i += quotes_check(input + i, S_QUOTES);
 		else if (ft_strchr("<>&|", input[i]))
 		{
-			if (check_signs(input, &i, &errorChar) == -1)
-				return (error_handler(ERROR_SPECIAL_CHAR, &errorChar, NULL), 0);
-			else if (check_signs(input, &i, &errorChar) == -2)
+			if (check_signs(input, &i, &errorChar) == -2)
 				return (error_handler(ERROR_SPECIAL_CHAR_DOUBLE, &errorChar, NULL), 0);
+			else if (check_signs(input, &i, &errorChar) == -1)
+				return (error_handler(ERROR_SPECIAL_CHAR, &errorChar, NULL), 0);
 		}
 		else if (ft_strchr("\\;", input[i]))
 			return (error_handler(ERROR_SPECIAL_CHAR, &input[i], NULL), 0);
