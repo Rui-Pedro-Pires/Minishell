@@ -156,7 +156,7 @@ char				*trim_str(char *input, t_type_pipe *pipe_check, int *i);
 /*			READ LINE		*/
 /****************************/
 
-char				*line_read(void);
+char				*line_read(char ***heardoc_read);
 int					unfinished_command_line(char *input);
 int					count_parenthesis(char *input, int *parenthesis, int *check_empty);
 char				*ft_strjoin_v2(char *s1, char *s2);

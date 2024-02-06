@@ -14,20 +14,20 @@
 
 static char *get_input(void);
 
-char    *line_read(void) /*#TODO add error messages*/
+char    *line_read(char ***heardoc_read) /*#TODO add error messages*/
 {
 	char    *input;
 	char	*new_line;
 	int		check_empty;
 	int		parenthesis;
-
+	(void)heardoc_read;
 	parenthesis = 0;
-	check_empty = 0;
 	input = get_input();
 	if (!parse_input(input) || !count_parenthesis(input, &parenthesis, &check_empty))
 			return (add_history(input), free(input), NULL);
 	while (unfinished_command_line(input) || parenthesis != 0)
 	{
+
 		new_line = readline("> ");
 		if (!(*new_line))
 		{

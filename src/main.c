@@ -17,6 +17,7 @@ void	freezzzz(char *input);
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
+	char	**heardoc_read;
 	// t_pipes	*head;
 
 	// head = NULL;
@@ -26,7 +27,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		while (1)
 		{
-			input = line_read();
+			input = line_read(&heardoc_read);
 			if (input && *input)
 				add_history(input);
 			else

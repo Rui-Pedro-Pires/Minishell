@@ -85,7 +85,7 @@ int	minor_checker(char *input, int *i, char **myChar)
 		*myChar = search_char(input + (*i));
 		return (-1);
 	}
-	else if (checker = -2)
+	else if (checker == -2)
 	{
 		*i += 1;
 		*myChar = search_char(input + (*i));
