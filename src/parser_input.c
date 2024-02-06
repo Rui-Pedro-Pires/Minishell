@@ -55,15 +55,14 @@ int	signs_parser(char *input, int i)
 		{
 			checker = check_signs(input, &i, &errorChars);
 			if (!checker)
-				return (error_handler_2(ERROR_STRING_TYPE, errorChars, NULL), 0);
-			else if (checker == -1)
 				return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
+			else if (checker == -1)
+				return (error_handler_2(ERROR_STRING_TYPE, errorChars, NULL), 0);
 		}
 		else if (ft_strchr("\\;", input[i]))
 			return (error_handler(ERROR_SPECIAL_CHAR, &input[i], NULL), 0);
 		else
 			i++;
-		
 	}
 	return (1);
 }
@@ -93,6 +92,20 @@ int	check_begin_case(char *input, int *i)
 	else if (signs_case(input + (*i)))
 		return (error_handler_2(ERROR_STRING_TYPE, signs_case(input + (*i)), NULL), 0);
 	if (!check_for_command_after(input + (*i)))
+		return (0);
+	return (1);
+}
+
+int	parse_input(char *input)
+{
+	int	i;
+
+	i = 0;
+	if (!quotes_parser(input))
+		return (0);
+	if (!check_begin_case(input, &i))
+		return (0);
+	if (!signs_parser(input, i))
 		return (0);
 	return (1);
 }

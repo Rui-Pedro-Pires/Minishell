@@ -56,17 +56,3 @@ static char *get_input(void)
 	free(cwd);
 	return (input);
 }
-
-int	parse_input(char *input)
-{
-	int	i;
-
-	i = 0;
-	if (!quotes_parser(input))
-		return (0);
-	if (!check_begin_case(input, &i))
-		return (0);
-	if (!signs_parser(input, i))
-		return (0);
-	return (1);
-}

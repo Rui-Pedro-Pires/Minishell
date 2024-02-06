@@ -28,30 +28,51 @@ int	check_signs(char *input, int *i, char **myChar)
 int	major_sig_count(char *input, int *i)
 {
 	int	x;
+	int	checker;
 
 	x = *i;
-	while (input[++ (*i)] == '>')
+	checker = 0;
+	while (input[++x] == '>')
 			;
-	if ( (*i) - x < 2 && input[(*i)] == '|' && check_for_command_after(input + ((*i) + 1)))
+	if (x - (*i) < 2 && input[x] == '|' && check_for_command_after(input + (x + 1)) == 1)
+	{
+		(*i) = x;
 		return (1);
-	if ( (*i) - x > 2)
-		return (0);
-	if (!check_for_command_after(input +  (*i)))
+	}
+	if (x - (*i) > 2)
 		return (-1);
+	if (input[x] == '|')
+		x++;
+	checker = check_for_command_after(input + x);
+	if (checker == 0)
+		return (0);
+	else if (checker == -1 && x - (*i) == 1)
+		return (-2);
+	else if (checker == -1)
+		return (-1);
+	(*i) = x;
 	return (1);
 }
 
 int	minor_sig_count(char *input, int *i)
 {
 	int	x;
+	int	checker;
 
 	x = *i;
-	while (input[++ (*i)] == '<')
+	checker = 0;
+	while (input[++x] == '<')
 			;
-	if ( (*i)- x > 2)
-		return (0);
-	if (!check_for_command_after(input +  (*i)))
+	if (x - (*i) > 2)
 		return (-1);
+	checker = check_for_command_after(input +  x);
+	if (checker == 0)
+		return (0);
+	else if (checker == -1 && x - (*i) == 1)
+		return (-2);
+	else if (checker == -1)
+		return (-1);
+	(*i) = x;
 	return (1);
 }
 
