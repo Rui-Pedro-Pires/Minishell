@@ -14,20 +14,18 @@
 
 static char *get_input(void);
 
-char    *line_read(char ***heardoc_read) /*#TODO add error messages*/
+void	line_read(char **heardoc_read, char **input, t_counter *counter_struc) /*#TODO add error messages*/
 {
-	char    *input;
 	char	*new_line;
 	int		check_empty;
 	int		parenthesis;
-	(void)heardoc_read;
-	parenthesis = 0;
-	input = get_input();
-	if (!parse_input(input) || !count_parenthesis(input, &parenthesis, &check_empty))
-			return (add_history(input), free(input), NULL);
-	while (unfinished_command_line(input) || parenthesis != 0)
-	{
 
+	parenthesis = 0;
+	*input = get_input();
+	if (!parse_input(*input, counter_struc, heardoc_read) || !count_parenthesis(*input, &parenthesis, &check_empty))
+			return (add_history(*input), free(*input));
+	while (unfinished_command_line(*input) || parenthesis != 0)
+	{
 		new_line = readline("> ");
 		if (!(*new_line))
 		{
@@ -36,14 +34,13 @@ char    *line_read(char ***heardoc_read) /*#TODO add error messages*/
 		}
 		if (!count_parenthesis(new_line, &parenthesis, &check_empty))
 		{
-			input = ft_strjoin_v2(input, new_line);
-			return (add_history(input), free(input), NULL);
+			*input = ft_strjoin_v2(*input, new_line);
+			return (add_history(*input), free(*input));
 		}
-		input = ft_strjoin_v2(input, new_line);
-		if (!parse_input(input) || parenthesis < 0) 
-			return (add_history(input), free(input), NULL);
+		*input = ft_strjoin_v2(*input, new_line);
+		if (!parse_input(*input, counter_struc, heardoc_read) || parenthesis < 0) 
+			return (add_history(*input), free(*input));
 	}
-	return (input);
 }
 
 static char *get_input(void)

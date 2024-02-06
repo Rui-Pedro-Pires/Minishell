@@ -96,7 +96,7 @@ int	check_begin_case(char *input, int *i)
 	return (1);
 }
 
-int	parse_input(char *input)
+int	parse_input(char *input, t_counter *count_struct, char **heardoc_read)
 {
 	int	i;
 
@@ -107,5 +107,6 @@ int	parse_input(char *input)
 		return (0);
 	if (!signs_parser(input, i))
 		return (0);
+	check_for_heardoc(heardoc_read, input, count_struct);
 	return (1);
 }

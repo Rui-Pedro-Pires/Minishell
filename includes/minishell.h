@@ -71,6 +71,13 @@ typedef struct s_pipes
 	bool			empty_node;
 }					t_pipes;
 
+typedef	struct s_counter
+{
+	int	i;
+	int	counter;
+}				t_counter;
+
+
 /********************/
 /*		COLORS		*/
 /********************/
@@ -104,7 +111,7 @@ typedef enum e_error
 /*			PARSER			*/
 /****************************/
 
-int					parse_input(char *input);
+int					parse_input(char *input, t_counter *count_struct, char **heardoc_read);
 int					signs_parser(char *input, int i);
 int					quotes_parser(char *input);
 int					check_begin_case(char *input, int *i);
@@ -156,11 +163,12 @@ char				*trim_str(char *input, t_type_pipe *pipe_check, int *i);
 /*			READ LINE		*/
 /****************************/
 
-char				*line_read(char ***heardoc_read);
+void				line_read(char **heardoc_read, char **input, t_counter *counter_struc);
 int					unfinished_command_line(char *input);
 int					count_parenthesis(char *input, int *parenthesis, int *check_empty);
 char				*ft_strjoin_v2(char *s1, char *s2);
 char				*creat_cwd(void);
+void				check_for_heardoc(char **heardoc_read, char *input, t_counter *count_struc);
 
 /****************************/
 /*			DATA			*/

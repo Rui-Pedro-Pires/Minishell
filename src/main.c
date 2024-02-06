@@ -18,16 +18,20 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	char	**heardoc_read;
+	t_counter	count_struc;
 	// t_pipes	*head;
 
 	// head = NULL;
+	heardoc_read = NULL;
 	(void)argv;
 	(void)env;
 	if (argc == 1)
 	{
 		while (1)
 		{
-			input = line_read(&heardoc_read);
+			count_struc.i = 0;
+			count_struc.counter = 0;
+			line_read(heardoc_read, &input, &count_struc);
 			if (input && *input)
 				add_history(input);
 			else

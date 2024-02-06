@@ -67,17 +67,22 @@ char	*ft_strjoin_v2(char *s1, char *s2)
 	char	*new_str;
 	int		i;
 	int		n;
+	int		size;
 
-	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
+	if (!s1 || !(*s1))
+		size = ft_strlen(s2);
+	else
+		size = ft_strlen(s1) + ft_strlen(s2);
+	new_str = malloc(size + 2);
 	if (!new_str)
 		return (NULL);
 	i = 0;
 	n = 0;
-	while (s1[i] != '\0')
+	while (s1[i] != '\0' && s1)
 		new_str[n++] = s1[i++];
 	i = 0;
 	new_str[n++] = ' ';
-	while (s2[i] != '\0')
+	while (s2[i] != '\0' && s2)
 		new_str[n++] = s2[i++];
 	new_str[n] = '\0';
 	free(s1);
