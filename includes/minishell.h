@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <errno.h>
 
 # define D_QUOTES 34
 # define S_QUOTES 39
@@ -123,7 +124,7 @@ int					pipe_count(char *input, int *i);
 int					major_sig_count(char *input, int *i);
 int					minor_sig_count(char *input, int *i);
 int					check_for_command_before(char *input, int i);
-char				*search_char(char  *input);
+char				*search_char(char *input);
 char				*parenthesis_search(char *input);
 char				*pipe_amper_search(char *input);
 char				*signs_search(char *input);
@@ -154,7 +155,8 @@ char				*trim_str(char *input, t_type_pipe *pipe_check, int *i);
 
 char				*line_read(void);
 int					unfinished_command_line(char *input);
-int					count_parenthesis(char *input, int *parenthesis, int *check_empty);
+int					count_parenthesis(char *input, int *parenthesis,
+						int *check_empty);
 char				*ft_strjoin_v2(char *s1, char *s2);
 char				*creat_cwd(void);
 
@@ -184,5 +186,11 @@ char				**special_splitens(char *str, int *back, int *front,
 
 void				tester(t_pipes *head);
 void				input_str_tester(t_pipes *head);
+
+/****************************/
+/*			CD				*/
+/****************************/
+
+void				ft_cd(char *str);
 
 #endif
