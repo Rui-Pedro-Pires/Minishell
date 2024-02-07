@@ -167,6 +167,7 @@ void				line_read(char **heardoc_read, char **input, t_counter *counter_struc);
 int					unfinished_command_line(char *input);
 int					count_parenthesis(char *input, int *parenthesis, int *check_empty);
 char				*ft_strjoin_v2(char *s1, char *s2);
+char				*ft_strjoin_v3(char *s1, char *s2);
 char				*creat_cwd(void);
 void				check_for_heardoc(char **heardoc_read, char *input, t_counter *count_struc);
 

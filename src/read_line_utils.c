@@ -62,7 +62,7 @@ int	count_parenthesis(char *input, int *parenthesis, int *check_empty)
 	return (1);
 }
 
-char	*ft_strjoin_v2(char *s1, char *s2)
+char	*ft_strjoin_v3(char *s1, char *s2)
 {
 	char	*new_str;
 	int		i;
