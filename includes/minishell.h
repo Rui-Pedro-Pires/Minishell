@@ -73,8 +73,10 @@ typedef struct s_pipes
 
 typedef	struct s_counter
 {
-	int	i;
-	int	counter;
+	int		i;
+	int		counter;
+	int		check_empty;
+	int		parenthesis;
 }				t_counter;
 
 
@@ -111,7 +113,7 @@ typedef enum e_error
 /*			PARSER			*/
 /****************************/
 
-int					parse_input(char *input, t_counter *count_struct, char **heardoc_read);
+int					parse_input(char *input, t_counter *count_struct, char ***heardoc_read);
 int					signs_parser(char *input, int i);
 int					quotes_parser(char *input);
 int					check_begin_case(char *input, int *i);
@@ -163,13 +165,14 @@ char				*trim_str(char *input, t_type_pipe *pipe_check, int *i);
 /*			READ LINE		*/
 /****************************/
 
-void				line_read(char **heardoc_read, char **input, t_counter *counter_struc);
+char				*line_read(char ***heardoc_read, t_counter *counter_struc);
 int					unfinished_command_line(char *input);
-int					count_parenthesis(char *input, int *parenthesis, int *check_empty);
+int					count_parenthesis(char *input, t_counter *counter_struc);
 char				*ft_strjoin_v2(char *s1, char *s2);
 char				*ft_strjoin_v3(char *s1, char *s2);
 char				*creat_cwd(void);
-void				check_for_heardoc(char **heardoc_read, char *input, t_counter *count_struc);
+void				check_for_heardoc(char ***heardoc_read, char *input, t_counter *count_struc);
+char				*keep_reading(char *input_rec, t_counter *c_struc, char ***heardoc_read);
 
 /****************************/
 /*			DATA			*/
@@ -195,7 +198,7 @@ char				**special_splitens(char *str, int *back, int *front,
 /*			TESTERZZZ		*/
 /****************************/
 
-void				tester(t_pipes *head);
+void				freezzzz(char *input, char **heardoc_read);
 void				input_str_tester(t_pipes *head);
 
 #endif

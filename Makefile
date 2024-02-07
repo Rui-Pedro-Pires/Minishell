@@ -85,6 +85,9 @@ debug: all sup_file
 leaks: ./minishell
 	$(VG) ./minishell
 
+gdb: re
+	gdb --tui $(NAME)
+
 .PHONY: bonus
 
 define SUP_BODY

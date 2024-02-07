@@ -12,44 +12,63 @@
 
 #include "../includes/minishell.h"
 
-static char *get_input(void);
+static char	*get_input(void);
 
-void	line_read(char **heardoc_read, char **input, t_counter *counter_struc) /*#TODO add error messages*/
+char	*line_read(char ***heardoc_read, t_counter *counter_struc)
+{
+	char	*input;
+
+	counter_struc->parenthesis = 0;
+	input = get_input();
+	if (!parse_input(input, counter_struc, heardoc_read) \
+	|| !count_parenthesis(input, counter_struc))
+		return (add_history(input), free(input), NULL);
+	input = keep_reading(input, counter_struc, heardoc_read);
+	return (input);
+}
+
+char	*keep_reading(char *input_rec, t_counter *c_struc, char ***heardoc_read)
 {
 	char	*new_line;
-	int		check_empty;
-	int		parenthesis;
+	char	*input;
 
-	parenthesis = 0;
-	*input = get_input();
-	if (!parse_input(*input, counter_struc, heardoc_read) || !count_parenthesis(*input, &parenthesis, &check_empty))
-			return (add_history(*input), free(*input));
-	while (unfinished_command_line(*input) || parenthesis != 0)
+	input = input_rec;
+	while (unfinished_command_line(input) || c_struc->parenthesis != 0)
 	{
 		new_line = readline("> ");
+		if (!new_line)
+			return (NULL);
 		if (!(*new_line))
 		{
 			free(new_line);
 			continue ;
 		}
-		if (!count_parenthesis(new_line, &parenthesis, &check_empty))
+		if (!count_parenthesis(new_line, c_struc))
 		{
-			*input = ft_strjoin_v2(*input, new_line);
-			return (add_history(*input), free(*input));
+			input = ft_strjoin_v2(input, new_line);
+			return (add_history(input), free(input), NULL);
 		}
-		*input = ft_strjoin_v2(*input, new_line);
-		if (!parse_input(*input, counter_struc, heardoc_read) || parenthesis < 0) 
-			return (add_history(*input), free(*input));
+		input = ft_strjoin_v2(input, new_line);
+		if (!parse_input(input, c_struc, heardoc_read) \
+		|| c_struc->parenthesis < 0)
+			return (add_history(input), free(input), NULL);
 	}
+	return (input);
 }
 
-static char *get_input(void)
+static char	*get_input(void)
 {
 	char	*cwd;
-	char    *input;
+	char	*input;
 
 	cwd = creat_cwd();
 	input = readline(cwd);
+	if (!input)
+	{
+		free(cwd);
+		printf("exit\n");
+		exit(EXIT_SUCCESS);
+	}
 	free(cwd);
 	return (input);
 }

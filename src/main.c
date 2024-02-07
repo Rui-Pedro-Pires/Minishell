@@ -12,8 +12,6 @@
 
 #include "../includes/minishell.h"
 
-void	freezzzz(char *input);
-
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
@@ -31,12 +29,13 @@ int	main(int argc, char **argv, char **env)
 		{
 			count_struc.i = 0;
 			count_struc.counter = 0;
-			line_read(heardoc_read, &input, &count_struc);
+			input = line_read(&heardoc_read, &count_struc);
 			if (input && *input)
 				add_history(input);
 			else
 				continue;
-			freezzzz(input);
+			
+			freezzzz(input, heardoc_read);
 			// creat_list(&head, input);			
 			// free(input);
 			// input_str_tester(head);
@@ -49,7 +48,18 @@ int	main(int argc, char **argv, char **env)
 	}
 }
 
-void	freezzzz(char *input)
+void	freezzzz(char *input, char **heardoc_read)
 {
+	int	i;
+
+	i = 0;
 	free(input);
+	if (!heardoc_read)
+		return ;
+	while (heardoc_read[i])
+	{
+		free(heardoc_read[i]);
+		i++;
+	}
+	free(heardoc_read);
 }

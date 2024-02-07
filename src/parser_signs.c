@@ -33,7 +33,7 @@ int	major_sig_count(char *input, int *i)
 	x = *i;
 	checker = 0;
 	while (input[++x] == '>')
-			;
+		;
 	if (x - (*i) < 2 && input[x] == '|' && check_for_command_after(input + (x + 1)) == 1)
 	{
 		(*i) = x;

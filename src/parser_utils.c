@@ -66,7 +66,7 @@ int	pipe_count(char *input, int *i)
 	checker = 0;
 	x = *i;
 	while (input[++x] == '|')
-			;
+		;
 	if ((x - (*i)) > 2)
 		return (-1);
 	checker = check_pipe_amper_next(input + x);
@@ -86,7 +86,7 @@ int	amper_count(char *input, int *i)
 	checker = 0;
 	x = *i;
 	while (input[++x] == '&')
-			;
+		;
 	if (x - (*i) != 2)
 		return (-1);
 	checker = check_pipe_amper_next(input + x);

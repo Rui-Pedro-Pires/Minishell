@@ -19,6 +19,8 @@ int	quotes_parser(char *input)
 
 	i = 0;
 	j = 0;
+	if (!input || !(*input))
+		return (0);
 	while (input[i] != '\0')
 	{
 		if (input[i] == D_QUOTES || input[i] == S_QUOTES)
@@ -40,10 +42,10 @@ int	quotes_parser(char *input)
 
 int	signs_parser(char *input, int i)
 {
-	char *errorChars;
-	int	checker;
+	char	*errorch;
+	int		checker;
 
-	errorChars = NULL;
+	errorch = NULL;
 	checker = 0;
 	while (input[i])
 	{
@@ -53,11 +55,11 @@ int	signs_parser(char *input, int i)
 			i += quotes_check(input + i, S_QUOTES);
 		else if (ft_strchr("<>&|", input[i]))
 		{
-			checker = check_signs(input, &i, &errorChars);
+			checker = check_signs(input, &i, &errorch);
 			if (!checker)
 				return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
 			else if (checker == -1)
-				return (error_handler_2(ERROR_STRING_TYPE, errorChars, NULL), 0);
+				return (error_handler_2(ERROR_STRING_TYPE, errorch, NULL), 0);
 		}
 		else if (ft_strchr("\\;", input[i]))
 			return (error_handler(ERROR_SPECIAL_CHAR, &input[i], NULL), 0);
@@ -96,7 +98,7 @@ int	check_begin_case(char *input, int *i)
 	return (1);
 }
 
-int	parse_input(char *input, t_counter *count_struct, char **heardoc_read)
+int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
 {
 	int	i;
 
