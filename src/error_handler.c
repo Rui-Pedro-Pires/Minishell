@@ -39,9 +39,9 @@ void	error_handler(int error_msg, void *param, void **param2)
 	}
 }
 
-void error_handler_2(int error_msg, void *param, void **param2)
+void	err_hlr_2(int error_msg, void *param, void **param2)
 {
-	if (error_msg == ERROR_STRING_TYPE)
+	if (error_msg == ERR_STR)
 	{
 		(void)param2;
 		printf("minishell: syntax error near unexpected token `%s'\n",

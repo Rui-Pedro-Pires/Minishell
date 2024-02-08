@@ -59,7 +59,7 @@ int	signs_parser(char *input, int i)
 			if (!checker)
 				return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
 			else if (checker == -1)
-				return (error_handler_2(ERROR_STRING_TYPE, errorch, NULL), 0);
+				return (err_hlr_2(ERR_STR, errorch, NULL), 0);
 		}
 		else if (ft_strchr("\\;", input[i]))
 			return (error_handler(ERROR_SPECIAL_CHAR, &input[i], NULL), 0);
@@ -82,18 +82,18 @@ int	check_begin_case(char *input, int *i)
 	input[(*i)] == '>' && input[(*i) + 1] == '|')
 	{
 		(*i) += 2;
-		checker = check_for_command_after(input + (*i));
+		checker = check_cmd_aft(input + (*i));
 		if (!checker)
 			return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
 		else if (checker == -1)
-			return (error_handler_2(ERROR_STRING_TYPE, search_char(input + (*i)), NULL), 0);
+			return (err_hlr_2(ERR_STR, search_char(input + (*i)), NULL), 0);
 		return (1);
 	}
 	else if (input[(*i)] && ft_strchr("&|", input[(*i)]))
-		return (error_handler_2(ERROR_STRING_TYPE, search_char(input + (*i)), NULL), 0);
+		return (err_hlr_2(ERR_STR, search_char(input + (*i)), NULL), 0);
 	else if (signs_case(input + (*i)))
-		return (error_handler_2(ERROR_STRING_TYPE, signs_case(input + (*i)), NULL), 0);
-	if (!check_for_command_after(input + (*i)))
+		return (err_hlr_2(ERR_STR, signs_case(input + (*i)), NULL), 0);
+	if (!check_cmd_aft(input + (*i)))
 		return (0);
 	return (1);
 }
@@ -109,6 +109,6 @@ int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
 		return (0);
 	if (!signs_parser(input, i))
 		return (0);
-	check_for_heardoc(heardoc_read, input, count_struct);
+	heardoc_check(heardoc_read, input, count_struct);
 	return (1);
 }

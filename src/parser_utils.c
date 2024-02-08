@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	check_pipe_amper_next(char *input)
+int	check_cmd_bf(char *input)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ int	check_end(char *input)
 	return (1);
 }
 
-int	check_for_command_after(char *input)
+int	check_cmd_aft(char *input)
 {
 	int	i;
 
@@ -69,7 +69,7 @@ int	pipe_count(char *input, int *i)
 		;
 	if ((x - (*i)) > 2)
 		return (-1);
-	checker = check_pipe_amper_next(input + x);
+	checker = check_cmd_bf(input + x);
 	if (checker == 0 && x - (*i) == 1)
 		return (-2);
 	else if (checker == 0)
@@ -89,7 +89,7 @@ int	amper_count(char *input, int *i)
 		;
 	if (x - (*i) != 2)
 		return (-1);
-	checker = check_pipe_amper_next(input + x);
+	checker = check_cmd_bf(input + x);
 	if (checker == 0 && x - (*i) == 1)
 		return (-2);
 	else if (checker == 0)

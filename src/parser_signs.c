@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 
+static int	ft_return_check(char *input, int *i, int *x);
+
 int	check_signs(char *input, int *i, char **myChar)
 {
 	if (input[(*i)] && input[(*i)] == '|')
@@ -34,16 +36,16 @@ int	major_sig_count(char *input, int *i)
 	checker = 0;
 	while (input[++x] == '>')
 		;
-	if (x - (*i) < 2 && input[x] == '|' && check_for_command_after(input + (x + 1)) == 1)
+	if (x - (*i) > 2)
+		return (-1);
+	if (x - (*i) < 2 && input[x] == '|' && check_cmd_aft(input + (x + 1)) == 1)
 	{
 		(*i) = x;
 		return (1);
 	}
-	if (x - (*i) > 2)
-		return (-1);
 	if (input[x] == '|')
 		x++;
-	checker = check_for_command_after(input + x);
+	checker = check_cmd_aft(input + x);
 	if (checker == 0)
 		return (0);
 	else if (checker == -1 && x - (*i) == 1)
@@ -62,16 +64,18 @@ int	minor_sig_count(char *input, int *i)
 	x = *i;
 	checker = 0;
 	while (input[++x] == '<')
-			;
+		;
 	if (x - (*i) > 2)
 		return (-1);
-	checker = check_for_command_after(input +  x);
-	if (checker == 0)
-		return (0);
-	else if (checker == -1 && x - (*i) == 1)
-		return (-2);
-	else if (checker == -1)
-		return (-1);
+	if (x - (*i) == 1 && input[(x)] == '>' && \
+	check_cmd_aft(input + (x + 1)) == 1)
+	{
+		*i = x;
+		return (1);
+	}
+	checker = ft_return_check(input, i, &x);
+	if (checker != 1)
+		return (checker);
 	(*i) = x;
 	return (1);
 }
@@ -102,4 +106,24 @@ char	*signs_case(char *input)
 			return (search_char(input + i));
 	}
 	return (NULL);
+}
+
+static int	ft_return_check(char *input, int *i, int *x)
+{
+	int	checker;
+
+	checker = check_cmd_aft(input + (*x));
+	if (*x - (*i) == 1 && input[(*x)] == '>' && \
+	!check_cmd_aft(input + ((*x) + 1)))
+		return (0);
+	if (*x - (*i) == 1 && input[(*x)] == '>' && \
+	check_cmd_aft(input + ((*x) + 1)) == -1)
+		return (-1);
+	if (checker == 0)
+		return (0);
+	else if (checker == -1 && (*x) - (*i) == 1)
+		return (-2);
+	else if (checker == -1)
+		return (-1);
+	return (1);
 }

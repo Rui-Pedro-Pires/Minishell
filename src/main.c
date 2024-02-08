@@ -34,8 +34,7 @@ int	main(int argc, char **argv, char **env)
 				add_history(input);
 			else
 				continue;
-			
-			freezzzz(input, heardoc_read);
+			freezzzz(input, &heardoc_read);
 			// creat_list(&head, input);			
 			// free(input);
 			// input_str_tester(head);
@@ -48,18 +47,19 @@ int	main(int argc, char **argv, char **env)
 	}
 }
 
-void	freezzzz(char *input, char **heardoc_read)
+void	freezzzz(char *input, char ***heardoc_read)
 {
 	int	i;
 
 	i = 0;
 	free(input);
-	if (!heardoc_read)
+	if (!(*heardoc_read))
 		return ;
-	while (heardoc_read[i])
+	while ((*heardoc_read)[i])
 	{
-		free(heardoc_read[i]);
+		free((*heardoc_read)[i]);
 		i++;
 	}
-	free(heardoc_read);
+	free((*heardoc_read));
+	(*heardoc_read) = NULL;
 }

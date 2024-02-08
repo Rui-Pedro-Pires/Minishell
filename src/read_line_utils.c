@@ -30,7 +30,7 @@ int	unfinished_command_line(char *input)
 	return (0);
 }
 
-int	count_parenthesis(char *input, t_counter *counter_struc)
+int	count_parenthesis(char *input, t_counter *cnt)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ int	count_parenthesis(char *input, t_counter *counter_struc)
 	while (input[i])
 	{
 		if (!ft_strchr("|<>&()", input[i]))
-			counter_struc->check_empty = 0;
+			cnt->empty = 0;
 		if (input[i] == D_QUOTES)
 			i += quotes_check(input + i, D_QUOTES);
 		else if (input[i] == S_QUOTES)
@@ -47,68 +47,16 @@ int	count_parenthesis(char *input, t_counter *counter_struc)
 		{
 			if (!check_for_command_before(input, i))
 				return (error_handler(ERROR_NEWLINE, &"newline", NULL), 0);
-			counter_struc->parenthesis++;
-			counter_struc->check_empty = 1;
+			cnt->prnt++;
+			cnt->empty = 1;
 		}
-		else if (input[i] && input[i] == ')' && counter_struc->check_empty == 0)
-			counter_struc->parenthesis--;
-		if ((input[i] && input[i] == ')' \
-		&& counter_struc->check_empty == 1) || counter_struc->parenthesis < 0)
+		else if (input[i] && input[i] == ')' && cnt->empty == 0)
+			cnt->prnt--;
+		if ((input[i] && input[i] == ')' && cnt->empty == 1) || cnt->prnt < 0)
 			return (error_handler(ERROR_SPECIAL_CHAR, &")", NULL), 0);
 		i++;
 	}
 	return (1);
-}
-
-char	*ft_strjoin_v2(char *s1, char *s2)
-{
-	char	*new_str;
-	int		i;
-	int		n;
-
-	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	n = 0;
-	while (s1[i] != '\0')
-		new_str[n++] = s1[i++];
-	i = 0;
-	new_str[n++] = ' ';
-	while (s2[i] != '\0')
-		new_str[n++] = s2[i++];
-	new_str[n] = '\0';
-	free(s1);
-	free(s2);
-	return (new_str);
-}
-
-char	*ft_strjoin_v3(char *s1, char *s2)
-{
-	char	*new_str;
-	int		i;
-	int		n;
-	int		size;
-
-	if (!s1 || !(*s1))
-		size = ft_strlen(s2);
-	else
-		size = ft_strlen(s1) + ft_strlen(s2);
-	new_str = malloc(size + 2);
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	n = 0;
-	while (s1[i] != '\0' && s1)
-		new_str[n++] = s1[i++];
-	i = 0;
-	new_str[n++] = '\n';
-	while (s2[i] != '\0' && s2)
-		new_str[n++] = s2[i++];
-	new_str[n] = '\0';
-	free(s1);
-	free(s2);
-	return (new_str);
 }
 
 char	*creat_cwd(void)

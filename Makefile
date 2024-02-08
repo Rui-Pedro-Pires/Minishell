@@ -40,7 +40,8 @@ SOURCES := main.c \
 			read_line_utils.c\
 			parser_search_utils.c\
 			parser_diff_signs.c\
-			heardoc_checker.c\
+			heardoc.c\
+			str_join.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
