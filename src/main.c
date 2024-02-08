@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **env)
 				add_history(input);
 			else
 				continue;
+			ft_print_heardoc(heardoc_read);
 			freezzzz(input, &heardoc_read);
 			// creat_list(&head, input);			
 			// free(input);
@@ -45,21 +46,4 @@ int	main(int argc, char **argv, char **env)
 		}
 		rl_clear_history();
 	}
-}
-
-void	freezzzz(char *input, char ***heardoc_read)
-{
-	int	i;
-
-	i = 0;
-	free(input);
-	if (!(*heardoc_read))
-		return ;
-	while ((*heardoc_read)[i])
-	{
-		free((*heardoc_read)[i]);
-		i++;
-	}
-	free((*heardoc_read));
-	(*heardoc_read) = NULL;
 }

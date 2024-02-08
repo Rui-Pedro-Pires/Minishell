@@ -44,3 +44,20 @@ void	coador(t_pipes **head)
 		(*head) = tail;
 	}
 }
+
+void	freezzzz(char *input, char ***heardoc_read)
+{
+	int	i;
+
+	i = 0;
+	free(input);
+	if (!(*heardoc_read))
+		return ;
+	while ((*heardoc_read)[i])
+	{
+		free((*heardoc_read)[i]);
+		i++;
+	}
+	free((*heardoc_read));
+	(*heardoc_read) = NULL;
+}

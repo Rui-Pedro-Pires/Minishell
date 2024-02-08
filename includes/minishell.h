@@ -206,5 +206,6 @@ char			**special_splitens(char *str, int *back, int *front,
 
 void			freezzzz(char *input, char ***heardoc_read);
 void			input_str_tester(t_pipes *head);
+void			ft_print_heardoc(char **heardoc_read);
 
 #endif
