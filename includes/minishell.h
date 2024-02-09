@@ -14,14 +14,15 @@
 # define MINISHELL_H
 
 # include "./Libft/libft.h"
+# include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
+# include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <errno.h>
 
 # define D_QUOTES 34
 # define S_QUOTES 39
@@ -192,5 +193,18 @@ void				input_str_tester(t_pipes *head);
 /****************************/
 
 void				ft_cd(char *str);
+char			*get_new_dir(char *str);
+void			err_num_chdir(char *str);
+void				ft_expander(char **str_array);
+
+/****************************/
+/*			EXPANDER		*/
+/****************************/
+
+char *				check_quotes_for_expand(char **str);
+char				*expand(char *str);
+char				*check_chars(const char *str, const char *accept);
+char				*ft_strncpy(char *dest, const char *src, size_t n);
+char				*ft_strcat(char *dest, const char *src);
 
 #endif

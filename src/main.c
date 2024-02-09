@@ -31,6 +31,9 @@ int	main(int argc, char **argv, char **env)
 				add_history(input);
 			else
 				continue;
+			// printf("current directory: %s\n", getcwd(NULL, 0));
+			ft_cd(input);
+			// printf("new directory: %s\n", getcwd(NULL, 0));
 			freezzzz(input);
 			// creat_list(&head, input);			
 			// free(input);

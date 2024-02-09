@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-static char	*get_new_dir(char *str);
-static void	err_num_chdir(char *str);
-
 #include "../includes/minishell.h"
 
 void	ft_cd(char *str)
@@ -34,17 +31,32 @@ void	ft_cd(char *str)
 	// free(current_dir);
 }
 
-static char	*get_new_dir(char *str)
+char	*get_new_dir(char *str)
 {
-	if (strcmp(str, "") == 0 || strcmp(str, "~") == 0)
+	if (strcmp(str, "") == 0 || strcmp(str, "~") == 0 || str == NULL)
 		return (getenv("HOME"));
+	str = check_quotes_for_expand(str);
 	return (str);
 }
 
-static void	err_num_chdir(char *str)
+void	err_num_chdir(char *str)
 {
 	if (errno = ENOENT)
 		printf("\nruiolive&&jorteixe@minishell: cd: %s: No such file or directory\n", str);
-	else if(errno = ENOTDIR)
+	else if (errno = ENOTDIR)
 		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n", str);
 }
+
+void	ft_expander(char **str_array)
+{
+	int	i;
+
+	i = 0;
+	while (str_array[i])
+	{
+		check_quotes_for_expand(&str_array[i]);
+		i++;
+	}
+	return ;
+}
+
