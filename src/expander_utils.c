@@ -12,81 +12,99 @@
 
 #include "../includes/minishell.h"
 
-char *	check_quotes_for_expand(char *str)
+char	*copy_alphanumeric(const char *src);
+char	*ft_strndup(const char *s, size_t n);
+size_t	ft_strnlen(const char *str, size_t maxlen);
+int		count_alphanum(char *str);
+
+char	*check_quotes_n_expand(char *str)
 {
 	int		j;
 	bool	single_open;
 	bool	double_open;
-	char  *bef_str;
-	char *aft_str;
 
 	j = 0;
 	single_open = false;
 	double_open = false;
 	while (str[j])
 	{
-		if (str[j] == '\'' && !double_open && !single_open)
-			single_open = true;
-		else if (str[j] == '\'' && !double_open && single_open)
-			single_open = false;
-		if (str[j] == '\"' && !single_open && !double_open)
-			double_open = true;
-		else if (str[j] == '\"' && !single_open && double_open)
-			double_open = false;
-		if (str[j] == '$' && !single_open)
-		{
-			ft_strlcpy(bef_str, str, j)
-			#TODO before function
-			#TODO after function
-			str = expand(str, BEFORE, AFTER);
-		}
+		update_quote_status(str[j], &single_open, &double_open);
+		if (str[j] == '$' && !single_open && (ft_isalnum(str[j + 1]) || str[j
+				+ 1] == '_'))
+			str = handle_dollar_sign(str, j, single_open);
 		j++;
 	}
+	return (str);
 }
 
-void update_quote_status(char c, bool *single_open, bool *double_open) {
-    if (c == '\'' && !*double_open) *single_open = !*single_open;
-    if (c == '\"' && !*single_open) *double_open = !*double_open;
-}
-
-void handle_dollar_sign(char *str, int j, bool single_open) {
-    if (str[j] == '$' && !single_open) {
-        char *bef_str = strndup(str, j);
-        char *aft_str = ft_strdup(str + j + 1);
-        str = expand(str, bef_str, aft_str);
-        free(bef_str);
-        free(aft_str);
-    }
-}
-
-char	*expand(char *str, char *BEFORE, char *AFTER)
+void	update_quote_status(char c, bool *single_open, bool *double_open)
 {
-	char	*start;
-	char	*end;
+	if (c == '\'' && !*double_open)
+		*single_open = !*single_open;
+	if (c == '\"' && !*single_open)
+		*double_open = !*double_open;
+}
 
+char	*handle_dollar_sign(char *str, int j, bool single_open)
+{
+	char	*bef_str;
+	char	*aft_str;
 	char	*var_name;
+	int		i;
+
+	if (str[j] == '$' && !single_open)
+	{
+		bef_str = ft_strndup(str, j);
+		i = count_alphanum(str + j);
+		aft_str = ft_strdup(str + j + i);
+		var_name = ft_strndup(str + j + 1, i - 1);
+		free(str);
+		str = expand(bef_str, var_name, aft_str);
+	}
+	return (str);
+}
+
+char	*expand(char *before, char *str, char *after)
+{
 	char	*var_value;
 	char	*new_str;
+	int		full_string_count;
 
-	start = strchr(str, '$');
-	if (start == NULL)
-		return (strdup(str));
-	end = check_chars(start, "/ \"");
-	if (end == NULL)
-		end = start + strlen(start);
-	var_name = strndup(start + 1, end - start - 1);
-	var_value = getenv(var_name);
+	var_value = getenv(str);
 	if (var_value == NULL)
 		var_value = "";
-	new_str = malloc(strlen(str) - ft_strlen(var_name) + ft_strlen(var_value)
-			+ 1);
-	ft_strncpy(new_str, str, start - str);
-	new_str[start - str] = '\0';
-	ft_strcat(new_str, var_value);
-	ft_strcat(new_str, end);
-	free(var_name);
-	#TODO join new str + before + after
+	full_string_count = ft_strlen(before) + ft_strlen(var_value)
+		+ ft_strlen(after) + 1;
+	new_str = malloc(full_string_count);
+	strcpy(new_str, before);
+	strcat(new_str, var_value);
+	strcat(new_str, after);
+	free(before);
+	free(after);
+	free(str);
 	return (new_str);
+}
+
+char	*copy_alphanumeric(const char *src)
+{
+	char	*dest;
+	int		j;
+	int		i;
+
+	dest = malloc(strlen(src) + 1);
+	j = 0;
+	i = 0;
+	while (src[i])
+	{
+		if (ft_isalnum(src[i]) || src[i] == '_')
+		{
+			dest[j] = src[i];
+			j++;
+		}
+		i++;
+	}
+	dest[j] = '\0'; // Null-terminate the destination string
+	return (dest);
 }
 
 char	*check_chars(const char *str, const char *accept)
@@ -107,29 +125,34 @@ char	*check_chars(const char *str, const char *accept)
 	}
 	return (NULL);
 }
+char	*ft_strndup(const char *s, size_t n)
+{
+	size_t	len;
+	char	*new;
 
-char	*ft_strncpy(char *dest, const char *src, size_t n)
+	len = ft_strnlen(s, n);
+	new = malloc(len + 1);
+	if (new == NULL)
+		return (NULL);
+	new[len] = '\0';
+	return (ft_memcpy(new, s, len));
+}
+size_t	ft_strnlen(const char *str, size_t maxlen)
 {
 	size_t	i;
 
-	for (i = 0; i < n && src[i] != '\0'; i++)
-	{
-		dest[i] = src[i];
-	}
-	for (; i < n; i++)
-	{
-		dest[i] = '\0';
-	}
-	return (dest);
+	i = 0;
+	while (str[i] != '\0' && i < maxlen)
+		i++;
+	return (i);
 }
 
-char	*ft_strcat(char *dest, const char *src)
+int	count_alphanum(char *str)
 {
-	char *rdest = dest;
-
-	while (*dest)
-		dest++;
-	while ((*dest++ = *src++))
-		;
-	return (rdest);
+	int i = 0;
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+	{
+		i++;
+	}
+	return (i);
 }

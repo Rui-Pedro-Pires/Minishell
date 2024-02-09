@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **env)
 			// printf("current directory: %s\n", getcwd(NULL, 0));
 			ft_cd(input);
 			// printf("new directory: %s\n", getcwd(NULL, 0));
-			freezzzz(input);
+			// freezzzz(input);
 			// creat_list(&head, input);			
 			// free(input);
 			// input_str_tester(head);

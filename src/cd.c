@@ -35,7 +35,7 @@ char	*get_new_dir(char *str)
 {
 	if (strcmp(str, "") == 0 || strcmp(str, "~") == 0 || str == NULL)
 		return (getenv("HOME"));
-	str = check_quotes_for_expand(str);
+	str = check_quotes_n_expand(str);
 	return (str);
 }
 
@@ -46,17 +46,3 @@ void	err_num_chdir(char *str)
 	else if (errno = ENOTDIR)
 		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n", str);
 }
-
-void	ft_expander(char **str_array)
-{
-	int	i;
-
-	i = 0;
-	while (str_array[i])
-	{
-		check_quotes_for_expand(&str_array[i]);
-		i++;
-	}
-	return ;
-}
-

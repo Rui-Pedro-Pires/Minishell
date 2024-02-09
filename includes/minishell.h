@@ -193,16 +193,19 @@ void				input_str_tester(t_pipes *head);
 /****************************/
 
 void				ft_cd(char *str);
-char			*get_new_dir(char *str);
-void			err_num_chdir(char *str);
+char				*get_new_dir(char *str);
+void				err_num_chdir(char *str);
 void				ft_expander(char **str_array);
 
 /****************************/
 /*			EXPANDER		*/
 /****************************/
 
-char *				check_quotes_for_expand(char **str);
-char				*expand(char *str);
+char				*check_quotes_n_expand(char *str);
+char				*handle_dollar_sign(char *str, int j, bool single_open);
+void				update_quote_status(char c, bool *single_open,
+						bool *double_open);
+char				*expand(char *before, char *str, char *after);
 char				*check_chars(const char *str, const char *accept);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strcat(char *dest, const char *src);

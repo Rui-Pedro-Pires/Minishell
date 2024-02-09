@@ -1,6 +1,26 @@
 {
 	"C_Cpp.default.compilerPath": "/usr/bin/gcc",
 	"files.associations": {
-		"minishell.h": "c"
+		"*.h": "c",
+		"minishell.h": "c",
+		"functional": "c",
+		"sstream": "c",
+		"cstdlib": "c",
+		"typeinfo": "c",
+		"cstring": "c",
+		"array": "c",
+		"chrono": "c",
+		"deque": "c",
+		"string": "c",
+		"unordered_map": "c",
+		"vector": "c",
+		"string_view": "c",
+		"format": "c",
+		"initializer_list": "c",
+		"span": "c",
+		"__bit_reference": "c",
+		"__hash_table": "c",
+		"__split_buffer": "c",
+		"ios": "c"
 	}
 }
