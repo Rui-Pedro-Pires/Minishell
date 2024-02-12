@@ -20,8 +20,8 @@ char	*line_read(char ***heardoc_read, t_counter *counter_struc)
 
 	counter_struc->prnt = 0;
 	input = get_input();
-	if (!parse_input(input, counter_struc, heardoc_read) \
-	|| !count_parenthesis(input, counter_struc))
+	count_parenthesis(input, counter_struc);
+	if (!parse_input(input, counter_struc, heardoc_read))
 		return (add_history(input), free(input), NULL);
 	input = keep_reading(input, counter_struc, heardoc_read);
 	return (input);
@@ -43,11 +43,7 @@ char	*keep_reading(char *input_rec, t_counter *c_struc, char ***heardoc_read)
 			free(new_line);
 			continue ;
 		}
-		if (!count_parenthesis(new_line, c_struc))
-		{
-			input = str_join_with_space(input, new_line);
-			return (add_history(input), free(input), NULL);
-		}
+		count_parenthesis(new_line, c_struc);
 		input = str_join_with_space(input, new_line);
 		if (!parse_input(input, c_struc, heardoc_read) \
 		|| c_struc->prnt < 0)

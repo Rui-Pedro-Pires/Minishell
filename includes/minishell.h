@@ -124,14 +124,14 @@ int				check_begin_case(char *input, int *i);
 
 int				quotes_check(char *input, char c);
 int				check_cmd_aft(char *input);
-int				check_cmd_bf(char *input);
+int				check_cmd_end(char *input);
 int				check_end(char *input);
 int				check_signs(char *input, int *i, char **myChar);
 int				amper_count(char *input, int *i);
 int				pipe_count(char *input, int *i);
 int				major_sig_count(char *input, int *i);
 int				minor_sig_count(char *input, int *i);
-int				check_for_command_before(char *input, int i);
+int				check_for_error_bf_parenthesis(char *input, int i);
 char			*search_char(char *input);
 char			*parenthesis_search(char *input);
 char			*pipe_amper_search(char *input);
@@ -180,6 +180,8 @@ char			*keep_reading(char *input_rec, \
 				t_counter *c_struc, char ***heardoc_read);
 char			**ft_realloc(char ***heardoc_read, t_counter *count_struc);
 char			*search_heardoc_condition(char *input, t_counter *count_struc);
+int				check_valid_parenthesis(char *input);
+int				parenthesis_checker(char *input, t_counter *counter_struct);
 
 /****************************/
 /*			DATA			*/

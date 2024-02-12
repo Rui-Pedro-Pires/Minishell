@@ -49,6 +49,11 @@ int	amper_checker(char *input, int *i, char **myChar)
 		*myChar = search_char(input + (*i));
 		return (-1);
 	}
+	else if (checker == -3)
+	{
+		*myChar = search_char(input + (*i));
+		return (-1);
+	}
 	return (1);
 }
 

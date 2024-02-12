@@ -104,20 +104,80 @@ int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
 
 	i = 0;
 	if (!quotes_parser(input))
-	{
-		heardoc_check(heardoc_read, input, count_struct);
-		return (0);
-	}
+		return (heardoc_check(heardoc_read, input, count_struct), 0);
 	if (!check_begin_case(input, &i))
-	{
-		heardoc_check(heardoc_read, input, count_struct);
-		return (0);
-	}
+		return (heardoc_check(heardoc_read, input, count_struct), 0);
 	if (!signs_parser(input, i))
-	{
-		heardoc_check(heardoc_read, input, count_struct);
-		return (0);
-	}
+		return (heardoc_check(heardoc_read, input, count_struct), 0);
+	if (!parenthesis_checker(input, count_struct))
+		return (heardoc_check(heardoc_read, input, count_struct), 0);
 	heardoc_check(heardoc_read, input, count_struct);
 	return (1);
+}
+
+int	parenthesis_checker(char *input, t_counter *count_struct)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == D_QUOTES)
+			i += quotes_check(input + i, D_QUOTES);
+		else if (input[i] == S_QUOTES)
+			i += quotes_check(input + i, S_QUOTES);
+		if (input[i] == '(')
+		{
+			if (!check_for_error_bf_parenthesis(input, i))
+				return (err_hlr_2(ERR_STR, "(", NULL), 0);
+			if (!check_valid_parenthesis(input + i) \
+			&& count_struct->prnt == 0)
+				return (err_hlr_2(ERR_STR, ")", NULL), 0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	check_valid_parenthesis(char *input)
+{
+	bool command1;
+	bool command2;
+	bool dpipe_damper;
+	int	i;
+
+	command1 = false;
+	command2 = false;
+	dpipe_damper = false;
+	i = 0;
+	while (input[i])
+	{
+		if (!ft_strchr("|&<> (", input[i]))
+		{
+			command1 = true;
+			break ;
+		}
+		i++;
+	}
+	while (input[i])
+	{
+		if (ft_strnstr(input + i, "||", 2) || ft_strnstr(input + i, "&&", 2))
+		{
+			dpipe_damper = true;
+			break ;
+		}
+		i++;
+	}
+	while (input[i])
+	{
+		if (!ft_strchr("|&<> )", input[i]))
+		{
+			command2 = true;
+			break ;
+		}
+		i++;
+	}
+	if (command1 && command2 && dpipe_damper)
+		return (1);
+	return (0);
 }
