@@ -39,6 +39,8 @@ int	count_parenthesis(char *input, t_counter *cnt)
 	{
 		if (!ft_strchr("|<>&()", input[i]))
 			cnt->empty = 0;
+		else
+			cnt->empty = 1;
 		if (input[i] == D_QUOTES)
 			i += quotes_check(input + i, D_QUOTES);
 		else if (input[i] == S_QUOTES)
@@ -46,7 +48,7 @@ int	count_parenthesis(char *input, t_counter *cnt)
 		if (input[i] && input[i] == '(')
 		{
 			if (!check_for_command_before(input, i))
-				return (error_handler(ERROR_NEWLINE, &"newline", NULL), 0);
+				return (error_handler(ERROR_SPECIAL_CHAR, &input[i], NULL), 0);
 			cnt->prnt++;
 			cnt->empty = 1;
 		}
@@ -104,7 +106,7 @@ int	check_for_command_before(char *input, int i)
 		return (1);
 	while (i >= 0 && input[i] == ' ')
 		i--;
-	if (input[i] && ft_strchr("|&<>()", input[i]))
+	if (input[i] && ft_strchr("|&()", input[i]))
 		return (1);
 	return (0);
 }

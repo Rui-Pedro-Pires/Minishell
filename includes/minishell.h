@@ -170,6 +170,7 @@ int				unfinished_command_line(char *input);
 int				count_parenthesis(char *input, t_counter *counter_struc);
 char			*str_join_with_space(char *s1, char *s2);
 char			*str_join_with_newline(char *s1, char *s2);
+char			*add_nl(char *s1, char *s2);
 char			*creat_cwd(void);
 void			heardoc_check(char ***heardoc_read, \
 				char *input, t_counter *count_struc);
@@ -204,7 +205,7 @@ char			**special_splitens(char *str, int *back, int *front,
 /*			TESTERZZZ		*/
 /****************************/
 
-void			freezzzz(char *input, char ***heardoc_read);
+void			freezzzz(char *input, char ***heardoc_read, t_pipes **head);
 void			input_str_tester(t_pipes *head);
 void			ft_print_heardoc(char **heardoc_read);
 

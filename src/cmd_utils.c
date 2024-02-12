@@ -15,6 +15,8 @@
 static char	*build_str(char *formated, char *input);
 static void	double_quotes_add(char **formated, char *input, int *i, int *x);
 static void	single_quotes_add(char **formated, char *input, int *i, int *x);
+static void	parenthesis_add(char **formated, char *input, int *i, int *x);
+static int	parenthesis_ignore(char *input);
 
 char	*trim_str(char *input, t_type_pipe *pipe_check, int *i)
 {
@@ -28,6 +30,8 @@ char	*trim_str(char *input, t_type_pipe *pipe_check, int *i)
 			(*i) += quotes_check(input + (*i), D_QUOTES);
 		else if (input[(*i)] == S_QUOTES)
 			(*i) += quotes_check(input + (*i), S_QUOTES);
+		else if (input[(*i)] == '(')
+			(*i) += parenthesis_ignore(input + (*i));
 		else
 			(*i)++;
 	}
@@ -36,7 +40,7 @@ char	*trim_str(char *input, t_type_pipe *pipe_check, int *i)
 		return (NULL);
 	if (!input[(*i)])
 		*pipe_check = N_PIPE;
-	else if (input[(*i) + 1] && input[(*i) + 1] == '|')
+	else if (input[((*i) + 1)] && input[((*i) + 1)] == '|')
 		*pipe_check = D_PIPE;
 	else if (input[(*i)] && input[(*i)] == '|')
 		*pipe_check = S_PIPE;
@@ -68,6 +72,8 @@ static char	*build_str(char *formated, char *input)
 			double_quotes_add(&formated, input, &i, &x);
 		else if (input[i] == S_QUOTES)
 			single_quotes_add(&formated, input, &i, &x);
+		else if (input[i] == '(')
+			parenthesis_add(&formated, input, &i, &x);
 		else
 		{
 			formated[x] = input[i];
@@ -100,4 +106,45 @@ static void	single_quotes_add(char **formated, char *input, int *i, int *x)
 		(*i)++;
 	}
 	(*formated)[(*x)] = input[(*i)++];
+}
+
+static void	parenthesis_add(char **formated, char *input, int *i, int *x)
+{
+	int	parenthesis_num;
+
+	parenthesis_num = 1;
+	(*i)++;
+	while (input[(*i)])
+	{
+		if (input[(*i)] == '(')
+			parenthesis_num++;
+		else if (input[(*i)] == ')')
+			parenthesis_num--;
+		if (parenthesis_num == 0)
+			break ;
+		(*formated)[(*x)] = input[(*i)];
+		(*x)++;
+		(*i)++;
+	}
+	(*i)++;
+}
+
+static int	parenthesis_ignore(char *input)
+{
+	int	i;
+	int	parenthesis_num;
+
+	i = 0;
+	parenthesis_num = 0;
+	while (input[i])
+	{
+		if (input[i] == '(')
+			parenthesis_num++;
+		else if (input[i] == ')')
+			parenthesis_num--;
+		if (parenthesis_num == 0)
+			break ;
+		i++;
+	}
+	return (i + 1);
 }

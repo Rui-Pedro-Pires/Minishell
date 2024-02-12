@@ -104,11 +104,20 @@ int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
 
 	i = 0;
 	if (!quotes_parser(input))
+	{
+		heardoc_check(heardoc_read, input, count_struct);
 		return (0);
+	}
 	if (!check_begin_case(input, &i))
+	{
+		heardoc_check(heardoc_read, input, count_struct);
 		return (0);
+	}
 	if (!signs_parser(input, i))
+	{
+		heardoc_check(heardoc_read, input, count_struct);
 		return (0);
+	}
 	heardoc_check(heardoc_read, input, count_struct);
 	return (1);
 }

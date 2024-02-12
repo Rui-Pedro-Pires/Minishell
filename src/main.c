@@ -14,12 +14,12 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	char	*input;
-	char	**heardoc_read;
+	char		*input;
+	char		**heardoc_read;
 	t_counter	count_struc;
-	// t_pipes	*head;
+	t_pipes		*head;
 
-	// head = NULL;
+	head = NULL;
 	heardoc_read = NULL;
 	(void)argv;
 	(void)env;
@@ -34,11 +34,9 @@ int	main(int argc, char **argv, char **env)
 				add_history(input);
 			else
 				continue;
-			ft_print_heardoc(heardoc_read);
-			freezzzz(input, &heardoc_read);
-			// creat_list(&head, input);			
-			// free(input);
-			// input_str_tester(head);
+			creat_list(&head, input);			
+			input_str_tester(head);
+			freezzzz(input, &heardoc_read, &head);
 			// organize_list(head);
 			// tester(head);
 			// execute_command(head, env);

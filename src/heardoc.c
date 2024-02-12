@@ -81,6 +81,7 @@ int	add_to_line(char **new_line, char *str, char ***h_doc, t_counter *counter)
 	if (ft_strncmp(*new_line, str, ft_strlen(*new_line)) == 0)
 	{
 		free(*new_line);
+		(*h_doc)[counter->counter] = add_nl((*h_doc)[counter->counter], "\n");
 		(*h_doc)[counter->counter + 1] = 0;
 		counter->i++;
 		return (0);
