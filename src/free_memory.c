@@ -56,6 +56,7 @@ void	freezzzz(char *input, char ***heardoc_read, t_pipes **head)
 	while (*head)
 	{
 		cur = (*head)->next;
+		free((*head)->input_string );
 		free(*head);
 		*head = cur;
 	}

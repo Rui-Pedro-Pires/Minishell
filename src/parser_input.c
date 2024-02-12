@@ -40,31 +40,31 @@ int	quotes_parser(char *input)
 	return (1);
 }
 
-int	signs_parser(char *input, int i)
+int	signs_parser(char *input, int *i)
 {
 	char	*errorch;
 	int		checker;
 
 	errorch = NULL;
 	checker = 0;
-	while (input[i])
+	while (input[(*i)])
 	{
-		if (input[i] == D_QUOTES)
-			i += quotes_check(input + i, D_QUOTES);
-		else if (input[i] == S_QUOTES)
-			i += quotes_check(input + i, S_QUOTES);
-		else if (ft_strchr("<>&|", input[i]))
+		if (input[(*i)] == D_QUOTES)
+			(*i) += quotes_check(input + (*i), D_QUOTES);
+		else if (input[(*i)] == S_QUOTES)
+			(*i) += quotes_check(input + (*i), S_QUOTES);
+		else if (ft_strchr("<>&|", input[(*i)]))
 		{
-			checker = check_signs(input, &i, &errorch);
+			checker = check_signs(input, i, &errorch);
 			if (!checker)
 				return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
 			else if (checker == -1)
 				return (err_hlr_2(ERR_STR, errorch, NULL), 0);
 		}
-		else if (ft_strchr("\\;", input[i]))
-			return (error_handler(ERROR_SPECIAL_CHAR, &input[i], NULL), 0);
+		else if (ft_strchr("\\;", input[(*i)]))
+			return (error_handler(ERROR_SPECIAL_CHAR, &input[(*i)], NULL), 0);
 		else
-			i++;
+			(*i)++;
 	}
 	return (1);
 }
@@ -104,14 +104,14 @@ int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
 
 	i = 0;
 	if (!quotes_parser(input))
-		return (heardoc_check(heardoc_read, input, count_struct), 0);
+		return (0);
 	if (!check_begin_case(input, &i))
-		return (heardoc_check(heardoc_read, input, count_struct), 0);
-	if (!signs_parser(input, i))
-		return (heardoc_check(heardoc_read, input, count_struct), 0);
+		return (0);
+	if (!signs_parser(input, &i))
+		return (heardoc_check(heardoc_read, input, count_struct, i), 0);
 	if (!parenthesis_checker(input, count_struct))
-		return (heardoc_check(heardoc_read, input, count_struct), 0);
-	heardoc_check(heardoc_read, input, count_struct);
+		return (0);
+	heardoc_check(heardoc_read, input, count_struct, i);
 	return (1);
 }
 

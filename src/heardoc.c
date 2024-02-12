@@ -12,42 +12,42 @@
 
 #include "../includes/minishell.h"
 
-void	heardoc_check(char ***heardoc_read, char *input, t_counter *count_struc)
+void	heardoc_check(char ***heardoc_read, char *input, t_counter *iter, int i)
 {
 	char	*new_line;
 	char	*str_condition;
 
-	while (input[count_struc->i])
+	while (input[iter->i] && iter->i < i)
 	{
-		if (input[count_struc->i] && input[count_struc->i] == '<')
-			count_struc->i++;
-		if (input[count_struc->i] && input[count_struc->i] == '<')
+		if (input[iter->i] && input[iter->i] == '<')
+			iter->i++;
+		if (input[iter->i] && input[iter->i] == '<')
 		{
-			str_condition = search_heardoc_condition(input, count_struc);
-			*heardoc_read = ft_realloc(heardoc_read, count_struc);
+			str_condition = search_heardoc_condition(input, iter);
+			*heardoc_read = ft_realloc(heardoc_read, iter);
 			while (1)
 			{
 				new_line = readline("> ");
 				if (!add_to_line(&new_line, str_condition, \
-				heardoc_read, count_struc))
+				heardoc_read, iter))
 				{
 					free(str_condition);
 					break ;
 				}
 			}
-			count_struc->counter++;
+			iter->counter++;
 		}
-		count_struc->i++;
+		iter->i++;
 	}
 }
 
-char	**ft_realloc(char ***heardoc_read, t_counter *count_struc)
+char	**ft_realloc(char ***heardoc_read, t_counter *iter)
 {
 	char	**copy;
 	int		x;
 
 	x = 0;
-	copy = malloc(sizeof(char *) * (count_struc->counter + 2));
+	copy = malloc(sizeof(char *) * (iter->counter + 2));
 	if (!copy)
 		return (NULL);
 	if (!(*heardoc_read))
@@ -69,7 +69,7 @@ char	**ft_realloc(char ***heardoc_read, t_counter *count_struc)
 	return (copy);
 }
 
-int	add_to_line(char **new_line, char *str, char ***h_doc, t_counter *counter)
+int	add_to_line(char **new_line, char *str, char ***h_doc, t_counter *iter)
 {
 	if (!(*new_line))
 		return (0);
@@ -81,24 +81,24 @@ int	add_to_line(char **new_line, char *str, char ***h_doc, t_counter *counter)
 	if (ft_strncmp(*new_line, str, ft_strlen(*new_line)) == 0)
 	{
 		free(*new_line);
-		(*h_doc)[counter->counter] = add_nl((*h_doc)[counter->counter], "\n");
-		(*h_doc)[counter->counter + 1] = 0;
-		counter->i++;
+		(*h_doc)[iter->counter] = add_nl((*h_doc)[iter->counter], "\n");
+		(*h_doc)[iter->counter + 1] = 0;
+		iter->i++;
 		return (0);
 	}
-	if (!(*(*h_doc)[counter->counter]))
+	if (!(*(*h_doc)[iter->counter]))
 	{
-		free((*h_doc)[counter->counter]);
-		(*h_doc)[counter->counter] = ft_strdup(*new_line);
+		free((*h_doc)[iter->counter]);
+		(*h_doc)[iter->counter] = ft_strdup(*new_line);
 		free(*new_line);
 	}
 	else
-		(*h_doc)[counter->counter] = \
-		str_join_with_newline((*h_doc)[counter->counter], *new_line);
+		(*h_doc)[iter->counter] = \
+		str_join_with_newline((*h_doc)[iter->counter], *new_line);
 	return (1);
 }
 
-char	*search_heardoc_condition(char *input, t_counter *count_struc)
+char	*search_heardoc_condition(char *input, t_counter *iter)
 {
 	int		i;
 	int		x;
@@ -106,11 +106,11 @@ char	*search_heardoc_condition(char *input, t_counter *count_struc)
 	char	*str_condition;
 
 	x = 0;
-	count_struc->i += 1;
-	while (input[count_struc->i] && input[count_struc->i] == ' ')
-		count_struc->i++;
-	i = count_struc->i;
-	j = count_struc->i;
+	iter->i += 1;
+	while (input[iter->i] && input[iter->i] == ' ')
+		iter->i++;
+	i = iter->i;
+	j = iter->i;
 	while (input[i] && (!ft_strchr("|&><", input[i]) || input[i] != ' '))
 		i++;
 	str_condition = malloc(sizeof(char) * i + 1);

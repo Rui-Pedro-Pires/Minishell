@@ -114,7 +114,7 @@ typedef enum e_error
 
 int				parse_input(char *input, t_counter *count_struct, \
 				char ***heardoc_read);
-int				signs_parser(char *input, int i);
+int				signs_parser(char *input, int *i);
 int				quotes_parser(char *input);
 int				check_begin_case(char *input, int *i);
 
@@ -147,6 +147,7 @@ int				minor_checker(char *input, int *x, char **myChar);
 /****************************/
 
 void			creat_list(t_pipes **head, char *input);
+void			define_pipe_type(char *input, t_type_pipe *pipe_check, int *i);
 
 /****************************/
 /*			FREE			*/
@@ -172,8 +173,8 @@ char			*str_join_with_space(char *s1, char *s2);
 char			*str_join_with_newline(char *s1, char *s2);
 char			*add_nl(char *s1, char *s2);
 char			*creat_cwd(void);
-void			heardoc_check(char ***heardoc_read, \
-				char *input, t_counter *count_struc);
+void			heardoc_check(char ***heardoc_read, char *input, \
+				t_counter *count_struc, int i);
 int				add_to_line(char **new_line, char *str_condition, \
 				char ***heardoc_read, t_counter *count_struc);
 char			*keep_reading(char *input_rec, \
