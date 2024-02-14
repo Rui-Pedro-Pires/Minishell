@@ -32,8 +32,7 @@ char	*trim_str(char *input, t_type_pipe *pipe_check, int *i)
 			(*i) += quote_ignore(input + (*i), S_QUOTES);
 		else if (input[(*i)] == '(')
 			(*i) += parenthesis_ignore(input + (*i));
-		else
-			(*i)++;
+		(*i)++;
 	}
 	formated = ft_calloc(sizeof(char), (((*i) - save) + 1));
 	if (!formated)
@@ -120,7 +119,7 @@ static int	parenthesis_ignore(char *input)
 			break ;
 		i++;
 	}
-	return (i + 1);
+	return (i);
 }
 
 static void	parenthesis_add(char **formated, char *input, int *i, int *x)

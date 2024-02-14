@@ -27,8 +27,6 @@ int	main(int argc, char **argv, char **env)
 	{
 		while (1)
 		{
-			count_struc.i = 0;
-			count_struc.counter = 0;
 			input = line_read(&heardoc_read, &count_struc);
 			if (input && *input)
 				add_history(input);

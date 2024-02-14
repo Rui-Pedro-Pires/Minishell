@@ -12,6 +12,11 @@
 
 #include "../includes/minishell.h"
 
+static char	*search_heardoc_condition(char *input, t_counter *iter);
+static char	**ft_realloc(char ***heardoc_read, t_counter *iter);
+static int	add_to_line(char **new_line, char *str, \
+			char ***h_doc, t_counter *iter);
+
 void	heardoc_check(char ***heardoc_read, char *input, t_counter *iter, int i)
 {
 	char	*new_line;
@@ -20,10 +25,10 @@ void	heardoc_check(char ***heardoc_read, char *input, t_counter *iter, int i)
 	while (input[iter->i] && iter->i < i)
 	{
 		if (input[iter->i] == D_QUOTES)
-			iter->i += quote_ignore(input + i, D_QUOTES);
+			iter->i += quote_ignore(input + iter->i, D_QUOTES);
 		else if (input[iter->i] == S_QUOTES)
-			iter->i += quote_ignore(input + i, S_QUOTES);
-		if (ft_strnstr(input + iter->i, "<<", 2))
+			iter->i += quote_ignore(input + iter->i, S_QUOTES);
+		if (input[iter->i] && input[iter->i] == '<' && input[iter->i - 1] == '<')
 		{
 			str_condition = search_heardoc_condition(input, iter);
 			if (!str_condition)
@@ -45,7 +50,7 @@ void	heardoc_check(char ***heardoc_read, char *input, t_counter *iter, int i)
 	}
 }
 
-char	**ft_realloc(char ***heardoc_read, t_counter *iter)
+static char	**ft_realloc(char ***heardoc_read, t_counter *iter)
 {
 	char	**copy;
 	int		x;
@@ -73,7 +78,7 @@ char	**ft_realloc(char ***heardoc_read, t_counter *iter)
 	return (copy);
 }
 
-int	add_to_line(char **new_line, char *str, char ***h_doc, t_counter *iter)
+static int	add_to_line(char **new_line, char *str, char ***h_doc, t_counter *iter)
 {
 	if (!(*new_line))
 		return (err_hlr_2(ERR_READ, str, NULL), 0);
@@ -102,7 +107,7 @@ int	add_to_line(char **new_line, char *str, char ***h_doc, t_counter *iter)
 	return (1);
 }
 
-char	*search_heardoc_condition(char *input, t_counter *iter)
+static char	*search_heardoc_condition(char *input, t_counter *iter)
 {
 	int		i;
 	int		x;

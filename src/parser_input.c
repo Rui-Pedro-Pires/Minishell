@@ -18,8 +18,10 @@ int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
 	int	i;
 
 	i = 0;
+	count_struct->i = 0;
+	count_struct->counter = 0;
 	count_struct->prnt = 0;
-	if (!check_begin_case(input, &i))
+	if (!check_begin_case_parser(input, &i))
 		return (0);
 	if (!parser(input, &i, count_struct))
 		return (heardoc_check(heardoc_read, input, count_struct, i), 0);
@@ -27,7 +29,7 @@ int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
 	return (1);
 }
 
-int	check_begin_case(char *input, int *i)
+int	check_begin_case_parser(char *input, int *i)
 {
 	int	checker;
 
@@ -104,18 +106,20 @@ int	parenthesis_parser(char *input, int *i, t_counter *count_struct)
 	x = *i;
 	if (input[x] == '(')
 	{
+		count_struct->prnt++;
 		if (!check_for_error_bf_parenthesis(input, x))
 			return (err_hlr_2(ERR_STR, "(", NULL), 0);
 		if (count_struct->prnt == 0 \
 		&& !check_valid_parenthesis(input + x))
 			return (err_hlr_2(ERR_STR, ")", NULL), 0);
-		(*i)++;
 	}
 	else if (input[x] == ')')
 	{
+		count_struct->prnt--;
+		if (count_struct->prnt < 0)
+			return (err_hlr_2(ERR_STR, ")", NULL), 0);
 		if (!check_for_error_af_parenthesis(input, x))
 			return (err_hlr_2(ERR_STR_FREE, string_error(input + x + 1), NULL), 0);
-		(*i)++;
 	}
 	return (1);
 }
@@ -148,7 +152,7 @@ int	quote_ignore(char *input, char c)
 	i = 1;
 	while (input[i] && input[i] != c)
 		i++;
-	return (i + 1);
+	return (i);
 }
 
 int	quote_check(char *input, int *i, char c)
