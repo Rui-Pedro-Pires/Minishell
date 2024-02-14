@@ -21,6 +21,9 @@
 		"__bit_reference": "c",
 		"__hash_table": "c",
 		"__split_buffer": "c",
-		"ios": "c"
+		"ios": "c",
+		"random": "c",
+		"queue": "c",
+		"stack": "c"
 	}
 }

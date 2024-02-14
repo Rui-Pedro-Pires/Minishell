@@ -109,7 +109,8 @@ typedef enum e_error
 int					signs_parser(char *input, int i);
 int					quotes_parser(char *input);
 int					check_begin_case(char *input, int *i);
-int					parse_input(char *input, int *parenthesis, int *check_empty, int *x);
+int					parse_input(char *input, int *parenthesis, int *check_empty,
+						int *x);
 /****************************/
 /*		PARSER	UTILS		*/
 /****************************/
@@ -155,11 +156,10 @@ char				*trim_str(char *input, t_type_pipe *pipe_check, int *i);
 
 char				*line_read(void);
 int					unfinished_command_line(char *input);
-int					count_parenthesis(char *input, int *parenthesis,
-						int *check_empty);
 char				*ft_strjoin_v2(char *s1, char *s2);
 char				*creat_cwd(void);
 char				*trim_cwd(char *trimmed_cwd);
+char				*get_input(void);
 
 /****************************/
 /*		READ LINE PARSER	*/
@@ -168,8 +168,10 @@ char				*trim_cwd(char *trimmed_cwd);
 int					unfinished_command_line(char *input);
 int					check_separator_after(char *input, int i);
 int					check_separator_before(char *input, int i);
-int					count_parenthesis(char *input, int *parenthesis, int *check_empty, int *x);
-int					parenthesis_parser(char *input, int i, int *parenthesis, int *check_empty);
+int					count_parenthesis(char *input, int *parenthesis,
+						int *check_empty, int *x);
+int					parenthesis_parser(char *input, int i, int *parenthesis,
+						int *check_empty);
 
 /****************************/
 /*			DATA			*/
