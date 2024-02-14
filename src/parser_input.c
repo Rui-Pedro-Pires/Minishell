@@ -102,15 +102,14 @@ int quotes_parser(char *input, int *i)
 int	parenthesis_parser(char *input, int *i, t_counter *count_struct)
 {
 	int	x;
-
+	
 	x = *i;
 	if (input[x] == '(')
 	{
 		count_struct->prnt++;
 		if (!check_for_error_bf_parenthesis(input, x))
 			return (err_hlr_2(ERR_STR, "(", NULL), 0);
-		if (count_struct->prnt == 0 \
-		&& !check_valid_parenthesis(input + x))
+		if (!check_valid_parenthesis(input + x))
 			return (err_hlr_2(ERR_STR, ")", NULL), 0);
 	}
 	else if (input[x] == ')')

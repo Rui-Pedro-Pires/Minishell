@@ -77,6 +77,8 @@ int	check_valid_parenthesis(char *input)
 	command1 = search_command(input, &i, correct_parenthesis);
 	dpipe_damper = search_dpipe_or_damper(input, &i, correct_parenthesis);
 	command2 = search_command(input, &i, correct_parenthesis);
+	if (!input[correct_parenthesis])
+		return (1);
 	correct_parenthesis--;
 	while (correct_parenthesis >= 0 && input[correct_parenthesis] == ' ')
 		correct_parenthesis--;
