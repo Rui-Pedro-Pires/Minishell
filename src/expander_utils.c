@@ -50,14 +50,17 @@ char	*handle_dollar_sign(char *str, int j, bool single_open)
 	char	*bef_str;
 	char	*aft_str;
 	char	*var_name;
-	int		i;
+	size_t		i;
 
 	if (str[j] == '$' && !single_open)
 	{
 		bef_str = ft_strndup(str, j);
 		i = count_alphanum(str, j);
-		aft_str = ft_strdup(str + j + i);
-		var_name = ft_strndup(str + j + 1, i - 1);
+		if (i < ft_strlen(str))
+			aft_str = ft_strdup(str + i);
+		else
+			aft_str = ft_strdup("");
+		var_name = ft_strndup(str + j + 1, i - (j + 1));
 		free(str);
 		str = expand(bef_str, var_name, aft_str);
 	}
@@ -77,8 +80,10 @@ char	*expand(char *before, char *str, char *after)
 		+ ft_strlen(after) + 1;
 	new_str = malloc(full_string_count);
 	strcpy(new_str, before);
-	strcat(new_str, var_value);
-	strcat(new_str, after);
+	if (*var_value)
+		strcat(new_str, var_value);
+	if (*after)
+		strcat(new_str, after);
 	free(before);
 	free(after);
 	free(str);
@@ -154,7 +159,8 @@ int	count_alphanum(char *str, int j)
 	{
 		i++;
 	}
-	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '\"' || str[i] == '\''))
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '\"'
+			|| str[i] == '\''))
 	{
 		i++;
 	}
