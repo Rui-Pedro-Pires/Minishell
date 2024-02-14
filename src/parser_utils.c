@@ -51,8 +51,10 @@ int	check_for_command_after(char *input)
 	i = 0;
 	while (input[i] && input[i] == ' ')
 		i++;
-	if (!input[i] || (input[i] && ft_strchr("<>&|", input[i])))
+	if (!input[i])
 		return (0);
+	else if (input[i] && ft_strchr("<>&|()", input[i]))
+		return (-1);
 	return (1);
 }
 
@@ -61,10 +63,13 @@ int	pipe_count(char *input, int *i)
 	int	x;
 
 	x = *i;
-	while (input[++(*i)] == '|')
+	while (input[++x] == '|')
 			;
-	if ((*i) - x > 2 || !check_pipe_amper_next(input + (*i)))
+	if ((x - (*i)) > 2)
 		return (0);
+	if (!check_pipe_amper_next(input + x))
+		return (-1);
+	(*i) = x;
 	return (1);
 }
 
@@ -73,9 +78,12 @@ int	amper_count(char *input, int *i)
 	int	x;
 
 	x = *i;
-	while (input[++(*i)] == '&')
+	while (input[++x] == '&')
 			;
-	if ((*i) - x != 2 || !check_pipe_amper_next(input + (*i)))
+	if (x - (*i) != 2 )
 		return (0);
+	if (!check_pipe_amper_next(input + x))
+		return (-1);
+	(*i) = x;
 	return (1);
 }

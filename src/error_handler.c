@@ -26,7 +26,23 @@ void	error_handler(int error_msg, void *param, void **param2)
 		printf("minishell: syntax error near unexpected token `%c'\n",
 			*(char *)param);
 	}
+	else if (error_msg == ERROR_SPECIAL_CHAR_DOUBLE)
+	{
+		printf("minishell: syntax error near unexpected token `%c%c'\n",
+			*(char *)param, *(char *)param);
+	}
 	else if (error_msg == ERROR_NEWLINE)
+	{
+		(void)param2;
+		printf("minishell: syntax error near unexpected token `%s'\n",
+			(char *)param);
+	}
+
+}
+
+void error_handler_2(int error_msg, void *param, void **param2)
+{
+	if (error_msg == ERROR_STRING_TYPE)
 	{
 		(void)param2;
 		printf("minishell: syntax error near unexpected token `%s'\n",

@@ -14,9 +14,11 @@
 # define MINISHELL_H
 
 # include "./Libft/libft.h"
+# include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
+# include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
@@ -89,12 +91,15 @@ typedef struct s_pipes
 /****************************/
 
 void				error_handler(int error_msg, void *param, void **param2);
+void				error_handler_2(int error_msg, void *param, void **param2);
 
 typedef enum e_error
 {
 	ERROR_UNFINISHED_QUOTE,
 	ERROR_SPECIAL_CHAR,
-	ERROR_NEWLINE
+	ERROR_NEWLINE,
+	ERROR_SPECIAL_CHAR_DOUBLE,
+	ERROR_STRING_TYPE
 }					t_error;
 
 /****************************/
@@ -113,11 +118,17 @@ int					quotes_check(char *input, char c);
 int					check_for_command_after(char *input);
 int					check_pipe_amper_next(char *input);
 int					check_end(char *input);
-int					check_signs(char *input, int *i, char *myChar);
+int					check_signs(char *input, int *i, char **myChar);
 int					amper_count(char *input, int *i);
 int					pipe_count(char *input, int *i);
 int					major_sig_count(char *input, int *i);
 int					minor_sig_count(char *input, int *i);
+int					check_for_command_before(char *input, int i);
+char				*search_char(char *input);
+char				*parenthesis_search(char *input);
+char				*pipe_amper_search(char *input);
+char				*signs_search(char *input);
+char				*signs_case(char *input);
 
 /****************************/
 /*			LIST			*/
@@ -143,7 +154,9 @@ char				*trim_str(char *input, t_type_pipe *pipe_check, int *i);
 /****************************/
 
 char				*line_read(void);
-char				*get_input(void);
+int					unfinished_command_line(char *input);
+int					count_parenthesis(char *input, int *parenthesis,
+						int *check_empty);
 char				*ft_strjoin_v2(char *s1, char *s2);
 char				*creat_cwd(void);
 char				*trim_cwd(char *trimmed_cwd);
@@ -184,5 +197,27 @@ char				**special_splitens(char *str, int *back, int *front,
 
 void				tester(t_pipes *head);
 void				input_str_tester(t_pipes *head);
+
+/****************************/
+/*			CD				*/
+/****************************/
+
+void				ft_cd(char *str);
+char				*get_new_dir(char *str);
+void				err_num_chdir(char *str);
+void				ft_expander(char **str_array);
+
+/****************************/
+/*			EXPANDER		*/
+/****************************/
+
+char				*check_quotes_n_expand(char *str);
+char				*handle_dollar_sign(char *str, int j, bool single_open);
+void				update_quote_status(char c, bool *single_open,
+						bool *double_open);
+char				*expand(char *before, char *str, char *after);
+char				*check_chars(const char *str, const char *accept);
+char				*ft_strncpy(char *dest, const char *src, size_t n);
+char				*ft_strcat(char *dest, const char *src);
 
 #endif

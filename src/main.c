@@ -17,9 +17,9 @@ void	freezzzz(char *input);
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
-	t_pipes	*head;
+	// t_pipes	*head;
 
-	head = NULL;
+	// head = NULL;
 	(void)argv;
 	(void)env;
 	if (argc == 1)
@@ -31,7 +31,10 @@ int	main(int argc, char **argv, char **env)
 				add_history(input);
 			else
 				continue;
-			freezzzz(input);
+			// printf("current directory: %s\n", getcwd(NULL, 0));
+			ft_cd(input);
+			// printf("new directory: %s\n", getcwd(NULL, 0));
+			// freezzzz(input);
 			// creat_list(&head, input);			
 			// free(input);
 			// input_str_tester(head);

@@ -12,28 +12,62 @@
 
 #include "../includes/minishell.h"
 
-int	check_signs(char *input, int *i, char *myChar)
+int	check_signs(char *input, int *i, char **myChar)
 {
-	if (input[(*i)] == '|')
+	int	x;
+	int	checker;
+
+	x = *i;
+	checker = 0;
+	if (input[x] == '|')
 	{
-		if (!pipe_count(input, i))
-			return (*myChar='|', 0);
+		checker = pipe_count(input, &x);
+		if (!checker)
+		{
+			x += 2;
+			*myChar = search_char(input + x);
+			return (0);
+		}
+		else if (checker == -1)
+			return (-1);
 	}
-	else if (input[(*i)] == '&')
+	else if (input[x] == '&')
 	{
-		if (!amper_count(input, i))
-			return (*myChar='&', 0);
+		checker = amper_count(input, &x);
+		if (!checker)
+		{
+			x += 2;
+			*myChar = search_char(input + x);
+			return (0);
+		}
+		else if (checker == -1)
+			return (-1);
 	}
-	else if (input[(*i)] == '>')
+	else if (input[x] == '>')
 	{
-		if (!major_sig_count(input, i))
-			return (*myChar='>', 0);
+		checker = major_sig_count(input, &x);
+		if (!checker)
+		{
+			x += 2;
+			*myChar = search_char(input + x);
+			return (0);
+		}
+		else if (checker == -1)
+			return (-1);
 	}
-	else if (input[(*i)] == '<')
+	else if (input[x] == '<')
 	{
-		if (!minor_sig_count(input, i))
-			return (*myChar='<', 0);
+		checker = minor_sig_count(input, &x);
+		if (!checker)
+		{
+			x += 2;
+			*myChar = search_char(input + x);
+			return (0);
+		}
+		else if (checker == -1)
+			return (-1);
 	}
+	(*i) = x;
 	return (1);
 }
 
@@ -42,12 +76,15 @@ int	major_sig_count(char *input, int *i)
 	int	x;
 
 	x = *i;
-	while (input[++(*i)] == '>')
+	while (input[++x] == '>')
 			;
-	if ((*i) - x < 2 && input[(*i)] == '|' && check_for_command_after(input + ((*i) + 1)))
+	if (x - (*i) < 2 && input[(*i)] == '|' && check_for_command_after(input + (x + 1)))
 		return (1);
-	if ((*i) - x > 2 || !check_for_command_after(input + (*i)))
+	if (x - (*i) > 2)
 		return (0);
+	if (!check_for_command_after(input + x))
+		return (-1);
+	(*i) = x;
 	return (1);
 }
 
@@ -56,9 +93,40 @@ int	minor_sig_count(char *input, int *i)
 	int	x;
 
 	x = *i;
-	while (input[++(*i)] == '<')
+	while (input[++x] == '<')
 			;
-	if ((*i) - x > 2 || !check_for_command_after(input + (*i)))
+	if (x - (*i) > 2)
 		return (0);
+	if (!check_for_command_after(input + x))
+		return (-1);
+	(*i) = x;
 	return (1);
+}
+
+char	*signs_case(char *input)
+{
+	int	i;
+
+	i = 0;
+	if (input[i] == '>')
+	{
+		i++;
+		if (input[i] && input[i] == '>')
+			i++;
+		while (input[i] && input[i] == ' ')
+			i++;
+		if (input[i] && ft_strchr("|&<>", input[i]))
+			return (search_char(input + i));
+	}
+	if (input[i] == '<')
+	{
+		i++;
+		if (input[i] && input[i] == '<')
+			i++;
+		while (input[i] && input[i] == ' ')
+			i++;
+		if (input[i] && ft_strchr("|&<>", input[i]))
+			return (search_char(input + i));
+	}
+	return (NULL);
 }
