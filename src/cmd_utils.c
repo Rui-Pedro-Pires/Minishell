@@ -71,26 +71,26 @@ static char	*build_str(char *formated, char *input)
 
 static void	double_quotes_add(char **formated, char *input, int *i, int *x)
 {
-	(*formated)[(*x)] = input[(*i)++];
+	(*formated)[(*x)++] = input[(*i)++];
 	while (input[(*i)] && input[(*i)] != D_QUOTES)
 	{
 		(*formated)[(*x)] = input[(*i)];
 		(*x)++;
 		(*i)++;
 	}
-	(*formated)[(*x)] = input[(*i)++];
+	(*formated)[(*x)++] = input[(*i)++];
 }
 
 static void	single_quotes_add(char **formated, char *input, int *i, int *x)
 {
-	(*formated)[(*x)] = input[(*i)++];
+	(*formated)[(*x)++] = input[(*i)++];
 	while (input[(*i)] && input[(*i)] != S_QUOTES)
 	{
 		(*formated)[(*x)] = input[(*i)];
 		(*x)++;
 		(*i)++;
 	}
-	(*formated)[(*x)] = input[(*i)++];
+	(*formated)[(*x)++] = input[(*i)++];
 }
 
 void	define_pipe_type(char *input, t_type_pipe *pipe_check, int *i)
