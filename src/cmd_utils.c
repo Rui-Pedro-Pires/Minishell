@@ -27,9 +27,9 @@ char	*trim_str(char *input, t_type_pipe *pipe_check, int *i)
 	while (input[(*i)] && input[(*i)] != '|')
 	{
 		if (input[(*i)] == D_QUOTES)
-			(*i) += quotes_check(input + (*i), D_QUOTES);
+			(*i) += quote_ignore(input + (*i), D_QUOTES);
 		else if (input[(*i)] == S_QUOTES)
-			(*i) += quotes_check(input + (*i), S_QUOTES);
+			(*i) += quote_ignore(input + (*i), S_QUOTES);
 		else if (input[(*i)] == '(')
 			(*i) += parenthesis_ignore(input + (*i));
 		else
@@ -40,16 +40,6 @@ char	*trim_str(char *input, t_type_pipe *pipe_check, int *i)
 		return (NULL);
 	define_pipe_type(input, pipe_check, i);
 	return (build_str(formated, input + save));
-}
-
-int	quotes_check(char *input, char c)
-{
-	int	i;
-
-	i = 1;
-	while (input[i] && input[i] != c)
-		i++;
-	return (i + 1);
 }
 
 static char	*build_str(char *formated, char *input)

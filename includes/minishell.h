@@ -117,15 +117,15 @@ typedef enum e_error
 
 int				parse_input(char *input, t_counter *count_struct, \
 				char ***heardoc_read);
-int				signs_parser(char *input, int *i, t_counter *count_struct);
-int				quotes_parser(char *input);
+int				parser(char *input, int *i, t_counter *count_struct);
+int 			quotes_parser(char *input, int *i);
 int				check_begin_case(char *input, int *i);
 
 /****************************/
 /*		PARSER	UTILS		*/
 /****************************/
 
-int				quotes_check(char *input, char c);
+int				quote_ignore(char *input, char c);
 int				check_cmd_aft(char *input);
 int				check_cmd_end(char *input);
 int				check_end(char *input);
@@ -143,6 +143,8 @@ int				pipe_checker(char *input, int *x, char **myChar);
 int				amper_checker(char *input, int *x, char **myChar);
 int				major_checker(char *input, int *x, char **myChar);
 int				minor_checker(char *input, int *x, char **myChar);
+int				signs_parser(char *input, int *i);
+int				quote_check(char *input, int *i, char c);
 
 /****************************/
 /*			LIST			*/
@@ -184,7 +186,7 @@ char			*keep_reading(char *input_rec, \
 char			**ft_realloc(char ***heardoc_read, t_counter *count_struc);
 char			*search_heardoc_condition(char *input, t_counter *count_struc);
 int				check_valid_parenthesis(char *input);
-int				parenthesis_checker(char *input, t_counter *counter_struct);
+int				parenthesis_parser(char *input, int *i, t_counter *count_struct);
 int				check_for_error_bf_parenthesis(char *input, int i);
 int				check_for_error_af_parenthesis(char *input, int i);
 int 			search_correct_parenthesis(char *input);

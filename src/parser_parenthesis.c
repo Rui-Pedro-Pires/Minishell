@@ -20,9 +20,9 @@ int	count_parenthesis(char *input, t_counter *cnt)
 	while (input[i])
 	{
 		if (input[i] == D_QUOTES)
-			i += quotes_check(input + i, D_QUOTES);
+			i += quote_ignore(input + i, D_QUOTES);
 		else if (input[i] == S_QUOTES)
-			i += quotes_check(input + i, S_QUOTES);
+			i += quote_ignore(input + i, S_QUOTES);
 		if (input[i] && input[i] == '(')
 			cnt->prnt++;
 		else if (input[i] && input[i] == ')')

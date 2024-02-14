@@ -20,9 +20,9 @@ void	heardoc_check(char ***heardoc_read, char *input, t_counter *iter, int i)
 	while (input[iter->i] && iter->i < i)
 	{
 		if (input[iter->i] == D_QUOTES)
-			iter->i += quotes_check(input + i, D_QUOTES);
+			iter->i += quote_ignore(input + i, D_QUOTES);
 		else if (input[iter->i] == S_QUOTES)
-			iter->i += quotes_check(input + i, S_QUOTES);
+			iter->i += quote_ignore(input + i, S_QUOTES);
 		if (ft_strnstr(input + iter->i, "<<", 2))
 		{
 			str_condition = search_heardoc_condition(input, iter);
@@ -110,7 +110,7 @@ char	*search_heardoc_condition(char *input, t_counter *iter)
 	char	*str_condition;
 
 	x = 0;
-	iter->i += 3;
+	iter->i += 2;
 	while (input[iter->i] && input[iter->i] == ' ')
 		iter->i++;
 	i = iter->i;
