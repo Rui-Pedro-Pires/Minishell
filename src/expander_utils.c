@@ -159,8 +159,7 @@ int	count_alphanum(char *str, int j)
 	{
 		i++;
 	}
-	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '\"'
-			|| str[i] == '\''))
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 	{
 		i++;
 	}
