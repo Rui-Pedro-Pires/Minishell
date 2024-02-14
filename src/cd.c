@@ -22,7 +22,7 @@ void	ft_cd(char *str)
 	new_dir = get_new_dir(str);
 	if (chdir(new_dir) == (-1))
 	{
-		err_num_chdir(str);
+		err_num_chdir(new_dir);
 		return ;
 	}
 	current_dir = getcwd(NULL, 0);

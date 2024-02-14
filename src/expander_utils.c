@@ -15,7 +15,7 @@
 char	*copy_alphanumeric(const char *src);
 char	*ft_strndup(const char *s, size_t n);
 size_t	ft_strnlen(const char *str, size_t maxlen);
-int		count_alphanum(char *str);
+int		count_alphanum(char *str, int j);
 
 char	*check_quotes_n_expand(char *str)
 {
@@ -55,7 +55,7 @@ char	*handle_dollar_sign(char *str, int j, bool single_open)
 	if (str[j] == '$' && !single_open)
 	{
 		bef_str = ft_strndup(str, j);
-		i = count_alphanum(str + j);
+		i = count_alphanum(str, j);
 		aft_str = ft_strdup(str + j + i);
 		var_name = ft_strndup(str + j + 1, i - 1);
 		free(str);
@@ -72,7 +72,7 @@ char	*expand(char *before, char *str, char *after)
 
 	var_value = getenv(str);
 	if (var_value == NULL)
-		var_value = "";
+		var_value = "/";
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)
 		+ ft_strlen(after) + 1;
 	new_str = malloc(full_string_count);
@@ -147,10 +147,14 @@ size_t	ft_strnlen(const char *str, size_t maxlen)
 	return (i);
 }
 
-int	count_alphanum(char *str)
+int	count_alphanum(char *str, int j)
 {
-	int i = 0;
-	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+	int i = j;
+	if (str[i] == '$')
+	{
+		i++;
+	}
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '\"' || str[i] == '\''))
 	{
 		i++;
 	}
