@@ -42,6 +42,7 @@ SOURCES := main.c \
 			cd.c\
 			expander_utils.c\
 			read_line_parser.c\
+			pwd.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
