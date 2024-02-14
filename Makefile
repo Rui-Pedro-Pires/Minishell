@@ -43,6 +43,7 @@ SOURCES := main.c \
 			heardoc.c\
 			str_join.c\
 			search_utils.c\
+			parser_parenthesis.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
