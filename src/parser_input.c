@@ -145,30 +145,3 @@ int	parenthesis_checker(char *input, t_counter *count_struct)
 	}
 	return (1);
 }
-
-char *string_error(char *input)
-{
-	int i;
-	int j;
-	char	*error_str;
-	
-	i = 0;
-	while (input[i] && input[i] == ' ')
-		i++;
-	j = i;
-	while (input[j] && !ft_strchr("( ", input[j]))
-		j++;
-	error_str = malloc(sizeof(char) * (j - i) + 1);
-	if (!error_str)
-		return (NULL);
-	j = 0;
-	while (input[i] && !ft_strchr("( ", input[i]))
-	{
-		error_str[j] = input[i];
-		j++;
-		i++;
-	}
-	error_str[j] = '\0';
-	return (error_str);
-}
-
