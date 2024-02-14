@@ -14,12 +14,8 @@
 
 void	ft_cd(char *str)
 {
-	char	*current_dir;
 	char	*new_dir;
 
-	current_dir = getcwd(NULL, 0);
-	printf("current directory: %s\n", current_dir);
-	free(current_dir);
 	new_dir = get_new_dir(str);
 	if (chdir(new_dir) == (-1))
 	{
@@ -27,10 +23,7 @@ void	ft_cd(char *str)
 		free(new_dir);
 		return ;
 	}
-	current_dir = getcwd(NULL, 0);
-	printf("new directory: %s\n", current_dir);
 	free(new_dir);
-	free(current_dir);
 }
 
 char	*get_new_dir(char *str)
