@@ -40,7 +40,7 @@ int	quotes_parser(char *input)
 	return (1);
 }
 
-int	signs_parser(char *input, int *i)
+int	signs_parser(char *input, int *i, t_counter *count_struct)
 {
 	char	*errorch;
 	int		checker;
@@ -63,6 +63,25 @@ int	signs_parser(char *input, int *i)
 		}
 		else if (ft_strchr("\\;", input[(*i)]))
 			return (error_handler(ERROR_SPECIAL_CHAR, &input[(*i)], NULL), 0);
+		else if (input[(*i)] == '(')
+		{
+			count_struct->prnt++;
+			if (!check_for_error_bf_parenthesis(input, (*i)))
+				return (err_hlr_2(ERR_STR, "(", NULL), 0);
+			if (count_struct->prnt == 0 \
+			&& !check_valid_parenthesis(input + (*i)))
+				return (err_hlr_2(ERR_STR, ")", NULL), 0);
+			(*i)++;
+		}
+		else if (input[(*i)] == ')')
+		{
+			count_struct->prnt--;
+			if (count_struct->prnt < 0)
+				return (err_hlr_2(ERR_STR, ")", NULL), 0);
+			if (!check_for_error_af_parenthesis(input, (*i)))
+				return (err_hlr_2(ERR_STR_FREE, string_error(input + (*i) + 1), NULL), 0);
+			(*i)++;
+		}
 		else
 			(*i)++;
 	}
@@ -103,16 +122,13 @@ int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
 	int	i;
 
 	i = 0;
+	count_struct->prnt = 0;
 	if (!quotes_parser(input))
 		return (0);
 	if (!check_begin_case(input, &i))
 		return (0);
-	if (!signs_parser(input, &i))
+	if (!signs_parser(input, &i, count_struct))
 		return (heardoc_check(heardoc_read, input, count_struct, i), 0);
-	if (count_struct->prnt < 0)
-		return (err_hlr_2(ERR_STR, ")", NULL), 0);
-	if (!parenthesis_checker(input, count_struct))
-		return (0);
 	heardoc_check(heardoc_read, input, count_struct, i);
 	return (1);
 }

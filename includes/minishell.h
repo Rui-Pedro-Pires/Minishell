@@ -117,7 +117,7 @@ typedef enum e_error
 
 int				parse_input(char *input, t_counter *count_struct, \
 				char ***heardoc_read);
-int				signs_parser(char *input, int *i);
+int				signs_parser(char *input, int *i, t_counter *count_struct);
 int				quotes_parser(char *input);
 int				check_begin_case(char *input, int *i);
 
