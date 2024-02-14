@@ -98,6 +98,7 @@ typedef struct s_counter
 
 void			error_handler(int error_msg, void *param, void **param2);
 void			err_hlr_2(int error_msg, void *param, void **param2);
+char 			*string_error(char *input);
 
 typedef enum e_error
 {
@@ -105,7 +106,9 @@ typedef enum e_error
 	ERROR_SPECIAL_CHAR,
 	ERROR_NEWLINE,
 	ERROR_SPECIAL_CHAR_DOUBLE,
-	ERR_STR
+	ERR_STR,
+	ERR_READ,
+	ERR_STR_FREE
 }					t_error;
 
 /****************************/
@@ -131,7 +134,6 @@ int				amper_count(char *input, int *i);
 int				pipe_count(char *input, int *i);
 int				major_sig_count(char *input, int *i);
 int				minor_sig_count(char *input, int *i);
-int				check_for_error_bf_parenthesis(char *input, int i);
 char			*search_char(char *input);
 char			*parenthesis_search(char *input);
 char			*pipe_amper_search(char *input);
@@ -183,6 +185,13 @@ char			**ft_realloc(char ***heardoc_read, t_counter *count_struc);
 char			*search_heardoc_condition(char *input, t_counter *count_struc);
 int				check_valid_parenthesis(char *input);
 int				parenthesis_checker(char *input, t_counter *counter_struct);
+int				check_for_error_bf_parenthesis(char *input, int i);
+int				check_for_error_af_parenthesis(char *input, int i);
+int 			search_correct_parenthesis(char *input);
+bool			search_command(char *input, int *i, int correct_parenthesis);
+bool			search_dpipe_or_damper(char *input, int *i, int correct_parenthesis);
+
+
 
 /****************************/
 /*			DATA			*/

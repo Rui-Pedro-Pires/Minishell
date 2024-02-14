@@ -109,6 +109,8 @@ int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
 		return (0);
 	if (!signs_parser(input, &i))
 		return (heardoc_check(heardoc_read, input, count_struct, i), 0);
+	if (count_struct->prnt < 0)
+		return (err_hlr_2(ERR_STR, ")", NULL), 0);
 	if (!parenthesis_checker(input, count_struct))
 		return (0);
 	heardoc_check(heardoc_read, input, count_struct, i);
@@ -130,54 +132,43 @@ int	parenthesis_checker(char *input, t_counter *count_struct)
 		{
 			if (!check_for_error_bf_parenthesis(input, i))
 				return (err_hlr_2(ERR_STR, "(", NULL), 0);
-			if (!check_valid_parenthesis(input + i) \
-			&& count_struct->prnt == 0)
+			if (count_struct->prnt == 0 \
+			&& !check_valid_parenthesis(input + i))
 				return (err_hlr_2(ERR_STR, ")", NULL), 0);
+		}
+		else if (input[i] == ')')
+		{
+			if (!check_for_error_af_parenthesis(input, i))
+				return (err_hlr_2(ERR_STR_FREE, string_error(input + i + 1), NULL), 0);
 		}
 		i++;
 	}
 	return (1);
 }
 
-int	check_valid_parenthesis(char *input)
+char *string_error(char *input)
 {
-	bool command1;
-	bool command2;
-	bool dpipe_damper;
-	int	i;
-
-	command1 = false;
-	command2 = false;
-	dpipe_damper = false;
+	int i;
+	int j;
+	char	*error_str;
+	
 	i = 0;
-	while (input[i])
+	while (input[i] && input[i] == ' ')
+		i++;
+	j = i;
+	while (input[j] && !ft_strchr("( ", input[j]))
+		j++;
+	error_str = malloc(sizeof(char) * (j - i) + 1);
+	if (!error_str)
+		return (NULL);
+	j = 0;
+	while (input[i] && !ft_strchr("( ", input[i]))
 	{
-		if (!ft_strchr("|&<> (", input[i]))
-		{
-			command1 = true;
-			break ;
-		}
+		error_str[j] = input[i];
+		j++;
 		i++;
 	}
-	while (input[i])
-	{
-		if (ft_strnstr(input + i, "||", 2) || ft_strnstr(input + i, "&&", 2))
-		{
-			dpipe_damper = true;
-			break ;
-		}
-		i++;
-	}
-	while (input[i])
-	{
-		if (!ft_strchr("|&<> )", input[i]))
-		{
-			command2 = true;
-			break ;
-		}
-		i++;
-	}
-	if (command1 && command2 && dpipe_damper)
-		return (1);
-	return (0);
+	error_str[j] = '\0';
+	return (error_str);
 }
+

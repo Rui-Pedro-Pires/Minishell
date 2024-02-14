@@ -33,7 +33,7 @@ char	*keep_reading(char *input_rec, t_counter *c_struc, char ***heardoc_read)
 	char	*input;
 
 	input = input_rec;
-	while (unfinished_command_line(input) || c_struc->prnt != 0)
+	while (unfinished_command_line(input) || c_struc->prnt > 0)
 	{
 		new_line = readline("> ");
 		if (!new_line)

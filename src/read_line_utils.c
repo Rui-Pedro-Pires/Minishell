@@ -30,26 +30,6 @@ int	unfinished_command_line(char *input)
 	return (0);
 }
 
-int	count_parenthesis(char *input, t_counter *cnt)
-{
-	int	i;
-
-	i = 0;
-	while (input[i])
-	{
-		if (input[i] == D_QUOTES)
-			i += quotes_check(input + i, D_QUOTES);
-		else if (input[i] == S_QUOTES)
-			i += quotes_check(input + i, S_QUOTES);
-		if (input[i] && input[i] == '(')
-			cnt->prnt++;
-		else if (input[i] && input[i] == ')')
-			cnt->prnt--;
-		i++;
-	}
-	return (1);
-}
-
 char	*creat_cwd(void)
 {
 	char	*cwd;
@@ -84,18 +64,4 @@ static char	*trim_cwd(char *trimmed_cwd)
 	trimmed = ft_substr(trimmed_cwd, i, (ft_strlen(trimmed_cwd) - i));
 	free(trimmed_cwd);
 	return (trimmed);
-}
-
-int	check_for_error_bf_parenthesis(char *input, int i)
-{
-	if (i == 0)
-		return (1);
-	i--;
-	if (i >= 0 && input[i] == '*')
-		return (1);
-	while (i >= 0 && input[i] == ' ')
-		i--;
-	if (input[i] && ft_strchr("|&()", input[i]))
-		return (1);
-	return (0);
 }

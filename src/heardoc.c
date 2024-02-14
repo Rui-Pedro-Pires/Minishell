@@ -19,11 +19,15 @@ void	heardoc_check(char ***heardoc_read, char *input, t_counter *iter, int i)
 
 	while (input[iter->i] && iter->i < i)
 	{
-		if (input[iter->i] && input[iter->i] == '<')
-			iter->i++;
-		if (input[iter->i] && input[iter->i] == '<')
+		if (input[iter->i] == D_QUOTES)
+			iter->i += quotes_check(input + i, D_QUOTES);
+		else if (input[iter->i] == S_QUOTES)
+			iter->i += quotes_check(input + i, S_QUOTES);
+		if (ft_strnstr(input + iter->i, "<<", 2))
 		{
 			str_condition = search_heardoc_condition(input, iter);
+			if (!str_condition)
+				return ;
 			*heardoc_read = ft_realloc(heardoc_read, iter);
 			while (1)
 			{
@@ -72,7 +76,7 @@ char	**ft_realloc(char ***heardoc_read, t_counter *iter)
 int	add_to_line(char **new_line, char *str, char ***h_doc, t_counter *iter)
 {
 	if (!(*new_line))
-		return (0);
+		return (err_hlr_2(ERR_READ, str, NULL), 0);
 	if (!(*(*new_line)))
 	{
 		free(*new_line);
@@ -106,11 +110,13 @@ char	*search_heardoc_condition(char *input, t_counter *iter)
 	char	*str_condition;
 
 	x = 0;
-	iter->i += 1;
+	iter->i += 3;
 	while (input[iter->i] && input[iter->i] == ' ')
 		iter->i++;
 	i = iter->i;
 	j = iter->i;
+	if (ft_strchr("|<>()\\;", input[iter->i]))
+		return (NULL);
 	while (input[i] && (!ft_strchr("|&><", input[i]) || input[i] != ' '))
 		i++;
 	str_condition = malloc(sizeof(char) * i + 1);

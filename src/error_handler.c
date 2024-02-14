@@ -47,4 +47,20 @@ void	err_hlr_2(int error_msg, void *param, void **param2)
 		printf("minishell: syntax error near unexpected token `%s'\n",
 			(char *)param);
 	}
+	if (error_msg == ERR_READ)
+	{
+		(void)param2;
+		printf("minishell: warning: here-document delimited by end-of-file (wanted `%s')\n",
+			(char *)param);
+	}
+	if (error_msg == ERR_STR_FREE)
+	{
+		(void)param2;
+		if (!(*(char *)param) || !(char *)param)
+			printf("minishell: syntax error near unexpected token `('\n");
+		else
+			printf("minishell: syntax error near unexpected token `%s'\n",
+			(char *)param);
+		free(param);
+	}
 }
