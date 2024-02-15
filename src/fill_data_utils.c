@@ -24,9 +24,9 @@ void	prepare_split(t_data *data, t_pipes *pipe, int *back, int *front)
 	while (og_str[(*front)] && !ft_strchr("<>&", og_str[(*front)]))
 	{
 		if (pipe->input_string[(*front)] == D_QUOTES)
-			*front += quotes_check(pipe->input_string + (*front), D_QUOTES);
+			*front += quote_ignore(pipe->input_string + (*front), D_QUOTES);
 		else if (pipe->input_string[(*front)] == S_QUOTES)
-			*front += quotes_check(pipe->input_string + (*front), S_QUOTES);
+			*front += quote_ignore(pipe->input_string + (*front), S_QUOTES);
 		else
 			(*front)++;
 	}

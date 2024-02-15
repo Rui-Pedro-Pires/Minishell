@@ -12,62 +12,21 @@
 
 #include "../includes/minishell.h"
 
-int	quotes_parser(char *input)
+int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (input[i] != '\0')
-	{
-		if (input[i] == D_QUOTES || input[i] == S_QUOTES)
-		{
-			j = i;
-			i++;
-			while (input[i] != input[j])
-			{
-				if (input[i] == '\0')
-					return (\
-					error_handler(ERROR_UNFINISHED_QUOTE, &input[j], NULL), 0);
-				i++;
-			}
-		}
-		i++;
-	}
+	count_struct->prnt = 0;
+	if (!check_begin_case_parser(input, &i))
+		return (0);
+	if (!parser(input, &i, count_struct))
+		return (heardoc_check(heardoc_read, input, count_struct, i), 0);
+	heardoc_check(heardoc_read, input, count_struct, i);
 	return (1);
 }
 
-int	signs_parser(char *input, int i)
-{
-	char *errorChars;
-	int	checker;
-
-	errorChars = NULL;
-	checker = 0;
-	while (input[i])
-	{
-		if (input[i] == D_QUOTES)
-			i += quotes_check(input + i, D_QUOTES);
-		else if (input[i] == S_QUOTES)
-			i += quotes_check(input + i, S_QUOTES);
-		else if (ft_strchr("<>&|", input[i]))
-		{
-			checker = check_signs(input, &i, &errorChars);
-			if (!checker)
-				return (error_handler_2(ERROR_STRING_TYPE, errorChars, NULL), 0);
-			else if (checker == -1)
-				return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
-		}
-		else if (ft_strchr("\\;", input[i]))
-			return (error_handler(ERROR_SPECIAL_CHAR, &input[i], NULL), 0);
-		else
-			i++;
-	}
-	return (1);
-}
-
-int	check_begin_case(char *input, int *i)
+int	check_begin_case_parser(char *input, int *i)
 {
 	int	checker;
 
@@ -76,38 +35,135 @@ int	check_begin_case(char *input, int *i)
 		(*i)++;
 	if (!input[(*i)])
 		return (0);
-	if (signs_case(input + (*i)))
-		return (error_handler_2(ERROR_STRING_TYPE, signs_case(input + (*i)), NULL), 0);
 	if (input[(*i)] && input[(*i) + 1] && \
 	input[(*i)] == '>' && input[(*i) + 1] == '|')
 	{
 		(*i) += 2;
-		checker = check_for_command_after(input + (*i));
+		checker = check_cmd_aft(input + (*i));
 		if (!checker)
 			return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
 		else if (checker == -1)
-			return (error_handler_2(ERROR_STRING_TYPE, search_char(input + (*i)), NULL), 0);
+			return (err_hlr_2(ERR_STR, search_char(input + (*i)), NULL), 0);
 		return (1);
 	}
 	else if (input[(*i)] && ft_strchr("&|", input[(*i)]))
-		return (error_handler_2(ERROR_STRING_TYPE, search_char(input + (*i)), NULL), 0);
-	if (!check_for_command_after(input + (*i)))
-		return (error_handler(ERROR_SPECIAL_CHAR, &input[(*i)], NULL), 0);
+		return (err_hlr_2(ERR_STR, search_char(input + (*i)), NULL), 0);
+	else if (signs_case(input + (*i)))
+		return (err_hlr_2(ERR_STR, signs_case(input + (*i)), NULL), 0);
+	if (!check_cmd_aft(input + (*i)))
+		return (0);
 	return (1);
 }
 
-int	parse_input(char *input, int *parenthesis, int *check_empty, int *x) /*#TODO correct errors messages: |&<> there some differences*/
+int	parser(char *input, int *i, t_counter *count_struct)
+{
+	int	status_parenthesis;
+	int	status_signs;
+	int	status_quotes;
+
+	while (input[(*i)])
+	{
+		status_quotes = quotes_parser(input, i);
+		if (!status_quotes)
+			return (0);
+		status_parenthesis = parenthesis_parser(input, i, count_struct);
+		if (!status_parenthesis)
+			return (0);
+		status_signs = signs_parser(input, i);
+		if (!status_signs)
+			return (0);
+		else if (status_signs == 2)
+			(*i)++;
+	}
+	return (1);
+}
+
+int	quotes_parser(char *input, int *i)
+{
+	int	status;
+
+	if (input[(*i)] == D_QUOTES)
+	{
+		status = quote_check(input, i, D_QUOTES);
+		if (status == 0)
+			return (err_hlr_2(ERR_STR, "\"", NULL), 0);
+	}
+	else if (input[(*i)] == S_QUOTES)
+	{
+		status = quote_check(input, i, S_QUOTES);
+		if (status == 0)
+			return (err_hlr_2(ERR_STR, "\'", NULL), 0);
+	}
+	return (1);
+}
+
+int	parenthesis_parser(char *input, int *i, t_counter *count_struct)
+{
+	int	x;
+
+	x = *i;
+	if (input[x] == '(')
+	{
+		count_struct->prnt++;
+		if (!check_for_error_bf_parenthesis(input, x))
+			return (err_hlr_2(ERR_STR, "(", NULL), 0);
+		if (!check_valid_parenthesis(input + x))
+			return (err_hlr_2(ERR_STR, ")", NULL), 0);
+	}
+	else if (input[x] == ')')
+	{
+		count_struct->prnt--;
+		if (count_struct->prnt < 0)
+			return (err_hlr_2(ERR_STR, ")", NULL), 0);
+		if (!check_for_error_af_parenthesis(input, x))
+			return (err_hlr_2(ERR_STR_FREE, \
+			string_error(input + x + 1), NULL), 0);
+	}
+	return (1);
+}
+
+int	signs_parser(char *input, int *i)
+{
+	char	*errorch;
+	int		checker;
+
+	errorch = NULL;
+	checker = 0;
+	if (ft_strchr("<>&|", input[(*i)]))
+	{
+		checker = check_signs(input, i, &errorch);
+		if (!checker)
+			return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
+		else if (checker == -1)
+			return (err_hlr_2(ERR_STR, errorch, NULL), 0);
+		return (1);
+	}
+	else if (ft_strchr("\\;", input[(*i)]))
+		return (error_handler(ERROR_SPECIAL_CHAR, &input[(*i)], NULL), 0);
+	return (2);
+}
+
+int	quote_ignore(char *input, char c)
 {
 	int	i;
 
-	i = 0;
-	if (!count_parenthesis(input, parenthesis, check_empty, x))
+	i = 1;
+	while (input[i] && input[i] != c)
+		i++;
+	return (i);
+}
+
+int	quote_check(char *input, int *i, char c)
+{
+	int	x;
+
+	x = (*i) + 1;
+	if (!input[x])
 		return (0);
-	if (*parenthesis == 0 && !quotes_parser(input))
+	while (input[x] && input[x] != c)
+		x++;
+	if (!input[x])
 		return (0);
-	if (*parenthesis == 0 && !check_begin_case(input, &i))
-		return (0);
-	if (*parenthesis == 0 && !signs_parser(input, i))
-		return (0);
+	*i = x;
 	return (1);
 }

@@ -12,21 +12,24 @@
 
 #include "../includes/minishell.h"
 
-void	freezzzz(char *input);
-
 int	main(int argc, char **argv, char **env)
 {
-	char	*input;
-	// t_pipes	*head;
+	char		*input;
+	char		**heardoc_read;
+	t_counter	count_struc;
+	t_pipes		*head;
 
-	// head = NULL;
+	head = NULL;
+	heardoc_read = NULL;
 	(void)argv;
 	(void)env;
 	if (argc == 1)
 	{
 		while (1)
 		{
-			input = line_read();
+			count_struc.i = 0;
+			count_struc.counter = 0;
+			input = line_read(&heardoc_read, &count_struc);
 			if (input && *input)
 				add_history(input);
 			else
@@ -34,10 +37,9 @@ int	main(int argc, char **argv, char **env)
 			// printf("current directory: %s\n", getcwd(NULL, 0));
 			ft_cd(input);
 			// printf("new directory: %s\n", getcwd(NULL, 0));
-			// freezzzz(input);
 			// creat_list(&head, input);			
-			// free(input);
-			// input_str_tester(head);
+			input_str_tester(head);
+			freezzzz(input, &heardoc_read, &head);
 			// organize_list(head);
 			// tester(head);
 			// execute_command(head, env);
@@ -45,9 +47,4 @@ int	main(int argc, char **argv, char **env)
 		}
 		rl_clear_history();
 	}
-}
-
-void	freezzzz(char *input)
-{
-	free(input);
 }

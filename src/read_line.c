@@ -12,30 +12,55 @@
 
 #include "../includes/minishell.h"
 
-char    *line_read(void) /*#TODO add error messages*/
-{
-	char    *input;
-	char	*new_line;
-	int		check_empty;
-	int		parenthesis;
-	int		x;
+static char	*get_input(void);
 
-	parenthesis = 0;
-	check_empty = 0;
-	x = 0;
+char	*line_read(char ***heardoc_read, t_counter *counter_struc)
+{
+	char	*input;
+
+	counter_struc->prnt = 0;
 	input = get_input();
-	if (!parse_input(input, &parenthesis, &check_empty, &x))
-			return (add_history(input), free(input), NULL);
-	while (unfinished_command_line(input) || parenthesis != 0)
+	if (!parse_input(input, counter_struc, heardoc_read))
+		return (add_history(input), free(input), NULL);
+	input = keep_reading(input, counter_struc, heardoc_read);
+	return (input);
+}
+
+static char	*get_input(void)
+{
+	char	*cwd;
+	char	*input;
+
+	cwd = creat_cwd();
+	input = readline(cwd);
+	if (!input)
+	{
+		free(cwd);
+		printf("exit\n");
+		exit(EXIT_SUCCESS);
+	}
+	free(cwd);
+	return (input);
+}
+
+char	*keep_reading(char *input_rec, t_counter *c_struc, char ***heardoc_read)
+{
+	char	*new_line;
+	char	*input;
+
+	input = input_rec;
+	while (unfinished_command_line(input) || c_struc->prnt > 0)
 	{
 		new_line = readline("> ");
+		if (!new_line)
+			return (NULL);
 		if (!(*new_line))
 		{
 			free(new_line);
 			continue ;
 		}
-		input = ft_strjoin_v2(input, new_line);
-		if (!parse_input(input, &parenthesis, &check_empty, &x) || parenthesis < 0) 
+		input = str_join_with_space(input, new_line);
+		if (!parse_input(input, c_struc, heardoc_read))
 			return (add_history(input), free(input), NULL);
 	}
 	return (input);

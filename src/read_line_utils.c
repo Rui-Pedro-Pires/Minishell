@@ -12,27 +12,22 @@
 
 #include "../includes/minishell.h"
 
-char	*ft_strjoin_v2(char *s1, char *s2)
-{
-	char	*new_str;
-	int		i;
-	int		n;
+static char	*trim_cwd(char *trimmed_cwd);
 
-	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
-	if (!new_str)
-		return (NULL);
+int	unfinished_command_line(char *input)
+{
+	int	i;
+
 	i = 0;
-	n = 0;
-	while (s1[i] != '\0')
-		new_str[n++] = s1[i++];
-	i = 0;
-	new_str[n++] = ' ';
-	while (s2[i] != '\0')
-		new_str[n++] = s2[i++];
-	new_str[n] = '\0';
-	free(s1);
-	free(s2);
-	return (new_str);
+	if (!input || !(*input))
+		return (0);
+	while (input[i + 1])
+		i++;
+	while (i >= 0 && input[i] == ' ')
+		i--;
+	if (input[i] == '|' || input[i] == '&')
+		return (1);
+	return (0);
 }
 
 char	*creat_cwd(void)
@@ -55,7 +50,7 @@ char	*trim_cwd(char *trimmed_cwd)
 	int		i;
 	int		counter;
 	char	*trimmed;
-	
+
 	i = 0;
 	counter = 0;
 	while (trimmed_cwd[i])
@@ -63,21 +58,10 @@ char	*trim_cwd(char *trimmed_cwd)
 		if (trimmed_cwd[i] == '/')
 			counter++;
 		if (counter > 3)
-			break;
+			break ;
 		i++;
 	}
 	trimmed = ft_substr(trimmed_cwd, i, (ft_strlen(trimmed_cwd) - i));
 	free(trimmed_cwd);
 	return (trimmed);
-}
-
-char *get_input(void)
-{
-	char	*cwd;
-	char    *input;
-
-	cwd = creat_cwd();
-	input = readline(cwd);
-	free(cwd);
-	return (input);
 }

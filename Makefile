@@ -39,6 +39,11 @@ SOURCES := main.c \
 			read_line.c\
 			read_line_utils.c\
 			parser_search_utils.c\
+			parser_diff_signs.c\
+			heardoc.c\
+			str_join.c\
+			search_utils.c\
+			parser_parenthesis.c\
 			cd.c\
 			expander_utils.c\
 			read_line_parser.c\
@@ -85,6 +90,9 @@ debug: all sup_file
 
 leaks: ./minishell
 	$(VG) ./minishell
+
+gdb: re
+	gdb --tui $(NAME)
 
 .PHONY: bonus
 

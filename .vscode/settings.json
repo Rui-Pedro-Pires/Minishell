@@ -3,6 +3,7 @@
 	"files.associations": {
 		"*.h": "c",
 		"minishell.h": "c",
+		"numbers": "c",
 		"functional": "c",
 		"sstream": "c",
 		"cstdlib": "c",
