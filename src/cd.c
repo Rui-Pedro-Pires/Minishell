@@ -36,8 +36,8 @@ char	*get_new_dir(char *str)
 
 void	err_num_chdir(char *str)
 {
-	if (errno = ENOENT)
+	if (errno == ENOENT)
 		printf("\nruiolive&&jorteixe@minishell: cd: %s: No such file or directory\n", str);
-	else if (errno = ENOTDIR)
+	else if (errno == ENOTDIR)
 		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n", str);
 }
