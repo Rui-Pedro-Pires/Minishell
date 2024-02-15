@@ -65,6 +65,8 @@ int	minor_sig_count(char *input, int *i)
 	checker = 0;
 	while (input[++x] == '<')
 		;
+	if (x - (*i) == 3 && ft_strchr(">", input[x]))
+		return (-3);
 	if (x - (*i) > 2)
 		return (-1);
 	if (x - (*i) == 1 && input[(x)] == '>' && \
@@ -98,11 +100,17 @@ char	*signs_case(char *input)
 	if (input[i] == '<')
 	{
 		i++;
+		if (input[i] && ft_strchr(">", input[i]) && check_cmd_aft(input + i + 1))
+			return (NULL);
+		else if (input[i] && ft_strchr(">", input[i]))
+			return ("newline");
 		if (input[i] && input[i] == '<')
 			i++;
 		while (input[i] && input[i] == ' ')
 			i++;
-		if (input[i] && ft_strchr("|&<>", input[i]))
+		if (input[i] && ft_strchr("<", input[i]) && ft_strchr(">", input[i + 1]))
+			return ("<>");
+		if (input[i] && ft_strchr("|&<", input[i]))
 			return (search_char(input + i));
 	}
 	return (NULL);

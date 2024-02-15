@@ -29,7 +29,7 @@ void	heardoc_check(char ***heardoc_read, char *input, t_counter *iter, int i)
 			iter->i += quote_ignore(input + iter->i, D_QUOTES);
 		else if (input[iter->i] == S_QUOTES)
 			iter->i += quote_ignore(input + iter->i, S_QUOTES);
-		if (input[iter->i] && input[iter->i] == '<' && input[iter->i - 1] == '<')
+		else if (iter->i > 0 && input[iter->i] && input[iter->i] == '<' && input[iter->i - 1] == '<')
 		{
 			str_condition = search_heardoc_condition(input, iter);
 			if (!str_condition)
@@ -47,7 +47,8 @@ void	heardoc_check(char ***heardoc_read, char *input, t_counter *iter, int i)
 			}
 			iter->counter++;
 		}
-		iter->i++;
+		else
+			iter->i++;
 	}
 }
 

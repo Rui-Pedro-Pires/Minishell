@@ -96,6 +96,12 @@ int	minor_checker(char *input, int *i, char **myChar)
 		*myChar = search_char(input + (*i));
 		return (-1);
 	}
+	else if (checker == -3)
+	{
+		*i += 2;
+		*myChar = "<>";
+		return (-1);
+	}
 	else if (checker == 0)
 		return (0);
 	return (1);
