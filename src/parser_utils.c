@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	check_cmd_end(char *input)
+int	check_pipe_amper_next(char *input)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ int	check_end(char *input)
 	return (1);
 }
 
-int	check_cmd_aft(char *input)
+int	check_for_command_after(char *input)
 {
 	int	i;
 
@@ -61,18 +61,13 @@ int	check_cmd_aft(char *input)
 int	pipe_count(char *input, int *i)
 {
 	int	x;
-	int	checker;
 
-	checker = 0;
 	x = *i;
 	while (input[++x] == '|')
-		;
+			;
 	if ((x - (*i)) > 2)
-		return (-1);
-	checker = check_cmd_end(input + x);
-	if (checker == 0 && x - (*i) == 1)
-		return (-2);
-	else if (checker == 0)
+		return (0);
+	if (!check_pipe_amper_next(input + x))
 		return (-1);
 	(*i) = x;
 	return (1);
@@ -81,20 +76,13 @@ int	pipe_count(char *input, int *i)
 int	amper_count(char *input, int *i)
 {
 	int	x;
-	int	checker;
 
-	checker = 0;
 	x = *i;
 	while (input[++x] == '&')
-		;
-	if (x - (*i) > 2)
-		return (-1);
-	else if (x - (*i) == 1)
-		return (-3);
-	checker = check_cmd_end(input + x);
-	if (checker == 0 && x - (*i) == 1)
-		return (-2);
-	else if (checker == 0)
+			;
+	if (x - (*i) != 2 )
+		return (0);
+	if (!check_pipe_amper_next(input + x))
 		return (-1);
 	(*i) = x;
 	return (1);

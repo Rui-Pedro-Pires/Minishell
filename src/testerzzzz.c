@@ -68,18 +68,3 @@ void    input_str_tester(t_pipes *head)
         head = head->next;  
     }
 }
-
-void	ft_print_heardoc(char **heardoc_read)
-{
-	int	i;
-
-	i = 0;
-	if (!heardoc_read)
-		return ;
-	while (heardoc_read[i])
-	{
-		printf("--------------------------------\n");
-		printf("%s", heardoc_read[i]);
-		i++;
-	}
-}

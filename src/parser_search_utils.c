@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-char	*search_char(char *input)
+char	*search_char(char  *input)
 {
 	int	i;
 
@@ -73,7 +73,7 @@ char	*pipe_amper_search(char *input)
 
 char	*parenthesis_search(char *input)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (input[i] && input[i] == '(')
