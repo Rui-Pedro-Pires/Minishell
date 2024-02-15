@@ -16,6 +16,7 @@ static char	*search_heardoc_condition(char *input, t_counter *iter);
 static char	**ft_realloc(char ***heardoc_read, t_counter *iter);
 static int	add_to_line(char **new_line, char *str, \
 			char ***h_doc, t_counter *iter);
+static int	max_len(size_t new, size_t str_cond);
 
 void	heardoc_check(char ***heardoc_read, char *input, t_counter *iter, int i)
 {
@@ -87,7 +88,7 @@ static int	add_to_line(char **new_line, char *str, char ***h_doc, t_counter *ite
 		free(*new_line);
 		return (1);
 	}
-	if (ft_strncmp(*new_line, str, ft_strlen(*new_line)) == 0)
+	if (ft_strncmp(*new_line, str, max_len(ft_strlen(*new_line), ft_strlen(str))) == 0)
 	{
 		free(*new_line);
 		(*h_doc)[iter->counter] = add_nl((*h_doc)[iter->counter], "\n");
@@ -115,21 +116,27 @@ static char	*search_heardoc_condition(char *input, t_counter *iter)
 	char	*str_condition;
 
 	x = 0;
-	iter->i += 2;
+	iter->i += 1;
 	while (input[iter->i] && input[iter->i] == ' ')
 		iter->i++;
 	i = iter->i;
 	j = iter->i;
 	if (ft_strchr("|<>()\\;", input[iter->i]))
 		return (NULL);
-	while (input[i] && (!ft_strchr("|&><", input[i]) || input[i] != ' '))
+	while (input[i] && !ft_strchr("|&>< ", input[i]))
 		i++;
-	str_condition = malloc(sizeof(char) * i + 1);
+	str_condition = malloc(sizeof(char) * (i - iter->i + 1));
 	if (!str_condition)
 		return (NULL);
-	while (input[j] && (!ft_strchr("|&><", input[j]) \
-	|| input[j] != ' '))
+	while (input[j] && !ft_strchr("|&>< ", input[j]))
 		str_condition[x++] = input[j++];
 	str_condition[x] = '\0';
 	return (str_condition);
+}
+
+static int	max_len(size_t new, size_t str_cond)
+{
+	if (new > str_cond)
+		return (new);
+	return (str_cond);
 }
