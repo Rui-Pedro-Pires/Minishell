@@ -15,10 +15,11 @@
 void	ft_cd(char *str)
 {
 	char	*new_dir;
+
 	if (strcmp(str, "") == 0 || strcmp(str, "~") == 0 || str == NULL)
 		new_dir = getenv("HOME");
 	else
-	 new_dir = check_quotes_n_expand(str);
+		new_dir = check_quotes_n_expand(str);
 	if (chdir(new_dir) == (-1))
 	{
 		err_num_chdir(new_dir);
@@ -33,7 +34,10 @@ void	ft_cd(char *str)
 void	err_num_chdir(char *str)
 {
 	if (errno == ENOENT)
-		printf("\nruiolive&&jorteixe@minishell: cd: %s: No such file or directory\n", str);
+		printf("\nruiolive&&jorteixe@minishell:"
+			"cd: %s: No such file or directory\n",
+			str);
 	else if (errno == ENOTDIR)
-		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n", str);
+		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n",
+			str);
 }

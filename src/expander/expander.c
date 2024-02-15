@@ -27,8 +27,8 @@ char	*check_quotes_n_expand(char *str)
 		if (str[0] == '~' && !single_open)
 			str = handle_til(str, j);
 		if (str[j] == '$' && !single_open && (ft_isalnum(str[j + 1]) || str[j
-				+ 1] == '_'))
-			str = handle_dollar_sign(str, j, single_open); /* #TODO  Handle*/
+					+ 1] == '_'))
+			str = handle_dollar_sign(str, j, single_open);
 		j++;
 	}
 	str = copy_inside_quotes(str);

@@ -12,7 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
-void ft_pwd(void)
+void	ft_pwd(void)
 {
 	printf("%s\n", getcwd(NULL, 0));
 }

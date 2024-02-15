@@ -30,6 +30,7 @@ char	*check_chars(const char *str, const char *accept)
 	}
 	return (NULL);
 }
+
 char	*ft_strndup(const char *s, size_t n)
 {
 	size_t	len;
@@ -42,6 +43,7 @@ char	*ft_strndup(const char *s, size_t n)
 	new[len] = '\0';
 	return (ft_memcpy(new, s, len));
 }
+
 size_t	ft_strnlen(const char *str, size_t maxlen)
 {
 	size_t	i;

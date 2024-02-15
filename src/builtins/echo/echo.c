@@ -12,7 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
-void ft_echo(char *str)
+void	ft_echo(char *str)
 {
 	str = check_quotes_n_expand(str);
 	printf("%s\n", str);
