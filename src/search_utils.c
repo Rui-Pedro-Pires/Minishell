@@ -32,14 +32,15 @@ bool	search_dpipe_or_damper(char *input, int *i, int correct_parenthesis)
 {
 	while (input[(*i)] && *i <= correct_parenthesis)
 	{
-		if (ft_strnstr(input + (*i), "||", 2) || ft_strnstr(input + (*i), "&&", 2))
+		if (ft_strnstr(input + (*i), "||", 2) \
+		|| ft_strnstr(input + (*i), "&&", 2))
 			return (true);
 		(*i)++;
 	}
 	return (false);
 }
 
-int search_correct_parenthesis(char *input)
+int	search_correct_parenthesis(char *input)
 {
 	int	i;
 	int	parenthesis_num;

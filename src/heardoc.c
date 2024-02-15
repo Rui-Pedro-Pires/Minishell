@@ -16,7 +16,7 @@ static char	*search_heardoc_condition(char *input, t_counter *iter);
 static char	**ft_realloc(char ***heardoc_read, t_counter *iter);
 static int	add_to_line(char **new_line, char *str, \
 			char ***h_doc, t_counter *iter);
-static int	max_len(size_t new, size_t str_cond);
+static int	maxlen(size_t new, size_t str_cond);
 
 void	heardoc_check(char ***heardoc_read, char *input, t_counter *iter, int i)
 {
@@ -79,18 +79,19 @@ static char	**ft_realloc(char ***heardoc_read, t_counter *iter)
 	return (copy);
 }
 
-static int	add_to_line(char **new_line, char *str, char ***h_doc, t_counter *iter)
+static int	add_to_line(char **new_ln, char *str, \
+char ***h_doc, t_counter *iter)
 {
-	if (!(*new_line))
+	if (!(*new_ln))
 		return (err_hlr_2(ERR_READ, str, NULL), 0);
-	if (!(*(*new_line)))
+	if (!(*(*new_ln)))
 	{
-		free(*new_line);
+		free(*new_ln);
 		return (1);
 	}
-	if (ft_strncmp(*new_line, str, max_len(ft_strlen(*new_line), ft_strlen(str))) == 0)
+	if (!ft_strncmp(*new_ln, str, maxlen(ft_strlen(*new_ln), ft_strlen(str))))
 	{
-		free(*new_line);
+		free(*new_ln);
 		(*h_doc)[iter->counter] = add_nl((*h_doc)[iter->counter], "\n");
 		(*h_doc)[iter->counter + 1] = 0;
 		iter->i++;
@@ -99,12 +100,12 @@ static int	add_to_line(char **new_line, char *str, char ***h_doc, t_counter *ite
 	if (!(*(*h_doc)[iter->counter]))
 	{
 		free((*h_doc)[iter->counter]);
-		(*h_doc)[iter->counter] = ft_strdup(*new_line);
-		free(*new_line);
+		(*h_doc)[iter->counter] = ft_strdup(*new_ln);
+		free(*new_ln);
 	}
 	else
 		(*h_doc)[iter->counter] = \
-		str_join_with_newline((*h_doc)[iter->counter], *new_line);
+		str_join_with_newline((*h_doc)[iter->counter], *new_ln);
 	return (1);
 }
 
@@ -134,7 +135,7 @@ static char	*search_heardoc_condition(char *input, t_counter *iter)
 	return (str_condition);
 }
 
-static int	max_len(size_t new, size_t str_cond)
+static int	maxlen(size_t new, size_t str_cond)
 {
 	if (new > str_cond)
 		return (new);

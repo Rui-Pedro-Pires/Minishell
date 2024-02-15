@@ -58,19 +58,19 @@ int	check_for_error_af_parenthesis(char *input, int i)
 		i++;
 	if (!input[i])
 		return (1);
-	if (input[i] && (ft_strchr("&)", input[i]) || 
-	ft_strnstr(input + i, "||", 2)))
+	if (input[i] && (ft_strchr("&)", input[i]) \
+	|| ft_strnstr(input + i, "||", 2)))
 		return (1);
 	return (0);
 }
 
 int	check_valid_parenthesis(char *input)
 {
-	int	i;
-	int	correct_parenthesis;
-	bool command1;
-	bool command2;
-	bool dpipe_damper;
+	int		i;
+	int		correct_parenthesis;
+	bool	command1;
+	bool	command2;
+	bool	dpipe_damper;
 
 	i = 1;
 	correct_parenthesis = search_correct_parenthesis(input);

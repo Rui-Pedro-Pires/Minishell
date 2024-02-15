@@ -12,14 +12,11 @@
 
 #include "../includes/minishell.h"
 
-
 int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
 {
 	int	i;
 
 	i = 0;
-	count_struct->i = 0;
-	count_struct->counter = 0;
 	count_struct->prnt = 0;
 	if (!check_begin_case_parser(input, &i))
 		return (0);
@@ -76,14 +73,15 @@ int	parser(char *input, int *i, t_counter *count_struct)
 		if (!status_signs)
 			return (0);
 		else if (status_signs == 2)
-			(*i)++;	
+			(*i)++;
 	}
 	return (1);
 }
 
-int quotes_parser(char *input, int *i)
+int	quotes_parser(char *input, int *i)
 {
 	int	status;
+
 	if (input[(*i)] == D_QUOTES)
 	{
 		status = quote_check(input, i, D_QUOTES);
@@ -102,7 +100,7 @@ int quotes_parser(char *input, int *i)
 int	parenthesis_parser(char *input, int *i, t_counter *count_struct)
 {
 	int	x;
-	
+
 	x = *i;
 	if (input[x] == '(')
 	{
@@ -118,7 +116,8 @@ int	parenthesis_parser(char *input, int *i, t_counter *count_struct)
 		if (count_struct->prnt < 0)
 			return (err_hlr_2(ERR_STR, ")", NULL), 0);
 		if (!check_for_error_af_parenthesis(input, x))
-			return (err_hlr_2(ERR_STR_FREE, string_error(input + x + 1), NULL), 0);
+			return (err_hlr_2(ERR_STR_FREE, \
+			string_error(input + x + 1), NULL), 0);
 	}
 	return (1);
 }
@@ -131,16 +130,16 @@ int	signs_parser(char *input, int *i)
 	errorch = NULL;
 	checker = 0;
 	if (ft_strchr("<>&|", input[(*i)]))
-	 {
-	 	checker = check_signs(input, i, &errorch);
-	 	if (!checker)
-	 		return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
-	 	else if (checker == -1)
-	 		return (err_hlr_2(ERR_STR, errorch, NULL), 0);
+	{
+		checker = check_signs(input, i, &errorch);
+		if (!checker)
+			return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
+		else if (checker == -1)
+			return (err_hlr_2(ERR_STR, errorch, NULL), 0);
 		return (1);
-	 }
-	 else if (ft_strchr("\\;", input[(*i)]))
-	 	return (error_handler(ERROR_SPECIAL_CHAR, &input[(*i)], NULL), 0);
+	}
+	else if (ft_strchr("\\;", input[(*i)]))
+		return (error_handler(ERROR_SPECIAL_CHAR, &input[(*i)], NULL), 0);
 	return (2);
 }
 
