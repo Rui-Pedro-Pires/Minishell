@@ -44,10 +44,11 @@ SOURCES := main.c \
 			str_join.c\
 			search_utils.c\
 			parser_parenthesis.c\
-			cd.c\
-			expander_utils.c\
+			builtins/cd_pwd/cd.c\
+			builtins/cd_pwd/pwd.c\
+			expander/expander_utils.c\
+			expander/expander.c\
 			read_line_parser.c\
-			pwd.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
@@ -63,6 +64,7 @@ $(LIBFT):
 	@echo "${GRN}➾ $@ created ${RES}"
 
 $(ODIR)/%.o: $(SDIR)/%.c | $(ODIR)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c -o $@ $<
 	@echo "${GRN}➾ $@ created ${RES}"
 
