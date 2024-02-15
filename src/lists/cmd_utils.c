@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static char	*build_str(char *formated, char *input);
 static void	double_quotes_add(char **formated, char *input, int *i, int *x);

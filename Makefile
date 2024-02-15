@@ -25,26 +25,26 @@ SDIR := src
 ODIR := obj
 
 SOURCES := main.c \
-			list_utils.c\
 			error_handler.c\
 			free_memory.c\
-			cmd_utils.c\
-			org_list_utils.c\
-			parser_utils.c\
-			fill_data_utils.c\
 			testerzzzz.c\
-			placeholder.c\
-			read_line.c\
-			read_line_utils.c\
+			heardoc.c\
+			str_join.c\
+			search_utils.c\
+			lists/list_utils.c\
+			lists/cmd_utils.c\
+			lists/org_list_utils.c\
+			lists/placeholder.c\
+			lists/fill_data_utils.c\
+			readline/read_line.c\
+			readline/read_line_utils.c\
+			readline/read_line_parser.c\
+			parser/parser_utils.c\
 			parser/parser_input.c\
 			parser/parser_signs.c\
 			parser/parser_search_utils.c\
 			parser/parser_diff_signs.c\
 			parser/parser_parenthesis.c\
-			heardoc.c\
-			str_join.c\
-			search_utils.c\
-			read_line_parser.c\
 			builtins/cd_pwd/cd.c\
 			builtins/cd_pwd/pwd.c\
 			builtins/echo/echo.c\

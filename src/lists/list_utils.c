@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static t_pipes	*find_last_node(t_pipes *head);
 static void		add_list(t_pipes **head, char *formated, t_type_pipe pipe_type);
