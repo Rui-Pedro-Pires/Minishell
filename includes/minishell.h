@@ -242,18 +242,20 @@ char				**special_splitens(char *str, int *back, int *front,
 void				freezzzz(char *input, char ***heardoc_read, t_pipes **head);
 void				input_str_tester(t_pipes *head);
 
-/****************************/
-/*			CD				*/
-/****************************/
+/************************************/
+/*			BUILTINS				*/
+/************************************/
 
 void				ft_cd(char *str);
-void				err_num_chdir(char *str);
-void				ft_expander(char **str_array);
+void				ft_pwd(void);
+void				ft_echo(char *str);
 
 /****************************/
 /*			EXPANDER		*/
 /****************************/
 
+void				err_num_chdir(char *str);
+void				ft_expander(char **str_array);
 char				*check_quotes_n_expand(char *str);
 char				*handle_dollar_sign(char *str, int j, bool single_open);
 char				*handle_til(char *str, int j);
@@ -268,7 +270,5 @@ char				*copy_inside_quotes(char *str);
 size_t				ft_strnlen(const char *str, size_t maxlen);
 char				*ft_strndup(const char *s, size_t n);
 int					count_alphanum(char *str, int j);
-
-void				ft_pwd(void);
 
 #endif

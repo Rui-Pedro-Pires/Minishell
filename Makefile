@@ -44,11 +44,12 @@ SOURCES := main.c \
 			str_join.c\
 			search_utils.c\
 			parser_parenthesis.c\
+			read_line_parser.c\
 			builtins/cd_pwd/cd.c\
 			builtins/cd_pwd/pwd.c\
+			builtins/echo/echo.c\
 			expander/expander_utils.c\
 			expander/expander.c\
-			read_line_parser.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
