@@ -30,20 +30,20 @@ SOURCES := main.c \
 			free_memory.c\
 			cmd_utils.c\
 			org_list_utils.c\
-			parser_input.c\
 			parser_utils.c\
-			parser_signs.c\
 			fill_data_utils.c\
 			testerzzzz.c\
 			placeholder.c\
 			read_line.c\
 			read_line_utils.c\
-			parser_search_utils.c\
-			parser_diff_signs.c\
+			parser/parser_input.c\
+			parser/parser_signs.c\
+			parser/parser_search_utils.c\
+			parser/parser_diff_signs.c\
+			parser/parser_parenthesis.c\
 			heardoc.c\
 			str_join.c\
 			search_utils.c\
-			parser_parenthesis.c\
 			read_line_parser.c\
 			builtins/cd_pwd/cd.c\
 			builtins/cd_pwd/pwd.c\

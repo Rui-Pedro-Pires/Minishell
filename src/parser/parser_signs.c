@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	ft_return_check(char *input, int *i, int *x);
 static char	*check_minor_case_special_error(char *input, int i);
