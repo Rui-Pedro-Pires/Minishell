@@ -23,9 +23,11 @@ void	ft_cd(char *str)
 	{
 		err_num_chdir(new_dir);
 		free(new_dir);
+		new_dir = NULL;
 		return ;
 	}
 	free(new_dir);
+	new_dir = NULL;
 }
 
 void	err_num_chdir(char *str)
