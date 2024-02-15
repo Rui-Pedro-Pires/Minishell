@@ -12,23 +12,28 @@
 
 #include "../../../includes/minishell.h"
 
-void	ft_cd(char *str)
+void	ft_cd(char **str)
 {
 	char	*new_dir;
 
-	if (strcmp(str, "") == 0 || strcmp(str, "~") == 0 || str == NULL)
-		new_dir = getenv("HOME");
+	if (str[2] != NULL)
+		printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n");
 	else
-		new_dir = check_quotes_n_expand(str);
-	if (chdir(new_dir) == (-1))
 	{
-		err_num_chdir(new_dir);
+		if (strcmp(str[1], "") == 0 || strcmp(str[1], "~") == 0 || str[1] == NULL)
+			new_dir = getenv("HOME");
+		else
+			new_dir = check_quotes_n_expand(str[1]);
+		if (chdir(new_dir) == (-1))
+		{
+			err_num_chdir(new_dir);
+			free(new_dir);
+			new_dir = NULL;
+			return ;
+		}
 		free(new_dir);
 		new_dir = NULL;
-		return ;
 	}
-	free(new_dir);
-	new_dir = NULL;
 }
 
 void	err_num_chdir(char *str)

@@ -246,7 +246,7 @@ void				input_str_tester(t_pipes *head);
 /*			BUILTINS				*/
 /************************************/
 
-void				ft_cd(char *str);
+void				ft_cd(char **str);
 void				ft_pwd(void);
 void				ft_echo(char *str);
 
