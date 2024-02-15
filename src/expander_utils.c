@@ -12,7 +12,9 @@
 
 #include "../includes/minishell.h"
 
-char	*copy_alphanumeric(const char *src);
+char* check_quotes_n_expand(char* str);
+
+char* copy_alphanumeric(const char* src);
 char	*ft_strndup(const char *s, size_t n);
 size_t	ft_strnlen(const char *str, size_t maxlen);
 int		count_alphanum(char *str, int j);
@@ -32,7 +34,7 @@ char	*check_quotes_n_expand(char *str)
 		update_quote_status(str[j], &single_open, &double_open);
 		if (str[j] == '$' && !single_open && (ft_isalnum(str[j + 1]) || str[j
 				+ 1] == '_'))
-			str = handle_dollar_sign(str, j, single_open);
+			str = handle_dollar_sign(str, j, single_open); /* #TODO  Handle*/
 		j++;
 	}
 	str = copy_inside_quotes(str);
@@ -71,25 +73,25 @@ char	*handle_dollar_sign(char *str, int j, bool single_open)
 
 char	*expand(char *before, char *str, char *after)
 {
-	char	*var_value;
-	char	*new_str;
-	int		full_string_count;
+    char	*var_value;
+    char	*new_str;
+    int		full_string_count;
 
-	var_value = getenv(str);
-	if (var_value == NULL)
-		var_value = "/";
-	full_string_count = ft_strlen(before) + ft_strlen(var_value)
-		+ ft_strlen(after) + 1;
-	new_str = malloc(full_string_count);
-	strcpy(new_str, before);
-	if (*var_value)
-		strcat(new_str, var_value);
-	if (*after)
-		strcat(new_str, after);
-	free(before);
-	free(after);
-	free(str);
-	return (new_str);
+    var_value = getenv(str);
+    if (var_value == NULL)
+        var_value = "/";
+    full_string_count = ft_strlen(before) + ft_strlen(var_value)
+        + ft_strlen(after) + 1;
+    new_str = malloc(full_string_count);
+    ft_strlcpy(new_str, before, full_string_count);
+    if (*var_value)
+        ft_strlcat(new_str, var_value, full_string_count);
+    if (*after)
+        ft_strlcat(new_str, after, full_string_count);
+    free(before);
+    free(after);
+    free(str);
+    return (new_str);
 }
 
 char	*copy_alphanumeric(const char *src)

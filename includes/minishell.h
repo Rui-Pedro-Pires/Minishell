@@ -261,4 +261,6 @@ char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strcat(char *dest, const char *src);
 void			ft_print_heardoc(char **heardoc_read);
 
+void				ft_pwd(void);
+
 #endif
