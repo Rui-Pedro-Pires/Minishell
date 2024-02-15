@@ -75,11 +75,11 @@ typedef struct s_pipes
 
 typedef struct s_counter
 {
-	int		i;
-	int		counter;
-	int		empty;
-	int		prnt;
-}				t_counter;
+	int				i;
+	int				counter;
+	int				empty;
+	int				prnt;
+}					t_counter;
 
 /********************/
 /*		COLORS		*/
@@ -98,9 +98,9 @@ typedef struct s_counter
 /*			ERRORS			*/
 /****************************/
 
-void			error_handler(int error_msg, void *param, void **param2);
-void			err_hlr_2(int error_msg, void *param, void **param2);
-char 			*string_error(char *input);
+void				error_handler(int error_msg, void *param, void **param2);
+void				err_hlr_2(int error_msg, void *param, void **param2);
+char				*string_error(char *input);
 
 typedef enum e_error
 {
@@ -117,133 +117,136 @@ typedef enum e_error
 /*			PARSER			*/
 /****************************/
 
-int				parse_input(char *input, t_counter *count_struct, \
-				char ***heardoc_read);
-int				check_begin_case_parser(char *input, int *i);
-int				parser(char *input, int *i, t_counter *count_struct);
-int				signs_parser(char *input, int *i);
-int 			quotes_parser(char *input, int *i);
-int				parenthesis_parser(char *input, int *i, t_counter *count_struct);
+int					parse_input(char *input, t_counter *count_struct,
+						char ***heardoc_read);
+int					check_begin_case_parser(char *input, int *i);
+int					parser(char *input, int *i, t_counter *count_struct);
+int					signs_parser(char *input, int *i);
+int					quotes_parser(char *input, int *i);
+int					parenthesis_parser(char *input, int *i,
+						t_counter *count_struct);
 
 /****************************/
 /*			QUOTES			*/
 /****************************/
 
-int				quote_ignore(char *input, char c);
-int				quote_check(char *input, int *i, char c);
+int					quote_ignore(char *input, char c);
+int					quote_check(char *input, int *i, char c);
 
 /****************************/
 /*			SIGNS			*/
 /****************************/
 
-int				check_signs(char *input, int *i, char **myChar);
-int				amper_count(char *input, int *i);
-int				pipe_count(char *input, int *i);
-int				major_sig_count(char *input, int *i);
-int				minor_sig_count(char *input, int *i);
-char			*pipe_amper_search(char *input);
-char			*signs_search(char *input);
-char			*signs_case(char *input);
-int				pipe_checker(char *input, int *x, char **myChar);
-int				amper_checker(char *input, int *x, char **myChar);
-int				major_checker(char *input, int *x, char **myChar);
-int				minor_checker(char *input, int *x, char **myChar);
+int					check_signs(char *input, int *i, char **myChar);
+int					amper_count(char *input, int *i);
+int					pipe_count(char *input, int *i);
+int					major_sig_count(char *input, int *i);
+int					minor_sig_count(char *input, int *i);
+char				*pipe_amper_search(char *input);
+char				*signs_search(char *input);
+char				*signs_case(char *input);
+int					pipe_checker(char *input, int *x, char **myChar);
+int					amper_checker(char *input, int *x, char **myChar);
+int					major_checker(char *input, int *x, char **myChar);
+int					minor_checker(char *input, int *x, char **myChar);
 
 /****************************/
-/*		PARENTHESIS	   		*/
+/*		PARENTHESIS				*/
 /****************************/
 
-char			*parenthesis_search(char *input);
-int				check_for_error_bf_parenthesis(char *input, int i);
-int				check_for_error_af_parenthesis(char *input, int i);
-int 			search_correct_parenthesis(char *input);
-int				count_parenthesis(char *input, t_counter *counter_struc);
-int				check_valid_parenthesis(char *input);
+char				*parenthesis_search(char *input);
+int					check_for_error_bf_parenthesis(char *input, int i);
+int					check_for_error_af_parenthesis(char *input, int i);
+int					search_correct_parenthesis(char *input);
+int					count_parenthesis(char *input, t_counter *counter_struc);
+int					check_valid_parenthesis(char *input);
 
 /****************************/
 /*		PARSER	UTILS		*/
 /****************************/
 
-int				check_cmd_aft(char *input);
-int				check_cmd_end(char *input);
-int				check_end(char *input);
-char			*search_char(char *input);
-bool			search_command(char *input, int *i, int correct_parenthesis);
-bool			search_dpipe_or_damper(char *input, int *i, int correct_parenthesis);
+int					check_cmd_aft(char *input);
+int					check_cmd_end(char *input);
+int					check_end(char *input);
+char				*search_char(char *input);
+bool				search_command(char *input, int *i,
+						int correct_parenthesis);
+bool				search_dpipe_or_damper(char *input, int *i,
+						int correct_parenthesis);
 
 /****************************/
 /*			LIST			*/
 /****************************/
 
-void			creat_list(t_pipes **head, char *input);
-void			define_pipe_type(char *input, t_type_pipe *pipe_check, int *i);
+void				creat_list(t_pipes **head, char *input);
+void				define_pipe_type(char *input, t_type_pipe *pipe_check,
+						int *i);
 
 /****************************/
 /*			FREE			*/
 /****************************/
 
-void			free_args(char **args);
-void			coador(t_pipes **head);
+void				free_args(char **args);
+void				coador(t_pipes **head);
 
 /****************************/
 /*			STRINGS			*/
 /****************************/
 
-char			*trim_str(char *input, t_type_pipe *pipe_check, int *i);
+char				*trim_str(char *input, t_type_pipe *pipe_check, int *i);
 
 /****************************/
 /*			READ LINE		*/
 /****************************/
 
-char			*line_read(char ***heardoc_read, t_counter *counter_struc);
-int				unfinished_command_line(char *input);
-char			*str_join_with_space(char *s1, char *s2);
-char			*str_join_with_newline(char *s1, char *s2);
-char			*add_nl(char *s1, char *s2);
-char			*creat_cwd(void);
-char			*keep_reading(char *input_rec, \
-				t_counter *c_struc, char ***heardoc_read);
+char				*line_read(char ***heardoc_read, t_counter *counter_struc);
+int					unfinished_command_line(char *input);
+char				*str_join_with_space(char *s1, char *s2);
+char				*str_join_with_newline(char *s1, char *s2);
+char				*add_nl(char *s1, char *s2);
+char				*creat_cwd(void);
+char				*keep_reading(char *input_rec, t_counter *c_struc,
+						char ***heardoc_read);
 
 /****************************/
 /*			HEARDOC			*/
 /****************************/
 
-void			heardoc_check(char ***heardoc_read, char *input, \
-				t_counter *count_struc, int i);
+void				heardoc_check(char ***heardoc_read, char *input,
+						t_counter *count_struc, int i);
 
 /****************************/
 /*			DATA			*/
 /****************************/
 
-int				command_decider1(t_data *data);
-int				command_decider2(t_data *data);
-int				fill_data(t_pipes *pipe_struct, int count);
-int				count_rarrow(char *str);
-int				count_larrow(char *str);
-int				count_amperz(char *str);
-int				count_input(t_pipes *pipe);
-void			prepare_split(t_data *data, t_pipes *pipe, int *back,
-					int *front);
-void			check_specialz(char *str, t_data *data, int *front);
-int				check_only_spaces(char *input_str);
-int				word_counter(char const *s, char c);
-void			organize_list(t_pipes *pipe_struct);
-char			**special_splitens(char *str, int *back, int *front,
-					char c);
+int					command_decider1(t_data *data);
+int					command_decider2(t_data *data);
+int					fill_data(t_pipes *pipe_struct, int count);
+int					count_rarrow(char *str);
+int					count_larrow(char *str);
+int					count_amperz(char *str);
+int					count_input(t_pipes *pipe);
+void				prepare_split(t_data *data, t_pipes *pipe, int *back,
+						int *front);
+void				check_specialz(char *str, t_data *data, int *front);
+int					check_only_spaces(char *input_str);
+int					word_counter(char const *s, char c);
+void				organize_list(t_pipes *pipe_struct);
+char				**special_splitens(char *str, int *back, int *front,
+						char c);
 
 /****************************/
 /*			TESTERZZZ		*/
 /****************************/
 
-void			freezzzz(char *input, char ***heardoc_read, t_pipes **head);
-void			input_str_tester(t_pipes *head);
+void				freezzzz(char *input, char ***heardoc_read, t_pipes **head);
+void				input_str_tester(t_pipes *head);
 
 /****************************/
 /*			CD				*/
 /****************************/
 
 void				ft_cd(char *str);
-char				*get_new_dir(char *str);
 void				err_num_chdir(char *str);
 void				ft_expander(char **str_array);
 
@@ -259,7 +262,11 @@ char				*expand(char *before, char *str, char *after);
 char				*check_chars(const char *str, const char *accept);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strcat(char *dest, const char *src);
-void			ft_print_heardoc(char **heardoc_read);
+void				ft_print_heardoc(char **heardoc_read);
+char				*copy_inside_quotes(char *str);
+size_t				ft_strnlen(const char *str, size_t maxlen);
+char				*ft_strndup(const char *s, size_t n);
+int					count_alphanum(char *str, int j);
 
 void				ft_pwd(void);
 

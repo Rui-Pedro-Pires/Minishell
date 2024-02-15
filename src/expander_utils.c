@@ -12,14 +12,6 @@
 
 #include "../includes/minishell.h"
 
-char* check_quotes_n_expand(char* str);
-
-char* copy_alphanumeric(const char* src);
-char	*ft_strndup(const char *s, size_t n);
-size_t	ft_strnlen(const char *str, size_t maxlen);
-int		count_alphanum(char *str, int j);
-char	*copy_inside_quotes(char *str);
-
 char	*check_quotes_n_expand(char *str)
 {
 	int		j;

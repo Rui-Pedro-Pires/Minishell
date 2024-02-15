@@ -15,8 +15,10 @@
 void	ft_cd(char *str)
 {
 	char	*new_dir;
-
-	new_dir = get_new_dir(str);
+	if (strcmp(str, "") == 0 || strcmp(str, "~") == 0 || str == NULL)
+		new_dir = getenv("HOME");
+	else
+	 new_dir = check_quotes_n_expand(str);
 	if (chdir(new_dir) == (-1))
 	{
 		err_num_chdir(new_dir);
@@ -24,14 +26,6 @@ void	ft_cd(char *str)
 		return ;
 	}
 	free(new_dir);
-}
-
-char	*get_new_dir(char *str)
-{
-	if (strcmp(str, "") == 0 || strcmp(str, "~") == 0 || str == NULL)
-		return (getenv("HOME"));
-	str = check_quotes_n_expand(str);
-	return (str);
 }
 
 void	err_num_chdir(char *str)
