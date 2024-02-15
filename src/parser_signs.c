@@ -13,6 +13,7 @@
 #include "../includes/minishell.h"
 
 static int	ft_return_check(char *input, int *i, int *x);
+static char	*check_minor_case_special_error(char *input, int i);
 
 int	check_signs(char *input, int *i, char **myChar)
 {
@@ -100,18 +101,7 @@ char	*signs_case(char *input)
 	if (input[i] == '<')
 	{
 		i++;
-		if (input[i] && ft_strchr(">", input[i]) && check_cmd_aft(input + i + 1))
-			return (NULL);
-		else if (input[i] && ft_strchr(">", input[i]))
-			return ("newline");
-		if (input[i] && input[i] == '<')
-			i++;
-		while (input[i] && input[i] == ' ')
-			i++;
-		if (input[i] && ft_strchr("<", input[i]) && ft_strchr(">", input[i + 1]))
-			return ("<>");
-		if (input[i] && ft_strchr("|&<", input[i]))
-			return (search_char(input + i));
+		return (check_minor_case_special_error(input, i));
 	}
 	return (NULL);
 }
@@ -134,4 +124,21 @@ static int	ft_return_check(char *input, int *i, int *x)
 	else if (checker == -1)
 		return (-1);
 	return (1);
+}
+static char	*check_minor_case_special_error(char *input, int i)
+{
+	if (input[i] && ft_strchr(">", input[i]) && !check_cmd_aft(input + i + 1))
+		return ("newline");
+	if (input[i] && ft_strchr(">", input[i]) && ft_strchr("<", input[i + 1]) \
+	&& input[i + 2] && ft_strchr(">", input[i + 2]))
+		return ("<>");
+	if (input[i] && ft_strchr(">", input[i]) && check_cmd_aft(input + i + 1))
+		return (NULL);
+	if (input[i] && input[i] == '<')
+		i++;
+	while (input[i] && input[i] == ' ')
+		i++;
+	if (input[i] && ft_strchr("|&<", input[i]))
+		return (search_char(input + i));
+	return (NULL);
 }
