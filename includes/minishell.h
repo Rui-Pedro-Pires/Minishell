@@ -256,6 +256,7 @@ void				ft_expander(char **str_array);
 
 char				*check_quotes_n_expand(char *str);
 char				*handle_dollar_sign(char *str, int j, bool single_open);
+char				*handle_til(char *str, int j);
 void				update_quote_status(char c, bool *single_open,
 						bool *double_open);
 char				*expand(char *before, char *str, char *after);
