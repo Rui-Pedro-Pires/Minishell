@@ -10,34 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	ft_cd(char *str)
 {
 	char	*new_dir;
 
-	new_dir = get_new_dir(str);
+	if (strcmp(str, "") == 0 || strcmp(str, "~") == 0 || str == NULL)
+		new_dir = getenv("HOME");
+	else
+		new_dir = check_quotes_n_expand(str);
 	if (chdir(new_dir) == (-1))
 	{
 		err_num_chdir(new_dir);
 		free(new_dir);
+		new_dir = NULL;
 		return ;
 	}
 	free(new_dir);
-}
-
-char	*get_new_dir(char *str)
-{
-	if (strcmp(str, "") == 0 || strcmp(str, "~") == 0 || str == NULL)
-		return (getenv("HOME"));
-	str = check_quotes_n_expand(str);
-	return (str);
+	new_dir = NULL;
 }
 
 void	err_num_chdir(char *str)
 {
 	if (errno == ENOENT)
-		printf("\nruiolive&&jorteixe@minishell: cd: %s: No such file or directory\n", str);
+		printf("\nruiolive&&jorteixe@minishell:"
+			"cd: %s: No such file or directory\n",
+			str);
 	else if (errno == ENOTDIR)
-		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n", str);
+		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n",
+			str);
 }
