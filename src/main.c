@@ -17,12 +17,12 @@ int	main(int argc, char **argv, char **env)
 	char		*input;
 	char		**heardoc_read;
 	t_counter	count_struc;
-	t_pipes		*head;
+	// t_pipes		*head;
 
 	t_envs *head_envs;
 	head_envs = create_env_list(env);
-
-	head = NULL;
+	ft_env(head_envs);
+	// head = NULL;
 	heardoc_read = NULL;
 	(void)argv;
 	(void)env;

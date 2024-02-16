@@ -51,6 +51,8 @@ SOURCES := main.c \
 			builtins/envs/create_env_list.c\
 			builtins/envs/free_env.c\
 			builtins/envs/env.c\
+			builtins/envs/export.c\
+			builtins/envs/unset.c\
 			expander/expander_utils.c\
 			expander/expander.c\
 			
