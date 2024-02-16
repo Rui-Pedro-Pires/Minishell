@@ -19,13 +19,16 @@ int	main(int argc, char **argv, char **env)
 	t_counter	count_struc;
 	t_pipes		*head;
 
+	t_envs *head_envs;
+	head_envs = create_env_list(env);
+
 	head = NULL;
 	heardoc_read = NULL;
 	(void)argv;
 	(void)env;
 	if (argc == 1)
 	{
-		while (1)
+		while (1) 
 		{
 			count_struc.i = 0;
 			count_struc.counter = 0;
@@ -34,12 +37,11 @@ int	main(int argc, char **argv, char **env)
 				add_history(input);
 			else
 				continue;
-			// printf("current directory: %s\n", getcwd(NULL, 0));
 			// ft_cd(input);
 			// ft_pwd();
-			// printf("new directory: %s\n", getcwd(NULL, 0));
-			creat_list(&head, input);			
-			input_str_tester(head);
+			ft_echo(input);
+			// creat_list(&head, input);			
+			// input_str_tester(head);
 			// freezzzz(input, &heardoc_read, &head);
 			// organize_list(head);
 			// tester(head);

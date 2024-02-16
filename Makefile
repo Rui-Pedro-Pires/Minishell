@@ -48,11 +48,13 @@ SOURCES := main.c \
 			builtins/cd_pwd/cd.c\
 			builtins/cd_pwd/pwd.c\
 			builtins/echo/echo.c\
+			builtins/envs/create_env_list.c\
+			builtins/envs/free_env.c\
+			builtins/envs/env.c\
 			expander/expander_utils.c\
 			expander/expander.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
-
 
 all : ${NAME}
 
@@ -71,7 +73,32 @@ $(ODIR)/%.o: $(SDIR)/%.c | $(ODIR)
 
 $(ODIR):
 	@mkdir -p $@	
+#######################
+# TESTER PARA O JORGE #
+#######################
+KELHO_TESTER = kelho_tester
 
+KELHO_TESTER_C = $(SDIR)/_proto_create_env_list.c
+KELHO_TESTER_O = $(ODIR)/_proto_create_env_list.o
+
+k : $(KELHO_TESTER_O) ${LIBFT}
+	@${CC} ${CFLAGS} $(KELHO_TESTER_O) ${LIBFT} -o $(KELHO_TESTER) $(LFLAG)
+	@echo "\n$(GRN)➾ $(KELHO_TESTER) created$(RES)"
+
+$(KELHO_TESTER_O): $(KELHO_TESTER_C) | $(ODIR)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c -o $@ $<
+	@echo "${GRN}➾ $@ created ${RES}"
+
+kclean :
+	@${RM} $(KELHO_TESTER)
+	@echo "${RED}➾ kelhotester deleted${RES}"
+	@${RM} $(KELHO_TESTER_O)
+	@echo "${RED}➾ kelhotester.o deleted${RES}"
+
+#######################
+# TESTER PARA O JORGE #
+#######################
 clean :
 	@${RM} ${OBJECTS}
 	@${RM} ${ODIR}

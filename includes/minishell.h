@@ -60,6 +60,7 @@ typedef struct s_data
 {
 	char			*path_command;
 	char			**command_n_args;
+	struct s_envs	*envs;
 	t_special_char	special_char;
 	t_command_type	command_type;
 }					t_data;
@@ -80,6 +81,13 @@ typedef struct s_counter
 	int				empty;
 	int				prnt;
 }					t_counter;
+
+typedef struct s_envs
+{
+	char			*name;
+	char			*value;
+	struct s_envs	*next;
+}					t_envs;
 
 /********************/
 /*		COLORS		*/
@@ -270,5 +278,15 @@ char				*copy_inside_quotes(char *str);
 size_t				ft_strnlen(const char *str, size_t maxlen);
 char				*ft_strndup(const char *s, size_t n);
 int					count_alphanum(char *str, int j);
+
+/****************************/
+/*			ENVS			*/
+/****************************/
+
+t_envs	*create_env_node(char *env_var);
+t_envs	*create_env_list(char **env);
+void	ft_env(t_envs *head);
+void	free_env_list(t_envs *head);
+void	free_split_array(char **array);
 
 #endif
