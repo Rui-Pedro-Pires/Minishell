@@ -62,5 +62,3 @@ t_envs	*create_env_list(char **env)
 	}
 	return (head);
 }
-
-

@@ -20,7 +20,8 @@ void	ft_cd(char **str)
 		printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n");
 	else
 	{
-		if (strcmp(str[1], "") == 0 || strcmp(str[1], "~") == 0 || str[1] == NULL)
+		if (strcmp(str[1], "") == 0 || strcmp(str[1], "~") == 0
+			|| str[1] == NULL)
 			new_dir = getenv("HOME");
 		else
 			new_dir = check_quotes_n_expand(str[1]);

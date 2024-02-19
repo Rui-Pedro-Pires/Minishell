@@ -30,7 +30,7 @@ void	free_env_list(t_envs *head)
 
 void	free_split_array(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])

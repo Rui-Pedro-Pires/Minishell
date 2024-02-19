@@ -12,7 +12,6 @@
 
 #include "../../../includes/minishell.h"
 
-
 void	ft_env(t_envs *head)
 {
 	t_envs	*current;
@@ -23,4 +22,5 @@ void	ft_env(t_envs *head)
 		printf("Name: %s, Value: %s\n", current->name, current->value);
 		current = current->next;
 	}
+	printf("\n"RESET);
 }
