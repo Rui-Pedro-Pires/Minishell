@@ -12,14 +12,12 @@
 
 #include "../../../includes/minishell.h"
 
-void	ft_unset(t_envs *head, char *str)
+void	ft_unset(t_envs **head, char *str)
 {
-	t_envs	*current;
-	t_envs	*prev;
 	t_envs	*new_node;
+	t_envs	*prev;
+	t_envs	*current;
 
-	current = head;
-	prev = NULL;
 	new_node = create_env_node(str);
 	if (ft_strcmp(new_node->name, "HOME"))
 	{
@@ -27,25 +25,44 @@ void	ft_unset(t_envs *head, char *str)
 		free(new_node);
 		return ;
 	}
-	if (current != NULL && ft_strcmp(current->name, new_node->name))
+	prev = find_prev_node(*head, new_node->name);
+	if (prev)
+		current = prev->next;
+	else
+		current = *head;
+	if (!current || strcmp(current->name, new_node->name))
 	{
-		head = current->next;
-		free(current);
-		return ;
-	}
-	while (current != NULL && !ft_strcmp(current->name, new_node->name))
-	{
-		prev = current;
-		current = current->next;
-	}
-	if (current == NULL)
-	{
-		printf("Node with value %s not found in the linked list.\n",
+		printf("Node with value \"%s\" not found in the linked list.\n",
 			new_node->name);
 		free(new_node);
 		return ;
 	}
-	prev->next = current->next;
-	free(current);
+	remove_node(head, prev, current);
 	free(new_node);
+}
+
+t_envs	*find_prev_node(t_envs *head, char *str)
+{
+	t_envs	*current;
+	t_envs	*prev;
+
+	current = head;
+	prev = NULL;
+	while (current && strcmp(current->name, str))
+	{
+		prev = current;
+		current = current->next;
+	}
+	return (prev);
+}
+
+void	remove_node(t_envs **head, t_envs *prev, t_envs *current)
+{
+	if (prev == NULL)
+		*head = current->next;
+	else
+		prev->next = current->next;
+	printf("Node with value %s has been removed from the linked list.\n",
+		current->name);
+	free(current);
 }

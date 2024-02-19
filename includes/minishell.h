@@ -291,6 +291,8 @@ void				free_split_array(char **array);
 void				ft_export(t_envs *head, char *str);
 bool				export_is_valid(char *str);
 int					ft_strcmp(const char *s1, const char *s2);
-void				ft_unset(t_envs *head, char *str);
+void				ft_unset(t_envs **head, char *str);
+t_envs				*find_prev_node(t_envs *head, char *str);
+void				remove_node(t_envs **head, t_envs *prev, t_envs *current);
 
 #endif
