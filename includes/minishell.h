@@ -294,5 +294,6 @@ int					ft_strcmp(const char *s1, const char *s2);
 void				ft_unset(t_envs **head, char *str);
 t_envs				*find_prev_node(t_envs *head, char *str);
 void				remove_node(t_envs **head, t_envs *prev, t_envs *current);
+void				free_nodes(t_envs *node);
 
 #endif

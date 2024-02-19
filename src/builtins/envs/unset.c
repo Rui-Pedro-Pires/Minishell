@@ -22,7 +22,7 @@ void	ft_unset(t_envs **head, char *str)
 	if (ft_strcmp(new_node->name, "HOME"))
 	{
 		printf("Can't remove \"HOME\" from env variables.\n");
-		free(new_node);
+		free_nodes(new_node);
 		return ;
 	}
 	prev = find_prev_node(*head, new_node->name);
@@ -34,11 +34,11 @@ void	ft_unset(t_envs **head, char *str)
 	{
 		printf("Node with value \"%s\" not found in the linked list.\n",
 			new_node->name);
-		free(new_node);
+		free_nodes(new_node);
 		return ;
 	}
 	remove_node(head, prev, current);
-	free(new_node);
+	free_nodes(new_node);
 }
 
 t_envs	*find_prev_node(t_envs *head, char *str)
@@ -64,5 +64,12 @@ void	remove_node(t_envs **head, t_envs *prev, t_envs *current)
 		prev->next = current->next;
 	printf("Node with value %s has been removed from the linked list.\n",
 		current->name);
-	free(current);
+	free_nodes(current);
+}
+
+void free_nodes(t_envs *node)
+{
+		free(node->name);
+		free(node->value);
+		free(node);
 }
