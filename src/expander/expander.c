@@ -90,7 +90,7 @@ char	*expand(char *before, char *str, char *after)
 	char	*new_str;
 	int		full_string_count;
 
-	var_value = getenv(str);
+	var_value = getenv(str); /*#TODO get env from the new env list*/
 	if (var_value == NULL)
 		var_value = "/";
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)
