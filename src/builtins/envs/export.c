@@ -16,7 +16,7 @@ void	ft_export(t_envs *head, char **str_array)
 {
 	t_envs	*new_node;
 	t_envs	*current;
-	char *str;
+	char	*str;
 
 	str = str_array[1];
 	if (str_array[2] != NULL)

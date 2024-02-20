@@ -17,7 +17,7 @@ void	ft_unset(t_envs **head, char **str_array)
 	t_envs	*new_node;
 	t_envs	*prev;
 	t_envs	*current;
-	char *str;
+	char	*str;
 
 	str = str_array[1];
 	if (str_array[2] != NULL)
@@ -71,9 +71,9 @@ void	remove_node(t_envs **head, t_envs *prev, t_envs *current)
 	free_nodes(current);
 }
 
-void free_nodes(t_envs *node)
+void	free_nodes(t_envs *node)
 {
-		free(node->name);
-		free(node->value);
-		free(node);
+	free(node->name);
+	free(node->value);
+	free(node);
 }
