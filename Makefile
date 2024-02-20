@@ -47,7 +47,6 @@ SOURCES := main.c \
 			parser/parser_parenthesis.c\
 			builtins/cd_pwd/cd.c\
 			builtins/cd_pwd/pwd.c\
-			builtins/echo/echo.c\
 			builtins/envs/create_env_list.c\
 			builtins/envs/free_env.c\
 			builtins/envs/env.c\
@@ -80,8 +79,8 @@ $(ODIR):
 #######################
 KELHO_TESTER = kelho_tester
 
-KELHO_TESTER_C = $(SDIR)/_proto_create_env_list.c
-KELHO_TESTER_O = $(ODIR)/_proto_create_env_list.o
+KELHO_TESTER_C = $(SDIR)/builtins/echo/echo.c
+KELHO_TESTER_O = $(patsubst %.c,$(ODIR)/%.o,$(KELHO_TESTER_C))
 
 k : $(KELHO_TESTER_O) ${LIBFT}
 	@${CC} ${CFLAGS} $(KELHO_TESTER_O) ${LIBFT} -o $(KELHO_TESTER) $(LFLAG)
