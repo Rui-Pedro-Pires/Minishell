@@ -256,7 +256,7 @@ void				input_str_tester(t_pipes *head);
 
 void				ft_cd(char **str);
 void				ft_pwd(void);
-void				ft_echo(char *str);
+void				ft_echo(char **str);
 
 /****************************/
 /*			EXPANDER		*/
@@ -288,10 +288,10 @@ t_envs				*create_env_list(char **env);
 void				ft_env(t_envs *head);
 void				free_env_list(t_envs *head);
 void				free_split_array(char **array);
-void				ft_export(t_envs *head, char *str);
+void				ft_export(t_envs *head, char **str_array);
 bool				export_is_valid(char *str);
 int					ft_strcmp(const char *s1, const char *s2);
-void				ft_unset(t_envs **head, char *str);
+void				ft_unset(t_envs **head, char **str_array);
 t_envs				*find_prev_node(t_envs *head, char *str);
 void				remove_node(t_envs **head, t_envs *prev, t_envs *current);
 void				free_nodes(t_envs *node);

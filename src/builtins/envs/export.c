@@ -12,11 +12,15 @@
 
 #include "../../../includes/minishell.h"
 
-void	ft_export(t_envs *head, char *str)
+void	ft_export(t_envs *head, char **str_array)
 {
 	t_envs	*new_node;
 	t_envs	*current;
+	char *str;
 
+	str = str_array[1];
+	if (str_array[2] != NULL)
+		printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n");
 	if (!export_is_valid(str))
 	{
 		printf("Wrong Input: %s\n", str);
