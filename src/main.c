@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **env)
 			// ft_echo(input);
 			// ft_export(head_envs,input);
 			// ft_env(head_envs);
-			ft_unset(&head_envs,input);
+			// ft_unset(&head_envs,input);
 			// ft_env(head_envs);
 			// creat_list(&head, input);			
 			// input_str_tester(head);
