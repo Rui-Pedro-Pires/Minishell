@@ -36,13 +36,7 @@ int	main(int argc, char **argv, char **env)
 				add_history(input);
 			else
 				continue;
-			// ft_cd(input);
-			// ft_pwd();
-			// ft_echo(input);
-			// ft_export(head_envs,input);
-			// ft_env(head_envs);
-			// ft_unset(&head_envs,input);
-			// ft_env(head_envs);
+			printf("%s\n", ft_getenv(head_envs, input));
 			// creat_list(&head, input);			
 			// input_str_tester(head);
 			// freezzzz(input, &heardoc_read, &head);
