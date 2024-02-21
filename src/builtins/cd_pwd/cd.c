@@ -12,7 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
-void	ft_cd(char **str)
+void	ft_cd(t_envs *head, char **str)
 {
 	char	*new_dir;
 
@@ -24,7 +24,7 @@ void	ft_cd(char **str)
 			|| str[1] == NULL)
 			new_dir = getenv("HOME");
 		else
-			new_dir = check_quotes_n_expand(str[1]);
+			new_dir = check_quotes_n_expand(head, str[1]);
 		if (chdir(new_dir) == (-1))
 		{
 			err_num_chdir(new_dir);

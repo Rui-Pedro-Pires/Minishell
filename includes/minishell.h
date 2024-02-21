@@ -254,9 +254,9 @@ void				input_str_tester(t_pipes *head);
 /*			BUILTINS				*/
 /************************************/
 
-void				ft_cd(char **str);
+void				ft_cd(t_envs *head, char **str);
 void				ft_pwd(void);
-void				ft_echo(char **str);
+void				ft_echo(t_envs *head, char **str_array);
 
 /****************************/
 /*			EXPANDER		*/
@@ -264,12 +264,13 @@ void				ft_echo(char **str);
 
 void				err_num_chdir(char *str);
 void				ft_expander(char **str_array);
-char				*check_quotes_n_expand(char *str);
-char				*handle_dollar_sign(char *str, int j, bool single_open);
-char				*handle_til(char *str, int j);
+char				*check_quotes_n_expand(t_envs *head, char *str);
+char				*handle_dollar_sign(t_envs *head, char *str, int j,
+						bool single_open);
+char				*handle_til(t_envs *head, char *str, int j);
 void				update_quote_status(char c, bool *single_open,
 						bool *double_open);
-char				*expand(char *before, char *str, char *after);
+char				*expand(t_envs *head, char *before, char *str, char *after);
 char				*check_chars(const char *str, const char *accept);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strcat(char *dest, const char *src);
@@ -295,5 +296,6 @@ void				ft_unset(t_envs **head, char **str_array);
 t_envs				*find_prev_node(t_envs *head, char *str);
 void				remove_node(t_envs **head, t_envs *prev, t_envs *current);
 void				free_nodes(t_envs *node);
+char				*ft_getenv(t_envs *head, char *str);
 
 #endif
