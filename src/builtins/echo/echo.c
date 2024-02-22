@@ -19,12 +19,12 @@ void	print_d_array_aux(char **str_array, int i);
 
 // int	main(int argc, char **argv)
 // {
-	// (void)argc;
-	// if (argc >= 2)
-	// {
-		// ft_echo(argv);
-	// }
-	// return (0);
+// (void)argc;
+// if (argc >= 2)
+// {
+// ft_echo(argv);
+// }
+// return (0);
 // }
 
 void	ft_echo(char **str_array)
@@ -35,13 +35,18 @@ void	ft_echo(char **str_array)
 	new_line = false;
 	i = 1;
 	if (!str_array[i])
+	{
+		printf("\n");
 		return ;
+	}
 	// while (str_array[i] != NULL)
 	// {
 	// 	str_array[i] = check_quotes_n_expand(head, str_array[i]);
 	// 	i++;
 	// }
 	check_newline(str_array[1], &new_line);
+	if (str_array[2] == NULL)
+			return ;
 	print_d_array_with_newline_control(str_array, new_line);
 }
 
