@@ -27,7 +27,7 @@ void	print_d_array_aux(char **str_array, int i);
 	// return (0);
 // }
 
-void	ft_echo(t_envs *head, char **str_array)
+void	ft_echo(char **str_array)
 {
 	bool	new_line;
 	int		i;
@@ -36,11 +36,11 @@ void	ft_echo(t_envs *head, char **str_array)
 	i = 1;
 	if (!str_array[i])
 		return ;
-	while (str_array[i] != NULL)
-	{
-		str_array[i] = check_quotes_n_expand(head, str_array[i]);
-		i++;
-	}
+	// while (str_array[i] != NULL)
+	// {
+	// 	str_array[i] = check_quotes_n_expand(head, str_array[i]);
+	// 	i++;
+	// }
 	check_newline(str_array[1], &new_line);
 	print_d_array_with_newline_control(str_array, new_line);
 }
