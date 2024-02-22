@@ -12,8 +12,8 @@
 
 #include "../../../includes/minishell.h"
 
-void ft_exit (t_envs *head_envs)
+void	ft_exit(t_envs *head_envs)
 {
-		free_env_list(head_envs);
-		rl_clear_history();
+	free_env_list(head_envs);
+	rl_clear_history();
 }

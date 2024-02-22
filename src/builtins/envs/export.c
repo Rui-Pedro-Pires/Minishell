@@ -52,9 +52,10 @@ bool	export_is_valid(char *str)
 	int	i;
 
 	i = 0;
-	while (ft_isalnum(str[i]) || str[i] == '_')
+	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '/')
 		i++;
-	if (str[i] == '=' && (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+	if (str[i] == '=' && (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i
+				+ 1] == '/'))
 	{
 		i++;
 	}
@@ -62,7 +63,7 @@ bool	export_is_valid(char *str)
 	{
 		return (false);
 	}
-	while (ft_isalnum(str[i]) && (ft_isalnum(str[i]) || str[i] == '_'))
+	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '/')
 		i++;
 	if (str[i] != '\0')
 		return (false);

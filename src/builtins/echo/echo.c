@@ -39,14 +39,9 @@ void	ft_echo(char **str_array)
 		printf("\n");
 		return ;
 	}
-	// while (str_array[i] != NULL)
-	// {
-	// 	str_array[i] = check_quotes_n_expand(head, str_array[i]);
-	// 	i++;
-	// }
 	check_newline(str_array[1], &new_line);
 	if (str_array[2] == NULL && new_line == false)
-			return ;
+		return ;
 	print_d_array_with_newline_control(str_array, new_line);
 }
 
@@ -75,22 +70,6 @@ bool	is_valid_no_new_line(char *str)
 	}
 	return (false);
 }
-
-// int	ft_strcmp(const char *s1, const char *s2)
-// {
-// 	unsigned int	i;
-// 	unsigned char	*str1;
-// 	unsigned char	*str2;
-
-// 	str1 = (unsigned char *)s1;
-// 	str2 = (unsigned char *)s2;
-// 	i = 0;
-// 	while (str1[i] && str1[i] == str2[i])
-// 		i++;
-// 	if (str1[i] == '\0' && str2[i] == '\0')
-// 		return (1);
-// 	return (0);
-// }
 
 void	print_d_array_with_newline_control(char **str_array, bool new_line)
 {
