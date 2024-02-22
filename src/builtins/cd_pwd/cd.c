@@ -15,16 +15,23 @@
 void	ft_cd(t_envs *head, char **str)
 {
 	char	*new_dir;
-
+	if (str[1] == NULL)
+	{
+		new_dir = ft_getenv(head, "HOME");
+		chdir(new_dir);
+		free(new_dir);
+		new_dir = NULL;
+		return ;
+	}
 	if (str[2] != NULL)
 		printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n");
 	else
 	{
 		if (strcmp(str[1], "") == 0 || strcmp(str[1], "~") == 0
 			|| str[1] == NULL)
-			new_dir = getenv("HOME");
+			new_dir = ft_getenv(head, "HOME");
 		else
-			new_dir = check_quotes_n_expand(head, str[1]);
+			new_dir = ft_strdup(str[1]);
 		if (chdir(new_dir) == (-1))
 		{
 			err_num_chdir(new_dir);
@@ -33,7 +40,6 @@ void	ft_cd(t_envs *head, char **str)
 			return ;
 		}
 		free(new_dir);
-		new_dir = NULL;
 	}
 }
 
