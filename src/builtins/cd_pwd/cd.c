@@ -12,9 +12,13 @@
 
 #include "../../../includes/minishell.h"
 
+void	update_old_pwd(t_envs *head);
+
 void	ft_cd(t_envs *head, char **str)
 {
 	char	*new_dir;
+
+	update_old_pwd(head);
 	if (str[1] == NULL)
 	{
 		new_dir = ft_getenv(head, "HOME");
@@ -52,4 +56,26 @@ void	err_num_chdir(char *str)
 	else if (errno == ENOTDIR)
 		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n",
 			str);
+}
+
+void	update_old_pwd(t_envs *head)
+{
+	char	*old_dir;
+	char	*name;
+	char	*str_array[2];
+	char	*total;
+	int		total_size;
+
+	old_dir = getcwd(NULL, 0);
+	name = "OLDPWD=";
+	total_size = ft_strlen(name) + ft_strlen(old_dir) + 1;
+	total = malloc(total_size);
+	ft_strlcpy(total, name, ft_strlen(name) + 1);
+	ft_strlcat(total, old_dir, total_size);
+	str_array[0] = NULL;
+	str_array[1] = total;
+	str_array[2] = NULL;
+	ft_export(head, str_array);
+	free(total);
+	free(old_dir);
 }
