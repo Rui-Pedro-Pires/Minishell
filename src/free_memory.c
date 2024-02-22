@@ -27,28 +27,25 @@ void	free_args(char **args)
 
 void	coador(t_pipes **head)
 {
-	int		i;
-	t_pipes	*tail;
+	t_pipes	*next;
+	t_pipes *current;
 
-	while ((*head))
+	current = (*head);
+
+	while (current)
 	{
-		i = 0;
-		tail = (*head)->next;
-		while ((*head)->data[i].command_n_args)
-		{
-			free_args((*head)->data[i].command_n_args);
-			i++;
-		}
-		free((*head)->data);
-		free(*head);
-		(*head) = tail;
+		next = current->next;
+		free(current->input_string);
+		free_data(current->data);
+		free(current);
+		current = next;
 	}
 }
 
 void	freezzzz(char *input, char ***heardoc_read, t_pipes **head)
 {
-	int	i;
-	t_pipes *cur;
+	int		i;
+	t_pipes	*cur;
 
 	i = 0;
 	free(input);
@@ -56,7 +53,7 @@ void	freezzzz(char *input, char ***heardoc_read, t_pipes **head)
 	while (*head)
 	{
 		cur = (*head)->next;
-		free((*head)->input_string );
+		free((*head)->input_string);
 		free(*head);
 		*head = cur;
 	}
@@ -69,4 +66,43 @@ void	freezzzz(char *input, char ***heardoc_read, t_pipes **head)
 	}
 	free((*heardoc_read));
 	(*heardoc_read) = NULL;
+}
+
+void	free_data(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (data)
+	{
+		// if (data->path_command)
+		// 	free(data->path_command);
+		if (data->command_n_args)
+		{
+			while (data->command_n_args[i])
+			{
+				free(data->command_n_args[i]);
+				i++;
+			}
+			free(data->command_n_args);
+		}
+		free(data);
+	}
+}
+
+void	free_envs(t_envs *envs)
+{
+	if (envs)
+	{
+		struct s_envs *current = envs;
+		struct s_envs *next;
+		while (current)
+		{
+			next = current->next;
+			free(current->name);
+			free(current->value);
+			free(current);
+			current = next;
+		}
+	}
 }
