@@ -40,10 +40,8 @@ void	ft_export(t_envs *head, char **str_array)
 		current = current->next;
 	if (ft_strcmp(current->name, new_node->name))
 	{
-		printf("Env already exists\n");
-		printf("Name: %s\n", new_node->name);
-		printf("Value: %s\n", new_node->value);
-		free(new_node);
+		free(current->value);
+		current->value = ft_strdup(new_node->value);
 		return ;
 	}
 	current->next = new_node;
