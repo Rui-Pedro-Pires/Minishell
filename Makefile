@@ -54,6 +54,7 @@ SOURCES := main.c \
 			builtins/envs/unset.c\
 			builtins/envs/getenv.c\
 			builtins/echo/echo.c\
+			builtins/exit/ft_exit.c\
 			expander/expander_utils.c\
 			expander/expander.c\
 			
