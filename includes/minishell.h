@@ -301,4 +301,12 @@ void				remove_node(t_envs **head, t_envs *prev, t_envs *current);
 void				free_nodes(t_envs *node);
 char				*ft_getenv(t_envs *head, char *str);
 
+
+/****************************/
+/*			EXECUTOR		*/
+/****************************/
+
+void	executer(t_envs *envs, t_pipes *head);
+void	execute_command(t_envs *envs, t_data *data);
+
 #endif
