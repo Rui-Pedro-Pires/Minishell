@@ -45,7 +45,7 @@ void	ft_echo(char **str_array)
 	// 	i++;
 	// }
 	check_newline(str_array[1], &new_line);
-	if (str_array[2] == NULL)
+	if (str_array[2] == NULL && new_line == false)
 			return ;
 	print_d_array_with_newline_control(str_array, new_line);
 }
