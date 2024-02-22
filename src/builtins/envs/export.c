@@ -18,9 +18,17 @@ void	ft_export(t_envs *head, char **str_array)
 	t_envs	*current;
 	char	*str;
 
+	if (str_array[1] == NULL)
+	{
+		ft_env(head);
+		return ;
+	}
 	str = str_array[1];
 	if (str_array[2] != NULL)
-		printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n");
+	{
+		printf("\nruiolive&&jorteixe@minishell: export: too many arguments\n");
+		return ;
+	}
 	if (!export_is_valid(str))
 	{
 		printf("Wrong Input: %s\n", str);

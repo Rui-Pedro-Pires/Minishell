@@ -19,9 +19,17 @@ void	ft_unset(t_envs **head, char **str_array)
 	t_envs	*current;
 	char	*str;
 
+	if (str_array[1] == NULL)
+	{
+		printf("ruiolive&&jorteixe@minishell: unset: not enough arguments\n\n");
+		return ;
+	}
 	str = str_array[1];
 	if (str_array[2] != NULL)
-		printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n");
+	{
+		printf("\nruiolive&&jorteixe@minishell: unset: too many arguments\n");
+		return ;
+	}
 	new_node = create_env_node(str);
 	if (ft_strcmp(new_node->name, "HOME"))
 	{
