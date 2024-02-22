@@ -31,6 +31,7 @@ SOURCES := main.c \
 			heardoc.c\
 			str_join.c\
 			search_utils.c\
+			executer.c\
 			lists/list_utils.c\
 			lists/cmd_utils.c\
 			lists/org_list_utils.c\
@@ -54,7 +55,7 @@ SOURCES := main.c \
 			builtins/envs/unset.c\
 			builtins/envs/getenv.c\
 			builtins/echo/echo.c\
-			builtins/exit/ft_exit.c\
+			builtins/exit/exit.c\
 			expander/expander_utils.c\
 			expander/expander.c\
 			
