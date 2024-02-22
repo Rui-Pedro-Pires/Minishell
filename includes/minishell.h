@@ -196,6 +196,8 @@ void				define_pipe_type(char *input, t_type_pipe *pipe_check,
 
 void				free_args(char **args);
 void				coador(t_pipes **head);
+void				free_data(t_data *data);
+void				free_envs(t_envs *envs);
 
 /****************************/
 /*			STRINGS			*/
@@ -249,6 +251,7 @@ char				**special_splitens(char *str, int *back, int *front,
 
 void				freezzzz(char *input, char ***heardoc_read, t_pipes **head);
 void				input_str_tester(t_pipes *head);
+void				tester(t_pipes *head);
 
 /************************************/
 /*			BUILTINS				*/
@@ -256,7 +259,7 @@ void				input_str_tester(t_pipes *head);
 
 void				ft_cd(t_envs *head, char **str);
 void				ft_pwd(void);
-void				ft_echo(t_envs *head, char **str_array);
+void				ft_echo(char **str_array);
 
 /****************************/
 /*			EXPANDER		*/
