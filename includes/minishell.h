@@ -49,12 +49,13 @@ typedef enum e_special_char
 	NO_SPECIAL
 }					t_special_char;
 
-typedef enum e_type_pipe
+typedef enum e_sign_type
 {
 	N_PIPE,
 	S_PIPE,
-	D_PIPE
-}					t_type_pipe;
+	D_PIPE,
+	AMPER
+}					t_sign_type;
 
 typedef struct s_data
 {
@@ -68,8 +69,9 @@ typedef struct s_data
 typedef struct s_pipes
 {
 	struct s_pipes	*next;
+	struct s_pipes	*down;
 	char			*input_string;
-	t_type_pipe		pipe_type;
+	t_sign_type		pipe_type;
 	t_data			*data;
 	bool			empty_node;
 }					t_pipes;
@@ -187,8 +189,10 @@ bool				search_dpipe_or_damper(char *input, int *i,
 /****************************/
 
 void				creat_list(t_pipes **head, char *input);
-void				define_pipe_type(char *input, t_type_pipe *pipe_check,
-						int *i);
+char				*trim_str(char *input, t_sign_type *pipe_check, int *i);
+t_pipes				*find_last_node(t_pipes *head);
+int					parenthesis_ignore(char *input);
+void				parenthesis_add(char **formated, char *input, int *i, int *x);
 
 /****************************/
 /*			FREE			*/
@@ -198,12 +202,9 @@ void				free_args(char **args);
 void				coador(t_pipes **head);
 void				free_data(t_data *data);
 void				free_envs(t_envs *envs);
-
-/****************************/
-/*			STRINGS			*/
-/****************************/
-
-char				*trim_str(char *input, t_type_pipe *pipe_check, int *i);
+void				free_list(t_pipes **head);
+void				free_input(char *input);
+void				free_heardoc(char ***heardoc_read);
 
 /****************************/
 /*			READ LINE		*/
@@ -249,8 +250,7 @@ char				**special_splitens(char *str, int *back, int *front,
 /*			TESTERZZZ		*/
 /****************************/
 
-void				freezzzz(char *input, char ***heardoc_read, t_pipes **head);
-void				input_str_tester(t_pipes *head);
+void    			input_str_tester(t_pipes *head, int type);
 void				tester(t_pipes *head);
 
 /************************************/

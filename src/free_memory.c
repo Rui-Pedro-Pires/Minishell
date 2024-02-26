@@ -42,23 +42,17 @@ void	coador(t_pipes **head)
 	}
 }
 
-void	freezzzz(char *input, char ***heardoc_read, t_pipes **head)
+void	free_input(char *input)
 {
-	int		i;
-	t_pipes	*cur;
+	free(input);
+}
+void	free_heardoc(char ***heardoc_read)
+{
+	int	i;
 
 	i = 0;
-	free(input);
-	cur = *head;
-	while (*head)
-	{
-		cur = (*head)->next;
-		free((*head)->input_string);
-		free(*head);
-		*head = cur;
-	}
 	if (!(*heardoc_read))
-		return ;
+			return ;
 	while ((*heardoc_read)[i])
 	{
 		free((*heardoc_read)[i]);
@@ -105,4 +99,15 @@ void	free_envs(t_envs *envs)
 			current = next;
 		}
 	}
+}
+
+void	free_list(t_pipes **head)
+{
+	if (!(*head))
+		return ;
+	free_list(&(*head)->down);
+	free_list(&(*head)->next);
+	free((*head)->input_string);
+	free(*head);
+	*head = NULL;
 }

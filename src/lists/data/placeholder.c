@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 int	command_decider2(t_data *data)
 {
@@ -67,4 +67,18 @@ int	word_counter(char const *s, char c)
 		}
 	}
 	return (counter);
+}
+
+void	organize_list(t_pipes *pipe_struct)
+{
+	int	count;
+
+	count = 0;
+	while (pipe_struct != NULL)
+	{
+		count = count_input(pipe_struct);
+		pipe_struct->data = malloc(sizeof(t_data) * (count + 1));
+		fill_data(pipe_struct, count);
+		pipe_struct = pipe_struct->next;
+	}
 }

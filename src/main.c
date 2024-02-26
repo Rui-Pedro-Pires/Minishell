@@ -17,11 +17,11 @@ int	main(int argc, char **argv, char **env)
 	char		*input;
 	char		**heardoc_read;
 	t_counter	count_struc;
-	// t_pipes		*head;
+	t_pipes		*head;
 
 	t_envs *head_envs;
 	head_envs = create_env_list(env);
-	// head = NULL;
+	head = NULL;
 	heardoc_read = NULL;
 	(void)argv;
 	(void)env;
@@ -36,11 +36,13 @@ int	main(int argc, char **argv, char **env)
 				add_history(input);
 			else
 				continue;
-			printf("%s\n", ft_getenv(head_envs, input));
-			// creat_list(&head, input);			
-			// input_str_tester(head);
-			// freezzzz(input, &heardoc_read, &head);
+			// printf("%s\n", ft_getenv(head_envs, input));
+			creat_list(&head, input);
 			// organize_list(head);
+			input_str_tester(head, 1);
+			free_input(input);
+			free_heardoc(&heardoc_read);
+			free_list(&head);
 			// tester(head);
 			// execute_command(head, env);
 			// coador(&head);
