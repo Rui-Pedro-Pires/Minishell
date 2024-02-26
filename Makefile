@@ -31,6 +31,7 @@ SOURCES := main.c \
 			heardoc.c\
 			str_join.c\
 			search_utils.c\
+			executer.c\
 			lists/list_utils.c\
 			lists/cmd_utils.c\
 			lists/org_list_utils.c\
@@ -47,12 +48,18 @@ SOURCES := main.c \
 			parser/parser_parenthesis.c\
 			builtins/cd_pwd/cd.c\
 			builtins/cd_pwd/pwd.c\
+			builtins/envs/create_env_list.c\
+			builtins/envs/free_env.c\
+			builtins/envs/env.c\
+			builtins/envs/export.c\
+			builtins/envs/unset.c\
+			builtins/envs/getenv.c\
 			builtins/echo/echo.c\
+			builtins/exit/exit.c\
 			expander/expander_utils.c\
 			expander/expander.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
-
 
 all : ${NAME}
 
@@ -71,7 +78,32 @@ $(ODIR)/%.o: $(SDIR)/%.c | $(ODIR)
 
 $(ODIR):
 	@mkdir -p $@	
+#######################
+# TESTER PARA O JORGE #
+#######################
+KELHO_TESTER = kelho_tester
 
+KELHO_TESTER_C = $(SDIR)/builtins/echo/echo.c
+KELHO_TESTER_O = $(patsubst %.c,$(ODIR)/%.o,$(KELHO_TESTER_C))
+
+k : $(KELHO_TESTER_O) ${LIBFT}
+	@${CC} ${CFLAGS} $(KELHO_TESTER_O) ${LIBFT} -o $(KELHO_TESTER) $(LFLAG)
+	@echo "\n$(GRN)➾ $(KELHO_TESTER) created$(RES)"
+
+$(KELHO_TESTER_O): $(KELHO_TESTER_C) | $(ODIR)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c -o $@ $<
+	@echo "${GRN}➾ $@ created ${RES}"
+
+kclean :
+	@${RM} $(KELHO_TESTER)
+	@echo "${RED}➾ kelhotester deleted${RES}"
+	@${RM} $(KELHO_TESTER_O)
+	@echo "${RED}➾ kelhotester.o deleted${RES}"
+
+#######################
+# TESTER PARA O JORGE #
+#######################
 clean :
 	@${RM} ${OBJECTS}
 	@${RM} ${ODIR}

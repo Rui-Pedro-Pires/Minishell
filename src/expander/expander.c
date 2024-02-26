@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-char	*check_quotes_n_expand(char *str)
+char	*check_quotes_n_expand(t_envs *head, char*str)
 {
 	int		j;
 	bool	single_open;
@@ -25,10 +25,10 @@ char	*check_quotes_n_expand(char *str)
 	{
 		update_quote_status(str[j], &single_open, &double_open);
 		if (str[0] == '~' && !single_open)
-			str = handle_til(str, j);
+			str = handle_til(head, str, j);
 		if (str[j] == '$' && !single_open && (ft_isalnum(str[j + 1]) || str[j
 					+ 1] == '_'))
-			str = handle_dollar_sign(str, j, single_open);
+			str = handle_dollar_sign(head, str, j, single_open);
 		j++;
 	}
 	str = copy_inside_quotes(str);
@@ -43,7 +43,7 @@ void	update_quote_status(char c, bool *single_open, bool *double_open)
 		*double_open = !*double_open;
 }
 
-char	*handle_dollar_sign(char *str, int j, bool single_open)
+char	*handle_dollar_sign(t_envs *head, char *str, int j, bool single_open)
 {
 	char	*bef_str;
 	char	*aft_str;
@@ -60,12 +60,12 @@ char	*handle_dollar_sign(char *str, int j, bool single_open)
 			aft_str = ft_strdup("");
 		var_name = ft_strndup(str + j + 1, i - (j + 1));
 		free(str);
-		str = expand(bef_str, var_name, aft_str);
+		str = expand(head, bef_str, var_name, aft_str);
 	}
 	return (str);
 }
 
-char	*handle_til(char *str, int j)
+char	*handle_til(t_envs *head, char *str, int j)
 {
 	char	*bef_str;
 	char	*aft_str;
@@ -80,17 +80,17 @@ char	*handle_til(char *str, int j)
 		aft_str = ft_strdup("");
 	var_name = "HOME";
 	free(str);
-	str = expand(bef_str, var_name, aft_str);
+	str = expand(head, bef_str, var_name, aft_str);
 	return (str);
 }
 
-char	*expand(char *before, char *str, char *after)
+char	*expand(t_envs *head, char *before, char *str, char *after)
 {
 	char	*var_value;
 	char	*new_str;
 	int		full_string_count;
 
-	var_value = getenv(str);
+	var_value = ft_getenv(head, str);
 	if (var_value == NULL)
 		var_value = "/";
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)

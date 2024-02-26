@@ -60,6 +60,7 @@ typedef struct s_data
 {
 	char			*path_command;
 	char			**command_n_args;
+	struct s_envs	*envs;
 	t_special_char	special_char;
 	t_command_type	command_type;
 }					t_data;
@@ -80,6 +81,13 @@ typedef struct s_counter
 	int				empty;
 	int				prnt;
 }					t_counter;
+
+typedef struct s_envs
+{
+	char			*name;
+	char			*value;
+	struct s_envs	*next;
+}					t_envs;
 
 /********************/
 /*		COLORS		*/
@@ -188,6 +196,8 @@ void				define_pipe_type(char *input, t_type_pipe *pipe_check,
 
 void				free_args(char **args);
 void				coador(t_pipes **head);
+void				free_data(t_data *data);
+void				free_envs(t_envs *envs);
 
 /****************************/
 /*			STRINGS			*/
@@ -241,14 +251,15 @@ char				**special_splitens(char *str, int *back, int *front,
 
 void				freezzzz(char *input, char ***heardoc_read, t_pipes **head);
 void				input_str_tester(t_pipes *head);
+void				tester(t_pipes *head);
 
 /************************************/
 /*			BUILTINS				*/
 /************************************/
 
-void				ft_cd(char **str);
+void				ft_cd(t_envs *head, char **str);
 void				ft_pwd(void);
-void				ft_echo(char *str);
+void				ft_echo(char **str_array);
 
 /****************************/
 /*			EXPANDER		*/
@@ -256,12 +267,13 @@ void				ft_echo(char *str);
 
 void				err_num_chdir(char *str);
 void				ft_expander(char **str_array);
-char				*check_quotes_n_expand(char *str);
-char				*handle_dollar_sign(char *str, int j, bool single_open);
-char				*handle_til(char *str, int j);
+char				*check_quotes_n_expand(t_envs *head, char *str);
+char				*handle_dollar_sign(t_envs *head, char *str, int j,
+						bool single_open);
+char				*handle_til(t_envs *head, char *str, int j);
 void				update_quote_status(char c, bool *single_open,
 						bool *double_open);
-char				*expand(char *before, char *str, char *after);
+char				*expand(t_envs *head, char *before, char *str, char *after);
 char				*check_chars(const char *str, const char *accept);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strcat(char *dest, const char *src);
@@ -270,5 +282,31 @@ char				*copy_inside_quotes(char *str);
 size_t				ft_strnlen(const char *str, size_t maxlen);
 char				*ft_strndup(const char *s, size_t n);
 int					count_alphanum(char *str, int j);
+
+/****************************/
+/*			ENVS			*/
+/****************************/
+
+t_envs				*create_env_node(char *env_var);
+t_envs				*create_env_list(char **env);
+void				ft_env(t_envs *head);
+void				free_env_list(t_envs *head);
+void				free_split_array(char **array);
+void				ft_export(t_envs *head, char **str_array);
+bool				export_is_valid(char *str);
+int					ft_strcmp(const char *s1, const char *s2);
+void				ft_unset(t_envs **head, char **str_array);
+t_envs				*find_prev_node(t_envs *head, char *str);
+void				remove_node(t_envs **head, t_envs *prev, t_envs *current);
+void				free_nodes(t_envs *node);
+char				*ft_getenv(t_envs *head, char *str);
+
+
+/****************************/
+/*			EXECUTOR		*/
+/****************************/
+
+void	executer(t_envs *envs, t_pipes *head);
+void	execute_command(t_envs *envs, t_data *data);
 
 #endif
