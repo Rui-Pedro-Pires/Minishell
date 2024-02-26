@@ -17,17 +17,17 @@ int	main(int argc, char **argv, char **env)
 	char		*input;
 	char		**heardoc_read;
 	t_counter	count_struc;
-	// t_pipes		*head;
+	t_pipes		*head;
+	t_envs		*head_envs;
 
-	t_envs *head_envs;
-	head_envs = create_env_list(env);
-	// head = NULL;
+	head = NULL;
 	heardoc_read = NULL;
+	head_envs = create_env_list(env);
 	(void)argv;
 	(void)env;
 	if (argc == 1)
 	{
-		while (1) 
+		while (1)
 		{
 			count_struc.i = 0;
 			count_struc.counter = 0;
@@ -35,15 +35,21 @@ int	main(int argc, char **argv, char **env)
 			if (input && *input)
 				add_history(input);
 			else
-				continue;
-			printf("%s\n", ft_getenv(head_envs, input));
-			// creat_list(&head, input);			
+				continue ;
+			// printf("%s\n", ft_getenv(head_envs, input));
+			input = check_quotes_n_expand(head_envs, input);
+			creat_list(&head, input);
 			// input_str_tester(head);
-			// freezzzz(input, &heardoc_read, &head);
-			// organize_list(head);
+			// // freezzzz(input, &heardoc_read, &head);
+			organize_list(head);
+			executer(head_envs, head);
 			// tester(head);
-			// execute_command(head, env);
-			// coador(&head);
+			// input = ft_split(input," ");
+			// printf("%s\n", input);
+			//execute_command(head, env);
+			coador(&head);
+			head = NULL;
+			free(input);
 		}
 		free_env_list(head_envs);
 		rl_clear_history();

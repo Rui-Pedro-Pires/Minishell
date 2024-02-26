@@ -17,6 +17,7 @@
 # include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <stdarg.h>
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdio.h>
@@ -84,6 +85,7 @@ typedef struct s_counter
 
 typedef struct s_envs
 {
+	char			*whole_str;
 	char			*name;
 	char			*value;
 	struct s_envs	*next;
@@ -118,7 +120,8 @@ typedef enum e_error
 	ERROR_SPECIAL_CHAR_DOUBLE,
 	ERR_STR,
 	ERR_READ,
-	ERR_STR_FREE
+	ERR_STR_FREE,
+	ERR_FORK
 }					t_error;
 
 /****************************/
@@ -301,12 +304,25 @@ void				remove_node(t_envs **head, t_envs *prev, t_envs *current);
 void				free_nodes(t_envs *node);
 char				*ft_getenv(t_envs *head, char *str);
 
-
 /****************************/
 /*			EXECUTOR		*/
 /****************************/
 
-void	executer(t_envs *envs, t_pipes *head);
-void	execute_command(t_envs *envs, t_data *data);
+void				executer(t_envs *envs, t_pipes *head);
+void				execute_command(t_envs *envs, t_data *data);
+void				ft_execve(t_envs *envs, char **args_array);
+void				executens_ve(t_envs *envs, char **args_array);
+char				**envlist_to_array(t_envs *envs);
+int					listlen(t_envs *envs);
+
+/****************************/
+/*			FREE			*/
+/****************************/
+
+void				simplefree(void *pnt);
+void				free_pnts(void **pnts);
+void				free_ppnts(void ***ppnts);
+void				type_free(va_list args, const char format);
+void				multiple_free(const char *format, ...);
 
 #endif

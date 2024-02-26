@@ -32,6 +32,8 @@ SOURCES := main.c \
 			str_join.c\
 			search_utils.c\
 			executer.c\
+			execve.c\
+			free.c\
 			lists/list_utils.c\
 			lists/cmd_utils.c\
 			lists/org_list_utils.c\
