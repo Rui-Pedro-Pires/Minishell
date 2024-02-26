@@ -239,7 +239,6 @@ void				prepare_split(t_data *data, t_pipes *head, int *back,
 						int *front);
 void				check_specialz(char *str, t_data *data, int *front);
 int					check_only_spaces(char *input_str);
-int					word_counter(char const *s, char c);
 void				organize_list(t_pipes *head);
 char				**special_splitens(char *str, int *back, int *front,
 						char c);
