@@ -62,6 +62,7 @@ static void	add_list(t_pipes **head, char *formated, t_sign_type sign_type)
 	next_node->input_string = formated;
 	next_node->pipe_type = sign_type;
 	next_node->next = NULL;
+	next_node->data = NULL;
 	next_node->down = down_node;
 }
 

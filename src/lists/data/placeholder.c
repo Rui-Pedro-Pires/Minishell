@@ -14,6 +14,8 @@
 
 int	command_decider2(t_data *data)
 {
+	if (!data->command_n_args[0])
+		return (0);
 	if (ft_strncmp(data->command_n_args[0], "unset", 6) == 0
 		|| ft_strncmp(data->command_n_args[0], "\"unset\"", 8) == 0
 		|| ft_strncmp(data->command_n_args[0], "\'unset\'", 8) == 0)
@@ -69,16 +71,18 @@ int	word_counter(char const *s, char c)
 	return (counter);
 }
 
-void	organize_list(t_pipes *pipe_struct)
+void	organize_list(t_pipes *head)
 {
 	int	count;
 
-	count = 0;
-	while (pipe_struct != NULL)
+	if (!head)
+		return ;
+	organize_list(head->down);
+	organize_list(head->next);
+	count = count_input(head);
+	if (count > 0)
 	{
-		count = count_input(pipe_struct);
-		pipe_struct->data = malloc(sizeof(t_data) * (count + 1));
-		fill_data(pipe_struct, count);
-		pipe_struct = pipe_struct->next;
+		head->data = malloc(sizeof(t_data) * (count + 1));
+		fill_data(head, count);
 	}
 }

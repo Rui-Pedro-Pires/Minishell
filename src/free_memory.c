@@ -17,6 +17,8 @@ void	free_args(char **args)
 	int	i;
 
 	i = 0;
+	if (!args || !*args)
+		return ;
 	while (args[i])
 	{
 		free(args[i]);
@@ -65,20 +67,21 @@ void	free_heardoc(char ***heardoc_read)
 void	free_data(t_data *data)
 {
 	int	i;
-
-	i = 0;
+	int	x;
+	
+	x = 0;
 	if (data)
 	{
-		// if (data->path_command)
-		// 	free(data->path_command);
-		if (data->command_n_args)
+		while (data[x].command_n_args)
 		{
-			while (data->command_n_args[i])
+			i = 0;
+			while (data[x].command_n_args[i])
 			{
-				free(data->command_n_args[i]);
+				free(data[x].command_n_args[i]);
 				i++;
 			}
-			free(data->command_n_args);
+			free(data[x].command_n_args);
+			x++;
 		}
 		free(data);
 	}
@@ -108,6 +111,7 @@ void	free_list(t_pipes **head)
 	free_list(&(*head)->down);
 	free_list(&(*head)->next);
 	free((*head)->input_string);
+	free_data((*head)->data);
 	free(*head);
 	*head = NULL;
 }

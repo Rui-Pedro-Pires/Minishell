@@ -15,18 +15,20 @@
 int			word_counter(char const *s, char c);
 static int	string_size(char const *s, char c);
 
-void	prepare_split(t_data *data, t_pipes *pipe, int *back, int *front)
+void	prepare_split(t_data *data, t_pipes *head, int *back, int *front)
 {
 	char	*og_str;
 
-	og_str = pipe->input_string;
+	og_str = head->input_string;
 	*back = *front;
-	while (og_str[(*front)] && !ft_strchr("<>&", og_str[(*front)]))
+	while (og_str[(*front)] && !ft_strchr("<>", og_str[(*front)]))
 	{
-		if (pipe->input_string[(*front)] == D_QUOTES)
-			*front += quote_ignore(pipe->input_string + (*front), D_QUOTES);
-		else if (pipe->input_string[(*front)] == S_QUOTES)
-			*front += quote_ignore(pipe->input_string + (*front), S_QUOTES);
+		if (og_str[(*front)] == D_QUOTES)
+			*front += quote_ignore(og_str + (*front), D_QUOTES);
+		else if (og_str[(*front)] == S_QUOTES)
+			*front += quote_ignore(og_str + (*front), S_QUOTES);
+		else if (og_str[(*front)] == '(')
+			*front = parenthesis_ignore(og_str + (*front)) + 1;
 		else
 			(*front)++;
 	}
@@ -35,6 +37,11 @@ void	prepare_split(t_data *data, t_pipes *pipe, int *back, int *front)
 
 void	check_specialz(char *str, t_data *data, int *front)
 {
+	if (!str[*front])
+	{
+		data->special_char = NO_SPECIAL;
+		return ;
+	}
 	if (str[*front] == '<')
 	{
 		if (str[*front + 1] && str[*front + 1] == '<')
@@ -60,11 +67,6 @@ void	check_specialz(char *str, t_data *data, int *front)
 			data->special_char = S_RIGHT_ARROW;
 			*front += 1;
 		}
-	}
-	else if (str[*front + 1] && str[*front] == '&' && str[*front + 1] == '&')
-	{
-		data->special_char = AMPERZ;
-		*front += 1;
 	}
 	else
 		data->special_char = NO_SPECIAL;
@@ -105,30 +107,31 @@ static int	string_size(char const *s, char c)
 
 	i = 0;
 	while (s[i] != c && s[i] != '\0')
-	{
 		i++;
-	}
 	return (i);
 }
 
-int	fill_data(t_pipes *pipe_struct, int count)
+int	fill_data(t_pipes *head, int count)
 {
 	int		i;
 	int		back;
 	int		front;
 	t_data	*data;
 
-	data = pipe_struct->data;
+	data = head->data;
 	i = 0;
 	front = 0;
+	if (!data)
+		return (0);
 	while (i < count)
 	{
-		prepare_split(&data[i], pipe_struct, &back, &front);
-		data[i].command_n_args = special_splitens(pipe_struct->input_string
+		prepare_split(&data[i], head, &back, &front);
+		data[i].command_n_args = special_splitens(head->input_string
 				+ back, &back, &front, 32);
 		if (!command_decider1(&data[i]) && !command_decider2(&data[i]))
 			data[i].command_type = NOT_BUILTIN;
 		i++;
 	}
+	data[i].command_n_args = NULL;
 	return (0);
 }

@@ -36,16 +36,14 @@ int	main(int argc, char **argv, char **env)
 				add_history(input);
 			else
 				continue;
-			// printf("%s\n", ft_getenv(head_envs, input));
+			input = check_quotes_n_expand(head_envs, input);
 			creat_list(&head, input);
-			// organize_list(head);
-			input_str_tester(head, 1);
+			organize_list(head);
+			// executer(head_envs, head);
+			// coador(&head);
 			free_input(input);
 			free_heardoc(&heardoc_read);
 			free_list(&head);
-			// tester(head);
-			// execute_command(head, env);
-			// coador(&head);
 		}
 		free_env_list(head_envs);
 		rl_clear_history();

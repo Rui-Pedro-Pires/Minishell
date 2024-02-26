@@ -59,9 +59,7 @@ typedef enum e_sign_type
 
 typedef struct s_data
 {
-	char			*path_command;
 	char			**command_n_args;
-	struct s_envs	*envs;
 	t_special_char	special_char;
 	t_command_type	command_type;
 }					t_data;
@@ -232,17 +230,17 @@ void				heardoc_check(char ***heardoc_read, char *input,
 
 int					command_decider1(t_data *data);
 int					command_decider2(t_data *data);
-int					fill_data(t_pipes *pipe_struct, int count);
+int					fill_data(t_pipes *head, int count);
 int					count_rarrow(char *str);
 int					count_larrow(char *str);
 int					count_amperz(char *str);
-int					count_input(t_pipes *pipe);
-void				prepare_split(t_data *data, t_pipes *pipe, int *back,
+int					count_input(t_pipes *head);
+void				prepare_split(t_data *data, t_pipes *head, int *back,
 						int *front);
 void				check_specialz(char *str, t_data *data, int *front);
 int					check_only_spaces(char *input_str);
 int					word_counter(char const *s, char c);
-void				organize_list(t_pipes *pipe_struct);
+void				organize_list(t_pipes *head);
 char				**special_splitens(char *str, int *back, int *front,
 						char c);
 

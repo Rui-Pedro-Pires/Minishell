@@ -12,16 +12,21 @@
 
 #include "../../../includes/minishell.h"
 
-int	count_input(t_pipes *pipe)
+int	count_input(t_pipes *head)
 {
 	char	*str;
 	int		count;
+	int		i;
 
+	i = 0;
 	count = 1;
-	str = pipe->input_string;
+	str = head->input_string;
+	while (str[i] && str[i] == ' ')
+		i++;
+	if (str[i] == '(')
+		return (0);
 	count += count_larrow(str);
 	count += count_rarrow(str);
-	count += count_amperz(str);
 	return (count);
 }
 
@@ -65,24 +70,10 @@ int	count_rarrow(char *str)
 	return (count);
 }
 
-int	count_amperz(char *str)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '&' && str[i + 1] == '&')
-			count++;
-		i++;
-	}
-	return (count);
-}
-
 int	command_decider1(t_data *data)
 {
+	if (!data->command_n_args[0])
+		return (0);
 	if (ft_strncmp(data->command_n_args[0], "echo", 5) == 0 \
 		|| ft_strncmp(data->command_n_args[0], "\"echo\"", 7) == 0 \
 		|| ft_strncmp(data->command_n_args[0], "\'echo\'", 7) == 0)
