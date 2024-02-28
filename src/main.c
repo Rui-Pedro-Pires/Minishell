@@ -19,7 +19,6 @@ int	main(int argc, char **argv, char **env)
 	t_counter	count_struc;
 	t_pipes		*head;
 	t_envs		*head_envs;
-	t_envs		*head_envs;
 
 	head = NULL;
 	heardoc_read = NULL;
