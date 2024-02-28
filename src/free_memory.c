@@ -44,9 +44,9 @@ void	coador(t_pipes **head)
 	}
 }
 
-void	free_input(char *input)
+void	free_input(char **input)
 {
-	free(input);
+	free(*input);
 }
 void	free_heardoc(char ***heardoc_read)
 {

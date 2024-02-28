@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **env)
 			organize_list(head);
 			// executer(head_envs, head);
 			// coador(&head);
-			free_input(input);
+			free_input(&input);
 			free_heardoc(&heardoc_read);
 			free_list(&head);
 		}

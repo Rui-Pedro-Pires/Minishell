@@ -201,7 +201,7 @@ void				coador(t_pipes **head);
 void				free_data(t_data *data);
 void				free_envs(t_envs *envs);
 void				free_list(t_pipes **head);
-void				free_input(char *input);
+void				free_input(char **input);
 void				free_heardoc(char ***heardoc_read);
 
 /****************************/

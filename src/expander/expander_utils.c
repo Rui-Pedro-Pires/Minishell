@@ -94,5 +94,6 @@ char	*copy_inside_quotes(char *str)
 		i++;
 	}
 	clean_str[j] = '\0';
+	free(str);
 	return (clean_str);
 }

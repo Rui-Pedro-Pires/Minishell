@@ -126,8 +126,6 @@ static int	counte_words(char const *s, char c, int size)
 	}
 	return (counter);
 }
-
-
 int	fill_data(t_pipes *head, int count)
 {
 	int		i;

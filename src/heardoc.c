@@ -17,38 +17,33 @@ static char	**ft_realloc(char ***heardoc_read, t_counter *iter);
 static int	add_to_line(char **new_line, char *str, \
 			char ***h_doc, t_counter *iter);
 static int	maxlen(size_t new, size_t str_cond);
+static int	quotes_ignore(char *input);
 
-void	heardoc_check(char ***heardoc_read, char *input, t_counter *iter, int i)
+void	heardoc_check(char ***heardoc_read, char *input, t_counter *itr, int i)
 {
 	char	*new_line;
 	char	*str_condition;
 
-	while (input[iter->i] && iter->i < i)
+	while (input[itr->i] && itr->i < i)
 	{
-		if (input[iter->i] == D_QUOTES)
-			iter->i += quote_ignore(input + iter->i, D_QUOTES);
-		else if (input[iter->i] == S_QUOTES)
-			iter->i += quote_ignore(input + iter->i, S_QUOTES);
-		else if (iter->i > 0 && input[iter->i] && input[iter->i] == '<' && input[iter->i - 1] == '<')
+		itr->i += quotes_ignore(input + itr->i);
+		if (itr->i > 0 && input[itr->i] && !ft_strncmp(input + itr->i, "<<", 2))
 		{
-			str_condition = search_heardoc_condition(input, iter);
+			str_condition = search_heardoc_condition(input, itr);
 			if (!str_condition)
 				return ;
-			*heardoc_read = ft_realloc(heardoc_read, iter);
+			*heardoc_read = ft_realloc(heardoc_read, itr);
 			while (1)
 			{
 				new_line = readline("> ");
-				if (!add_to_line(&new_line, str_condition, \
-				heardoc_read, iter))
-				{
-					free(str_condition);
+				if (!add_to_line(&new_line, str_condition, heardoc_read, itr))
 					break ;
-				}
 			}
-			iter->counter++;
+			free(str_condition);
+			itr->counter++;
 		}
 		else
-			iter->i++;
+			itr->i++;
 	}
 }
 
@@ -118,7 +113,7 @@ static char	*search_heardoc_condition(char *input, t_counter *iter)
 	char	*str_condition;
 
 	x = 0;
-	iter->i += 1;
+	iter->i += 2;
 	while (input[iter->i] && input[iter->i] == ' ')
 		iter->i++;
 	i = iter->i;
@@ -141,4 +136,16 @@ static int	maxlen(size_t new, size_t str_cond)
 	if (new > str_cond)
 		return (new);
 	return (str_cond);
+}
+
+static int	quotes_ignore(char *input)
+{
+	int	i;
+
+	i = 0;
+	if (input[i] == D_QUOTES)
+		i += quote_ignore(input + i, D_QUOTES);
+	else if (input[i] == S_QUOTES)
+		i += quote_ignore(input + i, S_QUOTES);
+	return (i);
 }
