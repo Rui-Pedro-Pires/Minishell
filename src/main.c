@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **env)
 			creat_list(&head, input, init);
 			free_input(&input);
 			organize_list(head);
-			tester(head);
+			// tester(head);
 			executer(head);
 			// coador(&head);
 			free_heardoc(&head->heardocs);
