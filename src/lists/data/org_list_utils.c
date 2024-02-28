@@ -73,7 +73,10 @@ int	count_rarrow(char *str)
 int	command_decider1(t_data *data)
 {
 	if (!data->command_n_args[0])
-		return (0);
+	{
+		data->command_type = NO_COMMAND;
+		return (-1);
+	}
 	if (ft_strncmp(data->command_n_args[0], "echo", 5) == 0 \
 		|| ft_strncmp(data->command_n_args[0], "\"echo\"", 7) == 0 \
 		|| ft_strncmp(data->command_n_args[0], "\'echo\'", 7) == 0)

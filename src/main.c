@@ -18,12 +18,11 @@ int	main(int argc, char **argv, char **env)
 	char		**heardoc_read;
 	t_counter	count_struc;
 	t_pipes		*head;
+	t_envs		*head_envs;
 
 	head = NULL;
 	heardoc_read = NULL;
 	head_envs = create_env_list(env);
-	head = NULL;
-	heardoc_read = NULL;
 	(void)argv;
 	(void)env;
 	if (argc == 1)
@@ -39,10 +38,9 @@ int	main(int argc, char **argv, char **env)
 				continue;
 			input = check_quotes_n_expand(head_envs, input);
 			creat_list(&head, input);
+			free_input(&input);
 			organize_list(head);
 			// executer(head_envs, head);
-			// coador(&head);
-			free_input(&input);
 			free_heardoc(&heardoc_read);
 			free_list(&head);
 		}

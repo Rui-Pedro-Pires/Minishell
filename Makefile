@@ -29,6 +29,7 @@ SOURCES := main.c \
 			free_memory.c\
 			testerzzzz.c\
 			heardoc.c\
+			heardoc_utils.c\
 			str_join.c\
 			search_utils.c\
 			executer.c\
@@ -45,7 +46,9 @@ SOURCES := main.c \
 			readline/read_line_parser.c\
 			parser/parser_utils.c\
 			parser/parser_input.c\
+			parser/parser_input_utils.c\
 			parser/parser_signs.c\
+			parser/parser_signs_utils.c\
 			parser/parser_search_utils.c\
 			parser/parser_diff_signs.c\
 			parser/parser_parenthesis.c\

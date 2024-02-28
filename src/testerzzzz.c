@@ -28,12 +28,6 @@ void	tester(t_pipes *head)
 		printf("|--------------------------------------------------------|\n");
 		printf("| "BLU"Input String:"RESET" %s\n",head->input_string);
 		printf("|--------------------------------------------------------|\n");
-		if (head->empty_node == true)
-		{
-			head = head->next;
-			printf("|________________________________________________________|\n");
-			continue ;
-		}
 		while (head->data[i].command_n_args)
 		{
 			j = 1;

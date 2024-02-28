@@ -13,9 +13,9 @@
 #include "../../includes/minishell.h"
 
 static void	add_list(t_pipes **head, char *formated, t_sign_type pipe_type);
-static char *create_str_bet_parent(char *formated);
+static char	*create_str_bet_parent(char *formated);
 static void	bet_parent_count(char *formated, int *x);
-static void	bet_parent_add(char *formated, char **bet_parenthesis, int x, int i);
+static void	bet_parent_add(char *formated, char **bet_parent, int x, int i);
 
 void	creat_list(t_pipes **head, char *input)
 {
@@ -39,10 +39,10 @@ void	creat_list(t_pipes **head, char *input)
 
 static void	add_list(t_pipes **head, char *formated, t_sign_type sign_type)
 {
-	t_pipes	*next_node;
-	t_pipes	*last_node;
-	t_pipes	*down_node;
-	char *formated_parenthesis;
+	t_pipes		*next_node;
+	t_pipes		*last_node;
+	t_pipes		*down_node;
+	char		*formated_parenthesis;
 
 	formated_parenthesis = create_str_bet_parent(formated);
 	down_node = NULL;
@@ -68,7 +68,7 @@ static void	add_list(t_pipes **head, char *formated, t_sign_type sign_type)
 
 static char	*create_str_bet_parent(char *formated)
 {
-	char 	*formated_parenthesis;
+	char	*formated_parenthesis;
 	int		i;
 	int		x;
 
@@ -104,7 +104,7 @@ static void	bet_parent_count(char *formated, int	*x)
 	}
 }
 
-static void	bet_parent_add(char *formated, char **formated_parenthesis, int x, int i)
+static void	bet_parent_add(char *formated, char **bet_parent, int x, int i)
 {
 	int	parenthesis_num;
 
@@ -117,7 +117,7 @@ static void	bet_parent_add(char *formated, char **formated_parenthesis, int x, i
 			parenthesis_num--;
 		if (parenthesis_num == 0)
 			break ;
-		(*formated_parenthesis)[x] = formated[i];
+		(*bet_parent)[x] = formated[i];
 		x++;
 		i++;
 	}
