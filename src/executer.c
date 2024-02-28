@@ -24,7 +24,7 @@ void	executer(t_envs *envs, t_pipes *head, char **heardocs)
 	}
 }
 
-void	execute_command(char **heardocs, t_envs *envs, t_data *data, t_pipes *head)
+void	execute_command(char **heardocs, t_envs *envs, t_data *data, t_pipes *head) /*#TODO add 0 if error, 1 if success*/
 {
 	t_data	*current;
 	char	**args_array;
