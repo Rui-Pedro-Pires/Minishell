@@ -70,29 +70,29 @@ int	count_rarrow(char *str)
 	return (count);
 }
 
-int	command_decider1(t_data *data)
+int	command_decider1(t_data data)
 {
-	if (!data->command_n_args[0])
+	if (!data.command_n_args[0])
 	{
-		data->command_type = NO_COMMAND;
+		data.command_type = NO_COMMAND;
 		return (-1);
 	}
-	if (ft_strncmp(data->command_n_args[0], "echo", 5) == 0 \
-		|| ft_strncmp(data->command_n_args[0], "\"echo\"", 7) == 0 \
-		|| ft_strncmp(data->command_n_args[0], "\'echo\'", 7) == 0)
-		data->command_type = ECHO;
-	else if (ft_strncmp(data->command_n_args[0], "cd", 3) == 0 \
-		|| ft_strncmp(data->command_n_args[0], "\"cd\"", 5) == 0 \
-		|| ft_strncmp(data->command_n_args[0], "\'cd\'", 5) == 0)
-		data->command_type = CD;
-	else if (ft_strncmp(data->command_n_args[0], "pwd", 4) == 0 \
-		|| ft_strncmp(data->command_n_args[0], "\"pwd\"", 6) == 0 \
-		|| ft_strncmp(data->command_n_args[0], "\'pwd\'", 6) == 0)
-		data->command_type = PWD;
-	else if (ft_strncmp(data->command_n_args[0], "export", 7) == 0 \
-		|| ft_strncmp(data->command_n_args[0], "\"export\"", 9) == 0 \
-		|| ft_strncmp(data->command_n_args[0], "\'export\'", 9) == 0)
-		data->command_type = EXPORT;
+	if (ft_strncmp(data.command_n_args[0], "echo", 5) == 0 \
+		|| ft_strncmp(data.command_n_args[0], "\"echo\"", 7) == 0 \
+		|| ft_strncmp(data.command_n_args[0], "\'echo\'", 7) == 0)
+		data.command_type = ECHO;
+	else if (ft_strncmp(data.command_n_args[0], "cd", 3) == 0 \
+		|| ft_strncmp(data.command_n_args[0], "\"cd\"", 5) == 0 \
+		|| ft_strncmp(data.command_n_args[0], "\'cd\'", 5) == 0)
+		data.command_type = CD;
+	else if (ft_strncmp(data.command_n_args[0], "pwd", 4) == 0 \
+		|| ft_strncmp(data.command_n_args[0], "\"pwd\"", 6) == 0 \
+		|| ft_strncmp(data.command_n_args[0], "\'pwd\'", 6) == 0)
+		data.command_type = PWD;
+	else if (ft_strncmp(data.command_n_args[0], "export", 7) == 0 \
+		|| ft_strncmp(data.command_n_args[0], "\"export\"", 9) == 0 \
+		|| ft_strncmp(data.command_n_args[0], "\'export\'", 9) == 0)
+		data.command_type = EXPORT;
 	else
 		return (0);
 	return (1);

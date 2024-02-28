@@ -15,15 +15,15 @@
 int	main(int argc, char **argv, char **env)
 {
 	char		*input;
-	char		**heardoc_read;
 	t_counter	count_struc;
 	t_pipes		*head;
 	t_envs		*head_envs;
-	t_envs		*head_envs;
+	t_init		init;
 
 	head = NULL;
-	heardoc_read = NULL;
-	head_envs = create_env_list(env);
+	init.heardoc_read = NULL;
+	init.envs = create_env_list(env);
+	// init.sorted_envs = function_sorted;
 	(void)argv;
 	(void)env;
 	if (argc == 1)
@@ -32,19 +32,19 @@ int	main(int argc, char **argv, char **env)
 		{
 			count_struc.i = 0;
 			count_struc.counter = 0;
-			input = line_read(&heardoc_read, &count_struc);
+			input = line_read(&init.heardoc_read, &count_struc);
 			if (input && *input)
 				add_history(input);
 			else
 				continue ;
-			input = check_quotes_n_expand(head_envs, input);
-			creat_list(&head, input);
-			free_input(&input);
+			input = check_quotes_n_expand(init.envs, input);
+			creat_list(&head, input, init);
 			free_input(&input);
 			organize_list(head);
-			executer(head_envs, head, heardoc_read);
+			tester(head);
+			executer(head);
 			// coador(&head);
-			free_heardoc(&heardoc_read);
+			free_heardoc(&head->heardocs);
 			free_list(&head);
 		}
 		free_env_list(head_envs);

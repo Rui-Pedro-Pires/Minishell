@@ -12,12 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-static void	add_list(t_pipes **head, char *formated, t_sign_type pipe_type);
+static void	add_list(t_pipes **head, char *formated, t_sign_type pipe_type, t_init init);
 static char	*create_str_bet_parent(char *formated);
 static void	bet_parent_count(char *formated, int *x);
 static void	bet_parent_add(char *formated, char **bet_parent, int x, int i);
 
-void	creat_list(t_pipes **head, char *input)
+void	creat_list(t_pipes **head, char *input, t_init init)
 {
 	int			i;
 	t_sign_type	sign_type;
@@ -27,7 +27,7 @@ void	creat_list(t_pipes **head, char *input)
 	while (input[i])
 	{
 		formated = trim_str(input, &sign_type, &i);
-		add_list(head, formated, sign_type);
+		add_list(head, formated, sign_type, init);
 		if (!input[i])
 			break ;
 		else if (input[i + 1] && (input[i + 1] == '|' || input[i + 1] == '&'))
@@ -37,7 +37,7 @@ void	creat_list(t_pipes **head, char *input)
 	}
 }
 
-static void	add_list(t_pipes **head, char *formated, t_sign_type sign_type)
+static void	add_list(t_pipes **head, char *formated, t_sign_type sign_type, t_init init)
 {
 	t_pipes		*next_node;
 	t_pipes		*last_node;
@@ -48,7 +48,7 @@ static void	add_list(t_pipes **head, char *formated, t_sign_type sign_type)
 	down_node = NULL;
 	if (formated_parenthesis)
 	{
-		creat_list(&down_node, formated_parenthesis);
+		creat_list(&down_node, formated_parenthesis, init);
 		free(formated_parenthesis);
 	}
 	next_node = malloc(sizeof(t_pipes));
@@ -61,8 +61,10 @@ static void	add_list(t_pipes **head, char *formated, t_sign_type sign_type)
 		last_node->next = next_node;
 	next_node->input_string = formated;
 	next_node->pipe_type = sign_type;
+	next_node->heardocs = init.heardoc_read;
+	next_node->envs = init.envs;
+	next_node->sorted_envs =  init.sorted_envs;
 	next_node->next = NULL;
-	next_node->data = NULL;
 	next_node->down = down_node;
 }
 
