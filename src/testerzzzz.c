@@ -20,6 +20,7 @@ void	tester(t_pipes *head)
 	x = 0;
 	while (head)
 	{
+		j = 0;
 		printf(" ________________________________________________________\n");
 		printf("|                                                        |\n");
 		printf("|                        "GRN"NODE %d\n"RESET, x);
@@ -33,7 +34,7 @@ void	tester(t_pipes *head)
 		printf("| "MAG"ARGS: "RESET);
 		while (head->data.command_n_args[j])
 		{
-			printf("%s", head->data.command_n_args[j]);
+			printf("(%s) ", head->data.command_n_args[j]);
 			j++;
 		}
 		printf("\n");
