@@ -95,7 +95,7 @@ int	fill_data(t_pipes *head)
 	size = 0;
 	prepare_split(head, &size);
 	head->data.command_n_args = special_splitens(head->input_string, size, 32);
-	if (!command_decider1(head->data) && !command_decider2(head->data))
+	if (!command_decider1(head) && !command_decider2(head))
 		head->data.command_type = NOT_BUILTIN;
 	return (0);
 }

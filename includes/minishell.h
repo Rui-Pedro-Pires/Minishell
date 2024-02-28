@@ -41,16 +41,6 @@ typedef enum e_command_type
 	NO_COMMAND
 }					t_command_type;
 
-typedef enum e_special_char
-{
-	S_LEFT_ARROW,
-	D_LEFT_ARROW,
-	S_RIGHT_ARROW,
-	D_RIGHT_ARROW,
-	AMPERZ,
-	NO_SPECIAL
-}					t_special_char;
-
 typedef enum e_sign_type
 {
 	N_PIPE,
@@ -245,8 +235,8 @@ int					maxlen(size_t new, size_t str_cond);
 /*			DATA			*/
 /****************************/
 
-int					command_decider1(t_data data);
-int					command_decider2(t_data data);
+int					command_decider1(t_pipes *head);
+int					command_decider2(t_pipes *head);
 int					fill_data(t_pipes *head);
 int					count_rarrow(char *str);
 int					count_larrow(char *str);

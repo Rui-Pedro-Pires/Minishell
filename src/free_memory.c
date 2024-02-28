@@ -88,7 +88,7 @@ void	free_list(t_pipes **head)
 	free_list(&(*head)->down);
 	free_list(&(*head)->next);
 	free((*head)->input_string);
-	// free_pnts((*head)->data.command_n_args);
+	free_pnts((void **)(*head)->data.command_n_args);
 	free(*head);
 	*head = NULL;
 }
