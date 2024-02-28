@@ -108,6 +108,7 @@ static int	string_size(char const *s, char c, int size)
 		i++;
 	return (i);
 }
+
 static int	counte_words(char const *s, char c, int size)
 {
 	int	i;
@@ -126,6 +127,7 @@ static int	counte_words(char const *s, char c, int size)
 	}
 	return (counter);
 }
+
 int	fill_data(t_pipes *head, int count)
 {
 	int		i;

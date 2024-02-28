@@ -15,7 +15,10 @@
 int	command_decider2(t_data *data)
 {
 	if (!data->command_n_args[0])
-		return (0);
+	{
+		data->command_type = NO_COMMAND;
+		return (-1);
+	}
 	if (ft_strncmp(data->command_n_args[0], "unset", 6) == 0
 		|| ft_strncmp(data->command_n_args[0], "\"unset\"", 8) == 0
 		|| ft_strncmp(data->command_n_args[0], "\'unset\'", 8) == 0)

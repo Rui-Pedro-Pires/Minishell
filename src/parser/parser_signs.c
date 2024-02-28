@@ -12,9 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-static int	ft_return_check(char *input, int *i, int *x);
-static char	*check_minor_case_special_error(char *input, int i);
-
 int	check_signs(char *input, int *i, char **myChar)
 {
 	if (input[(*i)] && input[(*i)] == '|')
@@ -28,85 +25,7 @@ int	check_signs(char *input, int *i, char **myChar)
 	return (1);
 }
 
-int	major_sig_count(char *input, int *i)
-{
-	int	x;
-	int	checker;
-
-	x = *i;
-	checker = 0;
-	while (input[++x] == '>')
-		;
-	if (x - (*i) > 2)
-		return (-1);
-	if (x - (*i) < 2 && input[x] == '|' && check_cmd_aft(input + (x + 1)) == 1)
-	{
-		(*i) = x;
-		return (1);
-	}
-	if (input[x] == '|')
-		x++;
-	checker = check_cmd_aft(input + x);
-	if (checker == 0)
-		return (0);
-	else if (checker == -1 && x - (*i) == 1)
-		return (-2);
-	else if (checker == -1)
-		return (-1);
-	(*i) = x;
-	return (1);
-}
-
-int	minor_sig_count(char *input, int *i)
-{
-	int	x;
-	int	checker;
-
-	x = *i;
-	checker = 0;
-	while (input[++x] == '<')
-		;
-	if (x - (*i) == 3 && ft_strchr(">", input[x]))
-		return (-3);
-	if (x - (*i) > 2)
-		return (-1);
-	if (x - (*i) == 1 && input[(x)] == '>' && \
-	check_cmd_aft(input + (x + 1)) == 1)
-	{
-		*i = x;
-		return (1);
-	}
-	checker = ft_return_check(input, i, &x);
-	if (checker != 1)
-		return (checker);
-	(*i) = x;
-	return (1);
-}
-
-char	*signs_case(char *input)
-{
-	int	i;
-
-	i = 0;
-	if (input[i] == '>')
-	{
-		i++;
-		if (input[i] && input[i] == '>')
-			i++;
-		while (input[i] && input[i] == ' ')
-			i++;
-		if (input[i] && ft_strchr("|&<>", input[i]))
-			return (search_char(input + i));
-	}
-	if (input[i] == '<')
-	{
-		i++;
-		return (check_minor_case_special_error(input, i));
-	}
-	return (NULL);
-}
-
-static int	ft_return_check(char *input, int *i, int *x)
+int	ft_return_check(char *input, int *i, int *x)
 {
 	int	checker;
 
@@ -125,7 +44,8 @@ static int	ft_return_check(char *input, int *i, int *x)
 		return (-1);
 	return (1);
 }
-static char	*check_minor_case_special_error(char *input, int i)
+
+char	*check_minor_case_special_error(char *input, int i)
 {
 	if (input[i] && ft_strchr(">", input[i]) && !check_cmd_aft(input + i + 1))
 		return ("newline");

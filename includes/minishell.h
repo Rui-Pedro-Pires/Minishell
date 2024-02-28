@@ -37,7 +37,8 @@ typedef enum e_command_type
 	UNSET,
 	ENV,
 	EXIT,
-	NOT_BUILTIN
+	NOT_BUILTIN,
+	NO_COMMAND
 }					t_command_type;
 
 typedef enum e_special_char
@@ -72,7 +73,6 @@ typedef struct s_pipes
 	char			*input_string;
 	t_sign_type		pipe_type;
 	t_data			*data;
-	bool			empty_node;
 }					t_pipes;
 
 typedef struct s_counter
@@ -160,6 +160,8 @@ int					pipe_checker(char *input, int *x, char **myChar);
 int					amper_checker(char *input, int *x, char **myChar);
 int					major_checker(char *input, int *x, char **myChar);
 int					minor_checker(char *input, int *x, char **myChar);
+int					ft_return_check(char *input, int *i, int *x);
+char				*check_minor_case_special_error(char *input, int i);
 
 /****************************/
 /*		PARENTHESIS				*/
@@ -193,8 +195,8 @@ void				creat_list(t_pipes **head, char *input);
 char				*trim_str(char *input, t_sign_type *pipe_check, int *i);
 t_pipes				*find_last_node(t_pipes *head);
 int					parenthesis_ignore(char *input);
-void				parenthesis_add(char **formated, char *input, int *i,
-						int *x);
+void				parenthesis_add(char **formated, \
+					char *input, int *i, int *x);
 
 /****************************/
 /*			FREE			*/
@@ -227,6 +229,9 @@ char				*keep_reading(char *input_rec, t_counter *c_struc,
 
 void				heardoc_check(char ***heardoc_read, char *input,
 						t_counter *count_struc, int i);
+char				*search_heardoc_condition(char *input, t_counter *iter);
+int					quotes_ignore(char *input);
+int					maxlen(size_t new, size_t str_cond);
 
 /****************************/
 /*			DATA			*/

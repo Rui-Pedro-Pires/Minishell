@@ -12,12 +12,9 @@
 
 #include "../includes/minishell.h"
 
-static char	*search_heardoc_condition(char *input, t_counter *iter);
 static char	**ft_realloc(char ***heardoc_read, t_counter *iter);
 static int	add_to_line(char **new_line, char *str, \
 			char ***h_doc, t_counter *iter);
-static int	maxlen(size_t new, size_t str_cond);
-static int	quotes_ignore(char *input);
 
 void	heardoc_check(char ***heardoc_read, char *input, t_counter *itr, int i)
 {
@@ -103,49 +100,4 @@ char ***h_doc, t_counter *iter)
 		(*h_doc)[iter->counter] = \
 		str_join_with_newline((*h_doc)[iter->counter], *new_ln);
 	return (1);
-}
-
-static char	*search_heardoc_condition(char *input, t_counter *iter)
-{
-	int		i;
-	int		x;
-	int		j;
-	char	*str_condition;
-
-	x = 0;
-	iter->i += 2;
-	while (input[iter->i] && input[iter->i] == ' ')
-		iter->i++;
-	i = iter->i;
-	j = iter->i;
-	if (ft_strchr("|<>()\\;", input[iter->i]))
-		return (NULL);
-	while (input[i] && !ft_strchr("|&>< ", input[i]))
-		i++;
-	str_condition = malloc(sizeof(char) * (i - iter->i + 1));
-	if (!str_condition)
-		return (NULL);
-	while (input[j] && !ft_strchr("|&>< ", input[j]))
-		str_condition[x++] = input[j++];
-	str_condition[x] = '\0';
-	return (str_condition);
-}
-
-static int	maxlen(size_t new, size_t str_cond)
-{
-	if (new > str_cond)
-		return (new);
-	return (str_cond);
-}
-
-static int	quotes_ignore(char *input)
-{
-	int	i;
-
-	i = 0;
-	if (input[i] == D_QUOTES)
-		i += quote_ignore(input + i, D_QUOTES);
-	else if (input[i] == S_QUOTES)
-		i += quote_ignore(input + i, S_QUOTES);
-	return (i);
 }
