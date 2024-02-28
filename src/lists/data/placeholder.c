@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 int	command_decider2(t_data *data)
 {
+	if (!data->command_n_args[0])
+		return (0);
 	if (ft_strncmp(data->command_n_args[0], "unset", 6) == 0
 		|| ft_strncmp(data->command_n_args[0], "\"unset\"", 8) == 0
 		|| ft_strncmp(data->command_n_args[0], "\'unset\'", 8) == 0)
@@ -44,27 +46,43 @@ int	check_only_spaces(char *input_str)
 	return (1);
 }
 
-int	word_counter(char const *s, char c)
+int	word_counter(char const *s, char c, int size)
 {
 	int	i;
 	int	counter;
 
 	i = 0;
 	counter = 0;
-	while (s[i] != '\0')
+	while (s[i] && i < size)
 	{
-		while (s[i] == c && s[i] != '\0')
+		while (s[i] == c && s[i])
 		{
 			i++;
 		}
-		if (s[i] != '\0')
+		if (s[i])
 		{
 			counter++;
 		}
-		while (s[i] != c && s[i] != '\0')
+		while (s[i] != c && s[i])
 		{
 			i++;
 		}
 	}
 	return (counter);
+}
+
+void	organize_list(t_pipes *head)
+{
+	int	count;
+
+	if (!head)
+		return ;
+	organize_list(head->down);
+	organize_list(head->next);
+	count = count_input(head);
+	if (count > 0)
+	{
+		head->data = malloc(sizeof(t_data) * (count + 1));
+		fill_data(head, count);
+	}
 }

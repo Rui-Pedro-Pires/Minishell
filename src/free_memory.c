@@ -17,6 +17,8 @@ void	free_args(char **args)
 	int	i;
 
 	i = 0;
+	if (!args || !*args)
+		return ;
 	while (args[i])
 	{
 		free(args[i]);
@@ -42,23 +44,17 @@ void	coador(t_pipes **head)
 	}
 }
 
-void	freezzzz(char *input, char ***heardoc_read, t_pipes **head)
+void	free_input(char **input)
 {
-	int		i;
-	t_pipes	*cur;
+	free(*input);
+}
+void	free_heardoc(char ***heardoc_read)
+{
+	int	i;
 
 	i = 0;
-	free(input);
-	cur = *head;
-	while (*head)
-	{
-		cur = (*head)->next;
-		free((*head)->input_string);
-		free(*head);
-		*head = cur;
-	}
 	if (!(*heardoc_read))
-		return ;
+			return ;
 	while ((*heardoc_read)[i])
 	{
 		free((*heardoc_read)[i]);
@@ -71,20 +67,21 @@ void	freezzzz(char *input, char ***heardoc_read, t_pipes **head)
 void	free_data(t_data *data)
 {
 	int	i;
-
-	i = 0;
+	int	x;
+	
+	x = 0;
 	if (data)
 	{
-		// if (data->path_command)
-		// 	free(data->path_command);
-		if (data->command_n_args)
+		while (data[x].command_n_args)
 		{
-			while (data->command_n_args[i])
+			i = 0;
+			while (data[x].command_n_args[i])
 			{
-				free(data->command_n_args[i]);
+				free(data[x].command_n_args[i]);
 				i++;
 			}
-			free(data->command_n_args);
+			free(data[x].command_n_args);
+			x++;
 		}
 		free(data);
 	}
@@ -105,4 +102,16 @@ void	free_envs(t_envs *envs)
 			current = next;
 		}
 	}
+}
+
+void	free_list(t_pipes **head)
+{
+	if (!(*head))
+		return ;
+	free_list(&(*head)->down);
+	free_list(&(*head)->next);
+	free((*head)->input_string);
+	free_data((*head)->data);
+	free(*head);
+	*head = NULL;
 }

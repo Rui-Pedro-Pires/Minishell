@@ -1,54 +1,9 @@
-ruiolive&&jorteixe@minishell:~/Minishell$ ls >> fds
-ls >> fds
-ruiolive&&jorteixe@minishell:~/Minishell$ ls || (re || re)
-ls >> fds
-ls 
- re || re
-ruiolive&&jorteixe@minishell:~/Minishell$ ls >> fds
-ls >> fds
-ls 
- re || re
-ls >> fds
-ruiolive&&jorteixe@minishell:~/Minishell$ echo puta
-ls >> fds
-ls 
- re || re
-ls >> fds
-echo puta
-ruiolive&&jorteixe@minishell:~/Minishell$ ls || (((re||fg)||re)||ss)
-ls >> fds
-ls 
- re || re
-ls >> fds
-echo puta
-ls 
- ((re||fg)||re)||ss
-ruiolive&&jorteixe@minishell:~/Minishell$ ls || (((re||fg)||re)||)
-minishell: syntax error near unexpected token `)'
-ruiolive&&jorteixe@minishell:~/Minishell$ ls || (((re||fg)||re))
-minishell: syntax error near unexpected token `)'
-ruiolive&&jorteixe@minishell:~/Minishell$ ls || (((re||fg)||re)||ss())
-minishell: syntax error near unexpected token `('
-ruiolive&&jorteixe@minishell:~/Minishell$ ls || (((re||fg)||re)||ss))))
-minishell: syntax error near unexpected token `)'
-ruiolive&&jorteixe@minishell:~/Minishell$ ls << re
-> eof
-> puta
-> re
-ls >> fds
-ls 
- re || re
-ls >> fds
-echo puta
-ls 
- ((re||fg)||re)||ss
-ls << re
-ruiolive&&jorteixe@minishell:~/Minishell$ < adsda <<
-minishell: syntax error near unexpected token `newline'
-ruiolive&&jorteixe@minishell:~/Minishell$ sa >> "a";"
-minishell: syntax error near unexpected token `;'
-ruiolive&&jorteixe@minishell:~/Minishell$        <><
-minishell: syntax error near unexpected token `<'
-ruiolive&&jorteixe@minishell:~/Minishell$ <><><>
-minishell: syntax error near unexpected token `<'
-ruiolive&&jorteixe@minishell:~/Minishell$ exit
+en.subject.pdf
+includes
+LICENSE
+Makefile
+minishell
+obj
+result.txt
+src
+tester_script

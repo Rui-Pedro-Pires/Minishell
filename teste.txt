@@ -1,0 +1,11 @@
+ls
+cat Makefile
+
+
+ls || ((re||fg)||re) || ls
+
+ls || -> ((re||fg)||re) || -> ls
+|           |				|
+		(re||fg) || -> re
+			|			|
+		re || -> fg

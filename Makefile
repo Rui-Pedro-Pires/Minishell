@@ -34,11 +34,12 @@ SOURCES := main.c \
 			executer.c\
 			execve.c\
 			free.c\
+			lists/create_list.c\
+			lists/create_list_utils.c\
 			lists/list_utils.c\
-			lists/cmd_utils.c\
-			lists/org_list_utils.c\
-			lists/placeholder.c\
-			lists/fill_data_utils.c\
+			lists/data/org_list_utils.c\
+			lists/data/placeholder.c\
+			lists/data/fill_data_utils.c\
 			readline/read_line.c\
 			readline/read_line_utils.c\
 			readline/read_line_parser.c\

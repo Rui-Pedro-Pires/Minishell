@@ -58,15 +58,25 @@ void	tester(t_pipes *head)
 	}
 }
 
-void    input_str_tester(t_pipes *head)
+void    input_str_tester(t_pipes *head, int type)
 {
     if (!head)
         return ;
-    while (head)
-    {
-        printf("%s\n", head->input_string);
-        head = head->next;  
-    }
+	else
+	{
+		if (type == 1)
+		{
+			printf(""BLU"STR: %s\n"RESET"", head->input_string);
+			printf(""BLU"Pipe_type: %d\n"RESET"", head->pipe_type);
+		}
+		else
+		{
+			printf(""RED"STR: %s\n"RESET"", head->input_string);
+			printf(""RED"Pipe_type: %d\n"RESET"", head->pipe_type);
+		}
+		input_str_tester(head->down, 2);
+		input_str_tester(head->next, 1);
+	}
 }
 
 void	ft_print_heardoc(char **heardoc_read)
