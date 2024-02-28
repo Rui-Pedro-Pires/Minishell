@@ -40,10 +40,10 @@ int	main(int argc, char **argv, char **env)
 				continue ;
 			input = check_quotes_n_expand(head_envs, input);
 			creat_list(&head, input);
-			organize_list(head);
-			executer(head_envs, head);
-			// coador(&head);
 			free_input(&input);
+			organize_list(head);
+			executer(head_envs, head, heardoc_read);
+			// coador(&head);
 			free_heardoc(&heardoc_read);
 			free_list(&head);
 		}

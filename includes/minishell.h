@@ -193,7 +193,8 @@ void				creat_list(t_pipes **head, char *input);
 char				*trim_str(char *input, t_sign_type *pipe_check, int *i);
 t_pipes				*find_last_node(t_pipes *head);
 int					parenthesis_ignore(char *input);
-void				parenthesis_add(char **formated, char *input, int *i, int *x);
+void				parenthesis_add(char **formated, char *input, int *i,
+						int *x);
 
 /****************************/
 /*			FREE			*/
@@ -250,7 +251,7 @@ char				**special_splitens(char *str, int *back, int *front,
 /*			TESTERZZZ		*/
 /****************************/
 
-void    			input_str_tester(t_pipes *head, int type);
+void				input_str_tester(t_pipes *head, int type);
 void				tester(t_pipes *head);
 
 /************************************/
@@ -305,12 +306,14 @@ char				*ft_getenv(t_envs *head, char *str);
 /*			EXECUTOR		*/
 /****************************/
 
-void				executer(t_envs *envs, t_pipes *head);
-void				execute_command(t_envs *envs, t_data *data);
+void	executer(t_envs *envs, t_pipes *head, char **heardocs);
+void				execute_command(char **heardocs, t_envs *envs,
+						t_data *data, t_pipes *head);
 void				ft_execve(t_envs *envs, char **args_array);
 void				executens_ve(t_envs *envs, char **args_array);
 char				**envlist_to_array(t_envs *envs);
 int					listlen(t_envs *envs);
+void				ft_exit(char **heardocs, t_envs *head_envs, t_pipes *head);
 
 /****************************/
 /*			FREE			*/
