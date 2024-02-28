@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **env)
 	char		**heardoc_read;
 	t_counter	count_struc;
 	t_pipes		*head;
+	t_envs		*head_envs;
 
 	head = NULL;
 	heardoc_read = NULL;
@@ -36,11 +37,11 @@ int	main(int argc, char **argv, char **env)
 			if (input && *input)
 				add_history(input);
 			else
-				continue;
+				continue ;
 			input = check_quotes_n_expand(head_envs, input);
 			creat_list(&head, input);
 			organize_list(head);
-			// executer(head_envs, head);
+			executer(head_envs, head);
 			// coador(&head);
 			free_input(&input);
 			free_heardoc(&heardoc_read);
