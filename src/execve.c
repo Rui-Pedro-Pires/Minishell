@@ -55,13 +55,9 @@ void	executens_ve(t_envs *envs, char **args_array)
 		if (status == -1)
 		{
 			if (errno == ENOENT)
-			{
 				printf("Command not found\n");
-			}
 			else
-			{
 				perror("execve");
-			}
 		}
 		// free_pnts((void**)env_array);
 	}
