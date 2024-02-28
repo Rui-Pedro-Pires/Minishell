@@ -39,7 +39,6 @@ int	main(int argc, char **argv, char **env)
 			input = check_quotes_n_expand(head_envs, input);
 			creat_list(&head, input);
 			free_input(&input);
-			free_input(&input);
 			organize_list(head);
 			executer(head_envs, head, heardoc_read);
 			// coador(&head);
