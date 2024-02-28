@@ -46,8 +46,7 @@ void	execute_command(t_envs *envs, t_data *data)
 	if (cmd == ENV)
 		ft_env(envs);
 	if (cmd == EXIT)
-		// #TODO  Handle "cmd == EXIT"
 		printf("EXIT is not done yet \n\n");
-	if(cmd == NOT_BUILTIN)
+	if (cmd == NOT_BUILTIN)
 		ft_execve(envs, args_array);
 }
