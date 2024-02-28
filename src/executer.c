@@ -12,41 +12,39 @@
 
 #include "../includes/minishell.h"
 
-void	executer(t_envs *envs, t_pipes *head, char **heardocs)
+void	executer(t_pipes *head)
 {
 	t_pipes	*current;
 
 	current = head;
 	while (current)
 	{
-		execute_command(heardocs, envs, current->data, head);
+		execute_command(head);
 		current = current->next;
 	}
 }
 
-void	execute_command(char **heardocs, t_envs *envs, t_data *data, t_pipes *head) /*#TODO add 0 if error, 1 if success*/
+void	execute_command(t_pipes *head) /*#TODO add 0 if error, 1 if success*/
 {
-	t_data	*current;
 	char	**args_array;
 	int		cmd;
 
-	current = data;
-	args_array = current->command_n_args;
-	cmd = current->command_type;
+	args_array = head->data.command_n_args;
+	cmd = head->data.command_type;
 	if (cmd == ECHO)
 		ft_echo(args_array);
 	if (cmd == CD)
-		ft_cd(envs, args_array);
+		ft_cd(head->envs, args_array);
 	if (cmd == PWD)
 		ft_pwd();
 	if (cmd == EXPORT)
-		ft_export(envs, args_array);
+		ft_export(head->envs, args_array);
 	if (cmd == UNSET)
-		ft_unset(&envs, args_array);
+		ft_unset(&head->envs, args_array);
 	if (cmd == ENV)
-		ft_env(envs);
+		ft_env(head->envs);
 	if (cmd == EXIT)
-		ft_exit(heardocs, envs, head);
+		ft_exit(head->heardocs, head->envs, head);
 	if (cmd == NOT_BUILTIN)
-		ft_execve(envs, args_array);
+		ft_execve(head->envs, args_array);
 }

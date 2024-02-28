@@ -14,39 +14,31 @@
 
 void	tester(t_pipes *head)
 {
-	int		i;
 	int		j;
 	int		x;
 
 	x = 0;
 	while (head)
 	{
-		i = 0;
 		printf(" ________________________________________________________\n");
 		printf("|                                                        |\n");
 		printf("|                        "GRN"NODE %d\n"RESET, x);
 		printf("|--------------------------------------------------------|\n");
 		printf("| "BLU"Input String:"RESET" %s\n",head->input_string);
 		printf("|--------------------------------------------------------|\n");
-		while (head->data[i].command_n_args)
+		printf("| "RED"COMMAND:"RESET" %s\n", head->data.command_n_args[0]);
+		printf("|--------------------------------------------------------|\n");
+		printf("| "CYN"COMMAND TYPE[%d]:"RESET" %u\n", x, head->data.command_type);
+		printf("|--------------------------------------------------------|\n");
+		printf("| "MAG"ARGS: "RESET);
+		while (head->data.command_n_args[j])
 		{
-			j = 1;
-			printf("| "RED"COMMAND:"RESET" %s\n", head->data[i].command_n_args[0]);
-			printf("|--------------------------------------------------------|\n");
-			printf("| "CYN"COMMAND TYPE[%d]:"RESET" %u\n", x,
-					head->data[i].command_type);
-			printf("|--------------------------------------------------------|\n");
-			printf("| "MAG"ARGS: "RESET);
-			while (head->data[i].command_n_args[j])
-			{
-				printf("%s", head->data[i].command_n_args[j]);
-				j++;
-			}
-			printf("\n");
-			printf("|--------------------------------------------------------|\n");
-			printf("|________________________________________________________|\n");
-			i++;
+			printf("%s", head->data.command_n_args[j]);
+			j++;
 		}
+		printf("\n");
+		printf("|--------------------------------------------------------|\n");
+		printf("|________________________________________________________|\n");
 		head = head->next;
 		x++;
 	}

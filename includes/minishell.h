@@ -59,10 +59,24 @@ typedef enum e_sign_type
 	AMPER
 }					t_sign_type;
 
+typedef struct s_envs
+{
+	char			*whole_str;
+	char			*name;
+	char			*value;
+	struct s_envs	*next;
+}					t_envs;
+
+typedef	struct s_init
+{
+	t_envs			*envs;
+	t_envs			*sorted_envs;
+	char			**heardoc_read;
+}					t_init;
+
 typedef struct s_data
 {
 	char			**command_n_args;
-	t_special_char	special_char;
 	t_command_type	command_type;
 }					t_data;
 
@@ -71,8 +85,11 @@ typedef struct s_pipes
 	struct s_pipes	*next;
 	struct s_pipes	*down;
 	char			*input_string;
+	char			**heardocs;
+	t_envs			*envs;
+	t_envs			*sorted_envs;
 	t_sign_type		pipe_type;
-	t_data			*data;
+	t_data			data;
 }					t_pipes;
 
 typedef struct s_counter
@@ -82,14 +99,6 @@ typedef struct s_counter
 	int				empty;
 	int				prnt;
 }					t_counter;
-
-typedef struct s_envs
-{
-	char			*whole_str;
-	char			*name;
-	char			*value;
-	struct s_envs	*next;
-}					t_envs;
 
 /********************/
 /*		COLORS		*/
@@ -191,7 +200,7 @@ bool				search_dpipe_or_damper(char *input, int *i,
 /*			LIST			*/
 /****************************/
 
-void				creat_list(t_pipes **head, char *input);
+void				creat_list(t_pipes **head, char *input, t_init init);
 char				*trim_str(char *input, t_sign_type *pipe_check, int *i);
 t_pipes				*find_last_node(t_pipes *head);
 int					parenthesis_ignore(char *input);
@@ -204,7 +213,6 @@ void				parenthesis_add(char **formated, \
 
 void				free_args(char **args);
 void				coador(t_pipes **head);
-void				free_data(t_data *data);
 void				free_envs(t_envs *envs);
 void				free_list(t_pipes **head);
 void				free_input(char **input);
@@ -237,20 +245,18 @@ int					maxlen(size_t new, size_t str_cond);
 /*			DATA			*/
 /****************************/
 
-int					command_decider1(t_data *data);
-int					command_decider2(t_data *data);
-int					fill_data(t_pipes *head, int count);
+int					command_decider1(t_data data);
+int					command_decider2(t_data data);
+int					fill_data(t_pipes *head);
 int					count_rarrow(char *str);
 int					count_larrow(char *str);
 int					count_amperz(char *str);
 int					count_input(t_pipes *head);
-void				prepare_split(t_data *data, t_pipes *head, int *back,
-						int *front);
-void				check_specialz(char *str, t_data *data, int *front);
+void				prepare_split(t_pipes *head, int *size);
+// void				check_specialz(char *str, t_data *data, int *front);
 int					check_only_spaces(char *input_str);
 void				organize_list(t_pipes *head);
-char				**special_splitens(char *str, int *back, int *front,
-						char c);
+char				**special_splitens(char *str, int size, char c);
 
 /****************************/
 /*			TESTERZZZ		*/
@@ -311,9 +317,8 @@ char				*ft_getenv(t_envs *head, char *str);
 /*			EXECUTOR		*/
 /****************************/
 
-void	executer(t_envs *envs, t_pipes *head, char **heardocs);
-void				execute_command(char **heardocs, t_envs *envs,
-						t_data *data, t_pipes *head);
+void				executer(t_pipes *head);
+void				execute_command(t_pipes *head);
 void				ft_execve(t_envs *envs, char **args_array);
 void				executens_ve(t_envs *envs, char **args_array);
 char				**envlist_to_array(t_envs *envs);
