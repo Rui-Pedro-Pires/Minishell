@@ -71,7 +71,7 @@ char	**envlist_to_array(t_envs *envs)
 	int		i;
 
 	current = envs;
-	env_array = malloc(listlen(envs) + 1);
+	env_array = malloc(sizeof(char *) *( listlen(envs) + 1));
 	i = 0;
 	while (current != NULL)
 	{
@@ -95,5 +95,6 @@ int	listlen(t_envs *envs)
 		len++;
 		current = current->next;
 	}
+	printf("envs len: %d", len);
 	return (len);
 }
