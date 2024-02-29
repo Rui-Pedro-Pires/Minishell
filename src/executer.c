@@ -37,7 +37,7 @@ void	execute_command(t_pipes *head) /*#TODO add 0 if error, 1 if success*/
 	if (cmd == PWD)
 		ft_pwd();
 	if (cmd == EXPORT)
-		ft_export(head->init.envs, args_array);
+		ft_export(head->init.sorted_envs, args_array);
 	if (cmd == UNSET)
 		ft_unset(&head->init.envs, args_array);
 	if (cmd == ENV)
