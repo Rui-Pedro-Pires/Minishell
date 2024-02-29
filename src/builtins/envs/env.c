@@ -19,8 +19,8 @@ void	ft_env(t_envs *head)
 	current = head;
 	while (current != NULL)
 	{
-		printf("Name: %s, Value: %s\n", current->name, current->value);
+		printf("%s", current->whole_str);
+		printf("\n"RESET);
 		current = current->next;
 	}
-	printf("\n"RESET);
 }
