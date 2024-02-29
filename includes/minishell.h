@@ -61,7 +61,7 @@ typedef	struct s_init
 {
 	t_envs			*envs;
 	t_envs			*sorted_envs;
-	char			**heardoc_read;
+	char			**heardocs;
 }					t_init;
 
 typedef struct s_data
@@ -70,14 +70,26 @@ typedef struct s_data
 	t_command_type	command_type;
 }					t_data;
 
+typedef	struct s_input
+{
+	char			*input;
+	int				input_index;
+}					t_input;
+
+typedef	struct s_output
+{
+	char			*input;
+	int				input_index;
+}					t_output;
+
 typedef struct s_pipes
 {
 	struct s_pipes	*next;
 	struct s_pipes	*down;
 	char			*input_string;
-	char			**heardocs;
-	t_envs			*envs;
-	t_envs			*sorted_envs;
+	t_input			input;
+	t_output		output;
+	t_init			init;
 	t_sign_type		pipe_type;
 	t_data			data;
 }					t_pipes;
@@ -206,7 +218,7 @@ void				coador(t_pipes **head);
 void				free_envs(t_envs *envs);
 void				free_list(t_pipes **head);
 void				free_input(char **input);
-void				free_heardoc(char ***heardoc_read);
+void				free_heardoc(t_pipes *head);
 
 /****************************/
 /*			READ LINE		*/
@@ -313,7 +325,7 @@ void				ft_execve(t_envs *envs, char **args_array);
 void				executens_ve(t_envs *envs, char **args_array);
 char				**envlist_to_array(t_envs *envs);
 int					listlen(t_envs *envs);
-void				ft_exit(char **heardocs, t_envs *head_envs, t_pipes *head);
+void				ft_exit(t_pipes *head);
 
 /****************************/
 /*			FREE			*/
@@ -324,5 +336,9 @@ void				free_pnts(void **pnts);
 void				free_ppnts(void ***ppnts);
 void				type_free(va_list args, const char format);
 void				multiple_free(const char *format, ...);
+
+
+char				*ft_strjoin_free(char *s1, char *s2);
+char				*ft_strjoin_free_v2(char *s1, char *s2);
 
 #endif
