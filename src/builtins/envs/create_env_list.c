@@ -63,3 +63,47 @@ t_envs	*create_env_list(char **env)
 	}
 	return (head);
 }
+t_envs	*swap_nodes(t_envs *prev, t_envs *current, t_envs *next_node)
+{
+	if (prev == NULL)
+	{
+		current->next = next_node->next;
+		next_node->next = current;
+		return (next_node);
+	}
+	else
+	{
+		prev->next = next_node;
+		current->next = next_node->next;
+		next_node->next = current;
+	}
+	return (current);
+}
+
+t_envs	*bubble_sort(t_envs *head)
+{
+	t_envs	*current;
+	t_envs	*prev;
+	int		swapped;
+
+	swapped = 1;
+	while (swapped)
+	{
+		swapped = 0;
+		current = head;
+		prev = NULL;
+		while (current && current->next)
+		{
+			if (strcmp(current->whole_str, current->next->whole_str) > 0)
+			{
+				swapped = 1;
+				current = swap_nodes(prev, current, current->next);
+				if (prev == NULL)
+					head = current;
+			}
+			prev = current;
+			current = current->next;
+		}
+	}
+	return (head);
+}

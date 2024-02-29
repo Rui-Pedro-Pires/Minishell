@@ -84,7 +84,7 @@ typedef struct s_envs
 	struct s_envs	*next;
 }					t_envs;
 
-typedef	struct s_init
+typedef struct s_init
 {
 	t_envs			*envs;
 	t_envs			*sorted_envs;
@@ -98,7 +98,7 @@ typedef struct s_data
 	t_command_type	command_type;
 }					t_data;
 
-typedef	struct s_in_out
+typedef struct s_in_out
 {
 	char			*input_file;
 	char			*output_file;
@@ -230,8 +230,8 @@ void				creat_list(t_pipes **head, char *input, t_init init, int status);
 char				*trim_str(char *input, t_sign_type *pipe_check, int *i, int status);
 t_pipes				*find_last_node(t_pipes *head);
 int					parenthesis_ignore(char *input);
-void				parenthesis_add(char **formated, \
-					char *input, int *i, int *x);
+void				parenthesis_add(char **formated, char *input, int *i,
+						int *x);
 
 /****************************/
 /*			FREE			*/
@@ -338,6 +338,7 @@ t_envs				*find_prev_node(t_envs *head, char *str);
 void				remove_node(t_envs **head, t_envs *prev, t_envs *current);
 void				free_nodes(t_envs *node);
 char				*ft_getenv(t_envs *head, char *str);
+t_envs				*bubble_sort(t_envs *head);
 
 /****************************/
 /*			EXECUTOR		*/
@@ -360,7 +361,6 @@ void				free_pnts(void **pnts);
 void				free_ppnts(void ***ppnts);
 void				type_free(va_list args, const char format);
 void				multiple_free(const char *format, ...);
-
 
 char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strjoin_free_v2(char *s1, char *s2);

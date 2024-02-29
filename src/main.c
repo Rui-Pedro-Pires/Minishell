@@ -21,7 +21,8 @@ int	main(int argc, char **argv, char **env)
 
 	head = NULL;
 	init.envs = create_env_list(env);
-	// init.sorted_envs = function_sorted;
+	init.sorted_envs = create_env_list(env);
+	init.sorted_envs = bubble_sort(init.sorted_envs);
 	(void)argv;
 	(void)env;
 	if (argc == 1)
