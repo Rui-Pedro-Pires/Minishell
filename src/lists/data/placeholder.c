@@ -49,31 +49,6 @@ int	check_only_spaces(char *input_str)
 	return (1);
 }
 
-int	word_counter(char const *s, char c, int size)
-{
-	int	i;
-	int	counter;
-
-	i = 0;
-	counter = 0;
-	while (s[i] && i < size)
-	{
-		while (s[i] == c && s[i])
-		{
-			i++;
-		}
-		if (s[i])
-		{
-			counter++;
-		}
-		while (s[i] != c && s[i])
-		{
-			i++;
-		}
-	}
-	return (counter);
-}
-
 void	organize_list(t_pipes *head)
 {
 	if (!head)

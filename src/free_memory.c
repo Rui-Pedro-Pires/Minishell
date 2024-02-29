@@ -17,7 +17,7 @@ void	free_args(char **args)
 	int	i;
 
 	i = 0;
-	if (!args || !*args)
+	if (!args)
 		return ;
 	while (args[i])
 	{
@@ -25,6 +25,7 @@ void	free_args(char **args)
 		i++;
 	}
 	free(args);
+	args = NULL;
 }
 
 // void	coador(t_pipes **head)
@@ -48,20 +49,21 @@ void	free_input(char **input)
 {
 	free(*input);
 }
-void	free_heardoc(char ***heardoc_read)
+
+void	free_heardoc(t_pipes *head)
 {
 	int	i;
 
 	i = 0;
-	if (!(*heardoc_read))
+	if (!head || !(head->init.heardocs))
 			return ;
-	while ((*heardoc_read)[i])
+	while (head->init.heardocs[i])
 	{
-		free((*heardoc_read)[i]);
+		free(head->init.heardocs[i]);
 		i++;
 	}
-	free((*heardoc_read));
-	(*heardoc_read) = NULL;
+	free(head->init.heardocs);
+	head->init.heardocs = NULL;
 }
 
 void	free_envs(t_envs *envs)
@@ -88,7 +90,7 @@ void	free_list(t_pipes **head)
 	free_list(&(*head)->down);
 	free_list(&(*head)->next);
 	free((*head)->input_string);
-	free_pnts((void **)(*head)->data.command_n_args);
+	free_args((*head)->data.command_n_args);
 	free(*head);
 	*head = NULL;
 }

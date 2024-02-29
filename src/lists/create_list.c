@@ -59,11 +59,10 @@ static void	add_list(t_pipes **head, char *formated, t_sign_type sign_type, t_in
 		*head = next_node;
 	else
 		last_node->next = next_node;
+	formated = check_quotes_n_expand(init.envs, formated);
 	next_node->input_string = formated;
 	next_node->pipe_type = sign_type;
-	next_node->heardocs = init.heardoc_read;
-	next_node->envs = init.envs;
-	next_node->sorted_envs =  init.sorted_envs;
+	next_node->init = init;
 	next_node->next = NULL;
 	next_node->down = down_node;
 }

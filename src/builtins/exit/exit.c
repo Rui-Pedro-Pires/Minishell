@@ -12,11 +12,11 @@
 
 #include "../../../includes/minishell.h"
 
-void	ft_exit(char **heardocs, t_envs *head_envs, t_pipes *head)
+void	ft_exit(t_pipes *head)
 {
-	free_heardoc(&heardocs);
+	free_heardoc(head);
+	free_env_list(head->init.envs);
 	free_list(&head);
-	free_env_list(head_envs);
 	rl_clear_history();
 	exit(1);
 }

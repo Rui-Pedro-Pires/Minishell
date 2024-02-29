@@ -13,7 +13,7 @@
 #include "../../../includes/minishell.h"
 
 static int	counte_words(char const *s, char c, int size);
-static int	string_size(char const *s, char c, int size);
+static int	string_size(char const *s, int i, char c, int size);
 
 void	prepare_split(t_pipes *head, int *size)
 {
@@ -50,8 +50,11 @@ char	**special_splitens(char *str, int size, char c)
 	{
 		while (str[i] && str[i] == c && i < size)
 			i++;
-		if (str[i])
-			str_array[j++] = ft_substr(str, i, string_size(str + i, c, size));
+		if (str[i] && i < size)
+		{
+			str_array[j] = ft_substr(str, i, string_size(str, i, c, size));
+			j++;
+		}
 		while (str[i] && str[i] != c && i < size)
 			i++;
 	}
@@ -59,14 +62,14 @@ char	**special_splitens(char *str, int size, char c)
 	return (str_array);
 }
 
-static int	string_size(char const *s, char c, int size)
+static int	string_size(char const *s, int i, char c, int size)
 {
-	int	i;
+	int	x;
 
-	i = 0;
+	x = i;
 	while (s[i] && s[i] != c && i < size)
 		i++;
-	return (i);
+	return (i - x);
 }
 
 static int	counte_words(char const *s, char c, int size)
@@ -80,7 +83,7 @@ static int	counte_words(char const *s, char c, int size)
 	{
 		while (s[i] && s[i] == c && i < size)
 			i++;
-		if (s[i])
+		if (s[i] && i < size)
 			counter++;
 		while (s[i] && s[i] != c && i < size)
 			i++;
