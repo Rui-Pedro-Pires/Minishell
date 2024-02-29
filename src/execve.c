@@ -25,16 +25,20 @@ void	ft_execve(t_envs *envs, char **args_array)
 	{
 		path_str = ft_getenv(envs, "PATH");
 		paths_array = ft_split(path_str, ':');
+		free(path_str);
 		i = 0;
 		temp_str = ft_strdup(args_array[0]);
-		paths_array[i] = ft_strjoin(paths_array[i], "/");
-		args_array[0] = ft_strjoin(paths_array[i], args_array[0]);
+		paths_array[i] = ft_strjoin_free(paths_array[i], "/");
+		args_array[0] = ft_strjoin_free_v2(paths_array[i], args_array[0]);
 		while (access(args_array[0], F_OK) != 0 && paths_array[i] != NULL)
 		{
-			paths_array[i] = ft_strjoin(paths_array[i], "/");
+			paths_array[i] = ft_strjoin_free(paths_array[i], "/");
+			free(args_array[0]);
 			args_array[0] = ft_strjoin(paths_array[i], temp_str);
 			i++;
 		}
+		free(temp_str);
+		free_args(paths_array);
 		executens_ve(envs, args_array);
 	}
 }

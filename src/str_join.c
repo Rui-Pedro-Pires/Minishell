@@ -88,3 +88,61 @@ char	*add_nl(char *s1, char *s2)
 	free(s1);
 	return (new_str);
 }
+
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*new_str;
+	int		i;
+	int		n;
+
+	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	n = 0;
+	while (s1[i] != '\0')
+	{
+		new_str[n] = s1[i];
+		i++;
+		n++;
+	}
+	i = 0;
+	while (s2[i] != '\0')
+	{
+		new_str[n] = s2[i];
+		i++;
+		n++;
+	}
+	new_str[n] = '\0';
+	free(s1);
+	return (new_str);
+}
+
+char	*ft_strjoin_free_v2(char *s1, char *s2)
+{
+	char	*new_str;
+	int		i;
+	int		n;
+
+	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	n = 0;
+	while (s1[i] != '\0')
+	{
+		new_str[n] = s1[i];
+		i++;
+		n++;
+	}
+	i = 0;
+	while (s2[i] != '\0')
+	{
+		new_str[n] = s2[i];
+		i++;
+		n++;
+	}
+	new_str[n] = '\0';
+	free(s2);
+	return (new_str);
+}

@@ -17,11 +17,9 @@ int	main(int argc, char **argv, char **env)
 	char		*input;
 	t_counter	count_struc;
 	t_pipes		*head;
-	t_envs		*head_envs;
 	t_init		init;
 
 	head = NULL;
-	init.heardoc_read = NULL;
 	init.envs = create_env_list(env);
 	// init.sorted_envs = function_sorted;
 	(void)argv;
@@ -32,22 +30,21 @@ int	main(int argc, char **argv, char **env)
 		{
 			count_struc.i = 0;
 			count_struc.counter = 0;
-			input = line_read(&init.heardoc_read, &count_struc);
+			init.heardocs = NULL;
+			input = line_read(&init.heardocs, &count_struc);
 			if (input && *input)
 				add_history(input);
 			else
 				continue ;
-			input = check_quotes_n_expand(init.envs, input);
 			creat_list(&head, input, init);
 			free_input(&input);
 			organize_list(head);
-			// tester(head);
+			tester(head);
 			executer(head);
-			// coador(&head);
-			free_heardoc(&head->heardocs);
+			free_heardoc(head);
 			free_list(&head);
 		}
-		free_env_list(head_envs);
+		free_env_list(init.envs);
 		rl_clear_history();
 	}
 }
