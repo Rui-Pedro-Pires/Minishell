@@ -21,6 +21,7 @@
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdio.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
@@ -49,6 +50,32 @@ typedef enum e_sign_type
 	AMPER
 }					t_sign_type;
 
+typedef enum e_input_type
+{
+	HEARDOC,
+	REDIRECT_INPUT,
+	NO_INPUT
+}					t_input_type;
+
+typedef enum e_output_type
+{
+	APPEND_OUTPUT,
+	REDIRECT_OUTPUT,
+	NO_OUTPUT
+}					t_output_type;
+
+typedef enum e_write
+{
+	WRITE_TO_FILE,
+	WRITE_TO_STDOUT
+}					t_write;
+
+typedef enum e_read
+{
+	NORMAL_ARGS,
+	READ_FROM_STDIN
+}					t_read;
+
 typedef struct s_envs
 {
 	char			*whole_str;
@@ -62,6 +89,7 @@ typedef	struct s_init
 	t_envs			*envs;
 	t_envs			*sorted_envs;
 	char			**heardocs;
+	int				heardoc_index;
 }					t_init;
 
 typedef struct s_data
@@ -70,25 +98,21 @@ typedef struct s_data
 	t_command_type	command_type;
 }					t_data;
 
-typedef	struct s_input
+typedef	struct s_in_out
 {
-	char			*input;
-	int				input_index;
-}					t_input;
-
-typedef	struct s_output
-{
-	char			*input;
-	int				input_index;
-}					t_output;
+	char			*input_file;
+	char			*output_file;
+	t_input_type	input_type;
+	t_output_type	output_type;
+	char			*data_read;
+}					t_in_out;
 
 typedef struct s_pipes
 {
 	struct s_pipes	*next;
 	struct s_pipes	*down;
 	char			*input_string;
-	t_input			input;
-	t_output		output;
+	t_in_out		in_out;
 	t_init			init;
 	t_sign_type		pipe_type;
 	t_data			data;
