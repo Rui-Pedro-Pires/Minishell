@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 
+int	read_from_stdin(t_pipes *head, char *to_be_read);
+
 void	ft_execve(t_pipes *node)
 {
 	char	*path_str;
@@ -55,7 +57,9 @@ void	executens_ve(t_pipes *node)
 	else if (pid == 0)
 	{
 		if (node->in_out.input_type == HEARDOC)
-			read();
+			read_from_stdin(node, node->init.heardocs[node->init.heardoc_index]);
+		else if (node->in_out.input_type == REDIRECT_INPUT)
+			read_from_stdin(node, node->in_out.data_read);
 		else
 		{
 			env_array = envlist_to_array(node->init.envs);
@@ -105,4 +109,42 @@ int	listlen(t_envs *envs)
 	}
 	printf("envs len: %d", len);
 	return (len);
+}
+
+int	read_from_stdin(t_pipes *head, char *to_be_read)
+{
+	int	pid;
+	int	fd_in[2];
+	char	**env_array;
+	int		status;
+
+	if (pipe(fd_in))
+		return (0);
+	pid = fork();
+	if (pid == 0)
+	{
+		dup2(fd_in[1], 1);
+		close(fd_in[0]);
+		close(fd_in[1]);
+		printf("%s\n", to_be_read);
+	}
+	else
+	{
+		dup2(fd_in[0], 0);
+		close(fd_in[0]);
+		close(fd_in[1]);
+		env_array = envlist_to_array(head->init.envs);
+		status = execve(head->data.command_n_args[0], head->data.command_n_args, env_array);
+		if (status == -1)
+		{
+			if (errno == ENOENT)
+				perror("Command not found\n");
+			else
+				perror("execve");
+		}
+	}
+	close(fd_in[0]);
+	close(fd_in[1]);
+	waitpid(pid, NULL, 0);
+	return (1);
 }
