@@ -16,6 +16,7 @@ static char	*build_str(char *formated, char *input);
 static void	double_quotes_add(char **formated, char *input, int *i, int *x);
 static void	single_quotes_add(char **formated, char *input, int *i, int *x);
 static void	define_pipe_type(char *input, t_sign_type *pipe_check, int *i);
+int	check_for_dbpipe_dbamper(char *input);
 
 char	*trim_str(char *input, t_sign_type *sign_type, int *i)
 {
@@ -23,15 +24,31 @@ char	*trim_str(char *input, t_sign_type *sign_type, int *i)
 	int		save;
 
 	save = *i;
-	while (input[(*i)] && input[(*i)] != '|' && input[(*i)] != '&')
+	if (check_for_dbpipe_dbamper(input))
 	{
-		if (input[(*i)] == D_QUOTES)
-			(*i) += quote_ignore(input + (*i), D_QUOTES);
-		else if (input[(*i)] == S_QUOTES)
-			(*i) += quote_ignore(input + (*i), S_QUOTES);
-		else if (input[(*i)] == '(')
-			(*i) += parenthesis_ignore(input + (*i));
-		(*i)++;
+		while (input[(*i)] && input[(*i)] != '|' && input[(*i) + 1] == '|' && input[(*i)] != '&')
+		{
+			if (input[(*i)] == D_QUOTES)
+				(*i) += quote_ignore(input + (*i), D_QUOTES);
+			else if (input[(*i)] == S_QUOTES)
+				(*i) += quote_ignore(input + (*i), S_QUOTES);
+			else if (input[(*i)] == '(')
+				(*i) += parenthesis_ignore(input + (*i));
+			(*i)++;
+		}
+	}
+	else
+	{
+		while (input[(*i)] && input[(*i)] != '|' && input[(*i)] != '&')
+		{
+			if (input[(*i)] == D_QUOTES)
+				(*i) += quote_ignore(input + (*i), D_QUOTES);
+			else if (input[(*i)] == S_QUOTES)
+				(*i) += quote_ignore(input + (*i), S_QUOTES);
+			else if (input[(*i)] == '(')
+				(*i) += parenthesis_ignore(input + (*i));
+			(*i)++;
+		}
 	}
 	formated = ft_calloc(sizeof(char), (((*i) - save) + 1));
 	if (!formated)
@@ -101,4 +118,18 @@ static void	define_pipe_type(char *input, t_sign_type *sign_type, int *i)
 		*sign_type = S_PIPE;
 	else if (input[(*i)] && input[(*i)] == '&')
 		*sign_type = AMPER;
+}
+
+int	check_for_dbpipe_dbamper(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if ((input[i] == '|' && input[i + 1] == '|') || input[i] == '&')
+			return (1);
+		i++;
+	}
+	return(0);
 }

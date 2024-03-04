@@ -31,6 +31,7 @@ int	main(int argc, char **argv, char **env)
 			count_struc.i = 0;
 			count_struc.counter = 0;
 			init.heardocs = NULL;
+			init.heardoc_index = -1;
 			input = line_read(&init.heardocs, &count_struc);
 			if (input && *input)
 				add_history(input);
@@ -39,8 +40,8 @@ int	main(int argc, char **argv, char **env)
 			creat_list(&head, input, init);
 			free_input(&input);
 			organize_list(head);
-			// tester(head);
-			executer(head);
+			tester(head);
+			// executer(head);
 			free_heardoc(head);
 			free_list(&head);
 		}
