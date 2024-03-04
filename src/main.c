@@ -37,11 +37,20 @@ int	main(int argc, char **argv, char **env)
 				add_history(input);
 			else
 				continue ;
-			creat_list(&head, input, init);
-			free_input(&input);
-			organize_list(head);
-			tester(head);
+			if (check_for_dbpipe_dbamper(input))
+			{
+				creat_list(&head, input, init, 1);
+				organize_list(head, 1);
+			}
+			else
+			{
+				creat_list(&head, input, init, 0);
+				organize_list(head, 0);
+			}
+			input_str_tester(head, 1);
+			// tester(head);
 			// executer(head);
+			free_input(&input);
 			free_heardoc(head);
 			free_list(&head);
 		}

@@ -70,9 +70,9 @@ int	count_rarrow(char *str)
 	return (count);
 }
 
-int	command_decider1(t_pipes *head)
+int	command_decider1(t_pipes *head, int status)
 {
-	if (!head->data.command_n_args[0])
+	if (!head->data.command_n_args[0] || status == 1)
 	{
 		head->data.command_type = NO_COMMAND;
 		return (-1);

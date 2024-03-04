@@ -39,6 +39,7 @@ void	ft_echo(char **str_array)
 		if (str_array[2] == NULL && new_line == false)
 			return ;
 		print_d_array_with_newline_control(str_array, new_line);
+		exit(EXIT_SUCCESS);
 	}
 	waitpid(pid, NULL, 0);
 }

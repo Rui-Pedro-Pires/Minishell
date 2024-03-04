@@ -73,6 +73,7 @@ void	executens_ve(t_pipes *node)
 					printf("Command not found\n");
 				else
 					perror("execve");
+				exit(EXIT_FAILURE);
 			}
 		}
 		waitpid(pid, NULL, 0);
@@ -146,6 +147,7 @@ int	read_from_stdin(t_pipes *head, char *to_be_read)
 				perror("Command not found\n");
 			else
 				perror("execve");
+			exit(EXIT_FAILURE);
 		}
 	}
 	close(fd_in[0]);

@@ -12,21 +12,21 @@
 
 #include "../../includes/minishell.h"
 
-static char	*build_str(char *formated, char *input);
+static char	*build_str(char *formated, char *input, int status);
 static void	double_quotes_add(char **formated, char *input, int *i, int *x);
 static void	single_quotes_add(char **formated, char *input, int *i, int *x);
 static void	define_pipe_type(char *input, t_sign_type *pipe_check, int *i);
 int	check_for_dbpipe_dbamper(char *input);
 
-char	*trim_str(char *input, t_sign_type *sign_type, int *i)
+char	*trim_str(char *input, t_sign_type *sign_type, int *i, int status)
 {
 	char	*formated;
 	int		save;
 
 	save = *i;
-	if (check_for_dbpipe_dbamper(input))
+	if (status == 1)
 	{
-		while (input[(*i)] && input[(*i)] != '|' && input[(*i) + 1] == '|' && input[(*i)] != '&')
+		while (input[(*i)] && !ft_strnstr(input + *i, "||", 2) && input[(*i)] != '&')
 		{
 			if (input[(*i)] == D_QUOTES)
 				(*i) += quote_ignore(input + (*i), D_QUOTES);
@@ -54,10 +54,10 @@ char	*trim_str(char *input, t_sign_type *sign_type, int *i)
 	if (!formated)
 		return (NULL);
 	define_pipe_type(input, sign_type, i);
-	return (build_str(formated, input + save));
+	return (build_str(formated, input + save, status));
 }
 
-static char	*build_str(char *formated, char *input)
+static char	*build_str(char *formated, char *input, int status)
 {
 	int	i;
 	int	x;
@@ -66,19 +66,40 @@ static char	*build_str(char *formated, char *input)
 	x = 0;
 	if (!input)
 		return (NULL);
-	while (input[i] && input[i] != '|' && input[i] != '&')
+	if (status == 1)
 	{
-		if (input[i] == D_QUOTES)
-			double_quotes_add(&formated, input, &i, &x);
-		else if (input[i] == S_QUOTES)
-			single_quotes_add(&formated, input, &i, &x);
-		else if (input[i] == '(')
-			parenthesis_add(&formated, input, &i, &x);
-		else
+		while (input[i] && !ft_strnstr(input + i, "||", 2) && input[i] != '&')
 		{
-			formated[x] = input[i];
-			x++;
-			i++;
+			if (input[i] == D_QUOTES)
+				double_quotes_add(&formated, input, &i, &x);
+			else if (input[i] == S_QUOTES)
+				single_quotes_add(&formated, input, &i, &x);
+			else if (input[i] == '(')
+				parenthesis_add(&formated, input, &i, &x);
+			else
+			{
+				formated[x] = input[i];
+				x++;
+				i++;
+			}
+		}
+	}
+	else
+	{
+		while (input[i] && input[i] != '|' && input[i] != '&')
+		{
+			if (input[i] == D_QUOTES)
+				double_quotes_add(&formated, input, &i, &x);
+			else if (input[i] == S_QUOTES)
+				single_quotes_add(&formated, input, &i, &x);
+			else if (input[i] == '(')
+				parenthesis_add(&formated, input, &i, &x);
+			else
+			{
+				formated[x] = input[i];
+				x++;
+				i++;
+			}
 		}
 	}
 	return (formated);

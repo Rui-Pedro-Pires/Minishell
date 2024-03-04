@@ -29,6 +29,7 @@ void	ft_env(t_envs *head)
 			current = current->next;
 		}
 		printf("\n"RESET);
+		exit(EXIT_SUCCESS);
 	}
 	waitpid(pid, NULL, 0);
 }

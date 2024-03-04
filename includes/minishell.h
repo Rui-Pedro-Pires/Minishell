@@ -226,8 +226,8 @@ bool				search_dpipe_or_damper(char *input, int *i,
 /*			LIST			*/
 /****************************/
 
-void				creat_list(t_pipes **head, char *input, t_init init);
-char				*trim_str(char *input, t_sign_type *pipe_check, int *i);
+void				creat_list(t_pipes **head, char *input, t_init init, int status);
+char				*trim_str(char *input, t_sign_type *pipe_check, int *i, int status);
 t_pipes				*find_last_node(t_pipes *head);
 int					parenthesis_ignore(char *input);
 void				parenthesis_add(char **formated, \
@@ -271,9 +271,9 @@ int					maxlen(size_t new, size_t str_cond);
 /*			DATA			*/
 /****************************/
 
-int					command_decider1(t_pipes *head);
-int					command_decider2(t_pipes *head);
-int					fill_data(t_pipes *head);
+int					command_decider1(t_pipes *head, int status);
+int					command_decider2(t_pipes *head, int status);
+int					fill_data(t_pipes *head, int status);
 int					count_rarrow(char *str);
 int					count_larrow(char *str);
 int					count_amperz(char *str);
@@ -281,7 +281,7 @@ int					count_input(t_pipes *head);
 void				prepare_split(t_pipes *head, int *size);
 // void				check_specialz(char *str, t_data *data, int *front);
 int					check_only_spaces(char *input_str);
-void				organize_list(t_pipes *head);
+void				organize_list(t_pipes *head, int status);
 char				**special_splitens(char *str, int size, char c);
 
 /****************************/
@@ -366,5 +366,6 @@ char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strjoin_free_v2(char *s1, char *s2);
 int 				define_in_out(t_pipes *node);
 char				*search_file_name(char *str);
+int					check_for_dbpipe_dbamper(char *input);
 
 #endif

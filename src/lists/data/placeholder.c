@@ -12,9 +12,9 @@
 
 #include "../../../includes/minishell.h"
 
-int	command_decider2(t_pipes *head)
+int	command_decider2(t_pipes *head, int status)
 {
-	if (!head->data.command_n_args[0])
+	if (!head->data.command_n_args[0] || status == 1)
 	{
 		head->data.command_type = NO_COMMAND;
 		return (-1);
@@ -49,11 +49,11 @@ int	check_only_spaces(char *input_str)
 	return (1);
 }
 
-void	organize_list(t_pipes *head)
+void	organize_list(t_pipes *head, int status)
 {
 	if (!head)
 		return ;
-	organize_list(head->down);
-	organize_list(head->next);
-	fill_data(head);
+	organize_list(head->down, 0);
+	organize_list(head->next, status);
+	fill_data(head, status);
 }
