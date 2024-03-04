@@ -51,16 +51,19 @@ void	executens_ve(t_pipes *node)
 	char	**env_array;
 	int		status;
 
-	pid = fork();
-	if (pid < 0)
-		error_handler(ERR_FORK, NULL, NULL);
-	else if (pid == 0)
+	if (node->in_out.input_type == HEARDOC)
+		read_from_stdin(node, node->init.heardocs[node->init.heardoc_index]);
+	else if (node->in_out.input_type == REDIRECT_INPUT)
 	{
-		if (node->in_out.input_type == HEARDOC)
-			read_from_stdin(node, node->init.heardocs[node->init.heardoc_index]);
-		else if (node->in_out.input_type == REDIRECT_INPUT)
-			read_from_stdin(node, node->in_out.data_read);
-		else
+		read_from_stdin(node, node->in_out.data_read);
+		free(node->in_out.data_read);
+	}
+	else
+	{
+		pid = fork();
+		if (pid < 0)
+			error_handler(ERR_FORK, NULL, NULL);
+		else if (pid == 0)
 		{
 			env_array = envlist_to_array(node->init.envs);
 			status = execve(node->data.command_n_args[0], node->data.command_n_args, env_array);
@@ -72,8 +75,8 @@ void	executens_ve(t_pipes *node)
 					perror("execve");
 			}
 		}
+		waitpid(pid, NULL, 0);
 	}
-	waitpid(pid, NULL, 0);
 }
 
 char	**envlist_to_array(t_envs *envs)
@@ -107,30 +110,32 @@ int	listlen(t_envs *envs)
 		len++;
 		current = current->next;
 	}
-	printf("envs len: %d", len);
 	return (len);
 }
 
 int	read_from_stdin(t_pipes *head, char *to_be_read)
 {
-	int	pid;
-	int	fd_in[2];
+	int	pid1;
+	int		pid2;
+	int		fd_in[2];
 	char	**env_array;
 	int		status;
 
 	if (pipe(fd_in))
 		return (0);
-	pid = fork();
-	if (pid == 0)
+	pid1 = fork();
+	if (pid1 == 0)
 	{
-		dup2(fd_in[1], 1);
+		dup2(fd_in[1], STDOUT_FILENO);
 		close(fd_in[0]);
 		close(fd_in[1]);
 		printf("%s\n", to_be_read);
+		exit(EXIT_SUCCESS);
 	}
-	else
+	pid2 = fork();
+	if (pid2 == 0)
 	{
-		dup2(fd_in[0], 0);
+		dup2(fd_in[0], STDIN_FILENO);
 		close(fd_in[0]);
 		close(fd_in[1]);
 		env_array = envlist_to_array(head->init.envs);
@@ -145,6 +150,7 @@ int	read_from_stdin(t_pipes *head, char *to_be_read)
 	}
 	close(fd_in[0]);
 	close(fd_in[1]);
-	waitpid(pid, NULL, 0);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
 	return (1);
 }
