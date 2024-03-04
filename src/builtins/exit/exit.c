@@ -14,6 +14,7 @@
 
 void	ft_exit(t_pipes *head)
 {
+	
 	free_heardoc(head);
 	free_env_list(head->init.envs);
 	free_list(&head);

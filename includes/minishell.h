@@ -344,7 +344,7 @@ char				*ft_getenv(t_envs *head, char *str);
 /****************************/
 
 void				executer(t_pipes *head);
-void				execute_command(t_pipes *head);
+void				execute_command(t_pipes *node);/*#TODO add 0 if error, 1 if success*/
 void				ft_execve(t_envs *envs, char **args_array);
 void				executens_ve(t_envs *envs, char **args_array);
 char				**envlist_to_array(t_envs *envs);
@@ -364,5 +364,7 @@ void				multiple_free(const char *format, ...);
 
 char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strjoin_free_v2(char *s1, char *s2);
+int 				define_in_out(t_pipes *node);
+char				*search_file_name(char *str);
 
 #endif

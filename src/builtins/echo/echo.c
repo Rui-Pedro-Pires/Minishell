@@ -17,32 +17,30 @@ bool	is_valid_no_new_line(char *str);
 void	print_d_array_with_newline_control(char **str_array, bool new_line);
 void	print_d_array_aux(char **str_array, int i);
 
-// int	main(int argc, char **argv)
-// {
-// (void)argc;
-// if (argc >= 2)
-// {
-// ft_echo(argv);
-// }
-// return (0);
-// }
-
 void	ft_echo(char **str_array)
 {
 	bool	new_line;
 	int		i;
-
-	new_line = false;
-	i = 1;
-	if (!str_array[i])
+	int		pid;
+	
+	pid = fork();
+	if (pid < 0)
+		return ;
+	if (pid == 0)
 	{
-		printf("\n");
-		return ;
+		new_line = false;
+		i = 1;
+		if (!str_array[i])
+		{
+			printf("\n");
+			return ;
+		}
+		check_newline(str_array[1], &new_line);
+		if (str_array[2] == NULL && new_line == false)
+			return ;
+		print_d_array_with_newline_control(str_array, new_line);
 	}
-	check_newline(str_array[1], &new_line);
-	if (str_array[2] == NULL && new_line == false)
-		return ;
-	print_d_array_with_newline_control(str_array, new_line);
+	waitpid(pid, NULL, 0);
 }
 
 void	check_newline(char *str, bool *new_line)

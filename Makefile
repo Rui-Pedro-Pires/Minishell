@@ -64,6 +64,8 @@ SOURCES := main.c \
 			builtins/exit/exit.c\
 			expander/expander_utils.c\
 			expander/expander.c\
+			define_in_out.c\
+			define_in_out_utils.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
