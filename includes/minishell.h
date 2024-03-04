@@ -345,8 +345,8 @@ char				*ft_getenv(t_envs *head, char *str);
 
 void				executer(t_pipes *head);
 void				execute_command(t_pipes *node);/*#TODO add 0 if error, 1 if success*/
-void				ft_execve(t_envs *envs, char **args_array);
-void				executens_ve(t_envs *envs, char **args_array);
+void				ft_execve(t_pipes *node);
+void				executens_ve(t_pipes *node);
 char				**envlist_to_array(t_envs *envs);
 int					listlen(t_envs *envs);
 void				ft_exit(t_pipes *head);

@@ -12,38 +12,38 @@
 
 #include "../includes/minishell.h"
 
-void	ft_execve(t_envs *envs, char **args_array)
+void	ft_execve(t_pipes *node)
 {
 	char	*path_str;
 	char	**paths_array;
 	char	*temp_str;
 	int		i;
 
-	if (access(args_array[0], F_OK) == 0)
-		executens_ve(envs, args_array);
+	if (access(node->data.command_n_args[0], F_OK) == 0)
+		executens_ve(node);
 	else
 	{
-		path_str = ft_getenv(envs, "PATH");
+		path_str = ft_getenv(node->init.envs, "PATH");
 		paths_array = ft_split(path_str, ':');
 		free(path_str);
 		i = 0;
-		temp_str = ft_strdup(args_array[0]);
+		temp_str = ft_strdup(node->data.command_n_args[0]);
 		paths_array[i] = ft_strjoin_free(paths_array[i], "/");
-		args_array[0] = ft_strjoin_free_v2(paths_array[i], args_array[0]);
-		while (access(args_array[0], F_OK) != 0 && paths_array[i] != NULL)
+		node->data.command_n_args[0] = ft_strjoin_free_v2(paths_array[i], node->data.command_n_args[0]);
+		while (access(node->data.command_n_args[0], F_OK) != 0 && paths_array[i] != NULL)
 		{
 			paths_array[i] = ft_strjoin_free(paths_array[i], "/");
-			free(args_array[0]);
-			args_array[0] = ft_strjoin(paths_array[i], temp_str);
+			free(node->data.command_n_args[0]);
+			node->data.command_n_args[0] = ft_strjoin(paths_array[i], temp_str);
 			i++;
 		}
 		free(temp_str);
 		free_args(paths_array);
-		executens_ve(envs, args_array);
+		executens_ve(node);
 	}
 }
 
-void	executens_ve(t_envs *envs, char **args_array)
+void	executens_ve(t_pipes *node)
 {
 	pid_t	pid;
 	char	**env_array;
@@ -54,16 +54,20 @@ void	executens_ve(t_envs *envs, char **args_array)
 		error_handler(ERR_FORK, NULL, NULL);
 	else if (pid == 0)
 	{
-		env_array = envlist_to_array(envs);
-		status = execve(args_array[0], args_array, env_array);
-		if (status == -1)
+		if (node->in_out.input_type == HEARDOC)
+			read();
+		else
 		{
-			if (errno == ENOENT)
-				printf("Command not found\n");
-			else
-				perror("execve");
+			env_array = envlist_to_array(node->init.envs);
+			status = execve(node->data.command_n_args[0], node->data.command_n_args, env_array);
+			if (status == -1)
+			{
+				if (errno == ENOENT)
+					printf("Command not found\n");
+				else
+					perror("execve");
+			}
 		}
-		// free_pnts((void**)env_array);
 	}
 	waitpid(pid, NULL, 0);
 }

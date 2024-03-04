@@ -60,5 +60,5 @@ void	execute_command(t_pipes *node) /*#TODO add 0 if error, 1 if success*/
 	if (cmd == EXIT)
 		ft_exit(node);
 	if (cmd == NOT_BUILTIN)
-		ft_execve(node->init.envs, args_array);
+		ft_execve(node);
 }
