@@ -26,8 +26,8 @@ char	*check_quotes_n_expand(t_envs *head, char*str)
 		update_quote_status(str[j], &single_open, &double_open);
 		if (str[0] == '~' && !single_open)
 			str = handle_til(head, str, j);
-		if (str[j] == '$' && !single_open && (ft_isalnum(str[j + 1]) || str[j
-					+ 1] == '_'))
+		if (str[j] == '$' && !single_open && (ft_isalnum(str[j + 1]) || 
+		str[j + 1] == '_'))
 			str = handle_dollar_sign(head, str, j, single_open);
 		j++;
 	}
