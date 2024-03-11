@@ -107,5 +107,6 @@ char	*expand(t_envs *head, char *before, char *str, char *after)
 	after = NULL;
 	free(str);
 	str = NULL;
+	free(var_value);
 	return (new_str);
 }
