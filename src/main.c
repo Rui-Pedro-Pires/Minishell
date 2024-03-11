@@ -48,9 +48,9 @@ int	main(int argc, char **argv, char **env)
 				creat_list(&head, input, init, 0);
 				organize_list(head, 0);
 			}
-			input_str_tester(head, 1);
+			// input_str_tester(head, 1);
 			// tester(head);
-			// executer(head);
+			executer(head);
 			free_input(&input);
 			free_heardoc(head);
 			free_list(&head);
