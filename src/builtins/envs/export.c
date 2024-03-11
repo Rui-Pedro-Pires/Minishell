@@ -42,6 +42,9 @@ void	ft_export(t_envs *head, char **str_array)
 	{
 		free(current->value);
 		current->value = ft_strdup(new_node->value);
+		free(new_node->value);
+		free(new_node->name);
+		free(new_node);
 		return ;
 	}
 	current->next = new_node;
