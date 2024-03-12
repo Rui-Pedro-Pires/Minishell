@@ -17,7 +17,7 @@ static int	redirect_input_case(t_pipes *node, int i);
 static void	append_output_case(t_pipes *node, int i);
 static void	rechange_str(t_pipes *node, int i, int to_skip);
 
-int define_in_out(t_pipes *node)
+int	define_input_and_output(t_pipes *node)
 {
 	int		i;
 
@@ -95,7 +95,7 @@ static void	append_output_case(t_pipes *node, int i)
 
 static int	redirect_input_case(t_pipes *node, int i)
 {
-	int	fd;
+	int		fd;
 	char	*buffer;
 
 	buffer = NULL;

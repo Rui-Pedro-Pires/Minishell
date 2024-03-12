@@ -41,14 +41,13 @@ int	main(int argc, char **argv, char **env)
 			{
 				creat_list(&head, input, init, 1);
 				organize_list(head, 1);
-				executer(head, 0);
+				recursive_executer(head, 0);
 			}
 			else
 			{
 				creat_list(&head, input, init, 0);
-				input_str_tester(head, 1);
 				organize_list(head, 0);
-				recursive_down(head);
+				list_iterator_executer(head);
 			}
 			// tester(head);
 			free_input(&input);
@@ -59,3 +58,5 @@ int	main(int argc, char **argv, char **env)
 		rl_clear_history();
 	}
 }
+
+

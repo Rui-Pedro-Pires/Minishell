@@ -12,9 +12,7 @@
 
 #include "../includes/minishell.h"
 
-static int	list_iterator(t_pipes *head);
-
-int	executer(t_pipes *head, int recursive)
+int	recursive_executer(t_pipes *head, int recursive)
 {
 	int	status;
 
@@ -23,7 +21,12 @@ int	executer(t_pipes *head, int recursive)
 	{
 		status = recursive_down(head);
 		if (status == 1 && head->pipe_type == D_PIPE)
-			return (1);
+		{
+			while (head && head->pipe_type != AMPER)
+				head = head->next;
+		}
+		if (head)
+			head = head->next;
 	}
 	if (status == 0 && recursive == 1)
 			return (0);
@@ -35,15 +38,15 @@ int	recursive_down(t_pipes *head)
 	if (!head)
 		return (1);
 	if (check_for_dbpipe_dbamper(head->input_string))
-		return (executer(head->down, 1));
+		return (recursive_executer(head->down, 1));
 	if (!recursive_down(head->down))
 		return (0);
 	if (head->skip == true)
 		return (1);
-	return (list_iterator(head));
+	return (list_iterator_executer(head));
 }
 
-int	execute_command(t_pipes *node) /*#TODO add 0 if error, 1 if success*/
+int	execute_command(t_pipes *node)
 {
 	char	**args_array;
 	int		cmd;
@@ -69,7 +72,7 @@ int	execute_command(t_pipes *node) /*#TODO add 0 if error, 1 if success*/
 	return (1);
 }
 
-static int	list_iterator(t_pipes *head)
+int	list_iterator_executer(t_pipes *head)
 {
 	int	fd;
 	int	status;

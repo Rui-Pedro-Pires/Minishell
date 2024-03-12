@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   trim_str_list_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruiolive  <ruiolive@student.42.fr   >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 14:43:48 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/25 12:02:25 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/03/12 11:07:14 by ruiolive          #+#    #+#             */
+/*   Updated: 2024/03/12 11:07:14 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_pipes	*find_last_node(t_pipes *head)
+void	double_quotes_add(char **formated, char *input, int *i, int *x)
 {
-	if (!head)
-		return (NULL);
-	while (head->next)
-		head = head->next;
-	return (head);
+	(*formated)[(*x)++] = input[(*i)++];
+	while (input[(*i)] && input[(*i)] != D_QUOTES)
+	{
+		(*formated)[(*x)] = input[(*i)];
+		(*x)++;
+		(*i)++;
+	}
+	(*formated)[(*x)++] = input[(*i)++];
+}
+
+void	single_quotes_add(char **formated, char *input, int *i, int *x)
+{
+	(*formated)[(*x)++] = input[(*i)++];
+	while (input[(*i)] && input[(*i)] != S_QUOTES)
+	{
+		(*formated)[(*x)] = input[(*i)];
+		(*x)++;
+		(*i)++;
+	}
+	(*formated)[(*x)++] = input[(*i)++];
 }
 
 int	parenthesis_ignore(char *input)

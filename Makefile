@@ -37,10 +37,11 @@ SOURCES := main.c \
 			free.c\
 			lists/create_list.c\
 			lists/create_list_utils.c\
-			lists/list_utils.c\
-			lists/data/org_list_utils.c\
-			lists/data/placeholder.c\
-			lists/data/fill_data_utils.c\
+			lists/build_str_list.c\
+			lists/trim_str_list.c\
+			lists/trim_build_str_list_utils.c\
+			lists/org_list.c\
+			lists/parenthesis_in_node.c\
 			readline/read_line.c\
 			readline/read_line_utils.c\
 			readline/read_line_parser.c\
