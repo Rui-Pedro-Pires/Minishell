@@ -23,5 +23,5 @@ char	*ft_getenv(t_envs *head, char *str)
 			return (ft_strdup(current->value));
 		current = current->next;
 	}
-	return ("");
+	return ('\0');
 }

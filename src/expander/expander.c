@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-char	*check_quotes_n_expand(t_envs *head, char*str)
+char	*check_quotes_n_expand(t_envs *head, char *str)
 {
 	int		j;
 	bool	single_open;
@@ -26,8 +26,8 @@ char	*check_quotes_n_expand(t_envs *head, char*str)
 		update_quote_status(str[j], &single_open, &double_open);
 		if (str[0] == '~' && !single_open)
 			str = handle_til(head, str, j);
-		if (str[j] == '$' && !single_open && (ft_isalnum(str[j + 1]) || 
-		str[j + 1] == '_'))
+		if (str[j] == '$' && !single_open && (ft_isalnum(str[j + 1]) || str[j
+				+ 1] == '_'))
 			str = handle_dollar_sign(head, str, j, single_open);
 		j++;
 	}
@@ -78,7 +78,7 @@ char	*handle_til(t_envs *head, char *str, int j)
 		aft_str = ft_strdup(str + i);
 	else
 		aft_str = ft_strdup("");
-	var_name = "HOME";
+	var_name = ft_strdup("HOME");
 	free(str);
 	str = expand(head, bef_str, var_name, aft_str);
 	return (str);
@@ -92,10 +92,12 @@ char	*expand(t_envs *head, char *before, char *str, char *after)
 
 	var_value = ft_getenv(head, str);
 	if (var_value == NULL)
-		var_value = "/";
+	{
+		var_value = ft_strdup("/");
+	}
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)
-		+ ft_strlen(after) + 1;
-	new_str = malloc(full_string_count);
+		+ ft_strlen(after) + 2;
+	new_str = ft_calloc(full_string_count,sizeof(char));
 	ft_strlcpy(new_str, before, full_string_count);
 	if (*var_value)
 		ft_strlcat(new_str, var_value, full_string_count);
