@@ -17,7 +17,7 @@ bool	is_valid_no_new_line(char *str);
 void	print_d_array_with_newline_control(char **str_array, bool new_line);
 void	print_d_array_aux(char **str_array, int i);
 
-void	ft_echo(char **str_array)
+void	ft_echo(char **str_array, t_pipes *node)
 {
 	bool	new_line;
 	int		i;
@@ -39,7 +39,7 @@ void	ft_echo(char **str_array)
 		if (str_array[2] == NULL && new_line == false)
 			return ;
 		print_d_array_with_newline_control(str_array, new_line);
-		exit(EXIT_SUCCESS);
+		ft_exit(node);
 	}
 	waitpid(pid, NULL, 0);
 }
