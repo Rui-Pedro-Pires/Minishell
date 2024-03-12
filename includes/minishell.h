@@ -347,6 +347,8 @@ int					listlen(t_envs *envs);
 void				ft_exit(t_pipes *head);
 int					recursive_down(t_pipes *head);
 int					list_iterator_executer(t_pipes *head);
+void				command_decider(t_pipes *node);
+void				command_decider2(t_pipes *node);
 
 /****************************/
 /*			FREE			*/

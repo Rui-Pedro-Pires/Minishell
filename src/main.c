@@ -23,40 +23,35 @@ int	main(int argc, char **argv, char **env)
 	init.envs = create_env_list(env);
 	init.sorted_envs = create_env_list(env);
 	init.sorted_envs = bubble_sort(init.sorted_envs);
-	(void)argv;
-	if (argc == 1)
+	(void) argv;
+	(void) argc;
+	while (1)
 	{
-		while (1)
+		count_struc.i = 0;
+		count_struc.counter = 0;
+		init.heardocs = NULL;
+		init.heardoc_index = -1;
+		input = line_read(&init.heardocs, &count_struc);
+		if (input && *input)
+			add_history(input);
+		else
+			continue ;
+		if (check_for_dbpipe_dbamper(input))
 		{
-			count_struc.i = 0;
-			count_struc.counter = 0;
-			init.heardocs = NULL;
-			init.heardoc_index = -1;
-			input = line_read(&init.heardocs, &count_struc);
-			if (input && *input)
-				add_history(input);
-			else
-				continue ;
-			if (check_for_dbpipe_dbamper(input))
-			{
-				creat_list(&head, input, init, 1);
-				organize_list(head, 1);
-				recursive_executer(head, 0);
-			}
-			else
-			{
-				creat_list(&head, input, init, 0);
-				organize_list(head, 0);
-				list_iterator_executer(head);
-			}
-			// tester(head);
-			free_input(&input);
-			free_heardoc(head);
-			free_list(&head);
+			creat_list(&head, input, init, 1);
+			recursive_executer(head, 0);
 		}
-		free_env_list(init.envs);
-		rl_clear_history();
+		else
+		{
+			creat_list(&head, input, init, 0);
+			list_iterator_executer(head);
+		}
+		free_input(&input);
+		free_heardoc(head);
+		free_list(&head);
 	}
+	free_env_list(init.envs);
+	rl_clear_history();
 }
 
 

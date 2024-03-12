@@ -90,7 +90,6 @@ void	free_list(t_pipes **head)
 	free_list(&(*head)->down);
 	free_list(&(*head)->next);
 	free((*head)->input_string);
-	free_args((*head)->data.command_n_args);
 	free(*head);
 	*head = NULL;
 }
