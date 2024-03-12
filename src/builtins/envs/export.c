@@ -40,20 +40,6 @@ void	ft_export(t_pipes *node, char **str_array)
 	}
 	add_env(current, str);
 	add_env(current_sorted, str);
-	// new_node = create_env_node(str);
-	// while (current->next != NULL && !ft_strcmp(current->name,
-			// new_node->name))
-	// 	current = current->next;
-	// if (ft_strcmp(current->name, new_node->name))
-	// {
-	// 	free(current->value);
-	// 	current->value = ft_strdup(new_node->value);
-	// 	free(new_node->value);
-	// 	free(new_node->name);
-	// 	free(new_node);
-	// 	return ;
-	// }
-	// current->next = new_node;
 }
 
 bool	export_is_valid(char *str)
@@ -64,10 +50,8 @@ bool	export_is_valid(char *str)
 	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '/')
 		i++;
 	if (str[i] == '=' && (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i
-			+ 1] == '/'))
-	{
+				+ 1] == '/'))
 		i++;
-	}
 	else
 	{
 		return (false);
@@ -97,8 +81,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 
 void	add_env(t_envs *head, char *str)
 {
-	t_envs *current;
-	t_envs *new_node;
+	t_envs	*current;
+	t_envs	*new_node;
 
 	current = head;
 	new_node = create_env_node(str);
