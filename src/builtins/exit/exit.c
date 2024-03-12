@@ -17,6 +17,7 @@ void	ft_exit(t_pipes *head)
 	free_heardoc(head);
 	free_env_list(head->init.envs);
 	free_env_list(head->init.sorted_envs);
+	free_args(head->data.command_n_args);
 	free_list(&head);
 	// printf("exit\n");
 	rl_clear_history();
