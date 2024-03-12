@@ -15,13 +15,13 @@
 
 # include "./Libft/libft.h"
 # include <errno.h>
+# include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdarg.h>
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdio.h>
-# include <fcntl.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
@@ -227,8 +227,10 @@ bool				search_dpipe_or_damper(char *input, int *i,
 /*			LIST			*/
 /****************************/
 
-void				creat_list(t_pipes **head, char *input, t_init init, int status);
-char				*trim_str(char *input, t_sign_type *pipe_check, int *i, int status);
+void				creat_list(t_pipes **head, char *input, t_init init,
+						int status);
+char				*trim_str(char *input, t_sign_type *pipe_check, int *i,
+						int status);
 t_pipes				*find_last_node(t_pipes *head);
 int					parenthesis_ignore(char *input);
 void				parenthesis_add(char **formated, char *input, int *i,
@@ -293,7 +295,7 @@ void				tester(t_pipes *head);
 
 int					ft_cd(t_envs *head, char **str);
 void				ft_pwd(void);
-void				ft_echo(char **str_array);
+void				ft_echo(char **str_array, t_pipes *node);
 
 /****************************/
 /*			EXPANDER		*/
@@ -341,7 +343,7 @@ t_envs				*bubble_sort(t_envs *head);
 /****************************/
 
 int					executer(t_pipes *head, int recursive);
-int					execute_command(t_pipes *node); /*#TODO add 0 if error, 1 if success*/
+int	execute_command(t_pipes *node); /*#TODO add 0 if error, 1 if success*/
 int					ft_execve(t_pipes *node);
 int					executens_ve(t_pipes *node);
 char				**envlist_to_array(t_envs *envs);
@@ -361,7 +363,7 @@ void				multiple_free(const char *format, ...);
 
 char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strjoin_free_v2(char *s1, char *s2);
-int 				define_in_out(t_pipes *node);
+int					define_in_out(t_pipes *node);
 char				*search_file_name(char *str);
 int					check_for_dbpipe_dbamper(char *input);
 

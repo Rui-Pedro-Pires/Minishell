@@ -51,7 +51,7 @@ int	execute_command(t_pipes *node) /*#TODO add 0 if error, 1 if success*/
 	args_array = node->data.command_n_args;
 	cmd = node->data.command_type;
 	if (cmd == ECHO)
-		ft_echo(args_array);
+		ft_echo(args_array, node);
 	if (cmd == CD)
 		return (ft_cd(node->init.envs, args_array));
 	if (cmd == PWD)
