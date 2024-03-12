@@ -17,31 +17,22 @@ bool	is_valid_no_new_line(char *str);
 void	print_d_array_with_newline_control(char **str_array, bool new_line);
 void	print_d_array_aux(char **str_array, int i);
 
-void	ft_echo(char **str_array, t_pipes *node)
+void	ft_echo(char **str_array)
 {
 	bool	new_line;
 	int		i;
-	int		pid;
-	
-	pid = fork();
-	if (pid < 0)
-		return ;
-	if (pid == 0)
+
+	new_line = false;
+	i = 1;
+	if (!str_array[i])
 	{
-		new_line = false;
-		i = 1;
-		if (!str_array[i])
-		{
-			printf("\n");
-			return ;
-		}
-		check_newline(str_array[1], &new_line);
-		if (str_array[2] == NULL && new_line == false)
-			return ;
-		print_d_array_with_newline_control(str_array, new_line);
-		ft_exit(node);
+		printf("\n");
+		return ;
 	}
-	waitpid(pid, NULL, 0);
+	check_newline(str_array[1], &new_line);
+	if (str_array[2] == NULL && new_line == false)
+		return ;
+	print_d_array_with_newline_control(str_array, new_line);
 }
 
 void	check_newline(char *str, bool *new_line)
