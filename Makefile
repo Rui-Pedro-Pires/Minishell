@@ -15,7 +15,7 @@ CC = cc
 
 CFLAGS = -Werror -Wall -Wextra -g 
 
-VG	=	valgrind --leak-check=full --suppressions=sup --track-origins=yes --log-file=leaks.log
+VG	=	valgrind --leak-check=full --show-leak-kinds=all --suppressions=sup --track-origins=yes --log-file=leaks.log
 
 LFLAG = -lreadline
 
