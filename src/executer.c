@@ -60,7 +60,7 @@ int	execute_command(t_pipes *node)
 	if (cmd == PWD)
 		ft_pwd();
 	if (cmd == EXPORT)
-		return (ft_export(node->init.sorted_envs, args_array), 1);
+		return (ft_export(node, args_array), 1);
 	if (cmd == UNSET)
 		return (ft_unset(&node->init.envs, args_array), 1);
 	if (cmd == ENV)

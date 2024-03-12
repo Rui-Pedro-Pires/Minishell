@@ -15,13 +15,13 @@
 
 # include "./Libft/libft.h"
 # include <errno.h>
+# include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdarg.h>
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdio.h>
-# include <fcntl.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
@@ -324,7 +324,7 @@ t_envs				*create_env_list(char **env);
 void				ft_env(t_envs *head);
 void				free_env_list(t_envs *head);
 void				free_split_array(char **array);
-void				ft_export(t_envs *head, char **str_array);
+void				ft_export(t_pipes *node, char **str_array);
 bool				export_is_valid(char *str);
 int					ft_strcmp(const char *s1, const char *s2);
 void				ft_unset(t_envs **head, char **str_array);

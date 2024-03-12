@@ -15,17 +15,8 @@
 void	ft_pwd(void)
 {
 	char	*pwd;
-	int		pid;
-	
-	pid = fork();
-	if (pid < 0)
-		return ;
-	if (pid == 0)
-	{
-		pwd = getcwd(NULL, 0);
-		printf("%s\n", pwd);
-		free(pwd);
-		exit(EXIT_SUCCESS);
-	}
-	waitpid(pid, NULL, 0);
+
+	pwd = getcwd(NULL, 0);
+	printf("%s\n", pwd);
+	free(pwd);
 }

@@ -21,27 +21,18 @@ void	ft_echo(char **str_array)
 {
 	bool	new_line;
 	int		i;
-	int		pid;
-	
-	pid = fork();
-	if (pid < 0)
-		return ;
-	if (pid == 0)
+
+	new_line = false;
+	i = 1;
+	if (!str_array[i])
 	{
-		new_line = false;
-		i = 1;
-		if (!str_array[i])
-		{
-			printf("\n");
-			return ;
-		}
-		check_newline(str_array[1], &new_line);
-		if (str_array[2] == NULL && new_line == false)
-			return ;
-		print_d_array_with_newline_control(str_array, new_line);
-		exit(EXIT_SUCCESS);
+		printf("\n");
+		return ;
 	}
-	waitpid(pid, NULL, 0);
+	check_newline(str_array[1], &new_line);
+	if (str_array[2] == NULL && new_line == false)
+		return ;
+	print_d_array_with_newline_control(str_array, new_line);
 }
 
 void	check_newline(char *str, bool *new_line)
