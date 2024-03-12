@@ -12,15 +12,19 @@
 
 #include "../../../includes/minishell.h"
 
-void	ft_export(t_envs *head, char **str_array)
+void	add_env(t_envs *head, char *str);
+
+void	ft_export(t_pipes *node, char **str_array)
 {
-	t_envs	*new_node;
 	t_envs	*current;
+	t_envs	*current_sorted;
 	char	*str;
 
+	current = node->init.envs;
+	current_sorted = bubble_sort(node->init.sorted_envs);
 	if (str_array[1] == NULL)
 	{
-		ft_env(head);
+		ft_env(current_sorted);
 		return ;
 	}
 	str = str_array[1];
@@ -34,20 +38,22 @@ void	ft_export(t_envs *head, char **str_array)
 		printf("Wrong Input: %s\n", str);
 		return ;
 	}
-	new_node = create_env_node(str);
-	current = head;
-	while (current->next != NULL && !ft_strcmp(current->name, new_node->name))
-		current = current->next;
-	if (ft_strcmp(current->name, new_node->name))
-	{
-		free(current->value);
-		current->value = ft_strdup(new_node->value);
-		free(new_node->value);
-		free(new_node->name);
-		free(new_node);
-		return ;
-	}
-	current->next = new_node;
+	add_env(current, str);
+	add_env(current_sorted, str);
+	// new_node = create_env_node(str);
+	// while (current->next != NULL && !ft_strcmp(current->name,
+			// new_node->name))
+	// 	current = current->next;
+	// if (ft_strcmp(current->name, new_node->name))
+	// {
+	// 	free(current->value);
+	// 	current->value = ft_strdup(new_node->value);
+	// 	free(new_node->value);
+	// 	free(new_node->name);
+	// 	free(new_node);
+	// 	return ;
+	// }
+	// current->next = new_node;
 }
 
 bool	export_is_valid(char *str)
@@ -58,7 +64,7 @@ bool	export_is_valid(char *str)
 	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '/')
 		i++;
 	if (str[i] == '=' && (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i
-				+ 1] == '/'))
+			+ 1] == '/'))
 	{
 		i++;
 	}
@@ -87,4 +93,25 @@ int	ft_strcmp(const char *s1, const char *s2)
 	if (str1[i] == '\0' && str2[i] == '\0')
 		return (1);
 	return (0);
+}
+
+void	add_env(t_envs *head, char *str)
+{
+	t_envs *current;
+	t_envs *new_node;
+
+	current = head;
+	new_node = create_env_node(str);
+	while (current->next != NULL && !ft_strcmp(current->name, new_node->name))
+		current = current->next;
+	if (ft_strcmp(current->name, new_node->name))
+	{
+		free(current->value);
+		current->value = ft_strdup(new_node->value);
+		free(new_node->value);
+		free(new_node->name);
+		free(new_node);
+		return ;
+	}
+	current->next = new_node;
 }
