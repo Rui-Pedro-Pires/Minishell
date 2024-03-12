@@ -40,7 +40,7 @@ SOURCES := main.c \
 			lists/build_str_list.c\
 			lists/trim_str_list.c\
 			lists/trim_build_str_list_utils.c\
-			lists/org_list.c\
+			lists/command_decider.c\
 			lists/parenthesis_in_node.c\
 			readline/read_line.c\
 			readline/read_line_utils.c\

@@ -29,6 +29,7 @@ void	heardoc_check(char ***heardoc_read, char *input, t_counter *itr, int i)
 			str_condition = search_heardoc_condition(input, itr);
 			if (!str_condition)
 				return ;
+			str_condition = copy_inside_quotes(str_condition);
 			*heardoc_read = ft_realloc(heardoc_read, itr);
 			while (1)
 			{
