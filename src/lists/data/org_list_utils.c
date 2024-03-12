@@ -12,67 +12,14 @@
 
 #include "../../../includes/minishell.h"
 
-int	count_input(t_pipes *head)
-{
-	char	*str;
-	int		count;
-	int		i;
-
-	i = 0;
-	count = 1;
-	str = head->input_string;
-	while (str[i] && str[i] == ' ')
-		i++;
-	if (str[i] == '(')
-		return (0);
-	count += count_larrow(str);
-	count += count_rarrow(str);
-	return (count);
-}
-
-int	count_larrow(char *str)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '<')
-		{
-			count++;
-			if (str[i + 1] == '<')
-				i++;
-		}
-		i++;
-	}
-	return (count);
-}
-
-int	count_rarrow(char *str)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '>')
-		{
-			count++;
-			if (str[i + 1] == '>')
-				i++;
-		}
-		i++;
-	}
-	return (count);
-}
-
 int	command_decider1(t_pipes *head, int status)
 {
-	if (!head->data.command_n_args[0] || status == 1)
+	if (status == 1 || check_for_dbpipe_dbamper(head->input_string))
+	{
+		head->skip = true;
+		return (-1);
+	}
+	if (!head->data.command_n_args[0])
 	{
 		head->data.command_type = NO_COMMAND;
 		return (-1);

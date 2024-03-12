@@ -12,93 +12,15 @@
 
 #include "../../../includes/minishell.h"
 
-static int	counte_words(char const *s, char c, int size);
-static int	string_size(char const *s, int i, char c, int size);
-
-void	prepare_split(t_pipes *head, int *size)
+int	fill_data(t_pipes *node, int status)
 {
-	char	*og_str;
-
-	og_str = head->input_string;
-	while (og_str[(*size)] && !ft_strchr("<>", og_str[(*size)]))
-	{
-		if (og_str[(*size)] == D_QUOTES)
-			*size += quote_ignore(og_str + (*size), D_QUOTES);
-		else if (og_str[(*size)] == S_QUOTES)
-			*size += quote_ignore(og_str + (*size), S_QUOTES);
-		else if (og_str[(*size)] == '(')
-			*size = parenthesis_ignore(og_str + (*size)) + 1;
-		else
-			(*size)++;
-	}
-}
-
-char	**special_splitens(char *str, int size, char c)
-{
-	char	**str_array;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	if (!str)
-		return (NULL);
-	str_array = malloc(sizeof(char *) * (counte_words(str, c, size) + 1));
-	if (!str_array)
-		return (NULL);
-	while (str[i] && i < size)
-	{
-		while (str[i] && str[i] == c && i < size)
-			i++;
-		if (str[i] && i < size)
-		{
-			str_array[j] = ft_substr(str, i, string_size(str, i, c, size));
-			j++;
-		}
-		while (str[i] && str[i] != c && i < size)
-			i++;
-	}
-	str_array[j] = 0;
-	return (str_array);
-}
-
-static int	string_size(char const *s, int i, char c, int size)
-{
-	int	x;
-
-	x = i;
-	while (s[i] && s[i] != c && i < size)
-		i++;
-	return (i - x);
-}
-
-static int	counte_words(char const *s, char c, int size)
-{
-	int	i;
-	int	counter;
-
-	i = 0;
-	counter = 0;
-	while (s[i] && i < size)
-	{
-		while (s[i] && s[i] == c && i < size)
-			i++;
-		if (s[i] && i < size)
-			counter++;
-		while (s[i] && s[i] != c && i < size)
-			i++;
-	}
-	return (counter);
-}
-
-int	fill_data(t_pipes *head, int status)
-{
-	int		size;
-
-	size = 0;
-	prepare_split(head, &size);
-	head->data.command_n_args = special_splitens(head->input_string, size, 32);
-	if (!command_decider1(head, status) && !command_decider2(head, status))
-		head->data.command_type = NOT_BUILTIN;
+	node->in_out.input_type = NO_INPUT;
+	node->in_out.output_type = NO_OUTPUT;
+	node->in_out.output_file = NULL;
+	node->in_out.input_file = NULL;
+	define_in_out(node);
+	node->data.command_n_args = ft_split(node->input_string, ' ');
+	if (!command_decider1(node, status) && !command_decider2(node, status))
+		node->data.command_type = NOT_BUILTIN;
 	return (0);
 }

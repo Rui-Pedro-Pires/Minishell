@@ -14,7 +14,7 @@
 
 int	read_from_stdin(t_pipes *head, char *to_be_read);
 
-void	ft_execve(t_pipes *node)
+int	ft_execve(t_pipes *node)
 {
 	char	*path_str;
 	char	**paths_array;
@@ -22,7 +22,7 @@ void	ft_execve(t_pipes *node)
 	int		i;
 
 	if (access(node->data.command_n_args[0], F_OK) == 0)
-		executens_ve(node);
+		return (executens_ve(node));
 	else
 	{
 		path_str = ft_getenv(node->init.envs, "PATH");
@@ -41,15 +41,16 @@ void	ft_execve(t_pipes *node)
 		}
 		free(temp_str);
 		free_args(paths_array);
-		executens_ve(node);
+		return (executens_ve(node));
 	}
 }
 
-void	executens_ve(t_pipes *node)
+int	executens_ve(t_pipes *node)
 {
 	pid_t	pid;
 	char	**env_array;
 	int		status;
+	int		checker;
 
 	if (node->in_out.input_type == HEARDOC)
 		read_from_stdin(node, node->init.heardocs[node->init.heardoc_index]);
@@ -70,14 +71,17 @@ void	executens_ve(t_pipes *node)
 			if (status == -1)
 			{
 				if (errno == ENOENT)
-					printf("Command not found\n");
+					printf("%s: Command not found\n", node->data.command_n_args[0]);
 				else
 					perror("execve");
 				exit(EXIT_FAILURE);
 			}
 		}
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &checker, 0);
+		if (checker != 0)
+			return (0);
 	}
+	return (1);
 }
 
 char	**envlist_to_array(t_envs *envs)

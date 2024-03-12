@@ -49,10 +49,7 @@ static void	add_list(t_pipes **head, char *formated, t_sign_type sign_type, t_in
 	down_node = NULL;
 	if (formated_parenthesis)
 	{
-		if (check_for_dbpipe_dbamper(formated))
-			creat_list(&down_node, formated_parenthesis, init, 1);
-		else
-			creat_list(&down_node, formated_parenthesis, init, 0);
+		creat_list(&down_node, formated_parenthesis, init, 1);
 		free(formated_parenthesis);
 	}
 	else if (status == 1)
@@ -69,6 +66,7 @@ static void	add_list(t_pipes **head, char *formated, t_sign_type sign_type, t_in
 	next_node->input_string = formated;
 	next_node->pipe_type = sign_type;
 	next_node->init = init;
+	next_node->skip = false;
 	next_node->next = NULL;
 	next_node->down = down_node;
 }

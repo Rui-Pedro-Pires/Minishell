@@ -24,7 +24,6 @@ int	main(int argc, char **argv, char **env)
 	init.sorted_envs = create_env_list(env);
 	init.sorted_envs = bubble_sort(init.sorted_envs);
 	(void)argv;
-	(void)env;
 	if (argc == 1)
 	{
 		while (1)
@@ -42,15 +41,16 @@ int	main(int argc, char **argv, char **env)
 			{
 				creat_list(&head, input, init, 1);
 				organize_list(head, 1);
+				executer(head, 0);
 			}
 			else
 			{
 				creat_list(&head, input, init, 0);
+				input_str_tester(head, 1);
 				organize_list(head, 0);
+				recursive_down(head);
 			}
-			// input_str_tester(head, 1);
 			// tester(head);
-			executer(head);
 			free_input(&input);
 			free_heardoc(head);
 			free_list(&head);

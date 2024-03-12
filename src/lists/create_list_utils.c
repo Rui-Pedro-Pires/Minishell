@@ -47,6 +47,8 @@ char	*trim_str(char *input, t_sign_type *sign_type, int *i, int status)
 				(*i) += quote_ignore(input + (*i), S_QUOTES);
 			else if (input[(*i)] == '(')
 				(*i) += parenthesis_ignore(input + (*i));
+			if (ft_strnstr(input + (*i), ">|", 2))
+				(*i)++;
 			(*i)++;
 		}
 	}
@@ -94,6 +96,11 @@ static char	*build_str(char *formated, char *input, int status)
 				single_quotes_add(&formated, input, &i, &x);
 			else if (input[i] == '(')
 				parenthesis_add(&formated, input, &i, &x);
+			else if (ft_strnstr(input + i, ">|", 2))
+			{
+				formated[x++] = input[i++];
+				formated[x++] = input[i++];
+			}
 			else
 			{
 				formated[x] = input[i];

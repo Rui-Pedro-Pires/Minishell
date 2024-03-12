@@ -14,7 +14,7 @@
 
 void	update_old_pwd(t_envs *head);
 
-void	ft_cd(t_envs *head, char **str)
+int	ft_cd(t_envs *head, char **str)
 {
 	char	*new_dir;
 
@@ -25,10 +25,10 @@ void	ft_cd(t_envs *head, char **str)
 		chdir(new_dir);
 		free(new_dir);
 		new_dir = NULL;
-		return ;
+		return (1);
 	}
 	if (str[2] != NULL)
-		printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n");
+		return (printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n"), 0);
 	else
 	{
 		if (strcmp(str[1], "") == 0 || strcmp(str[1], "~") == 0
@@ -41,10 +41,11 @@ void	ft_cd(t_envs *head, char **str)
 			err_num_chdir(new_dir);
 			free(new_dir);
 			new_dir = NULL;
-			return ;
+			return (0);
 		}
 		free(new_dir);
 	}
+	return (1);
 }
 
 void	err_num_chdir(char *str)

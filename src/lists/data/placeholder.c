@@ -14,7 +14,12 @@
 
 int	command_decider2(t_pipes *head, int status)
 {
-	if (!head->data.command_n_args[0] || status == 1)
+	if (status == 1 || check_for_dbpipe_dbamper(head->input_string))
+	{
+		head->skip = true;
+		return (-1);
+	}
+	if (!head->data.command_n_args[0])
 	{
 		head->data.command_type = NO_COMMAND;
 		return (-1);
@@ -36,24 +41,14 @@ int	command_decider2(t_pipes *head, int status)
 	return (1);
 }
 
-int	check_only_spaces(char *input_str)
-{
-	int	i;
-
-	i = 0;
-	while (input_str[i] && (input_str[i] == ' ' || input_str[i] == '\t'
-			|| input_str[i] == '\n'))
-		i++;
-	if (input_str[i])
-		return (0);
-	return (1);
-}
-
 void	organize_list(t_pipes *head, int status)
 {
 	if (!head)
 		return ;
-	organize_list(head->down, 0);
+	if (check_for_dbpipe_dbamper(head->input_string))
+		organize_list(head->down, 1);
+	else
+		organize_list(head->down, 0);
 	organize_list(head->next, status);
 	fill_data(head, status);
 }

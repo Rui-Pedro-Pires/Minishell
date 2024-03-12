@@ -116,6 +116,7 @@ typedef struct s_pipes
 	t_init			init;
 	t_sign_type		pipe_type;
 	t_data			data;
+	bool			skip;
 }					t_pipes;
 
 typedef struct s_counter
@@ -273,14 +274,9 @@ int					maxlen(size_t new, size_t str_cond);
 
 int					command_decider1(t_pipes *head, int status);
 int					command_decider2(t_pipes *head, int status);
-int					fill_data(t_pipes *head, int status);
-int					count_rarrow(char *str);
-int					count_larrow(char *str);
-int					count_amperz(char *str);
+int					fill_data(t_pipes *node, int status);
 int					count_input(t_pipes *head);
 void				prepare_split(t_pipes *head, int *size);
-// void				check_specialz(char *str, t_data *data, int *front);
-int					check_only_spaces(char *input_str);
 void				organize_list(t_pipes *head, int status);
 char				**special_splitens(char *str, int size, char c);
 
@@ -295,7 +291,7 @@ void				tester(t_pipes *head);
 /*			BUILTINS				*/
 /************************************/
 
-void				ft_cd(t_envs *head, char **str);
+int					ft_cd(t_envs *head, char **str);
 void				ft_pwd(void);
 void				ft_echo(char **str_array);
 
@@ -344,13 +340,14 @@ t_envs				*bubble_sort(t_envs *head);
 /*			EXECUTOR		*/
 /****************************/
 
-void				executer(t_pipes *head);
-void				execute_command(t_pipes *node);/*#TODO add 0 if error, 1 if success*/
-void				ft_execve(t_pipes *node);
-void				executens_ve(t_pipes *node);
+int					executer(t_pipes *head, int recursive);
+int					execute_command(t_pipes *node); /*#TODO add 0 if error, 1 if success*/
+int					ft_execve(t_pipes *node);
+int					executens_ve(t_pipes *node);
 char				**envlist_to_array(t_envs *envs);
 int					listlen(t_envs *envs);
 void				ft_exit(t_pipes *head);
+int					recursive_down(t_pipes *head);
 
 /****************************/
 /*			FREE			*/

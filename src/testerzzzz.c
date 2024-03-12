@@ -55,11 +55,13 @@ void    input_str_tester(t_pipes *head, int type)
 		{
 			printf(""BLU"STR: %s\n"RESET"", head->input_string);
 			printf(""BLU"Pipe_type: %d\n"RESET"", head->pipe_type);
+			printf(""BLU"skip: %d\n"RESET"", head->skip);
 		}
 		else
 		{
 			printf(""RED"STR: %s\n"RESET"", head->input_string);
 			printf(""RED"Pipe_type: %d\n"RESET"", head->pipe_type);
+			printf(""BLU"skip: %d\n"RESET"", head->skip);
 		}
 		input_str_tester(head->down, 2);
 		input_str_tester(head->next, 1);

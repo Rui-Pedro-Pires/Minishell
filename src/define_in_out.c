@@ -12,40 +12,51 @@
 
 #include "../includes/minishell.h"
 
-static void	redirect_output_case(t_pipes *node, int *i);
-static int	redirect_input_case(t_pipes *node, int *i);
-static void	append_output_case(t_pipes *node, int *i);
-static void	heardoc_case(t_pipes *node, int *i);
+static void	redirect_output_case(t_pipes *node, int i);
+static int	redirect_input_case(t_pipes *node, int i);
+static void	append_output_case(t_pipes *node, int i);
+static void	rechange_str(t_pipes *node, int i, int to_skip);
 
 int define_in_out(t_pipes *node)
 {
-	int				i;
+	int		i;
 
 	i = 0;
-	node->in_out.input_type = NO_INPUT;
-	node->in_out.output_type = NO_OUTPUT;
-	node->in_out.output_file = NULL;
-	node->in_out.input_file = NULL;
 	while (node->input_string[i])
 	{
 		if (!ft_strncmp(node->input_string + i, "<<", 2))
-			heardoc_case(node, &i);
+		{
+			node->in_out.input_type = HEARDOC;
+			node->init.heardoc_index++;
+			rechange_str(node, i, 2);
+		}
 		else if (node->input_string[i] == '<')
 		{
-				if (!redirect_input_case(node, &i))
-				return (0);
+			redirect_input_case(node, i);
+			rechange_str(node, i, 1);
 		}
 		if (!ft_strncmp(node->input_string + i, ">>", 2))
-			append_output_case(node, &i);
+		{
+			append_output_case(node, i);
+			rechange_str(node, i, 2);
+		}
+		else if (!ft_strncmp(node->input_string + i, ">|", 2))
+		{
+			redirect_output_case(node, i + 1);
+			rechange_str(node, i, 2);
+		}
 		else if (node->input_string[i] == '>')
-			redirect_output_case(node, &i);
+		{
+			redirect_output_case(node, i);
+			rechange_str(node, i, 1);
+		}
 		else
 			i++;
 	}
 	return (1);
 }
 
-static void	redirect_output_case(t_pipes *node, int *i)
+static void	redirect_output_case(t_pipes *node, int i)
 {
 	int	fd;
 
@@ -55,14 +66,19 @@ static void	redirect_output_case(t_pipes *node, int *i)
 		free(node->in_out.output_file);
 		node->in_out.output_file = NULL;
 	}
-	node->in_out.output_file = search_file_name(node->input_string + *i);
+	node->in_out.output_file = search_file_name(node->input_string + i);
+	fd = open(node->in_out.output_file, O_CREAT, 0660);
+	if (fd < 0)
+	{
+		i++;
+		return ;
+	}
 	unlink(node->in_out.output_file);
 	fd = open(node->in_out.output_file, O_CREAT, 0660);
 	close(fd);
-	(*i)++;
 }
 
-static void	append_output_case(t_pipes *node, int *i)
+static void	append_output_case(t_pipes *node, int i)
 {
 	int fd;
 
@@ -72,13 +88,12 @@ static void	append_output_case(t_pipes *node, int *i)
 		free(node->in_out.output_file);
 		node->in_out.output_file = NULL;
 	}
-	node->in_out.output_file = search_file_name(node->input_string + *i + 1);
+	node->in_out.output_file = search_file_name(node->input_string + i + 1);
 	fd = open(node->in_out.output_file, O_CREAT | O_RDWR, 0660);
 	close(fd);
-	(*i) += 2;
 }
 
-static int	redirect_input_case(t_pipes *node, int *i)
+static int	redirect_input_case(t_pipes *node, int i)
 {
 	int	fd;
 	char	*buffer;
@@ -90,7 +105,7 @@ static int	redirect_input_case(t_pipes *node, int *i)
 		free(node->in_out.input_file);
 		node->in_out.input_file = NULL;
 	}
-	node->in_out.input_file = search_file_name(node->input_string + *i);
+	node->in_out.input_file = search_file_name(node->input_string + i);
 	fd = open(node->in_out.input_file, O_RDONLY);
 	if (fd < 0)
 	{
@@ -107,13 +122,35 @@ static int	redirect_input_case(t_pipes *node, int *i)
 	}
 	free(buffer);
 	close(fd);
-	(*i)++;
 	return (1);
 }
 
-static void	heardoc_case(t_pipes *node, int *i)
+static void	rechange_str(t_pipes *node, int i, int to_skip)
 {
-	node->in_out.input_type = HEARDOC;
-	node->init.heardoc_index++;
-	(*i) += 2;
+	int		x;
+	int		itr;
+	int		new_str_size;
+	char	*str;
+	char 	*new_str;
+
+	itr = -1;
+	str = node->input_string;
+	x = i + to_skip;
+	while (str[x] && str[x] == ' ')
+		x++;
+	while (str[x] && !ft_strchr(" <>", str[x]))
+		x++;
+	new_str_size = ft_strlen(str) - (x - i) + 1;
+	new_str = malloc(sizeof(char) * new_str_size);
+	while (++itr < i)
+		new_str[itr] = str[itr];
+	while (str[x])
+	{
+		new_str[itr] = str[x];
+		x++;
+		itr++;
+	}
+	new_str[itr] = '\0';
+	free(str);
+	node->input_string = new_str;
 }
