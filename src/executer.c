@@ -61,7 +61,7 @@ int	execute_command(t_pipes *node)
 	if (cmd == ECHO)
 		ft_echo(args_array);
 	if (cmd == CD)
-		return (ft_cd(node->init.envs, args_array));
+		return (ft_cd(node, args_array));
 	if (cmd == PWD)
 		ft_pwd();
 	if (cmd == EXPORT)

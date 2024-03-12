@@ -289,7 +289,7 @@ void				tester(t_pipes *head);
 /*			BUILTINS				*/
 /************************************/
 
-int					ft_cd(t_envs *head, char **str);
+int					ft_cd(t_pipes *node, char **str);
 void				ft_pwd(void);
 void				ft_echo(char **str_array);
 
