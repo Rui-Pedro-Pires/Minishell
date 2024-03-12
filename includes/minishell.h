@@ -295,7 +295,7 @@ void				tester(t_pipes *head);
 
 int					ft_cd(t_envs *head, char **str);
 void				ft_pwd(void);
-void				ft_echo(char **str_array, t_pipes *node);
+void				ft_echo(char **str_array);
 
 /****************************/
 /*			EXPANDER		*/
