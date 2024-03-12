@@ -134,7 +134,7 @@ int	read_from_stdin(t_pipes *head, char *to_be_read)
 		dup2(fd_in[1], STDOUT_FILENO);
 		close(fd_in[0]);
 		close(fd_in[1]);
-		printf("%s\n", to_be_read);
+		printf("%s", to_be_read);
 		exit(EXIT_SUCCESS);
 	}
 	pid2 = fork();
