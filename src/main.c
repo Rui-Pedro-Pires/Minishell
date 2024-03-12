@@ -46,7 +46,7 @@ int	main(int argc, char **argv, char **env)
 			else
 			{
 				creat_list(&head, input, init, 0);
-				input_str_tester(head, 1);
+				// input_str_tester(head, 1);
 				organize_list(head, 0);
 				recursive_down(head);
 			}
