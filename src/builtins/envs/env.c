@@ -15,21 +15,12 @@
 void	ft_env(t_envs *head)
 {
 	t_envs	*current;
-	int		pid;
-	
-	pid = fork();
-	if (pid < 0)
-		return ;
-	if (pid == 0)
+
+	current = head;
+	while (current != NULL)
 	{
-		current = head;
-		while (current != NULL)
-		{
-			printf("Name: %s, Value: %s\n", current->name, current->value);
-			current = current->next;
-		}
-		printf("\n"RESET);
-		exit(EXIT_SUCCESS);
+		printf("Name: %s, Value: %s\n", current->name, current->value);
+		current = current->next;
 	}
-	waitpid(pid, NULL, 0);
+	printf("\n" RESET);
 }
