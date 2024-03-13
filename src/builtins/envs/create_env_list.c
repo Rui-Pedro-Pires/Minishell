@@ -31,7 +31,7 @@ t_envs	*create_env_node(char *env_var)
 	node = malloc(sizeof(t_envs));
 	if (!node)
 		return (NULL);
-	node->whole_str = env_var;
+	node->whole_str = ft_strdup(env_var);
 	temp_array = ft_split(env_var, '=');
 	node->name = ft_strdup(temp_array[0]);
 	if (temp_array[1])
