@@ -113,6 +113,7 @@ typedef struct s_pipes
 	struct s_pipes	*next;
 	struct s_pipes	*down;
 	char			*input_string;
+	char			*input_base;
 	t_in_out		in_out;
 	t_init			init;
 	t_sign_type		pipe_type;
