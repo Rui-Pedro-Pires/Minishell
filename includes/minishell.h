@@ -228,19 +228,25 @@ bool				search_dpipe_or_damper(char *input, int *i,
 /*			LIST			*/
 /****************************/
 
-void				creat_list(t_pipes **head, char *input, t_init init, int status);
-char				*trim_str(char *input, t_sign_type *pipe_check, int *i, int status);
+void				creat_list(t_pipes **head, char *input, t_init init,
+						int status);
+char				*trim_str(char *input, t_sign_type *pipe_check, int *i,
+						int status);
 char				*build_str(char *formated, char *input, int status);
-void				double_quotes_add(char **formated, char *input, int *i, int *x);
-void				single_quotes_add(char **formated, char *input, int *i, int *x);
-void				define_pipe_type(char *input, t_sign_type *sign_type, int *i);
+void				double_quotes_add(char **formated, char *input, int *i,
+						int *x);
+void				single_quotes_add(char **formated, char *input, int *i,
+						int *x);
+void				define_pipe_type(char *input, t_sign_type *sign_type,
+						int *i);
 void				organize_list(t_pipes *node, int status);
 t_pipes				*find_last_node(t_pipes *head);
 int					parenthesis_ignore(char *input);
 void				parenthesis_add(char **formated, char *input, int *i,
 						int *x);
-void				init_node(t_pipes *next_node, t_pipes *down_node, t_sign_type sign_type, t_init init);
-int 				define_input_and_output(t_pipes *node);
+void				init_node(t_pipes *next_node, t_pipes *down_node,
+						t_sign_type sign_type, t_init init);
+int					define_input_and_output(t_pipes *node);
 int					check_for_dbpipe_dbamper(char *input);
 char				*create_str_bet_parent(char *formated);
 
@@ -259,7 +265,8 @@ void				free_heardoc(t_pipes *head);
 /*			READ LINE		*/
 /****************************/
 
-char				*line_read(char ***heardoc_read, t_counter *counter_struc, t_init init);
+char				*line_read(char ***heardoc_read, t_counter *counter_struc,
+						t_init init);
 int					unfinished_command_line(char *input);
 char				*str_join_with_space(char *s1, char *s2);
 char				*str_join_with_newline(char *s1, char *s2);
@@ -327,7 +334,8 @@ void				free_split_array(char **array);
 void				ft_export(t_pipes *node, char **str_array);
 bool				export_is_valid(char *str);
 int					ft_strcmp(const char *s1, const char *s2);
-void				ft_unset(t_envs **head, char **str_array);
+void				ft_unset(t_envs **head, t_envs **head_sorted,
+						char **str_array);
 t_envs				*find_prev_node(t_envs *head, char *str);
 void				remove_node(t_envs **head, t_envs *prev, t_envs *current);
 void				free_nodes(t_envs *node);
@@ -339,7 +347,7 @@ t_envs				*bubble_sort(t_envs *head);
 /****************************/
 
 int					recursive_executer(t_pipes *head, int recursive);
-int					execute_command(t_pipes *node); /*#TODO add 0 if error, 1 if success*/
+int	execute_command(t_pipes *node); /*#TODO add 0 if error, 1 if success*/
 int					ft_execve(t_pipes *node);
 int					executens_ve(t_pipes *node);
 char				**envlist_to_array(t_envs *envs);
@@ -349,8 +357,8 @@ int					recursive_down(t_pipes *head);
 int					list_iterator_executer(t_pipes *head);
 void				command_decider(t_pipes *node);
 void				command_decider2(t_pipes *node);
-int					normal_executer(t_pipes *node, char **env_array, \
-					int status, int checker);
+int					normal_executer(t_pipes *node, char **env_array, int status,
+						int checker);
 
 /****************************/
 /*			FREE			*/
@@ -384,11 +392,13 @@ int					append_output(t_pipes *node, int i);
 /*			READ FROM INPUT				*/
 /****************************************/
 
-int		read_from_stdin(t_pipes *head, char *to_be_read);
-int		read_from_heardoc(t_pipes *head, char *to_be_read);
-void	write_pipe_stdin(t_pipes *head, int fd_in[2], char *to_be_read, int pid1);
-void	write_pipe_heardoc(t_pipes *head, int fd_in[2], char *to_be_read, int pid1);
-void	read_pipe_stdin(t_pipes *head, int fd_in[2], int pid2);
-void	read_pipe_heardoc(t_pipes *head, int fd_in[2], int pid2);
+int					read_from_stdin(t_pipes *head, char *to_be_read);
+int					read_from_heardoc(t_pipes *head, char *to_be_read);
+void				write_pipe_stdin(t_pipes *head, int fd_in[2],
+						char *to_be_read, int pid1);
+void				write_pipe_heardoc(t_pipes *head, int fd_in[2],
+						char *to_be_read, int pid1);
+void				read_pipe_stdin(t_pipes *head, int fd_in[2], int pid2);
+void				read_pipe_heardoc(t_pipes *head, int fd_in[2], int pid2);
 
 #endif
