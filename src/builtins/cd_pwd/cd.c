@@ -41,7 +41,7 @@ int	ft_cd(t_pipes *node, char **str)
 		update_current_pwd(node);
 		free(new_dir);
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
 void	err_num_chdir(char *str)
