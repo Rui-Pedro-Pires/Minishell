@@ -30,10 +30,10 @@ int	create_path_to_execve(t_pipes *node)
 	while (access(node->data.command_n_args[0], F_OK) != 0
 		&& paths_array[i] != NULL)
 	{
+		i++;
 		paths_array[i] = ft_strjoin_free(paths_array[i], "/");
 		free(node->data.command_n_args[0]);
 		node->data.command_n_args[0] = ft_strjoin(paths_array[i], temp_str);
-		i++;
 	}
 	free(temp_str);
 	free_args(paths_array);
