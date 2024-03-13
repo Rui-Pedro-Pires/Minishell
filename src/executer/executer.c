@@ -64,7 +64,6 @@ int	list_iterator_executer(t_pipes *head)
 			return (execute_to_file(head, status, save_stdout));
 		else
 			return (execute_to_stdout(head, status));
-		free_args(head->data.command_n_args);
 		head = head->next;
 	}
 	return (1);

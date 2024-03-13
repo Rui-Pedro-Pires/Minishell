@@ -27,12 +27,12 @@ int	execute_to_file(t_pipes *head, int status, int save_stdout)
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	status = execute_command(head);
+	free_args(head->data.command_n_args);
 	if ((status == 0 && head->pipe_type == D_PIPE) || status == 0)
 	{
 		dup2(save_stdout, 1);
 		close(save_stdout);
 		free(head->in_out.output_file);
-		free_args(head->data.command_n_args);
 		return (0);
 	}
 	dup2(save_stdout, 1);
@@ -44,11 +44,9 @@ int	execute_to_file(t_pipes *head, int status, int save_stdout)
 int	execute_to_stdout(t_pipes *head, int status)
 {
 	status = execute_command(head);
+	free_args(head->data.command_n_args);
 	if ((status == 0 && head->pipe_type == D_PIPE) || status == 0)
-	{
-		free_args(head->data.command_n_args);
 		return (0);
-	}
 	return (1);
 }
 

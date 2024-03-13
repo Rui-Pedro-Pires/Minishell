@@ -12,6 +12,8 @@
 
 #include "../../includes/minishell.h"
 
+static void	error_status(t_pipes *head, char	**env_array);
+
 void	write_pipe_stdin(t_pipes *head, int fd_in[2], \
 char *to_be_read, int pid1)
 {
@@ -27,6 +29,11 @@ char *to_be_read, int pid1)
 			printf("%s", to_be_read);
 			free(to_be_read);
 			to_be_read = NULL;
+		}
+		if (head->in_out.output_file)
+		{
+			free(head->in_out.output_file);
+			head->in_out.output_file = NULL;
 		}
 		ft_exit(head, 1);
 	}
@@ -49,11 +56,7 @@ void	read_pipe_stdin(t_pipes *head, int fd_in[2], int pid2)
 				env_array);
 		if (status == -1)
 		{
-			if (errno == ENOENT)
-				perror("Command not found\n");
-			else
-				perror("execve");
-			free_args(env_array);
+			error_status(head, 0);
 			free(head->in_out.data_read);
 			head->in_out.data_read = NULL;
 			ft_exit(head, 0);
@@ -73,6 +76,11 @@ char *to_be_read, int pid1)
 		close(fd_in[1]);
 		if (to_be_read)
 			printf("%s", to_be_read);
+		if (head->in_out.output_file)
+		{
+			free(head->in_out.output_file);
+			head->in_out.output_file = NULL;
+		}
 		ft_exit(head, 1);
 	}
 }
@@ -94,12 +102,22 @@ void	read_pipe_heardoc(t_pipes *head, int fd_in[2], int pid2)
 				env_array);
 		if (status == -1)
 		{
-			if (errno == ENOENT)
-				perror("Command not found\n");
-			else
-				perror("execve");
-			free_args(env_array);
+			error_status(head, env_array);
 			ft_exit(head, 0);
 		}
+	}
+}
+
+static void	error_status(t_pipes *head, char	**env_array)
+{
+	if (errno == ENOENT)
+		perror("Command not found\n");
+	else
+		perror("execve");
+	free_args(env_array);
+	if (head->in_out.output_file)
+	{
+		free(head->in_out.output_file);
+		head->in_out.output_file = NULL;
 	}
 }
