@@ -28,16 +28,16 @@ int	ft_export(t_pipes *node, char **str_array)
 	if (str_array[2] != NULL)
 	{
 		printf("\nruiolive&&jorteixe@minishell: export: too many arguments\n");
-		return (EXIT_FAILURE);
+		return (0);
 	}
 	if (!export_is_valid(str))
 	{
 		printf("Wrong Input: %s\n", str);
-		return (EXIT_FAILURE);
+		return (0);
 	}
 	add_env(current, str);
 	add_env(current_sorted, str);
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 bool	export_is_valid(char *str)

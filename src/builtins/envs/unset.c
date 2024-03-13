@@ -14,7 +14,7 @@
 
 int		handle_unset_errors(char **str_array);
 
-void	ft_unset(t_envs **head, t_envs **head_sorted, char **str_array)
+void	ft_unset(t_envs **head, t_envs **head_sorted, char **str_array) //#TODO return success / failure
 {
 	t_envs	*prev;
 	t_envs	*current;

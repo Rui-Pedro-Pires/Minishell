@@ -19,5 +19,5 @@ int	ft_pwd(void) //#TODO Return EXIT_FAILURE or EXIT_SUCCESS
 	pwd = getcwd(NULL, 0);
 	printf("%s\n", pwd);
 	free(pwd);
-	return (EXIT_SUCCESS);
+	return (1);
 }
