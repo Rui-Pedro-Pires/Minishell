@@ -48,8 +48,8 @@ void	err_num_chdir(char *str)
 {
 	if (errno == ENOENT)
 		printf("\nruiolive&&jorteixe@minishell:"
-				"cd: %s: No such file or directory\n",
-				str);
+			"cd: %s: No such file or directory\n",
+			str);
 	else if (errno == ENOTDIR)
 		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n",
 			str);
@@ -101,8 +101,9 @@ void	update_current_pwd(t_pipes *node)
 
 int	cd_home(t_pipes *node, char **str)
 {
-	t_envs *current;
-	char *new_dir;
+	t_envs	*current;
+	char	*new_dir;
+
 	new_dir = NULL;
 	current = node->init.envs;
 	if (str[1] == NULL)

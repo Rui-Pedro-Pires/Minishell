@@ -50,7 +50,7 @@ bool	export_is_valid(char *str)
 	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '/')
 		i++;
 	if (str[i] == '=' && (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i
-			+ 1] == '/'))
+				+ 1] == '/'))
 		i++;
 	else
 	{
