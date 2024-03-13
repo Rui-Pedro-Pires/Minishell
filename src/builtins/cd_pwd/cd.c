@@ -49,8 +49,10 @@ int	ft_cd(t_pipes *node, char **str)
 		return (1);
 	}
 	if (str[2] != NULL)
-		return (printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n"),
-			0);
+	{
+		printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n");
+		return (0);
+	}
 	else
 	{
 		if (strcmp(str[1], "") == 0 || strcmp(str[1], "~") == 0
@@ -76,8 +78,7 @@ void	err_num_chdir(char *str)
 {
 	if (errno == ENOENT)
 		printf("\nruiolive&&jorteixe@minishell:"
-				"cd: %s: No such file or directory\n",
-				str);
+			"cd: %s: No such file or directory\n", str);
 	else if (errno == ENOTDIR)
 		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n",
 			str);
@@ -104,13 +105,14 @@ void	update_old_pwd(t_pipes *node)
 	free(total);
 	free(old_dir);
 }
+
 void	update_current_pwd(t_pipes *node)
 {
-	char *old_dir;
-	char *name;
-	char *str_array[2];
-	char *total;
-	int total_size;
+	char	*old_dir;
+	char	*name;
+	char	*str_array[2];
+	char	*total;
+	int		total_size;
 
 	old_dir = getcwd(NULL, 0);
 	name = "PWD=";

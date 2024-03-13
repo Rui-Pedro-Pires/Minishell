@@ -19,7 +19,6 @@ void	ft_exit(t_pipes *head, int exit_type)
 	free_env_list(head->init.sorted_envs);
 	free_args(head->data.command_n_args);
 	free_list(&head);
-	// printf("exit\n");
 	rl_clear_history();
 	if (exit_type == 0)
 		exit(EXIT_FAILURE);

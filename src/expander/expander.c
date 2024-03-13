@@ -27,7 +27,7 @@ char	*check_quotes_n_expand(t_envs *head, char *str)
 		if (str[0] == '~' && !single_open)
 			str = handle_til(head, str, j);
 		if (str[j] == '$' && !single_open && (ft_isalnum(str[j + 1]) || str[j
-				+ 1] == '_'))
+					+ 1] == '_'))
 			str = handle_dollar_sign(head, str, j, single_open);
 		j++;
 	}
@@ -97,7 +97,7 @@ char	*expand(t_envs *head, char *before, char *str, char *after)
 	}
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)
 		+ ft_strlen(after) + 2;
-	new_str = ft_calloc(full_string_count,sizeof(char));
+	new_str = ft_calloc(full_string_count, sizeof(char));
 	ft_strlcpy(new_str, before, full_string_count);
 	if (*var_value)
 		ft_strlcat(new_str, var_value, full_string_count);

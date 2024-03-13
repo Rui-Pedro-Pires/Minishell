@@ -63,6 +63,7 @@ t_envs	*create_env_list(char **env)
 	}
 	return (head);
 }
+
 t_envs	*swap_nodes(t_envs *prev, t_envs *current, t_envs *next_node)
 {
 	if (prev == NULL)
