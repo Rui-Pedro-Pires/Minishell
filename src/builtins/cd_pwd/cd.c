@@ -14,59 +14,29 @@
 
 void	update_old_pwd(t_pipes *node);
 void	update_current_pwd(t_pipes *node);
-
-void	cd_log(t_pipes *node)
-{
-	t_envs	*current;
-	t_envs	*current_sorted;
-	char	*temp_dir;
-	char	*temp_dir_sorted;
-
-	current = node->init.envs;
-	current_sorted = node->init.sorted_envs;
-	temp_dir = ft_getenv(current, "OLDPWD");
-	temp_dir_sorted = ft_getenv(current_sorted, "OLDPWD");
-	printf("Normal: %s\n", temp_dir);
-	printf("Sorted: %s\n", temp_dir_sorted);
-	free(temp_dir);
-	free(temp_dir_sorted);
-}
+int		cd_home(t_pipes *node, char **str);
 
 int	ft_cd(t_pipes *node, char **str)
 {
 	char	*new_dir;
-	t_envs	*current;
 
-	current = node->init.envs;
 	update_old_pwd(node);
-	if (str[1] == NULL)
-	{
-		new_dir = ft_getenv(current, "HOME");
-		chdir(new_dir);
-		free(new_dir);
-		new_dir = NULL;
-		update_current_pwd(node);
-		return (1);
-	}
-	if (str[2] != NULL)
+	if (str[2] != NULL && ft_strcmp(str[2], "") != 0)
 	{
 		printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n");
-		return (0);
+		return (EXIT_FAILURE);
 	}
+	else if (cd_home(node, str) == EXIT_SUCCESS)
+		return (EXIT_SUCCESS);
 	else
 	{
-		if (strcmp(str[1], "") == 0 || strcmp(str[1], "~") == 0
-			|| str[1] == NULL)
-			new_dir = ft_getenv(current, "HOME");
-		else
-			new_dir = ft_strdup(str[1]);
+		new_dir = ft_strdup(str[1]);
 		if (chdir(new_dir) == (-1))
 		{
 			err_num_chdir(new_dir);
 			free(new_dir);
-			new_dir = NULL;
 			update_current_pwd(node);
-			return (0);
+			return (EXIT_FAILURE);
 		}
 		update_current_pwd(node);
 		free(new_dir);
@@ -78,7 +48,8 @@ void	err_num_chdir(char *str)
 {
 	if (errno == ENOENT)
 		printf("\nruiolive&&jorteixe@minishell:"
-			"cd: %s: No such file or directory\n", str);
+				"cd: %s: No such file or directory\n",
+				str);
 	else if (errno == ENOTDIR)
 		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n",
 			str);
@@ -126,4 +97,26 @@ void	update_current_pwd(t_pipes *node)
 	ft_export(node, str_array);
 	free(total);
 	free(old_dir);
+}
+
+int	cd_home(t_pipes *node, char **str)
+{
+	t_envs *current;
+	char *new_dir;
+	new_dir = NULL;
+	current = node->init.envs;
+	if (str[1] == NULL)
+	{
+		new_dir = ft_getenv(current, "HOME");
+	}
+	else if (strcmp(str[1], "") == 0 || strcmp(str[1], "~") == 0)
+		new_dir = ft_getenv(current, "HOME");
+	else if (new_dir != NULL)
+	{
+		chdir(new_dir);
+		free(new_dir);
+		update_current_pwd(node);
+		return (EXIT_SUCCESS);
+	}
+	return (EXIT_FAILURE);
 }
