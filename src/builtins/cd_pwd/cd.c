@@ -22,10 +22,8 @@ int	ft_cd(t_pipes *node, char **str)
 
 	update_old_pwd(node);
 	if (str[1] == NULL)
-	{
 		if (cd_home(node, str) == EXIT_SUCCESS)
 			return (EXIT_SUCCESS);
-	}
 	if (str[2] != NULL)
 	{
 		printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n");
