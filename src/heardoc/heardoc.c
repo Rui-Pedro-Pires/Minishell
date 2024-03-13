@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static char	**ft_realloc(char ***heardoc_read, t_counter *iter);
 static int	add_to_line(char **new_line, char *str, \

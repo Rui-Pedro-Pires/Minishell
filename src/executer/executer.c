@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	init_data(t_pipes *node);
 
@@ -31,8 +31,8 @@ int	recursive_executer(t_pipes *head, int recursive)
 			head = head->next;
 	}
 	if (status == 0 && recursive == 1)
-			return (0);
-	return (1); 
+		return (0);
+	return (1);
 }
 
 int	recursive_down(t_pipes *head)
@@ -71,7 +71,7 @@ int	execute_command(t_pipes *node)
 	if (cmd == ENV)
 		return (ft_env(node->init.envs), 1);
 	if (cmd == EXIT)
-		ft_exit(node);
+		ft_exit(node, 1);
 	if (cmd == NOT_BUILTIN)
 		return (ft_execve(node));
 	return (1);
@@ -93,6 +93,7 @@ int	list_iterator_executer(t_pipes *head)
 			if (fd < 0)
 			{
 				free_args(head->data.command_n_args);
+				free(head->in_out.output_file);
 				return (perror("minishell"), 0);
 			}
 			save_stdout = dup(STDOUT_FILENO);
@@ -103,11 +104,13 @@ int	list_iterator_executer(t_pipes *head)
 			{
 				dup2(save_stdout, 1);
 				close(save_stdout);
+				free(head->in_out.output_file);
 				free_args(head->data.command_n_args);
 				return (0);
 			}
 			dup2(save_stdout, 1);
 			close(save_stdout);
+			free(head->in_out.output_file);
 		}
 		else
 		{

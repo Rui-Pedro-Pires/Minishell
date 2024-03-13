@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   define_in_out_utils.c                              :+:      :+:    :+:   */
+/*   define_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive  <ruiolive@student.42.fr   >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 20:17:32 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/02/29 20:17:32 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/02/29 11:16:54 by ruiolive          #+#    #+#             */
+/*   Updated: 2024/02/29 11:16:54 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-char	*search_file_name(char *str)
+int	define_input_and_output(t_pipes *node)
 {
 	int		i;
-	int		x;
-	char	*file_name;
-	i = 1;
-	while (str[i] && str[i] == ' ')
-		i++;
-	x = i;
-	while (str[x] && !ft_strchr("<> ", str[i]))
-		x++;
-	file_name = malloc(sizeof(char) * x - i + 1);
-	x = 0;
-	while (str[i] && !ft_strchr("<> ", str[i]))
+
+	i = 0;
+	while (node->input_string[i])
 	{
-		file_name[x] = str[i];
-		x++;
-		i++;
+		if (!heardoc(node, i))
+			return (0);
+		if (!redirect_input(node, i))
+			return (0);
+		if (!append_output(node, i))
+			return (0);
+		if (!redir_pipe(node, i))
+			return (0);
+		if (!redirect_output(node, i))
+			return (0);
+		else
+		{
+			if (node->input_string[i])
+				i++;
+		}
 	}
-	file_name[x] = '\0';
-	return (file_name);
+	return (1);
 }

@@ -28,13 +28,11 @@ SOURCES := main.c \
 			error_handler.c\
 			free_memory.c\
 			testerzzzz.c\
-			heardoc.c\
-			heardoc_utils.c\
 			str_join.c\
 			search_utils.c\
-			executer.c\
-			execve.c\
 			free.c\
+			heardoc/heardoc.c\
+			heardoc/heardoc_utils.c\
 			lists/create_list.c\
 			lists/create_list_utils.c\
 			lists/build_str_list.c\
@@ -65,8 +63,13 @@ SOURCES := main.c \
 			builtins/exit/exit.c\
 			expander/expander_utils.c\
 			expander/expander.c\
-			define_in_out.c\
-			define_in_out_utils.c\
+			executer/executer.c\
+			executer/execve.c\
+			executer/define_in_out.c\
+			executer/define_in_out_utils.c\
+			executer/define_in_out_type.c\
+			executer/read_stdin_heardoc.c\
+			executer/read_stdin_heardoc_utils.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 

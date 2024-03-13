@@ -259,7 +259,7 @@ void				free_heardoc(t_pipes *head);
 /*			READ LINE		*/
 /****************************/
 
-char				*line_read(char ***heardoc_read, t_counter *counter_struc);
+char				*line_read(char ***heardoc_read, t_counter *counter_struc, t_init init);
 int					unfinished_command_line(char *input);
 char				*str_join_with_space(char *s1, char *s2);
 char				*str_join_with_newline(char *s1, char *s2);
@@ -344,11 +344,13 @@ int					ft_execve(t_pipes *node);
 int					executens_ve(t_pipes *node);
 char				**envlist_to_array(t_envs *envs);
 int					listlen(t_envs *envs);
-void				ft_exit(t_pipes *head);
+void				ft_exit(t_pipes *head, int exit_type);
 int					recursive_down(t_pipes *head);
 int					list_iterator_executer(t_pipes *head);
 void				command_decider(t_pipes *node);
 void				command_decider2(t_pipes *node);
+int					normal_executer(t_pipes *node, char **env_array, \
+					int status, int checker);
 
 /****************************/
 /*			FREE			*/
@@ -362,6 +364,31 @@ void				multiple_free(const char *format, ...);
 
 char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strjoin_free_v2(char *s1, char *s2);
+
+/****************************************/
+/*			DEFINE INPUT OUTPUT			*/
+/****************************************/
+
+int					redirect_output_case(t_pipes *node, int i);
+int					redirect_input_case(t_pipes *node);
+int					append_output_case(t_pipes *node, int i);
+void				rechange_str(t_pipes *node, int i, int to_skip);
 char				*search_file_name(char *str);
+int					heardoc(t_pipes *node, int i);
+int					redirect_input(t_pipes *node, int i);
+int					redirect_output(t_pipes *node, int i);
+int					redir_pipe(t_pipes *node, int i);
+int					append_output(t_pipes *node, int i);
+
+/****************************************/
+/*			READ FROM INPUT				*/
+/****************************************/
+
+int		read_from_stdin(t_pipes *head, char *to_be_read);
+int		read_from_heardoc(t_pipes *head, char *to_be_read);
+void	write_pipe_stdin(t_pipes *head, int fd_in[2], char *to_be_read, int pid1);
+void	write_pipe_heardoc(t_pipes *head, int fd_in[2], char *to_be_read, int pid1);
+void	read_pipe_stdin(t_pipes *head, int fd_in[2], int pid2);
+void	read_pipe_heardoc(t_pipes *head, int fd_in[2], int pid2);
 
 #endif

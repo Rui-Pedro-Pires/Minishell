@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **env)
 		count_struc.counter = 0;
 		init.heardocs = NULL;
 		init.heardoc_index = -1;
-		input = line_read(&init.heardocs, &count_struc);
+		input = line_read(&init.heardocs, &count_struc, init);
 		if (input && *input)
 			add_history(input);
 		else

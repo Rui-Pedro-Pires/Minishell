@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "ls"
+ls
 # echo "ls || (re || re)"
 # echo "ls >> fds"
 # echo "echo puta"

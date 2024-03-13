@@ -12,21 +12,21 @@
 
 #include "../../includes/minishell.h"
 
-static char	*get_input(void);
+static char	*get_input(t_init init);
 
-char	*line_read(char ***heardoc_read, t_counter *counter_struc)
+char	*line_read(char ***heardoc_read, t_counter *counter_struc, t_init init)
 {
 	char	*input;
 
 	counter_struc->prnt = 0;
-	input = get_input();
+	input = get_input(init);
 	if (!parse_input(input, counter_struc, heardoc_read))
 		return (add_history(input), free(input), NULL);
 	input = keep_reading(input, counter_struc, heardoc_read);
 	return (input);
 }
 
-static char	*get_input(void)
+static char	*get_input(t_init init)
 {
 	char	*cwd;
 	char	*input;
@@ -37,6 +37,8 @@ static char	*get_input(void)
 	{
 		free(cwd);
 		printf("exit\n");
+		free_env_list(init.envs);
+		free_env_list(init.sorted_envs);
 		exit(EXIT_SUCCESS);
 	}
 	free(cwd);

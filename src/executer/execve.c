@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-int		read_from_stdin(t_pipes *head, char *to_be_read);
+#include "../../includes/minishell.h"
 
 int	ft_execve(t_pipes *node)
 {
@@ -49,45 +47,55 @@ int	ft_execve(t_pipes *node)
 
 int	executens_ve(t_pipes *node)
 {
-	pid_t	pid;
 	char	**env_array;
 	int		status;
 	int		checker;
 
+	env_array = NULL;
+	checker = 0;
+	status = 0;
 	if (node->in_out.input_type == HEARDOC)
-		read_from_stdin(node, node->init.heardocs[node->init.heardoc_index]);
+	{
+		return (read_from_heardoc(node, \
+			node->init.heardocs[node->init.heardoc_index]));
+	}
 	else if (node->in_out.input_type == REDIRECT_INPUT)
 	{
-		read_from_stdin(node, node->in_out.data_read);
-		free(node->in_out.data_read);
+		if (!redirect_input_case(node))
+			return (0);
+		return (read_from_stdin(node, node->in_out.data_read));
 	}
 	else
+		return (normal_executer(node, env_array, status, checker));
+	return (1);
+}
+
+int	normal_executer(t_pipes *node, char **env_array, int status, int checker)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < 0)
+		return (error_handler(ERR_FORK, NULL, NULL), 0);
+	else if (pid == 0)
 	{
-		pid = fork();
-		if (pid < 0)
-			error_handler(ERR_FORK, NULL, NULL);
-		else if (pid == 0)
+		env_array = envlist_to_array(node->init.envs);
+		status = execve(node->data.command_n_args[0],
+				node->data.command_n_args, env_array);
+		if (status == -1)
 		{
-			env_array = envlist_to_array(node->init.envs);
-			status = execve(node->data.command_n_args[0],
-					node->data.command_n_args, env_array);
-			if (status == -1)
-			{
-				if (errno == ENOENT)
-					printf("%s: Command not found\n",
-						node->data.command_n_args[0]);
-				else
-					perror("execve");
-				// free_args(node->data.command_n_args);
-				free_args(env_array);
-				ft_exit(node);
-				exit(EXIT_FAILURE);
-			}
+			if (errno == ENOENT)
+				printf("%s: Command not found\n",
+					node->data.command_n_args[0]);
+			else
+				perror("execve");
+			free_args(env_array);
+			ft_exit(node, 0);
 		}
-		waitpid(pid, &checker, 0);
-		if (checker != 0)
-			return (0);
 	}
+	waitpid(pid, &checker, 0);
+	if (checker != 0)
+		return (0);
 	return (1);
 }
 
@@ -123,50 +131,4 @@ int	listlen(t_envs *envs)
 		current = current->next;
 	}
 	return (len);
-}
-
-int	read_from_stdin(t_pipes *head, char *to_be_read)
-{
-	int		pid1;
-	int		pid2;
-	int		fd_in[2];
-	char	**env_array;
-	int		status;
-
-	if (pipe(fd_in))
-		return (0);
-	pid1 = fork();
-	if (pid1 == 0)
-	{
-		dup2(fd_in[1], STDOUT_FILENO);
-		close(fd_in[0]);
-		close(fd_in[1]);
-		printf("%s", to_be_read);
-		exit(EXIT_SUCCESS);
-	}
-	pid2 = fork();
-	if (pid2 == 0)
-	{
-		dup2(fd_in[0], STDIN_FILENO);
-		close(fd_in[0]);
-		close(fd_in[1]);
-		env_array = envlist_to_array(head->init.envs);
-		status = execve(head->data.command_n_args[0], head->data.command_n_args,
-				env_array);
-		if (status == -1)
-		{
-			if (errno == ENOENT)
-				perror("Command not found\n");
-			else
-				perror("execve");
-			// ft_exit(head);
-			exit(EXIT_FAILURE);
-		}
-		// ft_exit(head);
-	}
-	close(fd_in[0]);
-	close(fd_in[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
-	return (1);
 }
