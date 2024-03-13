@@ -16,18 +16,18 @@ void	update_old_pwd(t_pipes *node);
 void	update_current_pwd(t_pipes *node);
 int		cd_home(t_pipes *node, char **str);
 
-int	ft_cd(t_pipes *node, char **str)
+int	ft_cd(t_pipes *node, char **str) //#TODO add error for forbidden folder
 {
 	char	*new_dir;
 
 	update_old_pwd(node);
 	if (str[1] == NULL)
-		if (cd_home(node, str) == EXIT_SUCCESS)
-			return (EXIT_SUCCESS);
+		if (cd_home(node, str) == 1)
+			return (1);
 	if (str[2] != NULL)
 	{
 		printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n");
-		return (EXIT_FAILURE);
+		return (0);
 	}
 	else
 	{
@@ -37,12 +37,12 @@ int	ft_cd(t_pipes *node, char **str)
 			err_num_chdir(new_dir);
 			free(new_dir);
 			update_current_pwd(node);
-			return (EXIT_FAILURE);
+			return (0);
 		}
 		update_current_pwd(node);
 		free(new_dir);
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 void	err_num_chdir(char *str)
@@ -118,7 +118,7 @@ int	cd_home(t_pipes *node, char **str)
 		chdir(new_dir);
 		free(new_dir);
 		update_current_pwd(node);
-		return (EXIT_SUCCESS);
+		return (1);
 	}
-	return (EXIT_FAILURE);
+	return (0);
 }
