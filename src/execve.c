@@ -159,10 +159,8 @@ int	read_from_stdin(t_pipes *head, char *to_be_read)
 				perror("Command not found\n");
 			else
 				perror("execve");
-			// ft_exit(head);
 			exit(EXIT_FAILURE);
 		}
-		// ft_exit(head);
 	}
 	close(fd_in[0]);
 	close(fd_in[1]);
