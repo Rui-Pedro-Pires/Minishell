@@ -14,7 +14,7 @@
 
 void	add_env(t_envs *head, char *str);
 
-void	ft_export(t_pipes *node, char **str_array)
+int	ft_export(t_pipes *node, char **str_array)
 {
 	t_envs	*current;
 	t_envs	*current_sorted;
@@ -23,23 +23,21 @@ void	ft_export(t_pipes *node, char **str_array)
 	current = node->init.envs;
 	current_sorted = bubble_sort(node->init.sorted_envs);
 	if (str_array[1] == NULL)
-	{
-		ft_env(current_sorted);
-		return ;
-	}
+		return (ft_env(current_sorted));
 	str = str_array[1];
 	if (str_array[2] != NULL)
 	{
 		printf("\nruiolive&&jorteixe@minishell: export: too many arguments\n");
-		return ;
+		return (EXIT_FAILURE);
 	}
 	if (!export_is_valid(str))
 	{
 		printf("Wrong Input: %s\n", str);
-		return ;
+		return (EXIT_FAILURE);
 	}
 	add_env(current, str);
 	add_env(current_sorted, str);
+	return (EXIT_SUCCESS);
 }
 
 bool	export_is_valid(char *str)
@@ -50,7 +48,7 @@ bool	export_is_valid(char *str)
 	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '/')
 		i++;
 	if (str[i] == '=' && (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i
-				+ 1] == '/'))
+			+ 1] == '/'))
 		i++;
 	else
 	{

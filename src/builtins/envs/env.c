@@ -12,7 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
-void	ft_env(t_envs *head)
+int	ft_env(t_envs *head) //#TODO Return EXIT_FAILURE or EXIT_SUCCESS
 {
 	t_envs	*current;
 
@@ -23,4 +23,5 @@ void	ft_env(t_envs *head)
 		current = current->next;
 	}
 	printf("\n" RESET);
+	return(EXIT_SUCCESS);
 }

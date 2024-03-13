@@ -12,11 +12,12 @@
 
 #include "../../../includes/minishell.h"
 
-void	ft_pwd(void)
+int	ft_pwd(void) //#TODO Return EXIT_FAILURE or EXIT_SUCCESS
 {
-	char	*pwd;
+	char *pwd;
 
 	pwd = getcwd(NULL, 0);
 	printf("%s\n", pwd);
 	free(pwd);
+	return (EXIT_SUCCESS);
 }
