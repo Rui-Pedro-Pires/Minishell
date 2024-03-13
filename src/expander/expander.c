@@ -93,7 +93,7 @@ char	*expand(t_envs *head, char *before, char *str, char *after)
 	var_value = ft_getenv(head, str);
 	if (var_value == NULL)
 	{
-		var_value = ft_strdup("/");
+		var_value = ft_strdup("");
 	}
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)
 		+ ft_strlen(after) + 2;
