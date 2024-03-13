@@ -348,7 +348,7 @@ t_envs				*bubble_sort(t_envs *head);
 /****************************/
 
 int					recursive_executer(t_pipes *head, int recursive);
-int	execute_command(t_pipes *node); /*#TODO add 0 if error, 1 if success*/
+int					execute_command(t_pipes *node);
 int					ft_execve(t_pipes *node);
 int					executens_ve(t_pipes *node);
 char				**envlist_to_array(t_envs *envs);
@@ -358,8 +358,8 @@ int					recursive_down(t_pipes *head);
 int					list_iterator_executer(t_pipes *head);
 void				command_decider(t_pipes *node);
 void				command_decider2(t_pipes *node);
-int					normal_executer(t_pipes *node, char **env_array, \
-					int status, int checker);
+int					normal_executer(t_pipes *node, char **env_array, int status,
+						int checker);
 void				init_data(t_pipes *node);
 int					execute_to_stdout(t_pipes *head, int status);
 int					execute_to_file(t_pipes *head, int status, int save_stdout);
