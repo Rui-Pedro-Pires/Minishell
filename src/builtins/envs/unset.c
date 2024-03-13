@@ -12,45 +12,32 @@
 
 #include "../../../includes/minishell.h"
 
-void	ft_unset(t_envs **head, char **str_array)
+int		handle_unset_errors(char **str_array);
+
+void	ft_unset(t_envs **head, t_envs **head_sorted, char **str_array)
 {
-	t_envs	*new_node;
 	t_envs	*prev;
 	t_envs	*current;
-	char	*str;
 
-	if (str_array[1] == NULL)
-	{
-		printf("ruiolive&&jorteixe@minishell: unset: not enough arguments\n\n");
-		return ;
-	}
-	str = str_array[1];
-	if (str_array[2] != NULL)
-	{
-		printf("\nruiolive&&jorteixe@minishell: unset: too many arguments\n");
-		return ;
-	}
-	new_node = create_env_node(str);
-	if (ft_strcmp(new_node->name, "HOME"))
-	{
-		printf("Can't remove \"HOME\" from env variables.\n");
-		free_nodes(new_node);
-		return ;
-	}
-	prev = find_prev_node(*head, new_node->name);
+	handle_unset_errors(str_array);
+	prev = find_prev_node(*head, str_array[1]);
 	if (prev)
 		current = prev->next;
 	else
 		current = *head;
-	if (!current || strcmp(current->name, new_node->name))
+	if (!current || strcmp(current->name, str_array[1]))
 	{
 		printf("Node with value \"%s\" not found in the linked list.\n",
-			new_node->name);
-		free_nodes(new_node);
+			str_array[1]);
 		return ;
 	}
 	remove_node(head, prev, current);
-	free_nodes(new_node);
+	prev = find_prev_node(*head_sorted, str_array[1]);
+	if (prev)
+		current = prev->next;
+	else
+		current = *head_sorted;
+	remove_node(head_sorted, prev, current);
 }
 
 t_envs	*find_prev_node(t_envs *head, char *str)
@@ -83,5 +70,26 @@ void	free_nodes(t_envs *node)
 {
 	free(node->name);
 	free(node->value);
+	free(node->whole_str);
 	free(node);
+}
+
+int	handle_unset_errors(char **str_array)
+{
+	if (str_array[1] == NULL)
+	{
+		printf("ruiolive&&jorteixe@minishell: unset: not enough arguments\n\n");
+		return (EXIT_FAILURE);
+	}
+	if (str_array[2] != NULL)
+	{
+		printf("\nruiolive&&jorteixe@minishell: unset: too many arguments\n");
+		return (EXIT_FAILURE);
+	}
+	if (ft_strcmp(str_array[1], "HOME"))
+	{
+		printf("Can't remove \"HOME\" from env variables.\n");
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }

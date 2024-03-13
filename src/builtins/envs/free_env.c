@@ -23,6 +23,7 @@ void	free_env_list(t_envs *head)
 		next = current->next;
 		free(current->name);
 		free(current->value);
+		free(current->whole_str);
 		free(current);
 		current = next;
 	}
