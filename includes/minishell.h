@@ -298,8 +298,8 @@ void				tester(t_pipes *head);
 /************************************/
 
 int					ft_cd(t_pipes *node, char **str);
-int				ft_pwd(void);
-void				ft_echo(char **str_array);
+int					ft_pwd(void);
+int					ft_echo(char **str_array);
 
 /****************************/
 /*			EXPANDER		*/
@@ -329,10 +329,10 @@ int					count_alphanum(char *str, int j);
 
 t_envs				*create_env_node(char *env_var);
 t_envs				*create_env_list(char **env);
-int				ft_env(t_envs *head);
+int					ft_env(t_envs *head);
 void				free_env_list(t_envs *head);
 void				free_split_array(char **array);
-int				ft_export(t_pipes *node, char **str_array);
+int					ft_export(t_pipes *node, char **str_array);
 bool				export_is_valid(char *str);
 int					ft_strcmp(const char *s1, const char *s2);
 void				ft_unset(t_envs **head, t_envs **head_sorted,
