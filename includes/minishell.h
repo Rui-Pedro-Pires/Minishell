@@ -351,6 +351,10 @@ void				command_decider(t_pipes *node);
 void				command_decider2(t_pipes *node);
 int					normal_executer(t_pipes *node, char **env_array, \
 					int status, int checker);
+void				init_data(t_pipes *node);
+int					execute_to_stdout(t_pipes *head, int status);
+int					execute_to_file(t_pipes *head, int status, int save_stdout);
+int					create_path_to_execve(t_pipes *node);
 
 /****************************/
 /*			FREE			*/

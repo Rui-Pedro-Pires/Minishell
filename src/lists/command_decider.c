@@ -17,16 +17,16 @@ void	command_decider(t_pipes *node)
 	if (!node->data.command_n_args[0])
 		node->data.command_type = NO_COMMAND;
 	else if (ft_strncmp(node->data.command_n_args[0], "unset", 6) == 0
-	|| ft_strncmp(node->data.command_n_args[0], "\"unset\"", 8) == 0
-	|| ft_strncmp(node->data.command_n_args[0], "\'unset\'", 8) == 0)
+		|| ft_strncmp(node->data.command_n_args[0], "\"unset\"", 8) == 0
+		|| ft_strncmp(node->data.command_n_args[0], "\'unset\'", 8) == 0)
 		node->data.command_type = UNSET;
 	else if (ft_strncmp(node->data.command_n_args[0], "env", 4) == 0
-	|| ft_strncmp(node->data.command_n_args[0], "\"env\"", 6) == 0
-	|| ft_strncmp(node->data.command_n_args[0], "\'env\'", 6) == 0)
+		|| ft_strncmp(node->data.command_n_args[0], "\"env\"", 6) == 0
+		|| ft_strncmp(node->data.command_n_args[0], "\'env\'", 6) == 0)
 		node->data.command_type = ENV;
 	else if (ft_strncmp(node->data.command_n_args[0], "exit", 5) == 0
-	|| ft_strncmp(node->data.command_n_args[0], "\"exit\"", 7) == 0
-	|| ft_strncmp(node->data.command_n_args[0], "\'exit\'", 7) == 0)
+		|| ft_strncmp(node->data.command_n_args[0], "\"exit\"", 7) == 0
+		|| ft_strncmp(node->data.command_n_args[0], "\'exit\'", 7) == 0)
 		node->data.command_type = EXIT;
 	else
 		command_decider2(node);

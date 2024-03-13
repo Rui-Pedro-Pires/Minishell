@@ -12,12 +12,13 @@
 
 #include "../../includes/minishell.h"
 
-void	write_pipe_stdin(t_pipes *head, int fd_in[2], char *to_be_read, int pid1)
+void	write_pipe_stdin(t_pipes *head, int fd_in[2], \
+char *to_be_read, int pid1)
 {
 	if (pid1 < 0)
 		ft_exit(head, 0);
-	if (pid1 == 0)
-	{	
+	else if (pid1 == 0)
+	{
 		dup2(fd_in[1], STDOUT_FILENO);
 		close(fd_in[0]);
 		close(fd_in[1]);
@@ -60,12 +61,13 @@ void	read_pipe_stdin(t_pipes *head, int fd_in[2], int pid2)
 	}
 }
 
-void	write_pipe_heardoc(t_pipes *head, int fd_in[2], char *to_be_read, int pid1)
+void	write_pipe_heardoc(t_pipes *head, int fd_in[2], \
+char *to_be_read, int pid1)
 {
 	if (pid1 < 0)
 		ft_exit(head, 0);
 	if (pid1 == 0)
-	{	
+	{
 		dup2(fd_in[1], STDOUT_FILENO);
 		close(fd_in[0]);
 		close(fd_in[1]);
@@ -79,11 +81,11 @@ void	read_pipe_heardoc(t_pipes *head, int fd_in[2], int pid2)
 {
 	char	**env_array;
 	int		status;
-	
+
 	if (pid2 < 0)
 		ft_exit(head, 0);
 	else if (pid2 == 0)
-	{	
+	{
 		dup2(fd_in[0], STDIN_FILENO);
 		close(fd_in[0]);
 		close(fd_in[1]);

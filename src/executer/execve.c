@@ -14,35 +14,10 @@
 
 int	ft_execve(t_pipes *node)
 {
-	char	*path_str;
-	char	**paths_array;
-	char	*temp_str;
-	int		i;
-
-	if (access(node->data.command_n_args[0], F_OK) == 0)
+	if (ft_strchr(node->data.command_n_args[0], '/'))
 		return (executens_ve(node));
 	else
-	{
-		path_str = ft_getenv(node->init.envs, "PATH");
-		paths_array = ft_split(path_str, ':');
-		free(path_str);
-		i = 0;
-		temp_str = ft_strdup(node->data.command_n_args[0]);
-		paths_array[i] = ft_strjoin_free(paths_array[i], "/");
-		node->data.command_n_args[0] = ft_strjoin_free_v2(paths_array[i],
-				node->data.command_n_args[0]);
-		while (access(node->data.command_n_args[0], F_OK) != 0
-			&& paths_array[i] != NULL)
-		{
-			paths_array[i] = ft_strjoin_free(paths_array[i], "/");
-			free(node->data.command_n_args[0]);
-			node->data.command_n_args[0] = ft_strjoin(paths_array[i], temp_str);
-			i++;
-		}
-		free(temp_str);
-		free_args(paths_array);
-		return (executens_ve(node));
-	}
+		return (create_path_to_execve(node));
 }
 
 int	executens_ve(t_pipes *node)
@@ -97,38 +72,4 @@ int	normal_executer(t_pipes *node, char **env_array, int status, int checker)
 	if (checker != 0)
 		return (0);
 	return (1);
-}
-
-char	**envlist_to_array(t_envs *envs)
-{
-	char	**env_array;
-	t_envs	*current;
-	int		i;
-
-	current = envs;
-	env_array = malloc(sizeof(char *) * (listlen(envs) + 1));
-	i = 0;
-	while (current != NULL)
-	{
-		env_array[i] = ft_strdup(current->whole_str);
-		i++;
-		current = current->next;
-	}
-	env_array[i] = NULL;
-	return (env_array);
-}
-
-int	listlen(t_envs *envs)
-{
-	t_envs	*current;
-	int		len;
-
-	len = 0;
-	current = envs;
-	while (current != NULL)
-	{
-		len++;
-		current = current->next;
-	}
-	return (len);
 }

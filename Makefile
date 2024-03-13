@@ -64,7 +64,9 @@ SOURCES := main.c \
 			expander/expander_utils.c\
 			expander/expander.c\
 			executer/executer.c\
+			executer/executer_utils.c\
 			executer/execve.c\
+			executer/execve_utils.c\
 			executer/define_in_out.c\
 			executer/define_in_out_utils.c\
 			executer/define_in_out_type.c\
