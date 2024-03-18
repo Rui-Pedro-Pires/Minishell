@@ -53,5 +53,3 @@ int	main(int argc, char **argv, char **env)
 	free_env_list(init.envs);
 	rl_clear_history();
 }
-
-

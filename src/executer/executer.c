@@ -53,18 +53,49 @@ int	list_iterator_executer(t_pipes *head)
 {
 	int	status;
 	int	save_stdout;
+	int	stdout;
+	int	stdin;
+	int	i;
+	int	fd[2];
 
+	pipe(fd);
+	stdout = 0;
+	stdin = 0;
+	i = 0;
 	status = 0;
 	save_stdout = 0;
 	while (head)
 	{
 		init_data(head);
+		if (i != 0)
+		{
+			stdin = dup(STDIN_FILENO);
+			dup2(fd[0], STDIN_FILENO);
+		}
+		if (head->pipe_type != S_PIPE)
+		{
+			close(fd[1]);
+			dup2(stdout, STDOUT_FILENO);
+			close(stdout);
+		}
+		if (head->pipe_type == S_PIPE)
+		{
+			stdout = dup(STDOUT_FILENO);
+			dup2(fd[1], STDOUT_FILENO);
+		}
 		if (head->in_out.output_type == REDIRECT_OUTPUT || \
 			head->in_out.output_type == APPEND_OUTPUT)
 			return (execute_to_file(head, status, save_stdout));
 		else
 			return (execute_to_stdout(head, status));
+		if (i != 0)
+		{
+			close(fd[0]);
+			dup2(stdin, STDIN_FILENO);
+			close(stdin);
+		}
 		head = head->next;
+		i++;
 	}
 	return (1);
 }
