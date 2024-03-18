@@ -85,9 +85,9 @@ int	list_iterator_executer(t_pipes *head)
 		}
 		if (head->in_out.output_type == REDIRECT_OUTPUT || \
 			head->in_out.output_type == APPEND_OUTPUT)
-			return (execute_to_file(head, status, save_stdout));
+			execute_to_file(head, status, save_stdout);
 		else
-			return (execute_to_stdout(head, status));
+			execute_to_stdout(head, status);
 		if (i != 0)
 		{
 			close(fd[0]);
