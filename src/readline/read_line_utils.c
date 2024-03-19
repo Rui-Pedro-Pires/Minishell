@@ -57,7 +57,7 @@ char	*trim_cwd(char *trimmed_cwd)
 	{
 		if (trimmed_cwd[i] == '/')
 			counter++;
-		if (counter > 3)
+		if (counter > 2)
 			break ;
 		i++;
 	}
