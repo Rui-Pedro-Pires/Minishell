@@ -60,8 +60,7 @@ int	normal_executer(t_pipes *node, char **env_array, int status, int checker)
 		if (status == -1)
 		{
 			if (errno == ENOENT)
-				printf("%s: Command not found\n",
-					node->data.command_n_args[0]);
+				perror("minishell");
 			else
 				perror("execve");
 			free_args(env_array);

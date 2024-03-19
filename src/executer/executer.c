@@ -72,7 +72,7 @@ int	list_iterator_executer(t_pipes *head)
 			stdin = dup(STDIN_FILENO);
 			dup2(fd[0], STDIN_FILENO);
 		}
-		if (head->pipe_type != S_PIPE)
+		if (head->pipe_type != S_PIPE && i != 0)
 		{
 			close(fd[1]);
 			dup2(stdout, STDOUT_FILENO);
@@ -85,9 +85,9 @@ int	list_iterator_executer(t_pipes *head)
 		}
 		if (head->in_out.output_type == REDIRECT_OUTPUT || \
 			head->in_out.output_type == APPEND_OUTPUT)
-			execute_to_file(head, status, save_stdout);
+			status = execute_to_file(head, status, save_stdout);
 		else
-			execute_to_stdout(head, status);
+			status = execute_to_stdout(head, status);
 		if (i != 0)
 		{
 			close(fd[0]);
@@ -97,6 +97,8 @@ int	list_iterator_executer(t_pipes *head)
 		head = head->next;
 		i++;
 	}
+	if (status == 0)
+		return (0);
 	return (1);
 }
 
