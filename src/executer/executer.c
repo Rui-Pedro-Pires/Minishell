@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe  <jorteixe@student.42porto.>      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/02/22 15:17:21 by jorteixe         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:32:22 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,55 +51,28 @@ int	recursive_down(t_pipes *head)
 
 int	list_iterator_executer(t_pipes *head)
 {
+	int	i;
 	int	status;
 	int	save_stdout;
-	int	stdout;
-	int	stdin;
-	int	i;
-	int	fd[2];
+	int	stdin_out[2];
+	int	**fd;
 
-	pipe(fd);
-	stdout = 0;
-	stdin = 0;
 	i = 0;
 	status = 0;
 	save_stdout = 0;
+	fd = alloc_memory_for_fd(head);
 	while (head)
 	{
 		init_data(head);
-		if (i != 0)
-		{
-			stdin = dup(STDIN_FILENO);
-			dup2(fd[0], STDIN_FILENO);
-		}
-		if (head->pipe_type != S_PIPE && i != 0)
-		{
-			close(fd[1]);
-			dup2(stdout, STDOUT_FILENO);
-			close(stdout);
-		}
-		if (head->pipe_type == S_PIPE)
-		{
-			stdout = dup(STDOUT_FILENO);
-			dup2(fd[1], STDOUT_FILENO);
-		}
-		if (head->in_out.output_type == REDIRECT_OUTPUT || \
-			head->in_out.output_type == APPEND_OUTPUT)
-			status = execute_to_file(head, status, save_stdout);
-		else
-			status = execute_to_stdout(head, status);
-		if (i != 0)
-		{
-			close(fd[0]);
-			dup2(stdin, STDIN_FILENO);
-			close(stdin);
-		}
+		change_stdin_pipe_case(&stdin_out[1], &stdin_out[0], fd, i);
+		change_stdout_pipe_case(head, fd, &stdin_out[1], i);
+		check_for_execution_to_file(head, &status, save_stdout);
+		close_stdin_pipe_case(&stdin_out[0], fd, i);
 		head = head->next;
 		i++;
 	}
-	if (status == 0)
-		return (0);
-	return (1);
+	free_fd(head, fd);
+	return (status);
 }
 
 int	execute_command(t_pipes *node)

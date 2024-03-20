@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive  <ruiolive@student.42.fr   >      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:55:35 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/13 09:55:35 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:36:54 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,36 @@ void	init_data(t_pipes *node)
 	define_input_and_output(node);
 	node->data.command_n_args = ft_split(node->input_string, ' ');
 	command_decider(node);
+}
+
+int	**alloc_memory_for_fd(t_pipes *node)
+{
+	int	i;
+	int	size;
+	int	**fd;
+
+	i = 0;
+	size = list_size(node) - 1;
+	fd = malloc(sizeof(int *) * size);
+	while (i < size)
+	{
+		fd[i] = malloc(sizeof(int) * 2);
+		i++;
+	}
+	return (fd);
+}
+
+void	free_fd(t_pipes *node, int **fd)
+{
+	int	size;
+	int	i;
+
+	size = list_size(node) - 1;
+	i = 0;
+	while (i < size)
+	{
+		free(fd[i]);
+		i++;
+	}
+	free(fd);
 }

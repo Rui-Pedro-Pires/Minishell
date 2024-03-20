@@ -72,6 +72,7 @@ SOURCES := main.c \
 			executer/define_in_out_type.c\
 			executer/read_stdin_heardoc.c\
 			executer/read_stdin_heardoc_utils.c\
+			executer/stdin_out_pipe_case.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
