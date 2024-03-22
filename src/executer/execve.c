@@ -24,10 +24,8 @@ int	executens_ve(t_pipes *node)
 {
 	char	**env_array;
 	int		status;
-	int		checker;
 
 	env_array = NULL;
-	checker = 0;
 	status = 0;
 	if (node->in_out.input_type == HEARDOC)
 	{
@@ -41,34 +39,23 @@ int	executens_ve(t_pipes *node)
 		return (read_from_stdin(node, node->in_out.data_read));
 	}
 	else
-		return (normal_executer(node, env_array, status, checker));
+		return (normal_executer(node, env_array, status));
 	return (1);
 }
 
-int	normal_executer(t_pipes *node, char **env_array, int status, int checker)
+int	normal_executer(t_pipes *node, char **env_array, int status)
 {
-	pid_t	pid;
-
-	pid = fork();
-	if (pid < 0)
-		return (error_handler(ERR_FORK, NULL, NULL), 0);
-	else if (pid == 0)
+	env_array = envlist_to_array(node->init.envs);
+	status = execve(node->data.command_n_args[0],
+		node->data.command_n_args, env_array);
+	if (status == -1)
 	{
-		env_array = envlist_to_array(node->init.envs);
-		status = execve(node->data.command_n_args[0],
-				node->data.command_n_args, env_array);
-		if (status == -1)
-		{
-			if (errno == ENOENT)
-				perror("minishell");
-			else
-				perror("execve");
-			free_args(env_array);
-			ft_exit(node, 0);
-		}
+		if (errno == ENOENT)
+			perror("minishell");
+		else
+			perror("execve");
+		free_args(env_array);
+		ft_exit(node, 0);
 	}
-	waitpid(pid, &checker, 0);
-	if (checker != 0)
-		return (0);
 	return (1);
 }

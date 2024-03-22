@@ -61,14 +61,12 @@ void	init_data(t_pipes *node)
 	command_decider(node);
 }
 
-int	**alloc_memory_for_fd(t_pipes *node)
+int	**alloc_memory_for_fd(int size)
 {
 	int	i;
-	int	size;
 	int	**fd;
 
 	i = 0;
-	size = list_size(node) - 1;
 	fd = malloc(sizeof(int *) * size);
 	while (i < size)
 	{

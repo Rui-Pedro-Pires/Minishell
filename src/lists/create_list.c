@@ -61,7 +61,6 @@ t_init init)
 		*head = next_node;
 	else
 		last_node->next = next_node;
-	formated = check_quotes_n_expand(init.envs, formated);
 	next_node->input_string = formated;
 	init_node(next_node, down_node, sign_type, init);
 }

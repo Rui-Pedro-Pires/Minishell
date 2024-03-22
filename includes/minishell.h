@@ -358,8 +358,7 @@ int					recursive_down(t_pipes *head);
 int					list_iterator_executer(t_pipes *head);
 void				command_decider(t_pipes *node);
 void				command_decider2(t_pipes *node);
-int					normal_executer(t_pipes *node, char **env_array, int status,
-						int checker);
+int					normal_executer(t_pipes *node, char **env_array, int status);
 void				init_data(t_pipes *node);
 int					execute_to_stdout(t_pipes *head, int status);
 int					execute_to_file(t_pipes *head, int status, int save_stdout);
@@ -400,11 +399,11 @@ int					append_output(t_pipes *node, int i);
 int					read_from_stdin(t_pipes *head, char *to_be_read);
 int					read_from_heardoc(t_pipes *head, char *to_be_read);
 void				write_pipe_stdin(t_pipes *head, int fd_in[2],
-						char *to_be_read, int pid1);
+						char *to_be_read);
 void				write_pipe_heardoc(t_pipes *head, int fd_in[2],
-						char *to_be_read, int pid1);
-void				read_pipe_stdin(t_pipes *head, int fd_in[2], int pid2);
-void				read_pipe_heardoc(t_pipes *head, int fd_in[2], int pid2);
+						char *to_be_read);
+void				read_pipe_stdin(t_pipes *head, int fd_in[2]);
+void				read_pipe_heardoc(t_pipes *head, int fd_in[2]);
 
 /****************************************/
 /*			PIPE INPUT OUTPUT			*/
@@ -415,6 +414,6 @@ void				close_stdin_pipe_case(int *stdin, int **fd, int i);
 void				change_stdin_pipe_case(int *stdout, int *stdin, int **fd, int i);
 void				change_stdout_pipe_case(t_pipes *node, int **fd, int *stdout, int i);
 void				check_for_execution_to_file(t_pipes *node, int *status, int save_stdout);
-int					**alloc_memory_for_fd(t_pipes *node);
+int					**alloc_memory_for_fd(int size);
 void				free_fd(t_pipes *node, int **fd);
 #endif
