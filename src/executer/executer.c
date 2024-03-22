@@ -52,6 +52,7 @@ int	recursive_down(t_pipes *head)
 int	list_iterator_executer(t_pipes *head)
 {
 	int	i;
+	int	x;
 	int	status;
 	int	stdin_out[2];
 	int	**fd;
@@ -59,6 +60,7 @@ int	list_iterator_executer(t_pipes *head)
 	int	*pid;
 
 	i = 0;
+	x = 0;
 	status = 0;
 	size = list_size(head);
 	fd = alloc_memory_for_fd(size - 1);
@@ -68,12 +70,15 @@ int	list_iterator_executer(t_pipes *head)
 		change_stdin_pipe_case(&stdin_out[1], &stdin_out[0], fd, i);
 		change_stdout_pipe_case(head, fd, &stdin_out[1], i);
 		init_data(head);
-		if ((head->data.command_type == CD || head->data.command_type == EXIT) && i == 0) 
+		if ((head->data.command_type == CD || head->data.command_type == EXIT) && i == 0)
+		{
 			check_for_execution_to_file(head, &status);
+			size--;
+		}
 		else
 		{
-			pid[i] = fork();
-			if (pid[i] == 0)
+			pid[x] = fork();
+			if (pid[x] == 0)
 			{
 				check_for_execution_to_file(head, &status);
 				free_fd(size - 1, fd);
@@ -82,16 +87,18 @@ int	list_iterator_executer(t_pipes *head)
 					ft_exit(head, 0);
 				ft_exit(head, 1);
 			}
-			close_stdin_pipe_case(&stdin_out[0], fd, i);
+			x++;
 		}
+		close_stdin_pipe_case(&stdin_out[0], fd, i);
+		free_args(head->data.command_n_args);
 		head = head->next;
 		i++;
 	}
-	i = 0;
-	while (i < size)
+	x = 0;
+	while (x < size)
 	{
-		waitpid(pid[i], NULL, 0);
-		i++;
+		waitpid(pid[x], NULL, 0);
+		x++;
 	}
 	free_fd(size - 1, fd);
 	free(pid);
