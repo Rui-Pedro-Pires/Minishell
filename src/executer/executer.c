@@ -30,7 +30,7 @@ int	recursive_executer(t_pipes *head, int recursive)
 	}
 	if (status == 0 && recursive == 1)
 		return (0);
-	return (1);
+	return (status);
 }
 
 int	recursive_down(t_pipes *head)
@@ -46,7 +46,8 @@ int	recursive_down(t_pipes *head)
 		return (0);
 	else if (status == 1)
 		return (1);
-	return (list_iterator_executer(head));
+	head->init.return_value = list_iterator_executer(head);
+	return (head->init.return_value);
 }
 
 int	list_iterator_executer(t_pipes *head)
@@ -97,12 +98,14 @@ int	list_iterator_executer(t_pipes *head)
 	x = 0;
 	while (x < size)
 	{
-		waitpid(pid[x], NULL, 0);
+		waitpid(pid[x], &status, 0);
 		x++;
 	}
 	free_fd(size - 1, fd);
 	free(pid);
-	return (status);
+	if (status != 0)
+		return (0);
+	return (1);
 }
 
 int	execute_command(t_pipes *node)

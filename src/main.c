@@ -39,13 +39,14 @@ int	main(int argc, char **argv, char **env)
 		if (check_for_dbpipe_dbamper(input))
 		{
 			creat_list(&head, input, init, 1);
-			recursive_executer(head, 0);
+			head->init.return_value = recursive_executer(head, 0);
 		}
 		else
 		{
 			creat_list(&head, input, init, 0);
 			head->init.return_value = list_iterator_executer(head);
 		}
+		printf("%d\n", head->init.return_value);
 		free_input(&input);
 		free_heardoc(head);
 		free_list(&head);
