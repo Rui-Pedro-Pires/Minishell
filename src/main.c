@@ -44,7 +44,7 @@ int	main(int argc, char **argv, char **env)
 		else
 		{
 			creat_list(&head, input, init, 0);
-			list_iterator_executer(head);
+			head->init.return_value = list_iterator_executer(head);
 		}
 		free_input(&input);
 		free_heardoc(head);

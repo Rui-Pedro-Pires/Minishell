@@ -91,6 +91,7 @@ typedef struct s_init
 	char			**heardocs;
 	int				heardoc_index;
 	int				status;
+	int				return_value;
 }					t_init;
 
 typedef struct s_data
