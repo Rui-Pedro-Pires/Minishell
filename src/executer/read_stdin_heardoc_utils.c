@@ -37,7 +37,7 @@ char *to_be_read)
 	close(stdout);
 }
 
-void	read_pipe_stdin(t_pipes *head, int fd_in[2])
+int	read_pipe_stdin(t_pipes *head, int fd_in[2])
 {
 	char	**env_array;
 	int		status;
@@ -56,8 +56,9 @@ void	read_pipe_stdin(t_pipes *head, int fd_in[2])
 		close(fd_in[0]);
 		dup2(stdin, STDIN_FILENO);
 		close(stdin);
-		ft_exit(head, 0);
+		return(0);
 	}
+	return (1);
 }
 
 void	write_pipe_heardoc(t_pipes *head, int fd_in[2], \
@@ -79,7 +80,7 @@ char *to_be_read)
 	close(stdout);
 }
 
-void	read_pipe_heardoc(t_pipes *head, int fd_in[2])
+int	read_pipe_heardoc(t_pipes *head, int fd_in[2])
 {
 	char	**env_array;
 	int		status;
@@ -96,8 +97,9 @@ void	read_pipe_heardoc(t_pipes *head, int fd_in[2])
 		close(fd_in[0]);
 		dup2(stdin, STDIN_FILENO);
 		close(stdin);
-		ft_exit(head, 0);
+		return (0);
 	}
+	return (1);
 }
 
 static void	error_status(t_pipes *head, char	**env_array)

@@ -361,7 +361,7 @@ void				command_decider2(t_pipes *node);
 int					normal_executer(t_pipes *node, char **env_array, int status);
 void				init_data(t_pipes *node);
 int					execute_to_stdout(t_pipes *head, int status);
-int					execute_to_file(t_pipes *head, int status, int save_stdout);
+int					execute_to_file(t_pipes *head, int status);
 int					create_path_to_execve(t_pipes *node);
 
 /****************************/
@@ -402,8 +402,8 @@ void				write_pipe_stdin(t_pipes *head, int fd_in[2],
 						char *to_be_read);
 void				write_pipe_heardoc(t_pipes *head, int fd_in[2],
 						char *to_be_read);
-void				read_pipe_stdin(t_pipes *head, int fd_in[2]);
-void				read_pipe_heardoc(t_pipes *head, int fd_in[2]);
+int					read_pipe_stdin(t_pipes *head, int fd_in[2]);
+int					read_pipe_heardoc(t_pipes *head, int fd_in[2]);
 
 /****************************************/
 /*			PIPE INPUT OUTPUT			*/
@@ -413,7 +413,7 @@ int					list_size(t_pipes *head);
 void				close_stdin_pipe_case(int *stdin, int **fd, int i);
 void				change_stdin_pipe_case(int *stdout, int *stdin, int **fd, int i);
 void				change_stdout_pipe_case(t_pipes *node, int **fd, int *stdout, int i);
-void				check_for_execution_to_file(t_pipes *node, int *status, int save_stdout);
+void				check_for_execution_to_file(t_pipes *node, int *status);
 int					**alloc_memory_for_fd(int size);
-void				free_fd(t_pipes *node, int **fd);
+void				free_fd(int size, int **fd);
 #endif

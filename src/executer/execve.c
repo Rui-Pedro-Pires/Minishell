@@ -55,7 +55,7 @@ int	normal_executer(t_pipes *node, char **env_array, int status)
 		else
 			perror("execve");
 		free_args(env_array);
-		ft_exit(node, 0);
+		return(0);
 	}
 	return (1);
 }

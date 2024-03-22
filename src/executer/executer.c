@@ -53,7 +53,6 @@ int	list_iterator_executer(t_pipes *head)
 {
 	int	i;
 	int	status;
-	int	save_stdout;
 	int	stdin_out[2];
 	int	**fd;
 	int	size;
@@ -61,7 +60,6 @@ int	list_iterator_executer(t_pipes *head)
 
 	i = 0;
 	status = 0;
-	save_stdout = 0;
 	size = list_size(head);
 	fd = alloc_memory_for_fd(size - 1);
 	pid = malloc(sizeof(int) * size);
@@ -73,8 +71,12 @@ int	list_iterator_executer(t_pipes *head)
 		if (pid[i] == 0)
 		{
 			init_data(head);
-			check_for_execution_to_file(head, &status, save_stdout);
-			ft_exit(head, 0);
+			check_for_execution_to_file(head, &status);
+			free_fd(size - 1, fd);
+			free(pid);
+			if (status == 0)
+				ft_exit(head, 0);
+			ft_exit(head, 1);
 		}
 		close_stdin_pipe_case(&stdin_out[0], fd, i);
 		head = head->next;
@@ -86,7 +88,8 @@ int	list_iterator_executer(t_pipes *head)
 		waitpid(pid[i], NULL, 0);
 		i++;
 	}
-	free_fd(head, fd);
+	free_fd(size - 1, fd);
+	free(pid);
 	return (status);
 }
 

@@ -19,8 +19,7 @@ int	read_from_stdin(t_pipes *head, char *to_be_read)
 	if (pipe(fd_in))
 		return (0);
 	write_pipe_stdin(head, fd_in, to_be_read);
-	read_pipe_stdin(head, fd_in);
-	return (1);
+	return (read_pipe_stdin(head, fd_in));
 }
 
 int	read_from_heardoc(t_pipes *head, char *to_be_read)
@@ -30,6 +29,5 @@ int	read_from_heardoc(t_pipes *head, char *to_be_read)
 	if (pipe(fd_in))
 		return (0);
 	write_pipe_heardoc(head, fd_in, to_be_read);
-	read_pipe_heardoc(head, fd_in);
-	return (1);
+	return (read_pipe_heardoc(head, fd_in));
 }

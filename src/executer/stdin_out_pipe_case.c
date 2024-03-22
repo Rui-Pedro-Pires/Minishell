@@ -59,11 +59,11 @@ void	close_stdin_pipe_case(int *stdin, int **fd, int i)
 	}
 }
 
-void	check_for_execution_to_file(t_pipes *node, int *status, int save_stdout)
+void	check_for_execution_to_file(t_pipes *node, int *status)
 {
 	if (node->in_out.output_type == REDIRECT_OUTPUT || \
 		node->in_out.output_type == APPEND_OUTPUT)
-		*status = execute_to_file(node, *status, save_stdout);
+		*status = execute_to_file(node, *status);
 	else
 		*status = execute_to_stdout(node, *status);
 }
