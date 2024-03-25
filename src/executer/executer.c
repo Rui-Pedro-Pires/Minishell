@@ -97,8 +97,8 @@ int	list_iterator_executer(t_pipes *head)
 		waitpid(pid[x], &status, 0);
 		x++;
 	}
-	free_fd(size - 1, fd);
 	free(pid);
+	free_fd(size - 1, fd);
 	return (status);
 }
 
