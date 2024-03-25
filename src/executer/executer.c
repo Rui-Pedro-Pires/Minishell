@@ -63,8 +63,7 @@ int	list_iterator_executer(t_pipes *head)
 	status = 0;
 	size = list_size(head);
 	fd = alloc_memory_for_fd(size - 1);
-	if (size > 1)
-		pid = malloc(sizeof(int) * size);
+	pid = malloc(sizeof(int) * size);
 	while (head)
 	{
 		change_stdin_pipe_case(&stdin_out[1], &stdin_out[0], fd, i);
@@ -98,10 +97,8 @@ int	list_iterator_executer(t_pipes *head)
 		waitpid(pid[x], &status, 0);
 		x++;
 	}
-	if (size > 1)
-		free(pid);
-	if (size != 0)
-		free_fd(size - 1, fd);
+	free(pid);
+	free_fd(size - 1, fd);
 	return (status);
 }
 

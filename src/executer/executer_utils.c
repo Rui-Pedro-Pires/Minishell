@@ -50,12 +50,22 @@ int	execute_to_stdout(t_pipes *head, int status)
 
 void	init_data(t_pipes *node)
 {
+	int	i;
+
 	node->in_out.input_type = NO_INPUT;
 	node->in_out.output_type = NO_OUTPUT;
 	node->in_out.output_file = NULL;
 	node->in_out.input_file = NULL;
 	define_input_and_output(node);
 	node->data.command_n_args = ft_split(node->input_string, ' ');
+
+	i = 0;
+	while (node->data.command_n_args[i] != NULL)
+	{
+		node->data.command_n_args[i] = check_quotes_n_expand(node->init.envs,
+				node->data.command_n_args[i]);
+		i++;
+	}
 	command_decider(node);
 }
 
