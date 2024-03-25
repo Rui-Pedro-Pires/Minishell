@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_splitspec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 16:56:18 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/25 10:19:18 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/03/25 10:16:44 by ruiolive          #+#    #+#             */
+/*   Updated: 2024/03/25 11:32:12 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-static int	word_counter(char const *s, char c);
-static int	string_size(char const *s, char c);
+static int	word_counter(char *s, char c);
+static int	string_size(char *s, char c);
+static int  all_quotes_ignore(char *s);
 
-char	**ft_split(char const *s, char c)
+char	**ft_splitspec(char *s, char c)
 {
 	char	**str_array;
 	int		i;
@@ -31,20 +32,20 @@ char	**ft_split(char const *s, char c)
 	while (s[i] != '\0')
 	{
 		while (s[i] == c && s[i] != '\0')
-			i++;
+			i += all_quotes_ignore(s + i);
 		if (s[i] != '\0')
 		{
 			str_array[j] = ft_substr(s, i, string_size(s + i, c));
 			j++;
 		}
 		while (s[i] != c && s[i] != '\0')
-			i++;
+			i += all_quotes_ignore(s + i);
 	}
 	str_array[j] = 0;
 	return (str_array);
 }
 
-static int	word_counter(char const *s, char c)
+static int	word_counter(char *s, char c)
 {
 	int	i;
 	int	counter;
@@ -55,7 +56,8 @@ static int	word_counter(char const *s, char c)
 	{
 		while (s[i] == c && s[i] != '\0')
 		{
-			i++;
+			i += all_quotes_ignore(s + i);
+		    i++;
 		}
 		if (s[i] != '\0')
 		{
@@ -63,20 +65,31 @@ static int	word_counter(char const *s, char c)
 		}
 		while (s[i] != c && s[i] != '\0')
 		{
-			i++;
+			i += all_quotes_ignore(s + i);
+		    i++;
 		}
 	}
 	return (counter);
 }
 
-static int	string_size(char const *s, char c)
+static int	string_size(char *s, char c)
 {
 	int	i;
 
 	i = 0;
 	while (s[i] != c && s[i] != '\0')
 	{
+		i += all_quotes_ignore(s + i);
 		i++;
 	}
 	return (i);
+}
+
+static int  all_quotes_ignore(char *s)
+{
+    if (*s == '\"')
+        return (quote_ignore(s, '\"'));
+	else if (*s == '\'')
+	    return (quote_ignore(s, '\''));
+    return (1);
 }

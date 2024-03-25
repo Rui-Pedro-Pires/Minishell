@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:55:35 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/25 10:01:57 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:30:58 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,25 @@ int	execute_to_stdout(t_pipes *head, int status)
 	return (1);
 }
 
-void	init_data(t_pipes *node)
+void    init_data(t_pipes *node)
 {
-	node->in_out.input_type = NO_INPUT;
-	node->in_out.output_type = NO_OUTPUT;
-	node->in_out.output_file = NULL;
-	node->in_out.input_file = NULL;
-	define_input_and_output(node);
-	node->data.command_n_args = ft_split(node->input_string, ' ');
-	command_decider(node);
+    int    i;
+
+    node->in_out.input_type = NO_INPUT;
+    node->in_out.output_type = NO_OUTPUT;
+    node->in_out.output_file = NULL;
+    node->in_out.input_file = NULL;
+    define_input_and_output(node);
+    node->data.command_n_args = ft_splitspec(node->input_string, ' ');
+
+    i = 0;
+    while (node->data.command_n_args[i] != NULL)
+    {
+        node->data.command_n_args[i] = check_quotes_n_expand(node->init.envs,
+                node->data.command_n_args[i]);
+        i++;
+    }
+    command_decider(node);
 }
 
 int	**alloc_memory_for_fd(int size)
@@ -65,8 +75,6 @@ int	**alloc_memory_for_fd(int size)
 	int	**fd;
 
 	i = 0;
-	if (size == 0)
-		return (NULL);
 	fd = malloc(sizeof(int *) * size);
 	while (i < size)
 	{

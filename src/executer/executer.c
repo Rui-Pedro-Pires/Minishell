@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/25 10:04:00 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:15:02 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ int	list_iterator_executer(t_pipes *head)
 	status = 0;
 	size = list_size(head);
 	fd = alloc_memory_for_fd(size - 1);
-	if (size > 1)
-		pid = malloc(sizeof(int) * size);
+	pid = malloc(sizeof(int) * size);
 	while (head)
 	{
 		change_stdin_pipe_case(&stdin_out[1], &stdin_out[0], fd, i);
