@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stdin_heardoc_utils.c                              :+:      :+:    :+:   */
+/*   read_stdin_heardoc_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive  <ruiolive@student.42.fr   >      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:14:07 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/13 09:14:07 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 09:41:07 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int	read_pipe_stdin(t_pipes *head, int fd_in[2])
 		close(fd_in[0]);
 		dup2(stdin, STDIN_FILENO);
 		close(stdin);
-		return(0);
+		return(status);
 	}
-	return (1);
+	return (0);
 }
 
 void	write_pipe_heardoc(t_pipes *head, int fd_in[2], \
@@ -97,9 +97,9 @@ int	read_pipe_heardoc(t_pipes *head, int fd_in[2])
 		close(fd_in[0]);
 		dup2(stdin, STDIN_FILENO);
 		close(stdin);
-		return (0);
+		return (status);
 	}
-	return (1);
+	return (0);
 }
 
 static void	error_status(t_pipes *head, char	**env_array)

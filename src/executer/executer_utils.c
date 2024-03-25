@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:55:35 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/20 11:36:54 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:01:57 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,23 @@ int	execute_to_file(t_pipes *head, int status)
 	if (fd < 0)
 	{
 		free(head->in_out.output_file);
-		return (perror("minishell"), 0);
+		return (perror("minishell"), 1);
 	}
 	stdout = dup(STDOUT_FILENO);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	status = execute_command(head);
-	if ((status == 0 && head->pipe_type == D_PIPE) || status == 0)
+	if ((status == 1 && head->pipe_type == D_PIPE) || status == 1)
 	{
 		dup2(stdout, 1);
 		close(stdout);
 		free(head->in_out.output_file);
-		return (0);
+		return (1);
 	}
 	dup2(stdout, 1);
 	close(stdout);
 	free(head->in_out.output_file);
-	return (1);
+	return (0);
 }
 
 int	execute_to_stdout(t_pipes *head, int status)
@@ -65,6 +65,8 @@ int	**alloc_memory_for_fd(int size)
 	int	**fd;
 
 	i = 0;
+	if (size == 0)
+		return (NULL);
 	fd = malloc(sizeof(int *) * size);
 	while (i < size)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe  <jorteixe@student.42porto.>      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:38:09 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/02/21 13:38:09 by jorteixe         ###   ########.fr       */
+/*   Updated: 2024/03/25 09:51:18 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,5 @@ void	ft_exit(t_pipes *head, int exit_type)
 	free_args(head->data.command_n_args);
 	free_list(&head);
 	rl_clear_history();
-	if (exit_type == 0)
-		exit(EXIT_FAILURE);
-	exit(EXIT_SUCCESS);
+	exit(exit_type);
 }

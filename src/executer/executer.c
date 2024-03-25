@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/20 11:32:22 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:04:00 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	recursive_executer(t_pipes *head, int recursive)
 	while (head)
 	{
 		status = recursive_down(head);
-		if (status == 1 && head->pipe_type == D_PIPE)
+		if (status == 0 && head->pipe_type == D_PIPE)
 		{
 			while (head && head->pipe_type != AMPER)
 				head = head->next;
@@ -28,8 +28,8 @@ int	recursive_executer(t_pipes *head, int recursive)
 		if (head)
 			head = head->next;
 	}
-	if (status == 0 && recursive == 1)
-		return (0);
+	if (status != 0 && recursive == 1)
+		return (status);
 	return (status);
 }
 
@@ -42,10 +42,8 @@ int	recursive_down(t_pipes *head)
 	if (check_for_dbpipe_dbamper(head->input_string))
 		return (recursive_executer(head->down, 1));
 	status = recursive_down(head->down);
-	if (status == 0)
-		return (0);
-	else if (status == 1)
-		return (1);
+	if (status != 2)
+		return (status);
 	head->init.return_value = list_iterator_executer(head);
 	return (head->init.return_value);
 }
@@ -65,13 +63,14 @@ int	list_iterator_executer(t_pipes *head)
 	status = 0;
 	size = list_size(head);
 	fd = alloc_memory_for_fd(size - 1);
-	pid = malloc(sizeof(int) * size);
+	if (size > 1)
+		pid = malloc(sizeof(int) * size);
 	while (head)
 	{
 		change_stdin_pipe_case(&stdin_out[1], &stdin_out[0], fd, i);
 		change_stdout_pipe_case(head, fd, &stdin_out[1], i);
 		init_data(head);
-		if ((head->data.command_type == CD || head->data.command_type == EXIT) && i == 0)
+		if (head->data.command_type != NOT_BUILTIN && i == 0)
 		{
 			check_for_execution_to_file(head, &status);
 			size--;
@@ -84,9 +83,7 @@ int	list_iterator_executer(t_pipes *head)
 				check_for_execution_to_file(head, &status);
 				free_fd(size - 1, fd);
 				free(pid);
-				if (status == 0)
-					ft_exit(head, 0);
-				ft_exit(head, 1);
+				ft_exit(head, status);
 			}
 			x++;
 		}
@@ -103,9 +100,7 @@ int	list_iterator_executer(t_pipes *head)
 	}
 	free_fd(size - 1, fd);
 	free(pid);
-	if (status != 0)
-		return (0);
-	return (1);
+	return (status);
 }
 
 int	execute_command(t_pipes *node)
@@ -122,11 +117,11 @@ int	execute_command(t_pipes *node)
 	if (cmd == PWD)
 		ft_pwd();
 	if (cmd == EXPORT)
-		return (ft_export(node, args_array), 1);
+		return (ft_export(node, args_array));
 	if (cmd == UNSET)
-		return (ft_unset(&node->init.envs, &node->init.sorted_envs, args_array), 1);
+		return (ft_unset(&node->init.envs, &node->init.sorted_envs, args_array), 0);
 	if (cmd == ENV)
-		return (ft_env(node->init.envs), 1);
+		return (ft_env(node->init.envs));
 	if (cmd == EXIT)
 		ft_exit(node, 1);
 	if (cmd == NOT_BUILTIN)
