@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/25 11:15:31 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:03:54 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,13 @@ typedef struct s_in_out
 	char			*data_read;
 }					t_in_out;
 
+typedef struct s_pipe_memmory
+{
+	int	**fd;
+	int	*pid;
+	int	size;
+}					t_pipe_memmory;
+
 typedef struct s_pipes
 {
 	struct s_pipes	*next;
@@ -117,6 +124,7 @@ typedef struct s_pipes
 	char			*input_base;
 	t_in_out		in_out;
 	t_init			init;
+	t_pipe_memmory	pipe_memmory;
 	t_sign_type		pipe_type;
 	t_data			data;
 	bool			skip;
@@ -416,8 +424,8 @@ void				change_stdin_pipe_case(int *stdout, int *stdin, int **fd, int i);
 void				change_stdout_pipe_case(t_pipes *node, int **fd, int *stdout, int i);
 void				check_for_execution_to_file(t_pipes *node, int *status);
 int					**alloc_memory_for_fd(int size);
-void				free_fd(int size, int **fd);
+void				free_pipe_mem(t_pipe_memmory pipe_mem);
 
-char				**ft_splitspec(char *s, char c);
+char				**ft_split_ignore_quotes(char *s, char c);
 
 #endif

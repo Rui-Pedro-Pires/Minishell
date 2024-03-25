@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/25 09:58:37 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:30:08 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	main(int argc, char **argv, char **env)
 			creat_list(&head, input, init, 0);
 			head->init.return_value = list_iterator_executer(head);
 		}
-		// printf("%d\n", head->init.return_value);
 		free_input(&input);
 		free_heardoc(head);
 		free_list(&head);

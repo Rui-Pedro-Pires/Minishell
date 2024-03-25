@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:35:59 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/25 09:40:58 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:28:09 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	executens_ve(t_pipes *node)
 	}
 	else if (node->in_out.input_type == REDIRECT_INPUT)
 	{
-		if (!redirect_input_case(node))
+		if (redirect_input_case(node))
 			return (1);
 		return (read_from_stdin(node, node->in_out.data_read));
 	}

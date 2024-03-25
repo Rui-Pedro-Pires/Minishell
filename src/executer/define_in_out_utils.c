@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:17:32 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/25 09:57:45 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:28:52 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	redirect_output_case(t_pipes *node, int i)
 	node->in_out.output_file = search_file_name(node->input_string + i);
 	fd = open(node->in_out.output_file, O_CREAT, 0660);
 	if (fd < 0)
-		return (1);
+		return (-1);
 	close(fd);
 	unlink(node->in_out.output_file);
 	fd = open(node->in_out.output_file, O_CREAT, 0660);
 	if (fd < 0)
-		return (1);
+		return -(1);
 	close(fd);
 	return (0);
 }
@@ -72,7 +72,7 @@ int	append_output_case(t_pipes *node, int i)
 	node->in_out.output_file = search_file_name(node->input_string + i + 1);
 	fd = open(node->in_out.output_file, O_CREAT | O_RDWR, 0660);
 	if (fd < 0)
-		return (1);
+		return (-1);
 	close(fd);
 	return (0);
 }
@@ -88,7 +88,7 @@ int	redirect_input_case(t_pipes *node)
 		perror("minishell");
 		free(node->in_out.input_file);
 		node->in_out.input_file = NULL;
-		return (1);
+		return (-1);
 	}
 	buffer = ft_calloc(sizeof(char), 5);
 	node->in_out.data_read = ft_strdup("");

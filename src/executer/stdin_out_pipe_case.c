@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:45:59 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/25 11:15:25 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:33:52 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	list_size(t_pipes *head)
 	int	i;
 
 	if (!head)
-		return (1);
+		return (0);
 	i = 0;
 	while (head)
 	{

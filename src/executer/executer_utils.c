@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:55:35 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/25 11:33:52 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:06:47 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void    init_data(t_pipes *node)
     node->in_out.output_file = NULL;
     node->in_out.input_file = NULL;
     define_input_and_output(node);
-    node->data.command_n_args = ft_splitspec(node->input_string, ' ');
+    node->data.command_n_args = ft_split_ignore_quotes(node->input_string, ' ');
 
     i = 0;
     while (node->data.command_n_args[i] != NULL)
@@ -84,15 +84,18 @@ int	**alloc_memory_for_fd(int size)
 	return (fd);
 }
 
-void	free_fd(int size, int **fd)
+void	free_pipe_mem(t_pipe_memmory pipe_mem)
 {
 	int	i;
 
 	i = 0;
-	while (i < size)
+	free(pipe_mem.pid);
+	pipe_mem.pid = NULL;
+	while (i < pipe_mem.size - 1)
 	{
-		free(fd[i]);
+		free(pipe_mem.fd[i]);
 		i++;
 	}
-	free(fd);
+	free(pipe_mem.fd);
+	pipe_mem.fd = NULL;
 }

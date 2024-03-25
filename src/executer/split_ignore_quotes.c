@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_splitspec.c                                     :+:      :+:    :+:   */
+/*   split_ignore_quotes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:16:44 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/25 11:32:12 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:10:47 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	word_counter(char *s, char c);
 static int	string_size(char *s, char c);
 static int  all_quotes_ignore(char *s);
 
-char	**ft_splitspec(char *s, char c)
+char	**ft_split_ignore_quotes(char *s, char c)
 {
 	char	**str_array;
 	int		i;
@@ -55,19 +55,11 @@ static int	word_counter(char *s, char c)
 	while (s[i] != '\0')
 	{
 		while (s[i] == c && s[i] != '\0')
-		{
 			i += all_quotes_ignore(s + i);
-		    i++;
-		}
 		if (s[i] != '\0')
-		{
 			counter++;
-		}
 		while (s[i] != c && s[i] != '\0')
-		{
 			i += all_quotes_ignore(s + i);
-		    i++;
-		}
 	}
 	return (counter);
 }
@@ -78,18 +70,15 @@ static int	string_size(char *s, char c)
 
 	i = 0;
 	while (s[i] != c && s[i] != '\0')
-	{
 		i += all_quotes_ignore(s + i);
-		i++;
-	}
 	return (i);
 }
 
 static int  all_quotes_ignore(char *s)
 {
     if (*s == '\"')
-        return (quote_ignore(s, '\"'));
+        return (quote_ignore(s, D_QUOTES));
 	else if (*s == '\'')
-	    return (quote_ignore(s, '\''));
+	    return (quote_ignore(s, S_QUOTES));
     return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:49:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/25 09:57:18 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:42:10 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	redirect_input(t_pipes *node, int i)
 		rechange_str(node, i, 1);
 		fd = open(node->in_out.input_file, O_RDONLY);
 		if (fd < 0)
-			return (1);
+			return (-1);
 	}
 	return (0);
 }
@@ -48,10 +48,10 @@ int	redirect_output(t_pipes *node, int i)
 {
 	if (node->input_string[i] == '>')
 	{
-		if (!redirect_output_case(node, i))
+		if (redirect_output_case(node, i) == -1)
 		{
 			rechange_str(node, i, 1);
-			return (1);
+			return (-1);
 		}
 		rechange_str(node, i, 1);
 	}
@@ -62,10 +62,10 @@ int	redir_pipe(t_pipes *node, int i)
 {
 	if (!ft_strncmp(node->input_string + i, ">|", 2))
 	{
-		if (!redirect_output_case(node, i))
+		if (redirect_output_case(node, i + 1) == -1)
 		{
-			rechange_str(node, i, 1);
-			return (1);
+			rechange_str(node, i, 2);
+			return (-1);
 		}
 		rechange_str(node, i, 2);
 	}
@@ -76,10 +76,10 @@ int	append_output(t_pipes *node, int i)
 {
 	if (!ft_strncmp(node->input_string + i, ">>", 2))
 	{
-		if (!append_output_case(node, i))
+		if (append_output_case(node, i) == -1)
 		{
 			rechange_str(node, i, 2);
-			return (1);
+			return (-1);
 		}
 		rechange_str(node, i, 2);
 	}
