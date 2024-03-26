@@ -62,7 +62,7 @@ void    init_data(t_pipes *node)
     i = 0;
     while (node->data.command_n_args[i] != NULL)
     {
-        node->data.command_n_args[i] = check_quotes_n_expand(node->init.envs,
+        node->data.command_n_args[i] = check_quotes_n_expand(node,
                 node->data.command_n_args[i]);
         i++;
     }

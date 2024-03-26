@@ -111,9 +111,9 @@ typedef struct s_in_out
 
 typedef struct s_pipe_memmory
 {
-	int	**fd;
-	int	*pid;
-	int	size;
+	int				**fd;
+	int				*pid;
+	int				size;
 }					t_pipe_memmory;
 
 typedef struct s_pipes
@@ -315,13 +315,14 @@ int					ft_echo(char **str_array);
 
 void				err_num_chdir(char *str);
 void				ft_expander(char **str_array);
-char				*check_quotes_n_expand(t_envs *head, char *str);
-char				*handle_dollar_sign(t_envs *head, char *str, int j,
+char				*check_quotes_n_expand(t_pipes *piper, char *str);
+char				*handle_dollar_sign(t_pipes *piper, char *str, int j,
 						bool single_open);
-char				*handle_til(t_envs *head, char *str, int j);
+char				*handle_til(t_pipes *piper, char *str, int j);
 void				update_quote_status(char c, bool *single_open,
 						bool *double_open);
-char				*expand(t_envs *head, char *before, char *str, char *after);
+char				*expand(t_pipes *piper, char *before, char *str,
+						char *after);
 char				*check_chars(const char *str, const char *accept);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strcat(char *dest, const char *src);
@@ -366,7 +367,8 @@ int					recursive_down(t_pipes *head);
 int					list_iterator_executer(t_pipes *head);
 void				command_decider(t_pipes *node);
 void				command_decider2(t_pipes *node);
-int					normal_executer(t_pipes *node, char **env_array, int status);
+int					normal_executer(t_pipes *node, char **env_array,
+						int status);
 void				init_data(t_pipes *node);
 int					execute_to_stdout(t_pipes *head, int status);
 int					execute_to_file(t_pipes *head, int status);
@@ -426,6 +428,6 @@ int					**alloc_memory_for_fd(int size);
 void				free_pipe_mem(t_pipe_memmory pipe_mem);
 
 char				**ft_split_ignore_quotes(char *s, char *c);
-int  				all_quotes_ignore(char *s);
+int					all_quotes_ignore(char *s);
 
 #endif
