@@ -157,6 +157,7 @@ typedef struct s_counter
 void				error_handler(int error_msg, void *param, void **param2);
 void				err_hlr_2(int error_msg, void *param, void **param2);
 char				*string_error(char *input);
+void				print_error(char *str);
 
 typedef enum e_error
 {
