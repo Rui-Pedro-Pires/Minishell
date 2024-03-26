@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:45:59 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 14:25:51 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:23:23 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	change_stdin_pipe_case(t_pipes *node, int i)
 void	close_stdin_pipe_case(t_pipes *node, int i)
 {
 	if (i != 0)
+	{
 		close(node->pipe_memmory.fd[i - 1][0]);
+		// close(node->pipe_memmory.fd[i - 1][1]);
+	}
 }
 
 void	check_for_execution_to_file(t_pipes *node, int *status)

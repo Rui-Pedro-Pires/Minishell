@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/26 14:25:37 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:18:06 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,14 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status, t_pipe_memmory 
 		head = head->next;
 		i++;
 	}
-	dup2(stdin, STDIN_FILENO);
-	close(stdin);
 	i = 0;
 	while (i < size)
 	{
 		waitpid(pipe_mem.pid[i], status, 0);
 		i++;
 	}
+	dup2(stdin, STDIN_FILENO);
+	close(stdin);
 }
 
 int	pipe_execute(t_pipes *head, int i)
