@@ -93,7 +93,7 @@ char	*expand(t_pipes *piper, char *before, char *str, char *after)
 	char	*var_value;
 	char	*new_str;
 	int		full_string_count;
-	t_envs *head;
+	t_envs	*head;
 
 	head = piper->init.envs;
 	var_value = ft_getenv(head, str);
@@ -117,43 +117,42 @@ char	*expand(t_pipes *piper, char *before, char *str, char *after)
 	return (new_str);
 }
 
-
 char	*handle_questionmark(t_pipes *piper, char *str, int j)
 {
-    char	*bef_str;
-    char	*aft_str;
-    size_t	i;
+	char	*bef_str;
+	char	*aft_str;
+	size_t	i;
 
-    bef_str = ft_strndup(str, j);
-    i = j + 2; // Skip past the $? characters
-    if (i < ft_strlen(str))
-        aft_str = ft_strdup(str + i);
-    else
-        aft_str = ft_strdup("");
-    free(str);
-    str = expand_questionmark(piper, bef_str, aft_str);
-    return (str);
+	bef_str = ft_strndup(str, j);
+	i = j + 2;
+	if (i < ft_strlen(str))
+		aft_str = ft_strdup(str + i);
+	else
+		aft_str = ft_strdup("");
+	free(str);
+	str = expand_questionmark(piper, bef_str, aft_str);
+	return (str);
 }
 
 char	*expand_questionmark(t_pipes *piper, char *before, char *after)
 {
-    char *new_str;
-    int full_string_count;
-    char	*var_value;
+	char *new_str;
+	int full_string_count;
+	char *var_value;
 
-    var_value = ft_itoa(piper->init.return_value);
-    full_string_count = ft_strlen(before) + ft_strlen(var_value)
-        + ft_strlen(after) + 2;
-    new_str = ft_calloc(full_string_count, sizeof(char));
-    ft_strlcpy(new_str, before, full_string_count);
-    if (*var_value)
-        ft_strlcat(new_str, var_value, full_string_count);
-    if (*after)
-        ft_strlcat(new_str, after, full_string_count);
-    free(before);
-    before = NULL;
-    free(after);
-    after = NULL;
-    free(var_value);
-    return (new_str);
+	var_value = ft_itoa(piper->init.return_value);
+	full_string_count = ft_strlen(before) + ft_strlen(var_value)
+		+ ft_strlen(after) + 2;
+	new_str = ft_calloc(full_string_count, sizeof(char));
+	ft_strlcpy(new_str, before, full_string_count);
+	if (*var_value)
+		ft_strlcat(new_str, var_value, full_string_count);
+	if (*after)
+		ft_strlcat(new_str, after, full_string_count);
+	free(before);
+	before = NULL;
+	free(after);
+	after = NULL;
+	free(var_value);
+	return (new_str);
 }

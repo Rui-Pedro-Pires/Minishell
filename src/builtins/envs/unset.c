@@ -26,11 +26,7 @@ void	ft_unset(t_envs **head, t_envs **head_sorted, char **str_array)
 	else
 		current = *head;
 	if (!current || strcmp(current->name, str_array[1]))
-	{
-		printf("Node with value \"%s\" not found in the linked list.\n",
-			str_array[1]);
 		return ;
-	}
 	remove_node(head, prev, current);
 	prev = find_prev_node(*head_sorted, str_array[1]);
 	if (prev)
@@ -61,8 +57,6 @@ void	remove_node(t_envs **head, t_envs *prev, t_envs *current)
 		*head = current->next;
 	else
 		prev->next = current->next;
-	printf("Node with value %s has been removed from the linked list.\n",
-		current->name);
 	free_nodes(current);
 }
 
