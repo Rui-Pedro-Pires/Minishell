@@ -35,7 +35,7 @@ char	*search_file_name(t_pipes *node, char *str)
 		i++;
 	}
 	file_name[x] = '\0';
-	file_name = check_quotes_n_expand(node->init.envs, file_name);
+	file_name = check_quotes_n_expand(node, file_name);
 	return (file_name);
 }
 
