@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:17:32 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 14:42:37 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:45:32 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*search_file_name(t_pipes *node, char *str)
 	while (str[i] && str[i] == ' ')
 		i++;
 	x = i;
-	while (str[x] && !ft_strchr("<> ", str[i]))
+	while (str[x] && !ft_strchr("<> ", str[x]))
 		x += all_quotes_ignore(str + x);
 	file_name = malloc(sizeof(char) * x - i + 1);
 	j = 0;
