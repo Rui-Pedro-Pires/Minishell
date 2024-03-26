@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:45:59 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 13:47:13 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:13:09 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,33 @@ int	list_size(t_pipes *head)
 	return (i);
 }
 
-void	change_stdout_pipe_case(t_pipes *node, int **fd, int *stdout, int i)
+void	change_stdout_pipe_case(t_pipes *node, int *stdout, int i)
 {
 	if (node->pipe_type == S_PIPE)
 	{
-		pipe(fd[i]);
+		pipe(node->pipe_memmory.fd[i]);
 		*stdout = dup(STDOUT_FILENO);
-		dup2(fd[i][1], STDOUT_FILENO);
+		dup2(node->pipe_memmory.fd[i][1], STDOUT_FILENO);
 	}
 }
 
-void	change_stdin_pipe_case(int *stdout, int *stdin, int **fd, int i)
+void	change_stdin_pipe_case(t_pipes *node, int *stdout, int *stdin, int i)
 {
 	if (i != 0)
 	{
-		close(fd[i - 1][1]);
+		close(node->pipe_memmory.fd[i - 1][1]);
 		dup2(*stdout, STDOUT_FILENO);
 		close(*stdout);
 		*stdin = dup(STDIN_FILENO);
-		dup2(fd[i - 1][0], STDIN_FILENO);
+		dup2(node->pipe_memmory.fd[i - 1][0], STDIN_FILENO);
 	}
 }
 
-void	close_stdin_pipe_case(int *stdin, int **fd, int i)
+void	close_stdin_pipe_case(t_pipes *node, int *stdin, int i)
 {
 	if (i != 0)
 	{
-		close(fd[i - 1][0]);
+		close(node->pipe_memmory.fd[i - 1][0]);
 		dup2(*stdin, STDIN_FILENO);
 		close(*stdin);
 	}

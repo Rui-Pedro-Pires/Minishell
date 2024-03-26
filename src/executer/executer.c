@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/26 13:48:34 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:12:22 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,20 @@ int	execute_command(t_pipes *node)
 void	loop_list_and_execute(t_pipes *head, int size, int *status, t_pipe_memmory pipe_mem)
 {
 	int	i;
-	int	stdin_out[2];
+	int	stdin;
+	int	stdout;
 
 	i = 0;
+	stdin = dup(STDIN_FILENO);
+	stdout = dup(STDOUT_FILENO);
 	while (head)
 	{
-		change_stdin_pipe_case(&stdin_out[1], &stdin_out[0], pipe_mem.fd, i);
-		change_stdout_pipe_case(head, pipe_mem.fd, &stdin_out[1], i);
-		init_data(head);
 		head->pipe_memmory = pipe_mem;
+		change_stdin_pipe_case(head, &stdout, &stdin, i);
+		change_stdout_pipe_case(head, &stdout, i);
+		init_data(head);
 		pipe_execute(head, i);
-		close_stdin_pipe_case(&stdin_out[0], pipe_mem.fd, i);
+		close_stdin_pipe_case(head, &stdin, i);
 		free_args(head->data.command_n_args);
 		head = head->next;
 		i++;
@@ -129,8 +132,8 @@ int	pipe_execute(t_pipes *head, int i)
 	head->pipe_memmory.pid[i] = fork();
 	if (head->pipe_memmory.pid[i] == 0)
 	{
-		close(head->pipe_memmory.fd[i][0]);
-		close(head->pipe_memmory.fd[i][1]);
+		// close(head->pipe_memmory.fd[i][0]);
+		// close(head->pipe_memmory.fd[i][1]);
 		check_for_execution_to_file(head, &status);
 		free_pipe_mem(head->pipe_memmory);
 		ft_exit(head, status);

@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 13:46:49 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:12:48 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,9 +418,9 @@ int					read_pipe_heardoc(t_pipes *head, int fd_in[2]);
 /****************************************/
 
 int					list_size(t_pipes *head);
-void				close_stdin_pipe_case(int *stdin, int **fd, int i);
-void				change_stdin_pipe_case(int *stdout, int *stdin, int **fd, int i);
-void				change_stdout_pipe_case(t_pipes *node, int **fd, int *stdout, int i);
+void				close_stdin_pipe_case(t_pipes *node, int *stdin, int i);
+void				change_stdin_pipe_case(t_pipes *node, int *stdout, int *stdin, int i);
+void				change_stdout_pipe_case(t_pipes *node, int *stdout, int i);
 void				check_for_execution_to_file(t_pipes *node, int *status);
 int					**alloc_memory_for_fd(int size);
 void				free_pipe_mem(t_pipe_memmory pipe_mem);
