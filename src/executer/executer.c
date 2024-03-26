@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/26 18:08:20 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:08:43 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	child_process(t_pipes *head, int *fd, int i, int stdin)
 		close(fd[1]);
 		close(stdin);
 		check_for_execution_to_file(head, &status);
-		ft_exit(head, status);
+		ft_exit(head, status, NULL);
 	}
 	dup2(fd[0], stdin);
 	close(fd[0]);
