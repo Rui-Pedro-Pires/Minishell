@@ -6,14 +6,14 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/26 15:18:06 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:04:51 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	loop_list_and_execute(t_pipes *head, int size, int *status, t_pipe_memmory pipe_mem);
-int		pipe_execute(t_pipes *head, int i);
+void	child_process(t_pipes *head, int *fd, int i, int stdin);
+void	loop_list_and_execute(t_pipes *head, int size, int *status);
 int		single_command(t_pipes *head);
 
 int	recursive_executer(t_pipes *head, int recursive)
@@ -55,16 +55,13 @@ int	recursive_down(t_pipes *head)
 int	list_iterator_executer(t_pipes *head)
 {
 	int	status;
-	t_pipe_memmory pipe_mem;
+	int	size;
 
 	status = 0;
-	pipe_mem.size = list_size(head);
-	if (pipe_mem.size == 1)
+	size = list_size(head);
+	if (size == 1)
 		return (single_command(head));
-	pipe_mem.fd = alloc_memory_for_fd(pipe_mem.size - 1);
-	pipe_mem.pid = malloc(sizeof(int) * pipe_mem.size);
-	loop_list_and_execute(head, pipe_mem.size, &status, pipe_mem);
-	free_pipe_mem(pipe_mem);
+	loop_list_and_execute(head, size, &status);
 	return (status);
 }
 
@@ -94,52 +91,29 @@ int	execute_command(t_pipes *node)
 	return (0);
 }
 
-void	loop_list_and_execute(t_pipes *head, int size, int *status, t_pipe_memmory pipe_mem)
+void	loop_list_and_execute(t_pipes *head, int size, int *status)
 {
 	int	i;
 	int	stdin;
-	int	stdout;
+	int	fd[2];
 
 	i = 0;
 	stdin = dup(STDIN_FILENO);
-	stdout = dup(STDOUT_FILENO);
 	while (head)
 	{
-		head->pipe_memmory = pipe_mem;
-		change_stdout_pipe_case(head, &stdout, i);
-		change_stdin_pipe_case(head, i);
 		init_data(head);
-		pipe_execute(head, i);
-		close_stdin_pipe_case(head, i);
+		child_process(head, fd, i, stdin);
 		free_args(head->data.command_n_args);
 		head = head->next;
 		i++;
 	}
 	i = 0;
+	close(stdin);
 	while (i < size)
 	{
-		waitpid(pipe_mem.pid[i], status, 0);
+		wait(status);
 		i++;
 	}
-	dup2(stdin, STDIN_FILENO);
-	close(stdin);
-}
-
-int	pipe_execute(t_pipes *head, int i)
-{
-	int	status;
-
-	status = 0;
-	head->pipe_memmory.pid[i] = fork();
-	if (head->pipe_memmory.pid[i] == 0)
-	{
-		// close(head->pipe_memmory.fd[i][0]);
-		// close(head->pipe_memmory.fd[i][1]);
-		check_for_execution_to_file(head, &status);
-		free_pipe_mem(head->pipe_memmory);
-		ft_exit(head, status);
-	}
-	return (status);
 }
 
 int	single_command(t_pipes *head)
@@ -161,4 +135,28 @@ int	single_command(t_pipes *head)
 		waitpid(pid, &status, 0);
 	}
 	return (status);
+}
+
+void	child_process(t_pipes *head, int *fd, int i, int stdin)
+{
+	int	pid;
+	int	status;
+
+	pipe(fd);
+	pid = fork();
+	if (pid == 0)
+	{
+		if (i != 0)
+			dup2(stdin, STDIN_FILENO);
+		if (head->pipe_type == S_PIPE)
+			dup2(fd[1], STDOUT_FILENO);
+		close(fd[0]);
+		close(fd[1]);
+		close(stdin);
+		check_for_execution_to_file(head, &status);
+		ft_exit(head, status);
+	}
+	dup2(fd[0], stdin);
+	close(fd[0]);
+	close(fd[1]);
 }

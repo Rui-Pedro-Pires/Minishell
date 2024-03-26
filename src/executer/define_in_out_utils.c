@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:17:32 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 15:45:32 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:07:50 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*search_file_name(t_pipes *node, char *str)
 	x = i;
 	while (str[x] && !ft_strchr("<> ", str[x]))
 		x += all_quotes_ignore(str + x);
-	file_name = malloc(sizeof(char) * x - i + 1);
+	file_name = ft_calloc(sizeof(char), x - i + 1);
 	j = 0;
 	x = x - i;
 	while (j < x)

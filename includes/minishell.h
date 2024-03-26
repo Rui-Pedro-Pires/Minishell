@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 14:43:15 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:44:07 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -424,8 +424,6 @@ void				close_stdin_pipe_case(t_pipes *node, int i);
 void				change_stdin_pipe_case(t_pipes *node, int i);
 void				change_stdout_pipe_case(t_pipes *node, int *stdout, int i);
 void				check_for_execution_to_file(t_pipes *node, int *status);
-int					**alloc_memory_for_fd(int size);
-void				free_pipe_mem(t_pipe_memmory pipe_mem);
 
 char				**ft_split_ignore_quotes(char *s, char *c);
 int					all_quotes_ignore(char *s);

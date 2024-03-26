@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:45:59 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 15:23:23 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:54:37 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,38 +25,6 @@ int	list_size(t_pipes *head)
 		i++;
 	}
 	return (i);
-}
-
-void	change_stdout_pipe_case(t_pipes *node, int *stdout, int i)
-{
-	if (node->pipe_type == S_PIPE)
-	{
-		pipe(node->pipe_memmory.fd[i]);
-		dup2(node->pipe_memmory.fd[i][1], STDOUT_FILENO);
-	}
-	else
-	{
-		dup2(*stdout, STDOUT_FILENO);
-		close(*stdout);
-	}
-}
-
-void	change_stdin_pipe_case(t_pipes *node, int i)
-{
-	if (i != 0)
-	{
-		close(node->pipe_memmory.fd[i - 1][1]);
-		dup2(node->pipe_memmory.fd[i - 1][0], STDIN_FILENO);
-	}
-}
-
-void	close_stdin_pipe_case(t_pipes *node, int i)
-{
-	if (i != 0)
-	{
-		close(node->pipe_memmory.fd[i - 1][0]);
-		// close(node->pipe_memmory.fd[i - 1][1]);
-	}
 }
 
 void	check_for_execution_to_file(t_pipes *node, int *status)
