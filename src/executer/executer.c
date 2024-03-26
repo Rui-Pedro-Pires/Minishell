@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/25 18:21:07 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:48:34 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status, t_pipe_memmory 
 		head = head->next;
 		i++;
 	}
+	
 	i = 0;
 	while (i < size)
 	{
@@ -128,6 +129,8 @@ int	pipe_execute(t_pipes *head, int i)
 	head->pipe_memmory.pid[i] = fork();
 	if (head->pipe_memmory.pid[i] == 0)
 	{
+		close(head->pipe_memmory.fd[i][0]);
+		close(head->pipe_memmory.fd[i][1]);
 		check_for_execution_to_file(head, &status);
 		free_pipe_mem(head->pipe_memmory);
 		ft_exit(head, status);

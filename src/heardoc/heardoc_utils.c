@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heardoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive  <ruiolive@student.42.fr   >      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:22:04 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/02/28 10:22:04 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:37:17 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ char	*search_heardoc_condition(char *input, t_counter *iter)
 	j = iter->i;
 	if (ft_strchr("|<>()\\;", input[iter->i]))
 		return (NULL);
-	while (input[i] && !ft_strchr("|&>< ", input[i]))
+	while (input[i] && !ft_strchr("|&>< ()", input[i]))
 		i++;
 	str_condition = malloc(sizeof(char) * (i - iter->i + 1));
 	if (!str_condition)
 		return (NULL);
-	while (input[j] && !ft_strchr("|&>< ", input[j]))
+	while (input[j] && !ft_strchr("|&>< ()", input[j]))
 		str_condition[x++] = input[j++];
 	str_condition[x] = '\0';
 	return (str_condition);

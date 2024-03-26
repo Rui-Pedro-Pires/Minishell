@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe  <jorteixe@student.42porto.>      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:30:17 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/02/16 14:30:17 by jorteixe         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:40:04 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
 void	add_env(t_envs *head, char *str);
+static int	print_export_list(t_envs *head);
 
 int	ft_export(t_pipes *node, char **str_array)
 {
@@ -23,16 +24,11 @@ int	ft_export(t_pipes *node, char **str_array)
 	current = node->init.envs;
 	current_sorted = bubble_sort(node->init.sorted_envs);
 	if (str_array[1] == NULL)
-		return (ft_env(current_sorted));
+		return (print_export_list(current_sorted));
 	str = str_array[1];
-	if (str_array[2] != NULL)
-	{
-		printf("\nruiolive&&jorteixe@minishell: export: too many arguments\n");
-		return (EXIT_FAILURE);
-	}
 	if (!export_is_valid(str))
 	{
-		printf("Wrong Input: %s\n", str);
+		printf("minishell: export: %s: not a  valid identifier\n", str);
 		return (EXIT_FAILURE);
 	}
 	add_env(current, str);
@@ -45,18 +41,11 @@ bool	export_is_valid(char *str)
 	int	i;
 
 	i = 0;
-	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '/')
+	while (ft_isalnum(str[i]))
 		i++;
-	if (str[i] == '=' && (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i
-			+ 1] == '/'))
-		i++;
-	else
-	{
-		return (false);
-	}
-	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '/')
-		i++;
-	if (str[i] != '\0')
+	if (!str[i] || str[i] == '=')
+		return (true);
+	if (!ft_isalnum(str[i]))
 		return (false);
 	return (true);
 }
@@ -97,4 +86,21 @@ void	add_env(t_envs *head, char *str)
 		return ;
 	}
 	current->next = new_node;
+}
+
+static int	print_export_list(t_envs *head)
+{
+	t_envs	*current;
+
+	current = head;
+	while (current != NULL)
+	{
+		printf("declare -x %s", current->name);
+		if (current->value)
+			printf("=%s\n", current->value);
+		else
+			printf("\n");
+		current = current->next;
+	}
+	return(EXIT_SUCCESS);
 }

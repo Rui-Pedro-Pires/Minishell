@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:35:59 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/25 17:28:09 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:34:06 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	executens_ve(t_pipes *node)
 	if (node->in_out.input_type == HEARDOC)
 	{
 		return (read_from_heardoc(node, \
-			node->init.heardocs[node->init.heardoc_index]));
+			node->init.heardocs[*node->init.heardoc_index]));
 	}
 	else if (node->in_out.input_type == REDIRECT_INPUT)
 	{

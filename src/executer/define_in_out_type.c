@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:49:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/25 18:42:10 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:32:41 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	heardoc(t_pipes *node, int i)
 	if (!ft_strncmp(node->input_string + i, "<<", 2))
 	{
 		node->in_out.input_type = HEARDOC;
-		node->init.heardoc_index++;
+		(*node->init.heardoc_index)++;
 		rechange_str(node, i, 2);
 	}
 	return (0);

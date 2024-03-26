@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/25 18:30:08 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:34:27 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **env)
 	t_counter	count_struc;
 	t_pipes		*head;
 	t_init		init;
+	int			heardoc_index;
 
 	head = NULL;
 	init.envs = create_env_list(env);
@@ -30,7 +31,8 @@ int	main(int argc, char **argv, char **env)
 		count_struc.i = 0;
 		count_struc.counter = 0;
 		init.heardocs = NULL;
-		init.heardoc_index = -1;
+		heardoc_index = -1;
+		init.heardoc_index = &heardoc_index;
 		input = line_read(&init.heardocs, &count_struc, init);
 		if (input && *input)
 			add_history(input);

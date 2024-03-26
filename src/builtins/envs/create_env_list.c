@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_env_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe  <jorteixe@student.42porto.>      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 09:47:46 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/02/16 09:47:46 by jorteixe         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:42:40 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-// int	main(int argc, char const **argv, char **env)
-// {
-
-//     (void)argv;
-//     (void)argc;
-//
-//     ft_env(head);
-// 	free_env_list(head);
-//     return (0);
-// }
 
 t_envs	*create_env_node(char *env_var)
 {
@@ -36,6 +25,8 @@ t_envs	*create_env_node(char *env_var)
 	node->name = ft_strdup(temp_array[0]);
 	if (temp_array[1])
 		node->value = ft_strdup(temp_array[1]);
+	else if (!ft_strchr(env_var, '='))
+		node->value = ft_strdup("");
 	else
 		node->value = NULL;
 	free_split_array(temp_array);

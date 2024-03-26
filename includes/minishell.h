@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/25 18:03:54 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:46:49 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct s_init
 	t_envs			*envs;
 	t_envs			*sorted_envs;
 	char			**heardocs;
-	int				heardoc_index;
+	int				*heardoc_index;
 	int				status;
 	int				return_value;
 }					t_init;
@@ -121,7 +121,6 @@ typedef struct s_pipes
 	struct s_pipes	*next;
 	struct s_pipes	*down;
 	char			*input_string;
-	char			*input_base;
 	t_in_out		in_out;
 	t_init			init;
 	t_pipe_memmory	pipe_memmory;
@@ -426,6 +425,6 @@ void				check_for_execution_to_file(t_pipes *node, int *status);
 int					**alloc_memory_for_fd(int size);
 void				free_pipe_mem(t_pipe_memmory pipe_mem);
 
-char				**ft_split_ignore_quotes(char *s, char c);
+char				**ft_split_ignore_quotes(char *s, char *c);
 
 #endif
