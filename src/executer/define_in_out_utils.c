@@ -6,16 +6,17 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:17:32 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/25 17:28:52 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:42:37 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*search_file_name(char *str)
+char	*search_file_name(t_pipes *node, char *str)
 {
 	int		i;
 	int		x;
+	int		j;
 	char	*file_name;
 
 	i = 1;
@@ -23,16 +24,18 @@ char	*search_file_name(char *str)
 		i++;
 	x = i;
 	while (str[x] && !ft_strchr("<> ", str[i]))
-		x++;
+		x += all_quotes_ignore(str + x);
 	file_name = malloc(sizeof(char) * x - i + 1);
-	x = 0;
-	while (str[i] && !ft_strchr("<> ", str[i]))
+	j = 0;
+	x = x - i;
+	while (j < x)
 	{
-		file_name[x] = str[i];
-		x++;
+		file_name[j] = str[i];
+		j++;
 		i++;
 	}
 	file_name[x] = '\0';
+	file_name = check_quotes_n_expand(node->init.envs, file_name);
 	return (file_name);
 }
 
@@ -46,7 +49,7 @@ int	redirect_output_case(t_pipes *node, int i)
 		free(node->in_out.output_file);
 		node->in_out.output_file = NULL;
 	}
-	node->in_out.output_file = search_file_name(node->input_string + i);
+	node->in_out.output_file = search_file_name(node, node->input_string + i);
 	fd = open(node->in_out.output_file, O_CREAT, 0660);
 	if (fd < 0)
 		return (-1);
@@ -69,7 +72,7 @@ int	append_output_case(t_pipes *node, int i)
 		free(node->in_out.output_file);
 		node->in_out.output_file = NULL;
 	}
-	node->in_out.output_file = search_file_name(node->input_string + i + 1);
+	node->in_out.output_file = search_file_name(node, node->input_string + i + 1);
 	fd = open(node->in_out.output_file, O_CREAT | O_RDWR, 0660);
 	if (fd < 0)
 		return (-1);
@@ -120,7 +123,7 @@ void	rechange_str(t_pipes *node, int i, int to_skip)
 	while (str[x] && str[x] == ' ')
 		x++;
 	while (str[x] && !ft_strchr(" <>", str[x]))
-		x++;
+		x += all_quotes_ignore(str + x);
 	new_str_size = ft_strlen(str) - (x - i) + 1;
 	new_str = ft_calloc(sizeof(char), new_str_size);
 	while (++itr < i)

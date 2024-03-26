@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 14:12:48 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:43:15 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,7 +393,7 @@ int					redirect_output_case(t_pipes *node, int i);
 int					redirect_input_case(t_pipes *node);
 int					append_output_case(t_pipes *node, int i);
 void				rechange_str(t_pipes *node, int i, int to_skip);
-char				*search_file_name(char *str);
+char				*search_file_name(t_pipes *node, char *str);
 int					heardoc(t_pipes *node, int i);
 int					redirect_input(t_pipes *node, int i);
 int					redirect_output(t_pipes *node, int i);
@@ -418,13 +418,14 @@ int					read_pipe_heardoc(t_pipes *head, int fd_in[2]);
 /****************************************/
 
 int					list_size(t_pipes *head);
-void				close_stdin_pipe_case(t_pipes *node, int *stdin, int i);
-void				change_stdin_pipe_case(t_pipes *node, int *stdout, int *stdin, int i);
+void				close_stdin_pipe_case(t_pipes *node, int i);
+void				change_stdin_pipe_case(t_pipes *node, int i);
 void				change_stdout_pipe_case(t_pipes *node, int *stdout, int i);
 void				check_for_execution_to_file(t_pipes *node, int *status);
 int					**alloc_memory_for_fd(int size);
 void				free_pipe_mem(t_pipe_memmory pipe_mem);
 
 char				**ft_split_ignore_quotes(char *s, char *c);
+int  				all_quotes_ignore(char *s);
 
 #endif

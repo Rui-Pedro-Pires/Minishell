@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/26 14:12:22 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:25:37 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,16 +106,17 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status, t_pipe_memmory 
 	while (head)
 	{
 		head->pipe_memmory = pipe_mem;
-		change_stdin_pipe_case(head, &stdout, &stdin, i);
 		change_stdout_pipe_case(head, &stdout, i);
+		change_stdin_pipe_case(head, i);
 		init_data(head);
 		pipe_execute(head, i);
-		close_stdin_pipe_case(head, &stdin, i);
+		close_stdin_pipe_case(head, i);
 		free_args(head->data.command_n_args);
 		head = head->next;
 		i++;
 	}
-	
+	dup2(stdin, STDIN_FILENO);
+	close(stdin);
 	i = 0;
 	while (i < size)
 	{

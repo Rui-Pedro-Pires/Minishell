@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:49:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 10:32:41 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:43:02 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	redirect_input(t_pipes *node, int i)
 			free(node->in_out.input_file);
 			node->in_out.input_file = NULL;
 		}
-		node->in_out.input_file = search_file_name(node->input_string + i);
+		node->in_out.input_file = search_file_name(node, node->input_string + i);
 		rechange_str(node, i, 1);
 		fd = open(node->in_out.input_file, O_RDONLY);
 		if (fd < 0)

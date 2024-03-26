@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:16:44 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 11:57:35 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:33:01 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	word_counter(char *s, char *c);
 static int	string_size(char *s, char *c);
-static int  all_quotes_ignore(char *s);
 
 char	**ft_split_ignore_quotes(char *s, char *c)
 {
@@ -74,7 +73,7 @@ static int	string_size(char *s, char *c)
 	return (i);
 }
 
-static int  all_quotes_ignore(char *s)
+int  all_quotes_ignore(char *s)
 {
     if (*s == '\"')
         return (quote_ignore(s, D_QUOTES));
