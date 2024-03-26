@@ -28,7 +28,7 @@ int	ft_export(t_pipes *node, char **str_array)
 	str = str_array[1];
 	if (!export_is_valid(str))
 	{
-		printf("minishell: export: %s: not a  valid identifier\n", str);
+		print_error(" not a  valid identifier");
 		return (EXIT_FAILURE);
 	}
 	add_env(current, str);
