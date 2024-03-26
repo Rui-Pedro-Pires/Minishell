@@ -362,7 +362,7 @@ int					ft_execve(t_pipes *node);
 int					executens_ve(t_pipes *node);
 char				**envlist_to_array(t_envs *envs);
 int					listlen(t_envs *envs);
-void				ft_exit(t_pipes *head, int exit_type);
+void				ft_exit(t_pipes *head, int exit_type, char **args_array);
 int					recursive_down(t_pipes *head);
 int					list_iterator_executer(t_pipes *head);
 void				command_decider(t_pipes *node);

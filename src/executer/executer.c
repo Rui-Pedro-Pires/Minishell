@@ -88,7 +88,7 @@ int	execute_command(t_pipes *node)
 	if (cmd == ENV)
 		return (ft_env(node->init.envs));
 	if (cmd == EXIT)
-		ft_exit(node, 1);
+		ft_exit(node, 1, args_array);
 	if (cmd == NOT_BUILTIN)
 		return (ft_execve(node));
 	return (0);
@@ -137,7 +137,7 @@ int	pipe_execute(t_pipes *head, int i)
 		// close(head->pipe_memmory.fd[i][1]);
 		check_for_execution_to_file(head, &status);
 		free_pipe_mem(head->pipe_memmory);
-		ft_exit(head, status);
+		ft_exit(head, status, NULL);
 	}
 	return (status);
 }
@@ -156,7 +156,7 @@ int	single_command(t_pipes *head)
 		if (pid == 0)
 		{
 			check_for_execution_to_file(head, &status);
-			ft_exit(head, status);
+			ft_exit(head, status, NULL);
 		}
 		waitpid(pid, &status, 0);
 	}
