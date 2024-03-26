@@ -157,6 +157,7 @@ typedef struct s_counter
 void				error_handler(int error_msg, void *param, void **param2);
 void				err_hlr_2(int error_msg, void *param, void **param2);
 char				*string_error(char *input);
+void				print_error(char *str);
 
 typedef enum e_error
 {
@@ -362,7 +363,7 @@ int					ft_execve(t_pipes *node);
 int					executens_ve(t_pipes *node);
 char				**envlist_to_array(t_envs *envs);
 int					listlen(t_envs *envs);
-void				ft_exit(t_pipes *head, int exit_type);
+void				ft_exit(t_pipes *head, int exit_type, char **args_array);
 int					recursive_down(t_pipes *head);
 int					list_iterator_executer(t_pipes *head);
 void				command_decider(t_pipes *node);

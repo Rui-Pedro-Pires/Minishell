@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/26 18:04:51 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:08:20 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	execute_command(t_pipes *node)
 	if (cmd == ENV)
 		return (ft_env(node->init.envs));
 	if (cmd == EXIT)
-		ft_exit(node, 1);
+		ft_exit(node, 1, args_array);
 	if (cmd == NOT_BUILTIN)
 		return (ft_execve(node));
 	return (0);
@@ -130,7 +130,7 @@ int	single_command(t_pipes *head)
 		if (pid == 0)
 		{
 			check_for_execution_to_file(head, &status);
-			ft_exit(head, status);
+			ft_exit(head, status, NULL);
 		}
 		waitpid(pid, &status, 0);
 	}

@@ -26,7 +26,7 @@ int	ft_cd(t_pipes *node, char **str)
 			return (EXIT_SUCCESS);
 	if (str[2] != NULL)
 	{
-		printf("\nruiolive&&jorteixe@minishell: cd: too many arguments\n");
+		print_error(" too many arguments");
 		return (EXIT_FAILURE);
 	}
 	else
@@ -48,9 +48,7 @@ int	ft_cd(t_pipes *node, char **str)
 void	err_num_chdir(char *str)
 {
 	if (errno == ENOENT)
-		printf("\nruiolive&&jorteixe@minishell:"
-				"cd: %s: No such file or directory\n",
-				str);
+		print_error(" No such file or directory");
 	else if (errno == ENOTDIR)
 		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n",
 			str);
