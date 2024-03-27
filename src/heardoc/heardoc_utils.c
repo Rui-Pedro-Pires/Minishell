@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:22:04 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 10:37:17 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:48:56 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ char	*search_heardoc_condition(char *input, t_counter *iter)
 	if (ft_strchr("|<>()\\;", input[iter->i]))
 		return (NULL);
 	while (input[i] && !ft_strchr("|&>< ()", input[i]))
-		i++;
+		i += all_quotes_ignore(input + i);
 	str_condition = malloc(sizeof(char) * (i - iter->i + 1));
 	if (!str_condition)
 		return (NULL);
-	while (input[j] && !ft_strchr("|&>< ()", input[j]))
+	while (j < i)
 		str_condition[x++] = input[j++];
 	str_condition[x] = '\0';
 	return (str_condition);

@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:35:59 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/27 11:19:58 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:49:39 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,3 +53,8 @@ int	normal_executer(t_pipes *node, char **env_array, int status)
 	}
 	return (0);
 }
+
+// void	error_message_execve(t_pipes *node)
+// {
+	
+// }

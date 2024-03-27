@@ -6,11 +6,13 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/27 14:11:03 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:29:04 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	global_return_value;
 
 int	main(int argc, char **argv, char **env)
 {
@@ -48,7 +50,6 @@ int	main(int argc, char **argv, char **env)
 			creat_list(&head, input, init, 0);
 			global_return_value = list_iterator_executer(head);
 		}
-		printf("%d", (global_return_value / 256));
 		free_input(&input);
 		free_heardoc(head);
 		free_list(&head);
