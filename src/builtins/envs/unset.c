@@ -18,22 +18,27 @@ void	ft_unset(t_envs **head, t_envs **head_sorted, char **str_array)
 {
 	t_envs	*prev;
 	t_envs	*current;
+	int		i;
 
-	handle_unset_errors(str_array);
-	prev = find_prev_node(*head, str_array[1]);
-	if (prev)
-		current = prev->next;
-	else
-		current = *head;
-	if (!current || strcmp(current->name, str_array[1]))
-		return ;
-	remove_node(head, prev, current);
-	prev = find_prev_node(*head_sorted, str_array[1]);
-	if (prev)
-		current = prev->next;
-	else
-		current = *head_sorted;
-	remove_node(head_sorted, prev, current);
+	if (handle_unset_errors(str_array) == EXIT_FAILURE)
+		return;
+	i = 1;
+	while (str_array[i] != NULL)
+	{
+		prev = find_prev_node(*head, str_array[i]);
+		if (prev)
+			current = prev->next;
+		else
+			current = *head;
+		remove_node(head, prev, current);
+		prev = find_prev_node(*head_sorted, str_array[i]);
+		if (prev)
+			current = prev->next;
+		else
+			current = *head_sorted;
+		remove_node(head_sorted, prev, current);
+		i++;
+	}
 }
 
 t_envs	*find_prev_node(t_envs *head, char *str)
@@ -53,6 +58,8 @@ t_envs	*find_prev_node(t_envs *head, char *str)
 
 void	remove_node(t_envs **head, t_envs *prev, t_envs *current)
 {
+	if (current == NULL)
+        return;
 	if (prev == NULL)
 		*head = current->next;
 	else
@@ -62,6 +69,8 @@ void	remove_node(t_envs **head, t_envs *prev, t_envs *current)
 
 void	free_nodes(t_envs *node)
 {
+	if (node == NULL)
+        return;
 	free(node->name);
 	free(node->value);
 	free(node->whole_str);
@@ -73,11 +82,6 @@ int	handle_unset_errors(char **str_array)
 	if (str_array[1] == NULL)
 	{
 		printf("ruiolive&&jorteixe@minishell: unset: not enough arguments\n\n");
-		return (EXIT_FAILURE);
-	}
-	if (str_array[2] != NULL)
-	{
-		printf("\nruiolive&&jorteixe@minishell: unset: too many arguments\n");
 		return (EXIT_FAILURE);
 	}
 	if (ft_strcmp(str_array[1], "HOME"))
