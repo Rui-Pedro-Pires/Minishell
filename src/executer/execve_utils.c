@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:26:59 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 10:27:28 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:19:19 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	create_path_to_execve(t_pipes *node)
 	}
 	free(temp_str);
 	free_args(paths_array);
-	return (executens_ve(node));
+	return (1);
 }
 
 char	**envlist_to_array(t_envs *envs)

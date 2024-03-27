@@ -6,19 +6,11 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:35:59 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/26 10:34:06 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:19:58 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	ft_execve(t_pipes *node)
-{
-	if (ft_strchr(node->data.command_n_args[0], '/'))
-		return (executens_ve(node));
-	else
-		return (create_path_to_execve(node));
-}
 
 int	executens_ve(t_pipes *node)
 {
@@ -27,6 +19,8 @@ int	executens_ve(t_pipes *node)
 
 	env_array = NULL;
 	status = 0;
+	if (!ft_strchr(node->data.command_n_args[0], '/'))
+		create_path_to_execve(node);
 	if (node->in_out.input_type == HEARDOC)
 	{
 		return (read_from_heardoc(node, \
@@ -51,11 +45,11 @@ int	normal_executer(t_pipes *node, char **env_array, int status)
 	if (status == -1)
 	{
 		if (errno == ENOENT)
-			perror("minishell");
+			perror(node->data.command_n_args[0]);
 		else
 			perror("execve");
 		free_args(env_array);
-		return(status);
+		return(127);
 	}
 	return (0);
 }

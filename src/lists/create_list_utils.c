@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:43:48 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 10:28:12 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:22:39 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_sign_type sign_type, t_init init)
 	next_node->skip = false;
 	next_node->next = NULL;
 	next_node->down = down_node;
-	next_node->init.return_value = 0;
 }
 
 void	define_pipe_type(char *input, t_sign_type *sign_type, int *i)

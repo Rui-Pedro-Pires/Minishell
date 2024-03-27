@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/26 18:08:43 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:12:08 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	recursive_down(t_pipes *head)
 	int	status;
 
 	if (!head)
-		return (2);
+		return (-1);
 	if (check_for_dbpipe_dbamper(head->input_string))
 		return (recursive_executer(head->down, 1));
 	status = recursive_down(head->down);
-	if (status != 2)
+	if (status != -1)
 		return (status);
 	head->init.return_value = list_iterator_executer(head);
 	return (head->init.return_value);
@@ -65,30 +65,26 @@ int	list_iterator_executer(t_pipes *head)
 	return (status);
 }
 
-int	execute_command(t_pipes *node)
+int	single_command(t_pipes *head)
 {
-	char	**args_array;
-	int		cmd;
+	int	status;
+	int	pid;
 
-	args_array = node->data.command_n_args;
-	cmd = node->data.command_type;
-	if (cmd == ECHO)
-		ft_echo(args_array);
-	if (cmd == CD)
-		return (ft_cd(node, args_array));
-	if (cmd == PWD)
-		ft_pwd();
-	if (cmd == EXPORT)
-		return (ft_export(node, args_array));
-	if (cmd == UNSET)
-		return (ft_unset(&node->init.envs, &node->init.sorted_envs, args_array), 0);
-	if (cmd == ENV)
-		return (ft_env(node->init.envs));
-	if (cmd == EXIT)
-		ft_exit(node, 1, args_array);
-	if (cmd == NOT_BUILTIN)
-		return (ft_execve(node));
-	return (0);
+	status = 0;
+	init_data(head);
+	if (head->data.command_type == NOT_BUILTIN)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			check_for_execution_to_file(head, &status);
+			ft_exit(head, status, NULL);
+		}
+		wait(&status);
+	}
+	else
+		check_for_execution_to_file(head, &status);
+	return (status);
 }
 
 void	loop_list_and_execute(t_pipes *head, int size, int *status)
@@ -116,27 +112,6 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status)
 	}
 }
 
-int	single_command(t_pipes *head)
-{
-	int	status;
-	int	pid;
-
-	init_data(head);
-	if (head->data.command_type != NOT_BUILTIN)
-		check_for_execution_to_file(head, &status);
-	else
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			check_for_execution_to_file(head, &status);
-			ft_exit(head, status, NULL);
-		}
-		waitpid(pid, &status, 0);
-	}
-	return (status);
-}
-
 void	child_process(t_pipes *head, int *fd, int i, int stdin)
 {
 	int	pid;
@@ -159,4 +134,30 @@ void	child_process(t_pipes *head, int *fd, int i, int stdin)
 	dup2(fd[0], stdin);
 	close(fd[0]);
 	close(fd[1]);
+}
+
+int	execute_command(t_pipes *node)
+{
+	char	**args_array;
+	int		cmd;
+
+	args_array = node->data.command_n_args;
+	cmd = node->data.command_type;
+	if (cmd == ECHO)
+		ft_echo(args_array);
+	if (cmd == CD)
+		return (ft_cd(node, args_array));
+	if (cmd == PWD)
+		ft_pwd();
+	if (cmd == EXPORT)
+		return (ft_export(node, args_array));
+	if (cmd == UNSET)
+		return (ft_unset(&node->init.envs, &node->init.sorted_envs, args_array), 0);
+	if (cmd == ENV)
+		return (ft_env(node->init.envs));
+	if (cmd == EXIT)
+		ft_exit(node, 1, args_array);
+	if (cmd == NOT_BUILTIN)
+		return (executens_ve(node));
+	return (0);
 }

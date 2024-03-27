@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 16:44:07 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:33:41 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 
 # define D_QUOTES 34
 # define S_QUOTES 39
+
+extern int	global_return_value;
 
 typedef enum e_command_type
 {
@@ -358,9 +360,8 @@ t_envs				*bubble_sort(t_envs *head);
 /****************************/
 
 int					recursive_executer(t_pipes *head, int recursive);
-int					execute_command(t_pipes *node);
-int					ft_execve(t_pipes *node);
-int					executens_ve(t_pipes *node);
+int		execute_command(t_pipes *node);
+int		executens_ve(t_pipes *node);
 char				**envlist_to_array(t_envs *envs);
 int					listlen(t_envs *envs);
 void				ft_exit(t_pipes *head, int exit_type, char **args_array);
@@ -369,10 +370,9 @@ int					list_iterator_executer(t_pipes *head);
 void				command_decider(t_pipes *node);
 void				command_decider2(t_pipes *node);
 int					normal_executer(t_pipes *node, char **env_array,
-						int status);
+					int status);
 void				init_data(t_pipes *node);
-int					execute_to_stdout(t_pipes *head, int status);
-int					execute_to_file(t_pipes *head, int status);
+unsigned int		execute_to_file(t_pipes *head, int status);
 int					create_path_to_execve(t_pipes *node);
 
 /****************************/
@@ -421,11 +421,7 @@ int					read_pipe_heardoc(t_pipes *head, int fd_in[2]);
 /****************************************/
 
 int					list_size(t_pipes *head);
-void				close_stdin_pipe_case(t_pipes *node, int i);
-void				change_stdin_pipe_case(t_pipes *node, int i);
-void				change_stdout_pipe_case(t_pipes *node, int *stdout, int i);
 void				check_for_execution_to_file(t_pipes *node, int *status);
-
 char				**ft_split_ignore_quotes(char *s, char *c);
 int					all_quotes_ignore(char *s);
 

@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 10:34:27 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:11:03 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ int	main(int argc, char **argv, char **env)
 		if (check_for_dbpipe_dbamper(input))
 		{
 			creat_list(&head, input, init, 1);
-			head->init.return_value = recursive_executer(head, 0);
+			global_return_value = recursive_executer(head, 0);
 		}
 		else
 		{
 			creat_list(&head, input, init, 0);
-			head->init.return_value = list_iterator_executer(head);
+			global_return_value = list_iterator_executer(head);
 		}
+		printf("%d", (global_return_value / 256));
 		free_input(&input);
 		free_heardoc(head);
 		free_list(&head);

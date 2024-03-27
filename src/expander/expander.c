@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:30:38 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/26 15:40:33 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:26:26 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,9 @@ char	*expand_questionmark(t_pipes *piper, char *before, char *after)
 	char *new_str;
 	int full_string_count;
 	char *var_value;
+	(void) piper;
 
-	var_value = ft_itoa(piper->init.return_value);
+	var_value = ft_itoa(global_return_value / 256);
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)
 		+ ft_strlen(after) + 2;
 	new_str = ft_calloc(full_string_count, sizeof(char));

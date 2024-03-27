@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:38:09 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/26 10:26:22 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:15:50 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ void print_error(char *str);
 
 void	ft_exit(t_pipes *head, int exit_type, char **args_array)
 {
-	if (args_array[2] != NULL)
+	
+	if (args_array && args_array[2] != NULL)
 	{
 		exit_type = 1;
 		print_error(" too many arguments");
 	}
-	else if (args_array[1] != NULL)
+	else if (args_array && args_array[1] != NULL)
 	{
 		int number = atoi(args_array[1]);
 		if (!str_is_number(args_array[1]))
