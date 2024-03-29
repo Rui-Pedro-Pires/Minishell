@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:35:59 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/28 17:18:07 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/29 11:50:35 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,7 @@ int	executens_ve(t_pipes *node)
 	if (node->in_out.input_type == HEARDOC)
 		write_pipe_heardoc(node);
 	else if (node->in_out.input_type == REDIRECT_INPUT)
-	{
-		if (redirect_input_case(node))
-			return (1);
 		write_pipe_stdin(node);
-	}
 	env_array = envlist_to_array(node->init.envs);
 	execve(node->data.command_n_args[0],
 		node->data.command_n_args, env_array);
@@ -63,5 +59,6 @@ int	error_message_execve(t_pipes *node, char **env_array)
 		print_error(": command not found\n");
 		return (127);
 	}
+	printf("%d\n", errno);
 	return (200);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heardoc_checker.c                                  :+:      :+:    :+:   */
+/*   heardoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive  <ruiolive@student.42.fr   >      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:55:58 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/02/06 15:55:58 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:58:58 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ static int	add_to_line(char **new_ln, char *str, \
 char ***h_doc, t_counter *iter)
 {
 	if (!(*new_ln))
-		return (err_hlr_2(ERR_READ, str, NULL), 0);
-	if (!(*(*new_ln)))
 	{
-		free(*new_ln);
-		return (1);
+		(*h_doc)[iter->counter] = add_nl((*h_doc)[iter->counter], "\n");
+		return (err_hlr_2(ERR_READ, str, NULL), 0);
 	}
+	if (!(*(*new_ln)))
+		return (free(*new_ln), 1);
 	if (!ft_strncmp(*new_ln, str, maxlen(ft_strlen(*new_ln), ft_strlen(str))))
 	{
 		free(*new_ln);

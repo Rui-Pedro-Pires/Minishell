@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:43:48 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/27 11:22:39 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:17:57 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_for_dbpipe_dbamper(char *input)
 	{
 		if ((input[i] == '|' && input[i + 1] == '|') || input[i] == '&')
 			return (1);
-		i++;
+		i += all_quotes_ignore(input + i);
 	}
 	return (0);
 }

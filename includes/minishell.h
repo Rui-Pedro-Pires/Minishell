@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/28 17:17:48 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:05:28 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,6 @@ void				single_quotes_add(char **formated, char *input, int *i,
 						int *x);
 void				define_pipe_type(char *input, t_sign_type *sign_type,
 						int *i);
-void				organize_list(t_pipes *node, int status);
 t_pipes				*find_last_node(t_pipes *head);
 int					parenthesis_ignore(char *input);
 void				parenthesis_add(char **formated, char *input, int *i,
@@ -267,7 +266,6 @@ char				*create_str_bet_parent(char *formated);
 /****************************/
 
 void				free_args(char **args);
-void				coador(t_pipes **head);
 void				free_envs(t_envs *envs);
 void				free_list(t_pipes **head);
 void				free_input(char **input);
@@ -360,8 +358,8 @@ t_envs				*bubble_sort(t_envs *head);
 /****************************/
 
 int					recursive_executer(t_pipes *head, int recursive);
-int		execute_command(t_pipes *node);
-int		executens_ve(t_pipes *node);
+int					execute_command(t_pipes *node);
+int					executens_ve(t_pipes *node);
 char				**envlist_to_array(t_envs *envs);
 int					listlen(t_envs *envs);
 void				ft_exit(t_pipes *head, int exit_type, char **args_array);
@@ -369,9 +367,7 @@ int					recursive_down(t_pipes *head);
 int					list_iterator_executer(t_pipes *head);
 void				command_decider(t_pipes *node);
 void				command_decider2(t_pipes *node);
-int					normal_executer(t_pipes *node, char **env_array);
-void				init_data(t_pipes *node);
-unsigned int		execute_to_file(t_pipes *head, int status);
+int					init_data(t_pipes *node);
 int					create_path_to_execve(t_pipes *node);
 
 /****************************/

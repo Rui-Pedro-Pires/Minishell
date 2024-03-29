@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:16:44 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/26 14:33:01 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:18:24 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ char	**ft_split_ignore_quotes(char *s, char *c)
 		return (NULL);
 	while (s[i] != '\0')
 	{
-		while (ft_strchr(c, s[i]) && s[i] != '\0')
+		while (s[i] && ft_strchr(c, s[i]))
 			i += all_quotes_ignore(s + i);
 		if (s[i] != '\0')
 		{
 			str_array[j] = ft_substr(s, i, string_size(s + i, c));
 			j++;
 		}
-		while (!ft_strchr(c, s[i]) && s[i] != '\0')
+		while (s[i] && !ft_strchr(c, s[i]))
 			i += all_quotes_ignore(s + i);
 	}
 	str_array[j] = 0;
@@ -53,11 +53,11 @@ static int	word_counter(char *s, char *c)
 	counter = 0;
 	while (s[i] != '\0')
 	{
-		while (ft_strchr(c, s[i]) && s[i] != '\0')
+		while (s[i] && ft_strchr(c, s[i]))
 			i += all_quotes_ignore(s + i);
 		if (s[i] != '\0')
 			counter++;
-		while (!ft_strchr(c, s[i]) && s[i] != '\0')
+		while (s[i] && !ft_strchr(c, s[i]))
 			i += all_quotes_ignore(s + i);
 	}
 	return (counter);
@@ -68,7 +68,7 @@ static int	string_size(char *s, char *c)
 	int	i;
 
 	i = 0;
-	while (!ft_strchr(c, s[i]) && s[i] != '\0')
+	while (s[i] && !ft_strchr(c, s[i]))
 		i += all_quotes_ignore(s + i);
 	return (i);
 }
@@ -76,8 +76,8 @@ static int	string_size(char *s, char *c)
 int  all_quotes_ignore(char *s)
 {
     if (*s == '\"')
-        return (quote_ignore(s, D_QUOTES));
+        return (quote_ignore(s, D_QUOTES) + 1);
 	else if (*s == '\'')
-	    return (quote_ignore(s, S_QUOTES));
+	    return (quote_ignore(s, S_QUOTES) + 1);
     return (1);
 }

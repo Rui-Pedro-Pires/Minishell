@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/27 11:12:08 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/29 13:51:46 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	single_command(t_pipes *head)
 	int	pid;
 
 	status = 0;
-	init_data(head);
+	if (init_data(head) != 0)
+		return (1);
 	if (head->data.command_type == NOT_BUILTIN)
 	{
 		pid = fork();
@@ -97,9 +98,7 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status)
 	stdin = dup(STDIN_FILENO);
 	while (head)
 	{
-		init_data(head);
 		child_process(head, fd, i, stdin);
-		free_args(head->data.command_n_args);
 		head = head->next;
 		i++;
 	}
@@ -128,7 +127,8 @@ void	child_process(t_pipes *head, int *fd, int i, int stdin)
 		close(fd[0]);
 		close(fd[1]);
 		close(stdin);
-		check_for_execution_to_file(head, &status);
+		if (init_data(head) == 0)
+			check_for_execution_to_file(head, &status);
 		ft_exit(head, status, NULL);
 	}
 	dup2(fd[0], stdin);
