@@ -26,6 +26,8 @@ int	main(int argc, char **argv, char **env)
 	init.envs = create_env_list(env);
 	init.sorted_envs = create_env_list(env);
 	init.sorted_envs = bubble_sort(init.sorted_envs);
+	init.home = getenv("HOME");
+	printf("%s", init.home);
 	(void) argv;
 	(void) argc;
 	while (1)

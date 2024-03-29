@@ -21,12 +21,19 @@ int	ft_cd(t_pipes *node, char **str)
 	char	*new_dir;
 
 	update_old_pwd(node);
-	if (str[1] == NULL)
+	if (str[1] == NULL || str[1][0] == '~')
+	{
 		if (cd_home(node, str) == EXIT_SUCCESS)
 			return (EXIT_SUCCESS);
+		else
+		{
+			print_error("minishell: cd: HOME not set\n");
+			return (EXIT_FAILURE);
+		}
+	}
 	if (str[2] != NULL)
 	{
-		print_error(" too many arguments");
+		print_error("bash: cd: too many arguments\n");
 		return (EXIT_FAILURE);
 	}
 	else
@@ -48,7 +55,11 @@ int	ft_cd(t_pipes *node, char **str)
 void	err_num_chdir(char *str)
 {
 	if (errno == ENOENT)
-		print_error(" No such file or directory");
+	{
+		print_error("cd: no such file or directory: ");
+		print_error(str);
+		print_error("\n");
+	}
 	else if (errno == ENOTDIR)
 		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n",
 			str);
@@ -110,7 +121,7 @@ int	cd_home(t_pipes *node, char **str)
 		new_dir = ft_getenv(current, "HOME");
 	}
 	else if (strcmp(str[1], "") == 0 || strcmp(str[1], "~") == 0)
-		new_dir = ft_getenv(current, "HOME");
+		new_dir = node->init.home;
 	if (new_dir != NULL)
 	{
 		chdir(new_dir);

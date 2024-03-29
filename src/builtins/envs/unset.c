@@ -84,10 +84,5 @@ int	handle_unset_errors(char **str_array)
 		printf("ruiolive&&jorteixe@minishell: unset: not enough arguments\n\n");
 		return (EXIT_FAILURE);
 	}
-	if (ft_strcmp(str_array[1], "HOME"))
-	{
-		printf("Can't remove \"HOME\" from env variables.\n");
-		return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }

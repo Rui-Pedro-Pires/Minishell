@@ -14,6 +14,7 @@
 
 char	*handle_questionmark(t_pipes *piper, char *str, int j);
 char	*expand_questionmark(t_pipes *piper, char *before, char *after);
+char	*expand_tilde(t_pipes *piper, char *before, char *after);
 char	*check_quotes_n_expand(t_pipes *piper, char *str)
 {
 	int		j;
@@ -73,7 +74,6 @@ char	*handle_til(t_pipes *piper, char *str, int j)
 {
 	char	*bef_str;
 	char	*aft_str;
-	char	*var_name;
 	size_t	i;
 
 	bef_str = ft_strdup("");
@@ -82,9 +82,8 @@ char	*handle_til(t_pipes *piper, char *str, int j)
 		aft_str = ft_strdup(str + i);
 	else
 		aft_str = ft_strdup("");
-	var_name = ft_strdup("HOME");
 	free(str);
-	str = expand(piper, bef_str, var_name, aft_str);
+	str = expand_tilde(piper, bef_str, aft_str);
 	return (str);
 }
 
@@ -142,6 +141,30 @@ char	*expand_questionmark(t_pipes *piper, char *before, char *after)
 	(void) piper;
 
 	var_value = ft_itoa(global_return_value / 256);
+	full_string_count = ft_strlen(before) + ft_strlen(var_value)
+		+ ft_strlen(after) + 2;
+	new_str = ft_calloc(full_string_count, sizeof(char));
+	ft_strlcpy(new_str, before, full_string_count);
+	if (*var_value)
+		ft_strlcat(new_str, var_value, full_string_count);
+	if (*after)
+		ft_strlcat(new_str, after, full_string_count);
+	free(before);
+	before = NULL;
+	free(after);
+	after = NULL;
+	free(var_value);
+	return (new_str);
+}
+
+char	*expand_tilde(t_pipes *piper, char *before, char *after)
+{
+	char *new_str;
+	int full_string_count;
+	char *var_value;
+	(void) piper;
+
+	var_value = ft_strdup(piper->init.home);
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)
 		+ ft_strlen(after) + 2;
 	new_str = ft_calloc(full_string_count, sizeof(char));

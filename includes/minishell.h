@@ -29,7 +29,7 @@
 # define D_QUOTES 34
 # define S_QUOTES 39
 
-extern int	global_return_value;
+extern int			global_return_value;
 
 typedef enum e_command_type
 {
@@ -93,6 +93,7 @@ typedef struct s_init
 	char			**heardocs;
 	int				*heardoc_index;
 	int				status;
+	char			*home;
 	int				return_value;
 }					t_init;
 

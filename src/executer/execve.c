@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:35:59 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/29 11:50:35 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:23:41 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,19 @@ char *create_error_str(t_pipes *node)
 int	error_message_execve(t_pipes *node, char **env_array)
 {
 	free(env_array);
-	node->data.command_n_args[0] = create_error_str(node);
 	if (errno == ENOENT)
 	{
+		node->data.command_n_args[0] = create_error_str(node);
 		print_error(node->data.command_n_args[0]);
 		print_error(": command not found\n");
 		return (127);
 	}
-	printf("%d\n", errno);
-	return (200);
+	if (errno == EACCES)
+	{
+		print_error("minishell: ");
+		print_error(node->data.command_n_args[0]);
+		print_error(": Is a directory\n");
+		return (126);
+	}
+	return (127);
 }
