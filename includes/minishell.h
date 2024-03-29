@@ -83,6 +83,7 @@ typedef struct s_envs
 	char			*whole_str;
 	char			*name;
 	char			*value;
+	bool			has_equal;
 	struct s_envs	*next;
 }					t_envs;
 
