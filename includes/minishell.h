@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/27 11:33:41 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:17:48 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,8 +369,7 @@ int					recursive_down(t_pipes *head);
 int					list_iterator_executer(t_pipes *head);
 void				command_decider(t_pipes *node);
 void				command_decider2(t_pipes *node);
-int					normal_executer(t_pipes *node, char **env_array,
-					int status);
+int					normal_executer(t_pipes *node, char **env_array);
 void				init_data(t_pipes *node);
 unsigned int		execute_to_file(t_pipes *head, int status);
 int					create_path_to_execve(t_pipes *node);
@@ -407,14 +406,8 @@ int					append_output(t_pipes *node, int i);
 /*			READ FROM INPUT				*/
 /****************************************/
 
-int					read_from_stdin(t_pipes *head, char *to_be_read);
-int					read_from_heardoc(t_pipes *head, char *to_be_read);
-void				write_pipe_stdin(t_pipes *head, int fd_in[2],
-						char *to_be_read);
-void				write_pipe_heardoc(t_pipes *head, int fd_in[2],
-						char *to_be_read);
-int					read_pipe_stdin(t_pipes *head, int fd_in[2]);
-int					read_pipe_heardoc(t_pipes *head, int fd_in[2]);
+void				write_pipe_stdin(t_pipes *head);
+void				write_pipe_heardoc(t_pipes *head);
 
 /****************************************/
 /*			PIPE INPUT OUTPUT			*/

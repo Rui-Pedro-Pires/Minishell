@@ -70,7 +70,6 @@ SOURCES := main.c \
 			executer/define_in_out.c\
 			executer/define_in_out_utils.c\
 			executer/define_in_out_type.c\
-			executer/read_stdin_heardoc.c\
 			executer/read_stdin_heardoc_utils.c\
 			executer/stdin_out_pipe_case.c\
 			executer/split_ignore_quotes.c\
