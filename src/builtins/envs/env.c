@@ -19,8 +19,10 @@ int	ft_env(t_envs *head) //#TODO Return EXIT_FAILURE or EXIT_SUCCESS
 	current = head;
 	while (current != NULL)
 	{
-		if (current->value)
+		if (current->value && current->has_equal)
 			printf("%s=%s\n", current->name, current->value);
+		if (!current->value && current->has_equal)
+			printf("%s= \n", current->name);
 		current = current->next;
 	}
 	return(EXIT_SUCCESS);
