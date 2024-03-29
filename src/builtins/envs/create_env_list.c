@@ -21,6 +21,10 @@ t_envs	*create_env_node(char *env_var)
 	if (!node)
 		return (NULL);
 	node->whole_str = ft_strdup(env_var);
+	if(ft_strchr(node->whole_str, '='))
+		node->has_equal = true;
+	else
+		node->has_equal = false;
 	temp_array = ft_split(env_var, '=');
 	node->name = ft_strdup(temp_array[0]);
 	if (temp_array[1])
