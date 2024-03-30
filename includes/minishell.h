@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/29 12:05:28 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/30 22:43:05 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ typedef enum e_error
 /****************************/
 
 int					parse_input(char *input, t_counter *count_struct,
-						char ***heardoc_read);
+						t_init *init);
 int					check_begin_case_parser(char *input, int *i);
 int					parser(char *input, int *i, t_counter *count_struct);
 int					signs_parser(char *input, int *i);
@@ -276,21 +276,20 @@ void				free_heardoc(t_pipes *head);
 /*			READ LINE		*/
 /****************************/
 
-char				*line_read(char ***heardoc_read, t_counter *counter_struc,
-						t_init init);
+char				*line_read(t_init *init, t_counter *counter_struc);
 int					unfinished_command_line(char *input);
 char				*str_join_with_space(char *s1, char *s2);
 char				*str_join_with_newline(char *s1, char *s2);
 char				*add_nl(char *s1, char *s2);
 char				*creat_cwd(void);
 char				*keep_reading(char *input_rec, t_counter *c_struc,
-						char ***heardoc_read);
+						t_init *init);
 
 /****************************/
 /*			HEARDOC			*/
 /****************************/
 
-void				heardoc_check(char ***heardoc_read, char *input,
+void				heardoc_check(t_init *init, char *input,
 						t_counter *count_struc, int i);
 char				*search_heardoc_condition(char *input, t_counter *iter);
 int					quotes_ignore(char *input);

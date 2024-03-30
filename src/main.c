@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/29 11:55:07 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/30 22:42:29 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int argc, char **argv, char **env)
 	init.sorted_envs = create_env_list(env);
 	init.sorted_envs = bubble_sort(init.sorted_envs);
 	init.home = getenv("HOME");
-	printf("%s", init.home);
 	(void) argv;
 	(void) argc;
 	while (1)
@@ -37,7 +36,7 @@ int	main(int argc, char **argv, char **env)
 		init.heardocs = NULL;
 		heardoc_index = -1;
 		init.heardoc_index = &heardoc_index;
-		input = line_read(&init.heardocs, &count_struc, init);
+		input = line_read(&init, &count_struc);
 		if (input && *input)
 			add_history(input);
 		else

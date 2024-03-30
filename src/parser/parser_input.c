@@ -6,13 +6,13 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:47:33 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/02/01 14:51:26 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/30 22:40:24 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
+int	parse_input(char *input, t_counter *count_struct, t_init *init)
 {
 	int	i;
 
@@ -21,8 +21,8 @@ int	parse_input(char *input, t_counter *count_struct, char ***heardoc_read)
 	if (!check_begin_case_parser(input, &i))
 		return (0);
 	if (!parser(input, &i, count_struct))
-		return (heardoc_check(heardoc_read, input, count_struct, i), 0);
-	heardoc_check(heardoc_read, input, count_struct, i);
+		return (heardoc_check(init, input, count_struct, i), 0);
+	heardoc_check(init, input, count_struct, i);
 	return (1);
 }
 
