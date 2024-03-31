@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:22:04 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/31 11:18:51 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/31 11:24:28 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ char	*expande_heardoc(t_init init, char *str)
 	j = 0;
 	while (str[j])
 	{
-		if (str[0] == '~')
-			str = handle_til(init, str, j);
 		if (str[j] == '$' && str[j + 1] == '?')
 			str = handle_questionmark(init, str, j);
 		if (str[j] == '$' && (ft_isalnum(str[j + 1]) || str[j
