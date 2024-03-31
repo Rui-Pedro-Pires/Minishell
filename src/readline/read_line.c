@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 09:36:46 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/30 23:57:20 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/31 00:00:47 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	child_process_keep_reading(t_init *init, char *input, \
 			t_counter *c_struc, int *fd);
 static void	ft_exit_keep_reading(t_init *init, char *input, \
 			int	exit_type, bool add_to_history);
+
 char	*line_read(t_init *init, t_counter *counter_struc)
 {
 	char	*input;

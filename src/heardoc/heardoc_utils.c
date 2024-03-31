@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:22:04 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/27 14:48:56 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/31 11:18:51 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,45 @@ int	quotes_ignore(char *input)
 	else if (input[i] == S_QUOTES)
 		i += quote_ignore(input + i, S_QUOTES);
 	return (i);
+}
+
+char	*expande_heardoc(t_init init, char *str)
+{
+	int		j;
+
+	j = 0;
+	while (str[j])
+	{
+		if (str[0] == '~')
+			str = handle_til(init, str, j);
+		if (str[j] == '$' && str[j + 1] == '?')
+			str = handle_questionmark(init, str, j);
+		if (str[j] == '$' && (ft_isalnum(str[j + 1]) || str[j
+				+ 1] == '_'))
+			str = handle_dollar_sign_heardoc(init, str, j);
+		j++;
+	}
+	return (str);
+}
+
+char	*handle_dollar_sign_heardoc(t_init init, char *str, int j)
+{
+	char	*bef_str;
+	char	*aft_str;
+	char	*var_name;
+	size_t	i;
+
+	if (str[j] == '$')
+	{
+		bef_str = ft_strndup(str, j);
+		i = count_alphanum(str, j);
+		if (i < ft_strlen(str))
+			aft_str = ft_strdup(str + i);
+		else
+			aft_str = ft_strdup("");
+		var_name = ft_strndup(str + j + 1, i - (j + 1));
+		free(str);
+		str = expand(init, bef_str, var_name, aft_str);
+	}
+	return (str);
 }

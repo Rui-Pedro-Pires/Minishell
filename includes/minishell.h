@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/30 22:43:05 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/31 11:20:33 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,7 +294,9 @@ void				heardoc_check(t_init *init, char *input,
 						t_counter *count_struc, int i);
 char				*search_heardoc_condition(char *input, t_counter *iter);
 int					quotes_ignore(char *input);
+char				*expande_heardoc(t_init init, char *str);
 int					maxlen(size_t new, size_t str_cond);
+char				*handle_dollar_sign_heardoc(t_init init, char *str, int j);
 
 /****************************/
 /*			TESTERZZZ		*/
@@ -316,23 +318,23 @@ int					ft_echo(char **str_array);
 /****************************/
 
 void				err_num_chdir(char *str);
-void				ft_expander(char **str_array);
-char				*check_quotes_n_expand(t_pipes *piper, char *str);
-char				*handle_dollar_sign(t_pipes *piper, char *str, int j,
+char				*check_quotes_n_expand(t_init init, char *str);
+char				*handle_dollar_sign(t_init init, char *str, int j,
 						bool single_open);
-char				*handle_til(t_pipes *piper, char *str, int j);
+char				*handle_til(t_init init, char *str, int j);
 void				update_quote_status(char c, bool *single_open,
 						bool *double_open);
-char				*expand(t_pipes *piper, char *before, char *str,
+char				*expand(t_init init, char *before, char *str,
 						char *after);
 char				*check_chars(const char *str, const char *accept);
-char				*ft_strncpy(char *dest, const char *src, size_t n);
-char				*ft_strcat(char *dest, const char *src);
 void				ft_print_heardoc(char **heardoc_read);
 char				*copy_inside_quotes(char *str);
 size_t				ft_strnlen(const char *str, size_t maxlen);
 char				*ft_strndup(const char *s, size_t n);
 int					count_alphanum(char *str, int j);
+char				*handle_questionmark(t_init init, char *str, int j);
+char				*expand_questionmark(t_init init, char *before, char *after);
+char				*expand_tilde(t_init init, char *before, char *after);
 
 /****************************/
 /*			ENVS			*/

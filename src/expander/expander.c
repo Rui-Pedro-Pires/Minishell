@@ -6,16 +6,16 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:30:38 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/27 11:26:26 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/31 11:09:52 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*handle_questionmark(t_pipes *piper, char *str, int j);
-char	*expand_questionmark(t_pipes *piper, char *before, char *after);
-char	*expand_tilde(t_pipes *piper, char *before, char *after);
-char	*check_quotes_n_expand(t_pipes *piper, char *str)
+char	*handle_questionmark(t_init init, char *str, int j);
+char	*expand_questionmark(t_init init, char *before, char *after);
+char	*expand_tilde(t_init init, char *before, char *after);
+char	*check_quotes_n_expand(t_init init, char *str)
 {
 	int		j;
 	bool	single_open;
@@ -28,12 +28,12 @@ char	*check_quotes_n_expand(t_pipes *piper, char *str)
 	{
 		update_quote_status(str[j], &single_open, &double_open);
 		if (str[0] == '~' && !single_open)
-			str = handle_til(piper, str, j);
+			str = handle_til(init, str, j);
 		if (str[j] == '$' && !single_open && str[j + 1] == '?')
-			str = handle_questionmark(piper, str, j);
+			str = handle_questionmark(init, str, j);
 		if (str[j] == '$' && !single_open && (ft_isalnum(str[j + 1]) || str[j
 				+ 1] == '_'))
-			str = handle_dollar_sign(piper, str, j, single_open);
+			str = handle_dollar_sign(init, str, j, single_open);
 		j++;
 	}
 	str = copy_inside_quotes(str);
@@ -48,7 +48,7 @@ void	update_quote_status(char c, bool *single_open, bool *double_open)
 		*double_open = !*double_open;
 }
 
-char	*handle_dollar_sign(t_pipes *piper, char *str, int j, bool single_open)
+char	*handle_dollar_sign(t_init init, char *str, int j, bool single_open)
 {
 	char	*bef_str;
 	char	*aft_str;
@@ -65,12 +65,12 @@ char	*handle_dollar_sign(t_pipes *piper, char *str, int j, bool single_open)
 			aft_str = ft_strdup("");
 		var_name = ft_strndup(str + j + 1, i - (j + 1));
 		free(str);
-		str = expand(piper, bef_str, var_name, aft_str);
+		str = expand(init, bef_str, var_name, aft_str);
 	}
 	return (str);
 }
 
-char	*handle_til(t_pipes *piper, char *str, int j)
+char	*handle_til(t_init init, char *str, int j)
 {
 	char	*bef_str;
 	char	*aft_str;
@@ -83,18 +83,18 @@ char	*handle_til(t_pipes *piper, char *str, int j)
 	else
 		aft_str = ft_strdup("");
 	free(str);
-	str = expand_tilde(piper, bef_str, aft_str);
+	str = expand_tilde(init, bef_str, aft_str);
 	return (str);
 }
 
-char	*expand(t_pipes *piper, char *before, char *str, char *after)
+char	*expand(t_init init, char *before, char *str, char *after)
 {
 	char	*var_value;
 	char	*new_str;
 	int		full_string_count;
 	t_envs	*head;
 
-	head = piper->init.envs;
+	head = init.envs;
 	var_value = ft_getenv(head, str);
 	if (var_value == NULL)
 		var_value = ft_strdup("");
@@ -116,7 +116,7 @@ char	*expand(t_pipes *piper, char *before, char *str, char *after)
 	return (new_str);
 }
 
-char	*handle_questionmark(t_pipes *piper, char *str, int j)
+char	*handle_questionmark(t_init init, char *str, int j)
 {
 	char	*bef_str;
 	char	*aft_str;
@@ -129,16 +129,16 @@ char	*handle_questionmark(t_pipes *piper, char *str, int j)
 	else
 		aft_str = ft_strdup("");
 	free(str);
-	str = expand_questionmark(piper, bef_str, aft_str);
+	str = expand_questionmark(init, bef_str, aft_str);
 	return (str);
 }
 
-char	*expand_questionmark(t_pipes *piper, char *before, char *after)
+char	*expand_questionmark(t_init init, char *before, char *after)
 {
 	char *new_str;
 	int full_string_count;
 	char *var_value;
-	(void) piper;
+	(void) init;
 
 	var_value = ft_itoa(global_return_value / 256);
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)
@@ -157,14 +157,13 @@ char	*expand_questionmark(t_pipes *piper, char *before, char *after)
 	return (new_str);
 }
 
-char	*expand_tilde(t_pipes *piper, char *before, char *after)
+char	*expand_tilde(t_init init, char *before, char *after)
 {
 	char *new_str;
 	int full_string_count;
 	char *var_value;
-	(void) piper;
 
-	var_value = ft_strdup(piper->init.home);
+	var_value = ft_strdup(init.home);
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)
 		+ ft_strlen(after) + 2;
 	new_str = ft_calloc(full_string_count, sizeof(char));

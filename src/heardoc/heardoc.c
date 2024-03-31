@@ -6,14 +6,14 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:55:58 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/30 23:34:42 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/31 11:21:07 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 static char	**ft_realloc(t_init *init, t_counter *iter);
-static int	add_to_line(char **new_line, char *str, char **new_str);
+static int	add_to_line(char **new_line, char *str, char **new_str, t_init init);
 static void		child_process_heardoc(t_init *init, char *str_condition, int *fd);
 static char		*process_heardoc(char *input, t_counter *iter, t_init *init);
 
@@ -58,7 +58,7 @@ static char	**ft_realloc(t_init *init, t_counter *iter)
 	return (copy);
 }
 
-static int	add_to_line(char **new_ln, char *str, char **new_str)
+static int	add_to_line(char **new_ln, char *str, char **new_str, t_init init)
 {
 	if (!(*new_ln))
 		return (err_hlr_2(ERR_READ, str, NULL), 0);
@@ -70,7 +70,7 @@ static int	add_to_line(char **new_ln, char *str, char **new_str)
 		return (0);
 	}
 	else
-	{
+	{	*new_ln = expande_heardoc(init, *new_ln);
 		*new_str = str_join_with_newline(*new_str, *new_ln);
 	}
 	return (1);
@@ -117,7 +117,7 @@ static void	child_process_heardoc(t_init *init, char *str_condition, int *fd)
 		while (1)
 		{
 			new_line = readline("> ");
-			if (!add_to_line(&new_line, str_condition, &new_str))
+			if (!add_to_line(&new_line, str_condition, &new_str, *init))
 				break ;
 		}
 		free(str_condition);

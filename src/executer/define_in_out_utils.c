@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:17:32 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/29 12:08:03 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/31 11:12:05 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*search_file_name(t_pipes *node, char *str)
 		i++;
 	}
 	file_name[x] = '\0';
-	file_name = check_quotes_n_expand(node, file_name);
+	file_name = check_quotes_n_expand(node->init, file_name);
 	return (file_name);
 }
 
