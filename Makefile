@@ -31,6 +31,7 @@ SOURCES := main.c \
 			str_join.c\
 			search_utils.c\
 			free.c\
+			dir_list.c\
 			heardoc/heardoc.c\
 			heardoc/heardoc_utils.c\
 			lists/create_list.c\

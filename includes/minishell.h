@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/31 11:20:33 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/03/31 15:10:50 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdio.h>
+# include <dirent.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
@@ -416,5 +417,9 @@ int					list_size(t_pipes *head);
 void				check_for_execution_to_file(t_pipes *node, int *status);
 char				**ft_split_ignore_quotes(char *s, char *c);
 int					all_quotes_ignore(char *s);
+
+
+char				**ft_strjoin_files(char **s1, char **s2);
+char    			**listfiles(char *dirname, int recursive);
 
 #endif
