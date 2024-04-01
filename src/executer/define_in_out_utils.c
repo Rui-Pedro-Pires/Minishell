@@ -115,6 +115,7 @@ int	redirect_input_case(t_pipes *node)
 	free(node->in_out.input_file);
 	node->in_out.input_file = NULL;
 	close(fd);
+	free(node->in_out.data_read);
 	return (0);
 }
 
