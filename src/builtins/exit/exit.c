@@ -21,14 +21,24 @@ void	ft_exit(t_pipes *head, int exit_type, char **args_array)
 	int	number;
 
 	i = 0;
+	if (args_array == NULL) {
+        print_error(" args_array is NULL");
+		free_heardoc(head);
+		free_env_list(head->init.envs);
+		free_env_list(head->init.sorted_envs);
+		free_args(head->data.command_n_args);
+		free_list(&head);
+		rl_clear_history();
+        exit(EXIT_FAILURE);
+    }
 	while (args_array[i] != NULL)
 		i++;
-	if (2 < i)
+	if (2 < i && args_array[2] != NULL)
 	{
 		exit_type = 1;
 		print_error(" too many arguments");
 	}
-	else if (args_array && args_array[1] != NULL)
+	else if (1 < i && args_array[1] != NULL)
 	{
 		number = atoi(args_array[1]);
 		if (!str_is_number(args_array[1]))
