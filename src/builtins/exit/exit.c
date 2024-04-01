@@ -22,7 +22,6 @@ void	ft_exit(t_pipes *head, int exit_type, char **args_array)
 
 	i = 0;
 	if (args_array == NULL) {
-        print_error(" args_array is NULL");
 		free_heardoc(head);
 		free_env_list(head->init.envs);
 		free_env_list(head->init.sorted_envs);
