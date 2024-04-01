@@ -32,6 +32,7 @@ SOURCES := main.c \
 			search_utils.c\
 			free.c\
 			dir_list.c\
+			signals.c\
 			heardoc/heardoc.c\
 			heardoc/heardoc_utils.c\
 			lists/create_list.c\

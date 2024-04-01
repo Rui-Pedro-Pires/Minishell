@@ -31,6 +31,7 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	while (1)
 	{
+		handle_signals();
 		count_struc.i = 0;
 		count_struc.counter = 0;
 		init.heardocs = NULL;

@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "./Libft/libft.h"
+# include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
@@ -22,10 +23,10 @@
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdio.h>
-# include <dirent.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+#include <signal.h>
 
 # define D_QUOTES 34
 # define S_QUOTES 39
@@ -325,8 +326,7 @@ char				*handle_dollar_sign(t_init init, char *str, int j,
 char				*handle_til(t_init init, char *str, int j);
 void				update_quote_status(char c, bool *single_open,
 						bool *double_open);
-char				*expand(t_init init, char *before, char *str,
-						char *after);
+char				*expand(t_init init, char *before, char *str, char *after);
 char				*check_chars(const char *str, const char *accept);
 void				ft_print_heardoc(char **heardoc_read);
 char				*copy_inside_quotes(char *str);
@@ -334,7 +334,8 @@ size_t				ft_strnlen(const char *str, size_t maxlen);
 char				*ft_strndup(const char *s, size_t n);
 int					count_alphanum(char *str, int j);
 char				*handle_questionmark(t_init init, char *str, int j);
-char				*expand_questionmark(t_init init, char *before, char *after);
+char				*expand_questionmark(t_init init, char *before,
+						char *after);
 char				*expand_tilde(t_init init, char *before, char *after);
 
 /****************************/
@@ -418,8 +419,9 @@ void				check_for_execution_to_file(t_pipes *node, int *status);
 char				**ft_split_ignore_quotes(char *s, char *c);
 int					all_quotes_ignore(char *s);
 
-
 char				**ft_strjoin_files(char **s1, char **s2);
-char    			**listfiles(char *dirname, int recursive);
+char				**listfiles(char *dirname, int recursive);
+
+void				handle_signals(void);
 
 #endif
