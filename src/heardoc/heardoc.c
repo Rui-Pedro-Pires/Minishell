@@ -100,6 +100,7 @@ static char	*process_heardoc(char *input, t_counter *iter, t_init *init)
 		new_str = ft_strjoin_free(new_str, buffer);
 	}
 	free(buffer);
+	free(str_condition);
 	return (new_str);
 }
 
