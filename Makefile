@@ -141,7 +141,7 @@ debug: all sup_file
 	@echo "$(GREEN)Minishell compiled in debug mode!$(DEF_COLOR)"
 
 leaks: ./minishell
-	@if [ -f leaks.log ]; then mv leaks.log leaks.log-old; fi
+	@if [ -f leaks.log ]; then mv leaks.log leaks-old.log; fi
 	$(VG) ./minishell
 
 gdb: re
