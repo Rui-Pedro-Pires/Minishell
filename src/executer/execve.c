@@ -41,7 +41,7 @@ char *create_error_str(t_pipes *node)
 	x = i;
 	while (i >= 0 && node->data.command_n_args[0][i] != '/')
 		i--;
-	new_str = ft_calloc(sizeof(char), x - i);
+	new_str = ft_calloc(sizeof(char), x - i + 1);
 	x = 0;
 	while (node->data.command_n_args[0][i])
 		new_str[x++] = node->data.command_n_args[0][++i];
@@ -51,7 +51,7 @@ char *create_error_str(t_pipes *node)
 
 int	error_message_execve(t_pipes *node, char **env_array)
 {
-	free(env_array);
+	free_args(env_array);
 	if (errno == ENOENT)
 	{
 		node->data.command_n_args[0] = create_error_str(node);
