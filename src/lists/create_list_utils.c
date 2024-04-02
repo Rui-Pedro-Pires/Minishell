@@ -27,7 +27,7 @@ int	check_for_dbpipe_dbamper(char *input)
 }
 
 void	init_node(t_pipes *next_node, t_pipes *down_node, \
-t_sign_type sign_type, t_init init)
+t_sign_type sign_type, t_init *init)
 {
 	next_node->pipe_type = sign_type;
 	next_node->init = init;

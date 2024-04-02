@@ -115,13 +115,13 @@ int	cd_home(t_pipes *node, char **str)
 	char	*new_dir;
 
 	new_dir = NULL;
-	current = node->init.envs;
+	current = node->init->envs;
 	if (str[1] == NULL)
 	{
 		new_dir = ft_getenv(current, "HOME");
 	}
 	else if (strcmp(str[1], "") == 0 || strcmp(str[1], "~") == 0)
-		new_dir = node->init.home;
+		new_dir = node->init->home;
 	if (new_dir != NULL)
 	{
 		chdir(new_dir);

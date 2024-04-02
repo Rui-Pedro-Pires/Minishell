@@ -129,7 +129,7 @@ typedef struct s_pipes
 	struct s_pipes	*down;
 	char			*input_string;
 	t_in_out		in_out;
-	t_init			init;
+	t_init			*init;
 	t_pipe_memmory	pipe_memmory;
 	t_sign_type		pipe_type;
 	t_data			data;
@@ -245,7 +245,7 @@ bool				search_dpipe_or_damper(char *input, int *i,
 /*			LIST			*/
 /****************************/
 
-void				creat_list(t_pipes **head, char *input, t_init init,
+void				creat_list(t_pipes **head, char *input, t_init *init,
 						int status);
 char				*trim_str(char *input, t_sign_type *pipe_check, int *i,
 						int status);
@@ -261,7 +261,7 @@ int					parenthesis_ignore(char *input);
 void				parenthesis_add(char **formated, char *input, int *i,
 						int *x);
 void				init_node(t_pipes *next_node, t_pipes *down_node,
-						t_sign_type sign_type, t_init init);
+						t_sign_type sign_type, t_init *init);
 int					define_input_and_output(t_pipes *node);
 int					check_for_dbpipe_dbamper(char *input);
 char				*create_str_bet_parent(char *formated);

@@ -39,12 +39,12 @@ void	write_pipe_heardoc(t_pipes *head)
 
 	if (pipe(fd_in))
 		return ;
-	if (head->init.heardocs[*head->init.heardoc_index])
+	if (head->init->heardocs[*head->init->heardoc_index])
 	{
 		// head->init.heardocs[*head->init.heardoc_index] 
 		// = check_quotes_n_expand(head, head->init.heardocs[*head->init.heardoc_index]);
-		write(fd_in[1], head->init.heardocs[*head->init.heardoc_index],\
-		ft_strlen(head->init.heardocs[*head->init.heardoc_index]));
+		write(fd_in[1], head->init->heardocs[*head->init->heardoc_index],\
+		ft_strlen(head->init->heardocs[*head->init->heardoc_index]));
 	}
 	if (head->in_out.output_file)
 	{

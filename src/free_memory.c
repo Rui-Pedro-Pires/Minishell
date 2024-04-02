@@ -55,15 +55,15 @@ void	free_heardoc(t_pipes *head)
 	int	i;
 
 	i = 0;
-	if (!head || !(head->init.heardocs))
+	if (!head || !(head->init->heardocs))
 			return ;
-	while (head->init.heardocs[i])
+	while (head->init->heardocs[i])
 	{
-		free(head->init.heardocs[i]);
+		free(head->init->heardocs[i]);
 		i++;
 	}
-	free(head->init.heardocs);
-	head->init.heardocs = NULL;
+	free(head->init->heardocs);
+	head->init->heardocs = NULL;
 }
 
 void	free_envs(t_envs *envs)
