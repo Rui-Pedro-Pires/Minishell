@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe  <jorteixe@student.42porto.>      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:48:43 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/04/01 11:57:10 by jorteixe         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:30:27 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	handle_signals(void)
 void	handle_sigint(int sig)
 {
 	char	*prompt;
+	(void) sig;
 
-	(void)sig;
 	prompt = creat_cwd();
 	rl_on_new_line();
 	rl_redisplay();

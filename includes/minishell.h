@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/31 15:10:50 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:36:10 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <signal.h>
 # include <sys/wait.h>
 # include <unistd.h>
 #include <signal.h>
@@ -420,7 +421,8 @@ char				**ft_split_ignore_quotes(char *s, char *c);
 int					all_quotes_ignore(char *s);
 
 char				**ft_strjoin_files(char **s1, char **s2);
-char				**listfiles(char *dirname, int recursive);
+char    			**listfiles(char *dirname, int recursive, char *str_condition);
+int    				array_size(char **file);
 
 void				handle_signals(void);
 

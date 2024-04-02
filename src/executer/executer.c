@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/30 23:12:09 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/02 12:09:47 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ int	single_command(t_pipes *head)
 	if (init_data(head) != 0)
 	{
 		free_args(head->data.command_n_args);
+		if (head->in_out.data_read)
+			free(head->in_out.data_read);
+		if (head->in_out.output_file)
+			free(head->in_out.output_file);
 		return (1);
 	}
 	if (head->data.command_type == NOT_BUILTIN)
@@ -89,6 +93,10 @@ int	single_command(t_pipes *head)
 	else
 		check_for_execution_to_file(head, &status);
 	free_args(head->data.command_n_args);
+	if (head->in_out.data_read)
+		free(head->in_out.data_read);
+	if (head->in_out.output_file)
+		free(head->in_out.output_file);
 	return (status);
 }
 

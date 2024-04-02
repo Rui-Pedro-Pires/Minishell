@@ -6,13 +6,13 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:02:30 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/31 15:16:59 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:46:22 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char    **listfiles(char *dirname, int recursive);
+char    **listfiles(char *dirname, int recursive, char *str_condition);
 
 int     array_size(char **file)
 {
@@ -79,7 +79,6 @@ char    **push(char **files, char *str_to_add)
     {
         new_files = ft_calloc(sizeof(char *), 2);
         new_files[0] = ft_strdup(str_to_add);
-        free(str_to_add);
         return (new_files);
     }
     size = array_size(files);
@@ -93,42 +92,40 @@ char    **push(char **files, char *str_to_add)
     }
     new_files[i] = ft_strdup(str_to_add);
     free_args(files);
-    free(str_to_add);
     return (new_files);
 }
 
-char    **iterate_files(DIR *dirp, struct dirent *entity, char *dirname, int recursive)
+int mega_compare(char *file, char *str_condition)
+{
+    (void)file;
+    (void)str_condition;
+    return (0);
+}
+
+char    **iterate_files(DIR *dirp, struct dirent *entity, int recursive, char *str_condition)
 {
     char            **files;
     char            **recursive_files;
-    char            *path;
-    (void) dirname;
 
     files = NULL;
     recursive_files = NULL;
     while (entity)
     {
         if (strncmp(entity->d_name, ".", 1))
-        {
-            // path = str_join_with_slash(dirname, entity->d_name);
-            path = ft_strdup(entity->d_name);
-            files = push(files, path);
-        }
+            files = push(files, entity->d_name);
         if (entity->d_type == 4 && ft_strncmp(entity->d_name, ".", 1) \
-        && ft_strcmp(entity->d_name, ".") && ft_strcmp(entity->d_name, "..") && recursive == 0)
+        && ft_strcmp(entity->d_name, ".") && ft_strcmp(entity->d_name, "..") \
+        && recursive == 0 && mega_compare(entity->d_name, str_condition) == 0)
         {
-            // path = str_join_with_slash(dirname, entity->d_name);
-            path = ft_strdup(entity->d_name);
-            recursive_files = listfiles(path, 1);
+            recursive_files = listfiles(entity->d_name, 1, str_condition);
             files = ft_strjoin_files(files, recursive_files);
-            free(path);
         }
         entity = readdir(dirp);
     }
     return (files);
 }
 
-char    **listfiles(char *dirname, int recursive)
+char    **listfiles(char *dirname, int recursive, char *str_condition)
 {
     DIR *dirp;
     struct dirent   *entity;
@@ -139,7 +136,7 @@ char    **listfiles(char *dirname, int recursive)
     entity = readdir(dirp);
     if (dirp == NULL)
         return (NULL);
-    files = iterate_files(dirp, entity, dirname, recursive);
+    files = iterate_files(dirp, entity, recursive, str_condition);
     closedir(dirp);
     return (files);
 }
