@@ -13,16 +13,16 @@
 #include "../../includes/minishell.h"
 
 static void	add_to_list(t_pipes **head, char *formated, t_sign_type pipe_type, \
-t_init init);
+t_init *init);
 
-void	creat_list(t_pipes **head, char *input, t_init init, int status)
+void	creat_list(t_pipes **head, char *input, t_init *init, int status)
 {
 	int			i;
 	t_sign_type	sign_type;
 	char		*formated;
 
 	i = 0;
-	init.status = status;
+	init->status = status;
 	while (input[i])
 	{
 		formated = trim_str(input, &sign_type, &i, status);
@@ -37,7 +37,7 @@ void	creat_list(t_pipes **head, char *input, t_init init, int status)
 }
 
 static void	add_to_list(t_pipes **head, char *formated, t_sign_type sign_type, \
-t_init init)
+t_init *init)
 {
 	t_pipes		*next_node;
 	t_pipes		*last_node;
@@ -51,7 +51,7 @@ t_init init)
 		creat_list(&down_node, formated_parenthesis, init, 1);
 		free(formated_parenthesis);
 	}
-	else if (init.status == 1)
+	else if (init->status == 1)
 		creat_list(&down_node, formated, init, 0);
 	next_node = malloc(sizeof(t_pipes));
 	if (!next_node)

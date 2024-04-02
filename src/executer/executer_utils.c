@@ -36,7 +36,7 @@ int    init_data(t_pipes *node)
             files = listfiles(".", 0, node->data.command_n_args[i]);
             node->data.command_n_args = join_args_wildcards(node->data.command_n_args, files, i);
         }
-        node->data.command_n_args[i] = check_quotes_n_expand(node->init,
+        node->data.command_n_args[i] = check_quotes_n_expand(*node->init,
                 node->data.command_n_args[i]);
         i++;
     }

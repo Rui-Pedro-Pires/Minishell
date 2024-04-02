@@ -25,7 +25,7 @@ int	executens_ve(t_pipes *node)
 		write_pipe_heardoc(node);
 	else if (node->in_out.input_type == REDIRECT_INPUT)
 		write_pipe_stdin(node);
-	env_array = envlist_to_array(node->init.envs);
+	env_array = envlist_to_array(node->init->envs);
 	execve(node->data.command_n_args[0],
 		node->data.command_n_args, env_array);
 	return (error_message_execve(node, env_array));

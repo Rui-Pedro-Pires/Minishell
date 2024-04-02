@@ -48,8 +48,8 @@ int	recursive_down(t_pipes *head)
 	status = recursive_down(head->down);
 	if (status != -1)
 		return (status);
-	head->init.return_value = list_iterator_executer(head);
-	return (head->init.return_value);
+	head->init->return_value = list_iterator_executer(head);
+	return (head->init->return_value);
 }
 
 int	list_iterator_executer(t_pipes *head)
@@ -160,9 +160,9 @@ int	execute_command(t_pipes *node)
 	if (cmd == EXPORT)
 		return (ft_export(node, args_array));
 	if (cmd == UNSET)
-		return (ft_unset(&node->init.envs, &node->init.sorted_envs, args_array), 0);
+		return (ft_unset(&node->init->envs, &node->init->sorted_envs, args_array), 0);
 	if (cmd == ENV)
-		return (ft_env(node->init.envs));
+		return (ft_env(node->init->envs));
 	if (cmd == EXIT)
 		ft_exit(node, 1, args_array);
 	if (cmd == NOT_BUILTIN)

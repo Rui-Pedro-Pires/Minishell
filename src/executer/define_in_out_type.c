@@ -17,7 +17,7 @@ int	heardoc(t_pipes *node, int i)
 	if (!ft_strncmp(node->input_string + i, "<<", 2))
 	{
 		node->in_out.input_type = HEARDOC;
-		(*node->init.heardoc_index)++;
+		(*node->init->heardoc_index)++;
 		rechange_str(node, i, 2);
 	}
 	return (0);

@@ -44,12 +44,12 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		if (check_for_dbpipe_dbamper(input))
 		{
-			creat_list(&head, input, init, 1);
+			creat_list(&head, input, &init, 1);
 			global_return_value = recursive_executer(head, 0);
 		}
 		else
 		{
-			creat_list(&head, input, init, 0);
+			creat_list(&head, input, &init, 0);
 			global_return_value = list_iterator_executer(head);
 		}
 		free_input(&input);
