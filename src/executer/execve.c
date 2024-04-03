@@ -51,10 +51,13 @@ char *create_error_str(t_pipes *node)
 
 int	error_message_execve(t_pipes *node, char **env_array)
 {
+	char *path;
 	free_args(env_array);
 	if (errno == ENOENT)
 	{
-		node->data.command_n_args[0] = create_error_str(node);
+		path = ft_getenv(node->init->envs, "PATH");
+		if (path != NULL)
+			node->data.command_n_args[0] = create_error_str(node);
 		print_error(node->data.command_n_args[0]);
 		print_error(": command not found\n");
 		return (127);

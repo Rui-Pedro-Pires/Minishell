@@ -20,6 +20,8 @@ int	create_path_to_execve(t_pipes *node)
 	int		i;
 
 	path_str = ft_getenv(node->init->envs, "PATH");
+	if (path_str == NULL)
+		return (0);
 	paths_array = ft_split(path_str, ':');
 	free(path_str);
 	i = 0;
