@@ -60,6 +60,8 @@ int	error_message_execve(t_pipes *node, char **env_array)
 			node->data.command_n_args[0] = create_error_str(node);
 		print_error(node->data.command_n_args[0]);
 		print_error(": command not found\n");
+		if (path)
+			free(path);
 		return (127);
 	}
 	if (errno == EACCES)
