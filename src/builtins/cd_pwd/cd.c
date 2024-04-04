@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:07:37 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/26 10:25:51 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:46:48 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	update_old_pwd(t_pipes *node)
 {
 	char	*old_dir;
 	char	*name;
-	char	*str_array[2];
+	char	*str_array[3];
 	char	*total;
 	int		total_size;
 
@@ -91,7 +91,7 @@ void	update_current_pwd(t_pipes *node)
 {
 	char	*old_dir;
 	char	*name;
-	char	*str_array[2];
+	char	*str_array[3];
 	char	*total;
 	int		total_size;
 
