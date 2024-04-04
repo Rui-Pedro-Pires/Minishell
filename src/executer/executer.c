@@ -123,6 +123,7 @@ void	child_process(t_pipes *head, int *fd, int i, int stdin)
 {
 	int	pid;
 	int	status;
+	status = 0;
 
 	pipe(fd);
 	pid = fork();
