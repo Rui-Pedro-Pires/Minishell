@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/02 17:06:01 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/05 20:02:30 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define S_QUOTES 39
 
 extern int			global_return_value;
+extern int			signal_return;
 
 typedef enum e_command_type
 {
@@ -424,6 +425,15 @@ char				**ft_strjoin_files(char **s1, char **s2);
 char    			**listfiles(char *dirname, char *str_condition);
 int    				array_size(char **file);
 
-void				handle_signals(void);
+/****************************************/
+/*				SIGNALS					*/
+/****************************************/
+
+void				handle_iterative_mode(void);
+void				handle_reset_signals(void);
+void				handle_sigint_status(void);
+void				update_status_sigquit(int sig);
+void				update_status_sigint(int sig);
+void				handle_sigint(int sig);
 
 #endif

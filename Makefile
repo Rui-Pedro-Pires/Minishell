@@ -33,6 +33,7 @@ SOURCES := main.c \
 			free.c\
 			dir_list.c\
 			signals.c\
+			signals_handlers.c\
 			heardoc/heardoc.c\
 			heardoc/heardoc_utils.c\
 			lists/create_list.c\

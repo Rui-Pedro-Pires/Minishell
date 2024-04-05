@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 09:36:46 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/31 00:00:47 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/05 20:37:07 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,22 @@ static char	*get_input(t_init init)
 	return (input);
 }
 
-char	*keep_reading(char *input_rec, t_counter *c_struc, t_init *init)
+char	*keep_reading(char *input, t_counter *c_struc, t_init *init)
 {
-	char	*input;
 	char	*buffer;
 	int		fd[2];
+	int		status;
 
-	input = input_rec;
 	if (unfinished_command_line(input) || c_struc->prnt > 0)
 	{
 		pipe(fd);
 		child_process_keep_reading(init, input, c_struc, fd);
-		wait(NULL);
+		handle_sigint_status();
+		wait(&status);
+		if (status == 2)
+			printf("\n");
+		else if (status == 131)
+			printf("Quit (core dumped)\n");
 		close(fd[1]);
 		buffer = ft_calloc(sizeof(char), 2);
 		free(input);
@@ -85,6 +89,7 @@ static void	child_process_keep_reading(t_init *init, char *input, t_counter *c_s
 	pid = fork();
 	if (pid == 0)
 	{
+		handle_reset_signals();
 		close(fd[0]);
 		while (unfinished_command_line(input) || c_struc->prnt > 0)
 		{

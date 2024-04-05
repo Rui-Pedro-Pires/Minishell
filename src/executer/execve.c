@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:35:59 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/04/02 15:26:15 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/05 20:17:52 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	executens_ve(t_pipes *node)
 		write_pipe_heardoc(node);
 	else if (node->in_out.input_type == REDIRECT_INPUT)
 		write_pipe_stdin(node);
+	handle_reset_signals();
 	env_array = envlist_to_array(node->init->envs);
 	execve(node->data.command_n_args[0],
 		node->data.command_n_args, env_array);

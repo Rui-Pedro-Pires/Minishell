@@ -6,13 +6,14 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:58:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/02 12:14:37 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/05 20:02:44 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 int	global_return_value;
+int	signal_return;
 
 int	main(int argc, char **argv, char **env)
 {
@@ -31,7 +32,7 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	while (1)
 	{
-		handle_signals();
+		handle_iterative_mode();
 		count_struc.i = 0;
 		count_struc.counter = 0;
 		init.heardocs = NULL;
