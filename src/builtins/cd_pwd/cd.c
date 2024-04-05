@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:07:37 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/04/04 13:46:48 by jorteixe         ###   ########.fr       */
+/*   Updated: 2024/04/05 19:29:42 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_cd(t_pipes *node, char **str)
 	return (EXIT_SUCCESS);
 }
 
-void	err_num_chdir(char *str)
+void	err_num_chdir(char *str) //#TODO erros with no permission
 {
 	if (errno == ENOENT)
 	{
