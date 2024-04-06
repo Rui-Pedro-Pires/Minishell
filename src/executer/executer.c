@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/04/05 20:25:30 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 12:01:54 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,16 @@ int	single_command(t_pipes *head)
 		handle_sigint_status();
 		wait(&status);
 		if (status == 2)
+		{
 			printf("\n");
+			status = 33280;
+		}
 		else if (status == 131)
+		{
 			printf("Quit (core domped)\n");
+			status = 33536;
+		}
+		status = WEXITSTATUS(status);
 	}
 	else
 		check_for_execution_to_file(head, &status);
@@ -124,9 +131,16 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status)
 		i++;
 	}
 	if (*status == 2)
+	{
 		printf("\n");
+		*status = 33280;
+	}
 	else if (*status == 131)
+	{
 		printf("Quit (core domped)\n");
+		*status = 33536;
+	}
+	*status = WEXITSTATUS(*status);
 }
 
 void	child_process(t_pipes *head, int *fd, int i, int stdin)

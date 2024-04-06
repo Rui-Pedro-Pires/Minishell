@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:30:38 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/31 11:09:52 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 11:44:07 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ char	*expand_questionmark(t_init init, char *before, char *after)
 	char *var_value;
 	(void) init;
 
-	var_value = ft_itoa(global_return_value / 256);
+	var_value = ft_itoa(global_return_value);
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)
 		+ ft_strlen(after) + 2;
 	new_str = ft_calloc(full_string_count, sizeof(char));

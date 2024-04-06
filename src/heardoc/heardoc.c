@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:55:58 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/05 20:36:04 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 12:16:10 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,15 @@ static char	*process_heardoc(char *input, t_counter *iter, t_init *init)
 	handle_sigint_status();
 	wait(&status);
 	if (status == 2)
+	{
 		printf("\n");
+		global_return_value = 130;
+	}
 	else if (status == 131)
+	{
 		printf("Quit (core dumped)\n");
+		global_return_value = 131;
+	}
 	close(fd[1]);
 	buffer = ft_calloc(sizeof(char), 2);
 	new_str = ft_strdup("");
@@ -119,8 +125,8 @@ static void	child_process_heardoc(t_init *init, char *str_condition, int *fd)
 	pid = fork();
 	if (pid == 0)
 	{
-		handle_reset_signals();
 		close(fd[0]);
+		handle_reset_signals();
 		new_str = ft_strdup("");
 		while (1)
 		{

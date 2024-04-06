@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:38:09 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/03/29 12:36:28 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 11:58:03 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_exit(t_pipes *head, int exit_type, char **args_array)
 		free_args(head->data.command_n_args);
 		free_list(&head);
 		rl_clear_history();
-        exit(EXIT_FAILURE);
+        exit(exit_type);
     }
 	while (args_array[i] != NULL)
 		i++;

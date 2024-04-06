@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 09:36:46 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/05 20:37:07 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 12:15:29 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,15 @@ char	*keep_reading(char *input, t_counter *c_struc, t_init *init)
 		handle_sigint_status();
 		wait(&status);
 		if (status == 2)
+		{
 			printf("\n");
+			global_return_value = 130;
+		}
 		else if (status == 131)
+		{
 			printf("Quit (core dumped)\n");
+			global_return_value = 131;
+		}
 		close(fd[1]);
 		buffer = ft_calloc(sizeof(char), 2);
 		free(input);
@@ -76,7 +82,6 @@ char	*keep_reading(char *input, t_counter *c_struc, t_init *init)
 			input = ft_strjoin_free(input, buffer);
 		}
 		free(buffer);
-		return (input);
 	}
 	return (input);
 }
@@ -89,8 +94,8 @@ static void	child_process_keep_reading(t_init *init, char *input, t_counter *c_s
 	pid = fork();
 	if (pid == 0)
 	{
-		handle_reset_signals();
 		close(fd[0]);
+		handle_reset_signals();
 		while (unfinished_command_line(input) || c_struc->prnt > 0)
 		{
 			new_line = readline("> ");
@@ -113,7 +118,7 @@ static void	child_process_keep_reading(t_init *init, char *input, t_counter *c_s
 static void	ft_exit_keep_reading(t_init *init, char *input, int	exit_type, bool add_to_history)
 {
 	if (add_to_history == true)
-		add_history(input);		
+		add_history(input);	
 	free(input);
 	free_args(init->heardocs);
 	free_env_list(init->envs);
