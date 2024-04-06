@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:14:07 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/06 15:19:40 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 15:38:17 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -21,16 +21,18 @@ void	write_pipe_stdin(t_pipes *head)
 	{
 		if (pipe(fd_in))
 			return ;
-		stdout = dup(STDOUT_FILENO);
-		dup2(fd_in[1], STDOUT_FILENO);
-		close(fd_in[1]);
-		printf("%s", head->in_out.data_read);
-		dup2(stdout, STDOUT_FILENO);
-		close(stdout);
-		free(head->in_out.data_read);
-		head->in_out.data_read = NULL;
-		dup2(fd_in[0], STDIN_FILENO);
-		close(fd_in[0]);
+		write(1, head->in_out.data_read, ft_strlen(head->in_out.data_read));
+		// stdout = dup(STDOUT_FILENO);
+		// dup2(fd_in[1], STDOUT_FILENO);
+		// close(fd_in[1]);
+		// write(1, head->in_out.data_read, ft_strlen(head->in_out.data_read));
+		// // printf("%s", head->in_out.data_read);
+		// dup2(stdout, STDOUT_FILENO);
+		// close(stdout);
+		// free(head->in_out.data_read);
+		// head->in_out.data_read = NULL;
+		// dup2(fd_in[0], STDIN_FILENO);
+		// close(fd_in[0]);
 	}
 	// if (head->in_out.output_file)
 	// {
