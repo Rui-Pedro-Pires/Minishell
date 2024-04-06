@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:17:32 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/06 15:41:40 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:52:52 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -40,87 +40,55 @@ char	*search_file_name(t_pipes *node, char *str)
 
 int	redirect_output_case(t_pipes *node, int i)
 {
-	int	fd;
+	char	*file_name;
 
 	node->in_out.output_type = REDIRECT_OUTPUT;
-	if (node->in_out.output_file)
-	{
-		free(node->in_out.output_file);
-		node->in_out.output_file = NULL;
-	}
-	node->in_out.output_file = search_file_name(node, node->input_string + i);
-	fd = open(node->in_out.output_file, O_CREAT, 0660);
-	if (fd < 0)
+	file_name = search_file_name(node, node->input_string + i);
+	node->in_out.fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (node->in_out.fd < 0)
 	{
 		print_error("minishell: ");
-		perror(node->in_out.output_file);
+		perror(file_name);
+		free(file_name);
 		return (1);
 	}
-	close(fd);
-	unlink(node->in_out.output_file);
-	fd = open(node->in_out.output_file, O_CREAT, 0660);
-	if (fd < 0)
-		return -(1);
-	close(fd);
+	free(file_name);
 	return (0);
 }
 
 int	append_output_case(t_pipes *node, int i)
 {
-	int	fd;
+	char	*file_name;
 
 	node->in_out.output_type = APPEND_OUTPUT;
-	if (node->in_out.output_file)
-	{
-		free(node->in_out.output_file);
-		node->in_out.output_file = NULL;
-	}
-	node->in_out.output_file = search_file_name(node, node->input_string + i + 1);
-	fd = open(node->in_out.output_file, O_CREAT | O_RDWR, 0660);
-	if (fd < 0)
+	file_name = search_file_name(node, node->input_string + i + 1);
+	node->in_out.fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (node->in_out.fd < 0)
 	{
 		print_error("minishell: ");
-		perror(node->in_out.output_file);
+		perror(file_name);
+		free(file_name);
 		return (1);
 	}
-	close(fd);
+	free(file_name);
 	return (0);
 }
 
-int	redirect_input_case(t_pipes *node)
+/*int	redirect_input_case(t_pipes *node)
 {
-	int		fd;
-	char	*buffer;
-	int		bytes_read;
+	char	*file_name;
 
-	fd = open(node->in_out.input_file, O_RDONLY);
-	if (fd < 0)
+	node->in_out.fd = open(file_name, O_RDONLY);
+	if (node->in_out.fd < 0)
 	{
 		print_error("minishell: ");
-		perror(node->in_out.input_file);
-		free(node->in_out.input_file);
-		node->in_out.input_file = NULL;
+		perror(file_name);
+		free(file_name);
 		return (1);
 	}
-	buffer = ft_calloc(sizeof(char), 1001);
-	if (node->in_out.data_read)
-		free(node->in_out.data_read);
-	node->in_out.data_read = ft_strdup("");
-	while (1)
-	{
-		bytes_read = read(fd, buffer, 1000);
-		if (bytes_read <= 0)
-			break ;
-		buffer[bytes_read] = '\0';
-		node->in_out.data_read = ft_strjoin_free(node->in_out.data_read, \
-		buffer);
-	}
-	free(buffer);
-	free(node->in_out.input_file);
-	node->in_out.input_file = NULL;
-	close(fd);
+	free(file_name);
 	return (0);
-}
+}*/
 
 void	rechange_str(t_pipes *node, int i, int to_skip)
 {

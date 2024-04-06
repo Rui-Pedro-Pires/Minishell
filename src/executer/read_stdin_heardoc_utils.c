@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:14:07 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/06 20:10:16 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:54:49 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,18 +14,10 @@
 
 int	write_pipe_stdin(t_pipes *head)
 {
-	int	fd;
-
 	if (head->in_out.input_type == REDIRECT_INPUT)
 	{
-		fd = open(head->in_out.input_file, O_RDONLY);
-		if (fd > 0)
-		{
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-		}
-		free(head->in_out.input_file);
-		head->in_out.input_file = NULL;
+		dup2(head->in_out.fd, STDIN_FILENO);
+		close(head->in_out.fd);
 	}
 	return (0);
 }

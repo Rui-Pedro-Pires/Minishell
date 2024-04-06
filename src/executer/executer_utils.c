@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:55:35 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/06 14:28:12 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:49:58 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -24,8 +24,6 @@ int	init_data(t_pipes *node)
 
 	node->in_out.input_type = NO_INPUT;
 	node->in_out.output_type = NO_OUTPUT;
-	node->in_out.output_file = NULL;
-	node->in_out.input_file = NULL;
 	node->in_out.data_read = NULL;
 	status = define_input_and_output(node);
 	node->data.command_n_args = ft_split_ignore_quotes(node->input_string,

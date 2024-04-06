@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/06 13:01:29 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:42:44 by ruiolive         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -110,8 +110,7 @@ typedef struct s_data
 
 typedef struct s_in_out
 {
-	char			*input_file;
-	char			*output_file;
+	int				fd;
 	t_input_type	input_type;
 	t_output_type	output_type;
 	char			*data_read;
@@ -409,7 +408,7 @@ int					append_output(t_pipes *node, int i);
 /*			READ FROM INPUT				*/
 /****************************************/
 
-void				write_pipe_stdin(t_pipes *head);
+int					write_pipe_stdin(t_pipes *head);
 void				write_pipe_heardoc(t_pipes *head);
 
 /****************************************/
