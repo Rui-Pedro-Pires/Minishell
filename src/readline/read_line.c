@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 09:36:46 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/06 12:15:29 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 12:17:42 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*keep_reading(char *input, t_counter *c_struc, t_init *init)
 		}
 		else if (status == 131)
 		{
-			printf("Quit (core dumped)\n");
+			printf("^\\Quit (core dumped)\n");
 			global_return_value = 131;
 		}
 		close(fd[1]);

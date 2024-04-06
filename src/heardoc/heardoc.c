@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:55:58 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/06 12:16:10 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 12:17:35 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static char	*process_heardoc(char *input, t_counter *iter, t_init *init)
 	}
 	else if (status == 131)
 	{
-		printf("Quit (core dumped)\n");
+		printf("^\\Quit (core dumped)\n");
 		global_return_value = 131;
 	}
 	close(fd[1]);
