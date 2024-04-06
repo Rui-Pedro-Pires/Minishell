@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:49:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/06 15:40:53 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:06:46 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -25,6 +25,8 @@ int	heardoc(t_pipes *node, int i)
 
 int	redirect_input(t_pipes *node, int i)
 {
+	int		fd;
+
 	if (node->input_string[i] == '<')
 	{
 		node->in_out.input_type = REDIRECT_INPUT;
@@ -35,7 +37,14 @@ int	redirect_input(t_pipes *node, int i)
 		}
 		node->in_out.input_file = search_file_name(node, node->input_string + i);
 		rechange_str(node, i, 1);
-		return (redirect_input_case(node));
+		fd = open(node->in_out.input_file, O_RDONLY);
+		if (fd < 0)
+		{
+			print_error("minishell: ");
+			perror(node->in_out.input_file);
+			return (1);
+		}
+		close(fd);
 	}
 	return (0);
 }

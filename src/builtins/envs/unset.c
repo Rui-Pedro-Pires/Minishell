@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe  <jorteixe@student.42porto.>      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:33:46 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/02/16 14:33:46 by jorteixe         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:13:48 by ruiolive         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../../includes/minishell.h"
 
@@ -20,8 +20,8 @@ void	ft_unset(t_envs **head, t_envs **head_sorted, char **str_array)
 	t_envs	*current;
 	int		i;
 
-	if (handle_unset_errors(str_array) == EXIT_FAILURE)
-		return;
+	//if (handle_unset_errors(str_array) == EXIT_FAILURE)
+		//return;
 	i = 1;
 	while (str_array[i] != NULL)
 	{
