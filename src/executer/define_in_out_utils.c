@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:17:32 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/02 12:08:41 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 13:29:29 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	*search_file_name(t_pipes *node, char *str)
 		j++;
 		i++;
 	}
-	file_name[x] = '\0';
 	file_name = check_quotes_n_expand(*node->init, file_name);
 	return (file_name);
 }
@@ -92,6 +91,7 @@ int	redirect_input_case(t_pipes *node)
 {
 	int		fd;
 	char	*buffer;
+	int		bytes_read;
 
 	fd = open(node->in_out.input_file, O_RDONLY);
 	if (fd < 0)
@@ -102,12 +102,14 @@ int	redirect_input_case(t_pipes *node)
 		node->in_out.input_file = NULL;
 		return (1);
 	}
-	buffer = ft_calloc(sizeof(char), 2);
+	buffer = ft_calloc(sizeof(char), 1001);
 	node->in_out.data_read = ft_strdup("");
 	while (1)
 	{
-		if (read(fd, buffer, 1) <= 0)
+		bytes_read = read(fd, buffer, 1000);
+		if (bytes_read <= 0)
 			break ;
+		buffer[bytes_read] = '\0';
 		node->in_out.data_read = ft_strjoin_free(node->in_out.data_read, \
 		buffer);
 	}

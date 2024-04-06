@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/04/06 12:01:54 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:25:37 by ruiolive         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/minishell.h"
 
@@ -160,7 +160,8 @@ void	child_process(t_pipes *head, int *fd, int i, int stdin)
 		close(fd[0]);
 		close(fd[1]);
 		close(stdin);
-		if (init_data(head) == 0)
+		status = init_data(head);
+		if (status == 0)
 			check_for_execution_to_file(head, &status);
 		ft_exit(head, status, NULL);
 	}

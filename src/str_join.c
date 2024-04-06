@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:33:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/30 23:01:46 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/06 13:11:57 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	int		i;
 	int		n;
 
-	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	new_str = ft_calloc(sizeof(char), ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!new_str)
 		return (NULL);
 	i = 0;
@@ -90,7 +90,6 @@ char	*ft_strjoin_free(char *s1, char *s2)
 		i++;
 		n++;
 	}
-	new_str[n] = '\0';
 	free(s1);
 	return (new_str);
 }
