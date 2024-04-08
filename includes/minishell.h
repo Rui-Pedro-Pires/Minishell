@@ -152,7 +152,8 @@ typedef enum e_error
 	ERR_STR,
 	ERR_READ,
 	ERR_STR_FREE,
-	ERR_FORK
+	ERR_FORK,
+	ERR_WILDCARD
 }					t_error;
 
 /****************************/
@@ -210,6 +211,7 @@ int					check_valid_parenthesis(char *input);
 /****************************/
 
 int					check_cmd_aft(char *input);
+int					check_cmd_aft_heardoc_case(char *input);
 int					check_cmd_end(char *input);
 int					check_end(char *input);
 char				*search_char(char *input);

@@ -50,6 +50,13 @@ void	error_handler(int error_msg, void *param, void **param2)
 
 void	err_hlr_2(int error_msg, void *param, void **param2)
 {
+	if (error_msg == ERR_WILDCARD)
+	{
+		(void)param2;
+		print_error(" ambiguous redirect");
+		print_error("\n");
+		global_return_value = 1;
+	}
 	if (error_msg == ERR_STR)
 	{
 		(void)param2;
@@ -63,8 +70,8 @@ void	err_hlr_2(int error_msg, void *param, void **param2)
 		(void)param2;
 		print_error("minishell: warning: here-document delimited by end-of-file (wanted `");
 		print_error((char *)param);
-		print_error("'\n");
-		global_return_value = 2;
+		print_error("')\n");
+		global_return_value = 0;
 	}
 	if (error_msg == ERR_STR_FREE)
 	{

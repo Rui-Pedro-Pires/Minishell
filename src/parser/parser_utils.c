@@ -53,6 +53,20 @@ int	check_cmd_aft(char *input)
 		i++;
 	if (!input[i])
 		return (0);
+	else if (input[i] && ft_strchr("<>&|()*", input[i]))
+		return (-1);
+	return (1);
+}
+
+int	check_cmd_aft_heardoc_case(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i] && input[i] == ' ')
+		i++;
+	if (!input[i])
+		return (0);
 	else if (input[i] && ft_strchr("<>&|()", input[i]))
 		return (-1);
 	return (1);
