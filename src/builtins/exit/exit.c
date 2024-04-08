@@ -35,7 +35,7 @@ void	ft_exit(t_pipes *head, int exit_type, char **args_array)
 	if (2 < i && args_array[2] != NULL)
 	{
 		exit_type = 1;
-		print_error(" too many arguments");
+		print_error("\nruiolive&&jorteixe@minishell: exit: too many arguments\n");
 	}
 	else if (1 < i && args_array[1] != NULL)
 	{
@@ -43,7 +43,9 @@ void	ft_exit(t_pipes *head, int exit_type, char **args_array)
 		if (!str_is_number(args_array[1]))
 		{
 			exit_type = 2;
-			print_error(" numeric argument required");
+			print_error("\nruiolive&&jorteixe@minishell: exit: ");
+			print_error(args_array[1]);
+			print_error(": numeric argument required\n");
 		}
 		else
 			exit_type = number;
