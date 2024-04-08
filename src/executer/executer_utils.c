@@ -24,7 +24,6 @@ int	init_data(t_pipes *node)
 
 	node->in_out.input_type = NO_INPUT;
 	node->in_out.output_type = NO_OUTPUT;
-	node->in_out.data_read = NULL;
 	status = define_input_and_output(node);
 	node->data.command_n_args = ft_split_ignore_quotes(node->input_string,
 			" \t\n");

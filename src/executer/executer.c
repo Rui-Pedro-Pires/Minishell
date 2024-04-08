@@ -48,8 +48,7 @@ int	recursive_down(t_pipes *head)
 	status = recursive_down(head->down);
 	if (status != -1)
 		return (status);
-	head->init->return_value = list_iterator_executer(head);
-	return (head->init->return_value);
+	return (list_iterator_executer(head));
 }
 
 int	list_iterator_executer(t_pipes *head)
@@ -74,8 +73,6 @@ int	single_command(t_pipes *head)
 	if (init_data(head) != 0)
 	{
 		free_args(head->data.command_n_args);
-		if (head->in_out.data_read)
-			free(head->in_out.data_read);
 		return (1);
 	}
 	if (head->data.command_type != CD && head->data.command_type != EXIT)
@@ -97,8 +94,6 @@ int	single_command(t_pipes *head)
 	else
 		check_for_execution_to_file(head, &status);
 	free_args(head->data.command_n_args);
-	if (head->in_out.data_read)
-		free(head->in_out.data_read);
 	return (status);
 }
 

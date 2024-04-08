@@ -17,25 +17,34 @@ void	error_handler(int error_msg, void *param, void **param2)
 	if (error_msg == ERROR_UNFINISHED_QUOTE)
 	{
 		(void)param2;
-		printf("minishell: syntax error near unexpected token `%c'\n",
-			*(char *)param);
+		print_error("minishell: syntax error near unexpected token `");
+		print_error_char(*(char *)param);
+		print_error("'\n");
+		global_return_value = 2;
 	}
 	else if (error_msg == ERROR_SPECIAL_CHAR)
 	{
 		(void)param2;
-		printf("minishell: syntax error near unexpected token `%c'\n",
-			*(char *)param);
+		print_error("minishell: syntax error near unexpected token `");
+		print_error_char(*(char *)param);
+		print_error("'\n");
+		global_return_value = 2;
 	}
 	else if (error_msg == ERROR_SPECIAL_CHAR_DOUBLE)
 	{
-		printf("minishell: syntax error near unexpected token `%c%c'\n",
-			*(char *)param, *(char *)param);
+		print_error("minishell: syntax error near unexpected token `");
+		print_error_char(*(char *)param);
+		print_error_char(*(char *)param);
+		print_error("'\n");
+		global_return_value = 2;
 	}
 	else if (error_msg == ERROR_NEWLINE)
 	{
 		(void)param2;
-		printf("minishell: syntax error near unexpected token `%s'\n",
-			(char *)param);
+		print_error("minishell: syntax error near unexpected token `");
+		print_error((char *)param);
+		print_error("'\n");
+		global_return_value = 2;
 	}
 }
 
@@ -44,24 +53,35 @@ void	err_hlr_2(int error_msg, void *param, void **param2)
 	if (error_msg == ERR_STR)
 	{
 		(void)param2;
-		printf("minishell: syntax error near unexpected token `%s'\n",
-			(char *)param);
+		print_error("minishell: syntax error near unexpected token `");
+		print_error((char *)param);
+		print_error("'\n");
+		global_return_value = 2;
 	}
 	if (error_msg == ERR_READ)
 	{
 		(void)param2;
-		printf("minishell: warning: here-document delimited by end-of-file (wanted `%s')\n",
-			(char *)param);
+		print_error("minishell: warning: here-document delimited by end-of-file (wanted `");
+		print_error((char *)param);
+		print_error("'\n");
+		global_return_value = 2;
 	}
 	if (error_msg == ERR_STR_FREE)
 	{
 		(void)param2;
 		if (!(*(char *)param) || !(char *)param)
-			printf("minishell: syntax error near unexpected token `('\n");
+		{
+			print_error("minishell: syntax error near unexpected token `(");
+			print_error("'\n");
+		}
 		else
-			printf("minishell: syntax error near unexpected token `%s'\n",
-			(char *)param);
+		{
+			print_error("minishell: syntax error near unexpected token `");
+			print_error_char(*(char *)param);
+			print_error("'\n");
+		}
 		free(param);
+		global_return_value = 2;
 	}
 }
 

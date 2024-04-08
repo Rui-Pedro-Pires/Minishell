@@ -13,7 +13,6 @@
 #include "../includes/minishell.h"
 
 int	global_return_value;
-int	signal_return;
 
 int	main(int argc, char **argv, char **env)
 {

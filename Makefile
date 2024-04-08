@@ -27,7 +27,6 @@ ODIR := obj
 SOURCES := main.c \
 			error_handler.c\
 			free_memory.c\
-			testerzzzz.c\
 			str_join.c\
 			search_utils.c\
 			free.c\

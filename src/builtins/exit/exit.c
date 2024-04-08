@@ -80,3 +80,8 @@ void	print_error(char *str)
 {
 	write(2, str, strlen(str));
 }
+
+void	print_error_char(char str)
+{
+	write(2, &str, 1);
+}

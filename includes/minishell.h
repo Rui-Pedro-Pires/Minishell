@@ -33,7 +33,6 @@
 # define S_QUOTES 39
 
 extern int			global_return_value;
-extern int			signal_return;
 
 typedef enum e_command_type
 {
@@ -70,18 +69,6 @@ typedef enum e_output_type
 	NO_OUTPUT
 }					t_output_type;
 
-typedef enum e_write
-{
-	WRITE_TO_FILE,
-	WRITE_TO_STDOUT
-}					t_write;
-
-typedef enum e_read
-{
-	NORMAL_ARGS,
-	READ_FROM_STDIN
-}					t_read;
-
 typedef struct s_envs
 {
 	char			*whole_str;
@@ -98,7 +85,6 @@ typedef struct s_init
 	char			**heardocs;
 	int				*heardoc_index;
 	int				status;
-	int				return_value;
 }					t_init;
 
 typedef struct s_data
@@ -113,15 +99,7 @@ typedef struct s_in_out
 	int				fd_out;
 	t_input_type	input_type;
 	t_output_type	output_type;
-	char			*data_read;
 }					t_in_out;
-
-typedef struct s_pipe_memmory
-{
-	int				**fd;
-	int				*pid;
-	int				size;
-}					t_pipe_memmory;
 
 typedef struct s_pipes
 {
@@ -130,10 +108,8 @@ typedef struct s_pipes
 	char			*input_string;
 	t_in_out		in_out;
 	t_init			*init;
-	t_pipe_memmory	pipe_memmory;
 	t_sign_type		pipe_type;
 	t_data			data;
-	bool			skip;
 }					t_pipes;
 
 typedef struct s_counter
@@ -165,6 +141,7 @@ void				error_handler(int error_msg, void *param, void **param2);
 void				err_hlr_2(int error_msg, void *param, void **param2);
 char				*string_error(char *input);
 void				print_error(char *str);
+void				print_error_char(char str);
 
 typedef enum e_error
 {

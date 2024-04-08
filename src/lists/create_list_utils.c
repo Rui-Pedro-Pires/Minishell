@@ -31,7 +31,6 @@ t_sign_type sign_type, t_init *init)
 {
 	next_node->pipe_type = sign_type;
 	next_node->init = init;
-	next_node->skip = false;
 	next_node->next = NULL;
 	next_node->down = down_node;
 }
