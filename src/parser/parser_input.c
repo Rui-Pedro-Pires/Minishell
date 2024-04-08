@@ -22,8 +22,7 @@ int	parse_input(char *input, t_counter *count_struct, t_init *init)
 		return (0);
 	if (!parser(input, &i, count_struct))
 		return (heardoc_check(init, input, count_struct, i), 0);
-	heardoc_check(init, input, count_struct, i);
-	return (1);
+	return (heardoc_check(init, input, count_struct, i));
 }
 
 int	check_begin_case_parser(char *input, int *i)

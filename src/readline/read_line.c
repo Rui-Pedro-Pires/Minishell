@@ -61,16 +61,6 @@ char	*keep_reading(char *input, t_counter *c_struc, t_init *init)
 		child_process_keep_reading(init, input, c_struc, fd);
 		handle_sigint_status();
 		wait(&status);
-		if (status == 2)
-		{
-			printf("\n");
-			global_return_value = 130;
-		}
-		else if (status == 131)
-		{
-			printf("^\\Quit (core dumped)\n");
-			global_return_value = 131;
-		}
 		close(fd[1]);
 		buffer = ft_calloc(sizeof(char), 2);
 		free(input);

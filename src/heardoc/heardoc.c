@@ -17,7 +17,7 @@ static int	add_to_line(char **new_line, char *str, char **new_str, t_init init);
 static void		child_process_heardoc(t_init *init, char *str_condition, int *fd);
 static char		*process_heardoc(char *input, t_counter *iter, t_init *init);
 
-void	heardoc_check(t_init *init, char *input, t_counter *itr, int i)
+int	heardoc_check(t_init *init, char *input, t_counter *itr, int i)
 {
 	char *new_str;
 
@@ -27,7 +27,9 @@ void	heardoc_check(t_init *init, char *input, t_counter *itr, int i)
 		{
 			init->heardocs = ft_realloc(init, itr);
 			new_str = process_heardoc(input, itr, init);
-			if (!new_str)
+			if (!new_str && (global_return_value == 130 || global_return_value == 131))
+				return (0);
+			else if (!new_str)
 				continue;
 			init->heardocs[itr->counter] = ft_strdup(new_str);
 			free(new_str);
@@ -35,6 +37,7 @@ void	heardoc_check(t_init *init, char *input, t_counter *itr, int i)
 		}
 		itr->i += all_quotes_ignore(input + itr->i);
 	}
+	return (1);
 }
 
 static char	**ft_realloc(t_init *init, t_counter *iter)
@@ -92,15 +95,10 @@ static char	*process_heardoc(char *input, t_counter *iter, t_init *init)
 	child_process_heardoc(init, str_condition, fd);
 	handle_sigint_status();
 	wait(&status);
-	if (status == 2)
+	if (status != 0)
 	{
-		printf("\n");
-		global_return_value = 130;
-	}
-	else if (status == 131)
-	{
-		printf("^\\Quit (core dumped)\n");
-		global_return_value = 131;
+		free(str_condition);
+		return (NULL);
 	}
 	close(fd[1]);
 	buffer = ft_calloc(sizeof(char), 2);
