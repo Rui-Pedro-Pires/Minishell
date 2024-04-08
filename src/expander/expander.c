@@ -163,7 +163,9 @@ char	*expand_tilde(t_init init, char *before, char *after)
 	int full_string_count;
 	char *var_value;
 
-	var_value = ft_strdup(init.home);
+	var_value = ft_getenv(init.envs, "HOME");
+	if (var_value == NULL)
+		var_value = ft_strdup("");
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)
 		+ ft_strlen(after) + 2;
 	new_str = ft_calloc(full_string_count, sizeof(char));
