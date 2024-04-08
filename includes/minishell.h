@@ -293,7 +293,7 @@ char				*keep_reading(char *input_rec, t_counter *c_struc,
 /*			HEARDOC			*/
 /****************************/
 
-void				heardoc_check(t_init *init, char *input,
+int					heardoc_check(t_init *init, char *input,
 						t_counter *count_struc, int i);
 char				*search_heardoc_condition(char *input, t_counter *iter);
 int					quotes_ignore(char *input);

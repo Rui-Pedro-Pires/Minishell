@@ -21,7 +21,7 @@ void	handle_iterative_mode(void)
 void	handle_sigint_status(void)
 {
 	signal(SIGINT, update_status_sigint);
-	signal(SIGINT, update_status_sigquit);
+	signal(SIGQUIT, update_status_sigquit);
 }
 
 void	handle_reset_signals(void)

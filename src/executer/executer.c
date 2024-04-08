@@ -89,15 +89,9 @@ int	single_command(t_pipes *head)
 		handle_sigint_status();
 		wait(&status);
 		if (status == 2)
-		{
-			printf("\n");
 			status = 33280;
-		}
 		else if (status == 131)
-		{
-			printf("Quit (core domped)\n");
 			status = 33536;
-		}
 		status = WEXITSTATUS(status);
 	}
 	else
@@ -113,8 +107,10 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status)
 	int	i;
 	int	stdin;
 	int	fd[2];
+	int	save_status;
 
 	i = 0;
+	save_status = 0;
 	stdin = dup(STDIN_FILENO);
 	while (head)
 	{
@@ -128,18 +124,16 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status)
 	while (i < size)
 	{
 		wait(status);
+		if (*status != 0)
+			save_status = *status;
 		i++;
 	}
+	if (save_status != 0)
+		*status = save_status;
 	if (*status == 2)
-	{
-		printf("\n");
 		*status = 33280;
-	}
 	else if (*status == 131)
-	{
-		printf("Quit (core domped)\n");
 		*status = 33536;
-	}
 	*status = WEXITSTATUS(*status);
 }
 

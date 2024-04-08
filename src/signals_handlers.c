@@ -14,24 +14,30 @@
 
 void	handle_sigint(int sig)
 {	
-    if (sig == SIGINT)
-    {
-        rl_replace_line("", 0);
-        printf("\n");
-        rl_on_new_line();
-        rl_redisplay();
-        global_return_value = 130;
-    }
+		if (sig == SIGINT)
+		{
+				rl_replace_line("", 0);
+				printf("\n");
+				rl_on_new_line();
+				rl_redisplay();
+				global_return_value = 130;
+		}
 }
 
 void	update_status_sigint(int sig)
 {
 	if (sig == SIGINT)
-        global_return_value = 130;
+		{
+		printf("\n");
+		global_return_value = 130;
+		}
 }
 
 void	update_status_sigquit(int sig)
 {
 	if (sig == SIGQUIT)
-        global_return_value = 131;
+	{
+		printf("Quit (core domped)\n");
+		global_return_value = 131;
+	}
 }
