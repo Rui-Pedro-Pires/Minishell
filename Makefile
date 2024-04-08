@@ -1,6 +1,6 @@
 NAME = minishell
 
-NAME_BONUS = minishell_bonus
+# NAME_BONUS = minishell_bonus
 
 LIBFT = ./includes/Libft/libft.a
 
@@ -82,15 +82,15 @@ OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
 all : ${NAME}
 
-bonus : ${NAME_BONUS}
+# bonus : ${NAME_BONUS}
 
 ${NAME} : ${OBJECTS} ${LIBFT}
 	@${CC} ${CFLAGS} ${OBJECTS} ${LIBFT} -o ${NAME} $(LFLAG)
 	@echo "\n$(GRN)➾ Minishell created$(RES)"
 
-${NAME_BONUS} : ${OBJECTS} ${LIBFT}
-	@${CC} ${CFLAGS} ${OBJECTS} ${LIBFT} -o ${NAME_BONUS} $(LFLAG)
-	@echo "\n$(GRN)➾ minishell_bonus created$(RES)"
+# ${NAME_BONUS} : ${OBJECTS} ${LIBFT}
+# 	@${CC} ${CFLAGS} ${OBJECTS} ${LIBFT} -o ${NAME_BONUS} $(LFLAG)
+# 	@echo "\n$(GRN)➾ minishell_bonus created$(RES)"
 
 $(LIBFT):
 	@make bonus -C ./includes/Libft/ -s

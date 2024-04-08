@@ -36,6 +36,8 @@ char	*check_quotes_n_expand(t_init init, char *str)
 			str = handle_dollar_sign(init, str, j, single_open);
 		j++;
 	}
+	if (single_open || double_open)
+		return (str);
 	str = copy_inside_quotes(str);
 	return (str);
 }
