@@ -98,7 +98,6 @@ typedef struct s_init
 	char			**heardocs;
 	int				*heardoc_index;
 	int				status;
-	char			*home;
 	int				return_value;
 }					t_init;
 
