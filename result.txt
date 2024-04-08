@@ -1,9 +1,0 @@
-en.subject.pdf
-includes
-LICENSE
-Makefile
-minishell
-obj
-result.txt
-src
-tester_script
