@@ -12,6 +12,8 @@
 
 #include "../../../includes/minishell.h"
 
+char *add_rest_of_array(char **array);
+
 t_envs	*create_env_node(char *env_var)
 {
 	t_envs	*node;
@@ -28,11 +30,9 @@ t_envs	*create_env_node(char *env_var)
 	temp_array = ft_split(env_var, '=');
 	node->name = ft_strdup(temp_array[0]);
 	if (temp_array[1])
-		node->value = ft_strdup(temp_array[1]);
-	else if (!ft_strchr(env_var, '='))
-		node->value = ft_strdup("");
+		node->value = add_rest_of_array(temp_array);
 	else
-		node->value = NULL;
+		node->value = ft_strdup("");
 	free_split_array(temp_array);
 	node->next = NULL;
 	return (node);
@@ -102,4 +102,20 @@ t_envs	*bubble_sort(t_envs *head)
 		}
 	}
 	return (head);
+}
+
+char *add_rest_of_array(char **array)
+{
+	char *str;
+	int i;
+
+	i = 2;
+	str = ft_strdup(array[1]);
+	while (array[i])
+	{
+		str = ft_strjoin_free(str, "=");
+		str = ft_strjoin_free(str, array[i]);
+		i++;
+	}
+	return (str);
 }

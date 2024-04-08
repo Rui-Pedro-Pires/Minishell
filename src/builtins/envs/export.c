@@ -14,6 +14,7 @@
 
 void		add_env(t_envs *head, char *str);
 static int	print_export_list(t_envs *head);
+int			ft_is_only_digit(char *str);
 
 int	ft_export(t_pipes *node, char **str_array)
 {
@@ -45,6 +46,8 @@ bool	export_is_valid(char *str)
 	int	i;
 
 	i = 0;
+	if (str[i] == '=' || ft_is_only_digit(str) == 1)
+		return (false);
 	while (ft_isalnum(str[i]))
 		i++;
 	if (!str[i] || str[i] == '=')
@@ -109,4 +112,18 @@ static int	print_export_list(t_envs *head)
 		current = current->next;
 	}
 	return (EXIT_SUCCESS);
+}
+
+int	ft_is_only_digit(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

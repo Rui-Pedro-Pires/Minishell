@@ -32,8 +32,8 @@ int	redirect_input(t_pipes *node, int i)
 		node->in_out.input_type = REDIRECT_INPUT;
 		file_name = search_file_name(node, node->input_string + i);
 		rechange_str(node, i, 1);
-		node->in_out.fd = open(file_name, O_RDONLY);
-		if (node->in_out.fd < 0)
+		node->in_out.fd_in = open(file_name, O_RDONLY);
+		if (node->in_out.fd_in < 0)
 		{
 			print_error("minishell: ");
 			perror(file_name);

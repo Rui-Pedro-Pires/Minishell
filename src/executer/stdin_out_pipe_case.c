@@ -29,20 +29,11 @@ int	list_size(t_pipes *head)
 
 void	check_for_execution_to_file(t_pipes *node, int *status)
 {
-	int	stdout;
-
 	if (node->in_out.output_type == REDIRECT_OUTPUT || \
 		node->in_out.output_type == APPEND_OUTPUT)
 	{
-		stdout = dup(STDOUT_FILENO);
-		dup2(node->in_out.fd, STDOUT_FILENO);
-		close(node->in_out.fd);
+		dup2(node->in_out.fd_out, STDOUT_FILENO);
+		close(node->in_out.fd_out);
 	}
 	*status = execute_command(node);
-	if (node->in_out.output_type == REDIRECT_OUTPUT || \
-		node->in_out.output_type == APPEND_OUTPUT)
-	{
-		dup2(stdout, STDOUT_FILENO);
-		close(stdout);
-	}
 }

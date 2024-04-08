@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	child_process(t_pipes *head, int *fd, int i, int stdin);
+int	child_process(t_pipes *head, int *fd, int i, int stdin);
 void	loop_list_and_execute(t_pipes *head, int size, int *status);
 int		single_command(t_pipes *head);
 
@@ -78,7 +78,7 @@ int	single_command(t_pipes *head)
 			free(head->in_out.data_read);
 		return (1);
 	}
-	if (head->data.command_type == NOT_BUILTIN)
+	if (head->data.command_type != CD && head->data.command_type != EXIT)
 	{
 		pid = fork();
 		if (pid == 0)
@@ -107,14 +107,14 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status)
 	int	i;
 	int	stdin;
 	int	fd[2];
-	int	save_status;
+	int	*pid;
 
 	i = 0;
-	save_status = 0;
 	stdin = dup(STDIN_FILENO);
+	pid = malloc(sizeof(int) * size);
 	while (head)
 	{
-		child_process(head, fd, i, stdin);
+		pid[i] = child_process(head, fd, i, stdin);
 		head = head->next;
 		i++;
 	}
@@ -123,13 +123,13 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status)
 	handle_sigint_status();
 	while (i < size)
 	{
-		wait(status);
-		if (*status != 0)
-			save_status = *status;
+		if (i == size - 1)
+			waitpid(pid[i], status, 0);
+		else
+			waitpid(pid[i], NULL, 0);
 		i++;
 	}
-	if (save_status != 0)
-		*status = save_status;
+	free(pid);
 	if (*status == 2)
 		*status = 33280;
 	else if (*status == 131)
@@ -137,7 +137,7 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status)
 	*status = WEXITSTATUS(*status);
 }
 
-void	child_process(t_pipes *head, int *fd, int i, int stdin)
+int	child_process(t_pipes *head, int *fd, int i, int stdin)
 {
 	int	pid;
 	int	status;
@@ -162,6 +162,7 @@ void	child_process(t_pipes *head, int *fd, int i, int stdin)
 	dup2(fd[0], stdin);
 	close(fd[0]);
 	close(fd[1]);
+	return (pid);
 }
 
 int	execute_command(t_pipes *node)
