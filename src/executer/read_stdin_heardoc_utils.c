@@ -16,8 +16,8 @@ int	write_pipe_stdin(t_pipes *head)
 {
 	if (head->in_out.input_type == REDIRECT_INPUT)
 	{
-		dup2(head->in_out.fd, STDIN_FILENO);
-		close(head->in_out.fd);
+		dup2(head->in_out.fd_in, STDIN_FILENO);
+		close(head->in_out.fd_in);
 	}
 	return (0);
 }

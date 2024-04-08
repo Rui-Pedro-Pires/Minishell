@@ -110,7 +110,8 @@ typedef struct s_data
 
 typedef struct s_in_out
 {
-	int				fd;
+	int				fd_in;
+	int				fd_out;
 	t_input_type	input_type;
 	t_output_type	output_type;
 	char			*data_read;
@@ -417,6 +418,7 @@ void				write_pipe_heardoc(t_pipes *head);
 
 int					list_size(t_pipes *head);
 void				check_for_execution_to_file(t_pipes *node, int *status);
+void				check_for_execution_to_file_one_case(t_pipes *node, int *status);
 char				**ft_split_ignore_quotes(char *s, char *c);
 int					all_quotes_ignore(char *s);
 

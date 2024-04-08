@@ -30,9 +30,9 @@ int	main(int argc, char **argv, char **env)
 	init.home = getenv("HOME");
 	(void) argv;
 	(void) argc;
+	handle_iterative_mode();
 	while (1)
 	{
-		handle_iterative_mode();
 		count_struc.i = 0;
 		count_struc.counter = 0;
 		init.heardocs = NULL;

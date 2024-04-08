@@ -44,8 +44,8 @@ int	redirect_output_case(t_pipes *node, int i)
 
 	node->in_out.output_type = REDIRECT_OUTPUT;
 	file_name = search_file_name(node, node->input_string + i);
-	node->in_out.fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (node->in_out.fd < 0)
+	node->in_out.fd_out = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (node->in_out.fd_out < 0)
 	{
 		print_error("minishell: ");
 		perror(file_name);
@@ -62,8 +62,8 @@ int	append_output_case(t_pipes *node, int i)
 
 	node->in_out.output_type = APPEND_OUTPUT;
 	file_name = search_file_name(node, node->input_string + i + 1);
-	node->in_out.fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (node->in_out.fd < 0)
+	node->in_out.fd_out = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (node->in_out.fd_out < 0)
 	{
 		print_error("minishell: ");
 		perror(file_name);
@@ -73,22 +73,6 @@ int	append_output_case(t_pipes *node, int i)
 	free(file_name);
 	return (0);
 }
-
-/*int	redirect_input_case(t_pipes *node)
-{
-	char	*file_name;
-
-	node->in_out.fd = open(file_name, O_RDONLY);
-	if (node->in_out.fd < 0)
-	{
-		print_error("minishell: ");
-		perror(file_name);
-		free(file_name);
-		return (1);
-	}
-	free(file_name);
-	return (0);
-}*/
 
 void	rechange_str(t_pipes *node, int i, int to_skip)
 {

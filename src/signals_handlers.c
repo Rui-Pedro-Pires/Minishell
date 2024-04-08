@@ -14,23 +14,23 @@
 
 void	handle_sigint(int sig)
 {	
-		if (sig == SIGINT)
-		{
-				rl_replace_line("", 0);
-				printf("\n");
-				rl_on_new_line();
-				rl_redisplay();
-				global_return_value = 130;
-		}
+	if (sig == SIGINT)
+	{
+		rl_replace_line("", 0);
+		printf("\n");
+		rl_on_new_line();
+		rl_redisplay();
+		global_return_value = 130;
+	}
 }
 
 void	update_status_sigint(int sig)
 {
 	if (sig == SIGINT)
-		{
+	{
 		printf("\n");
 		global_return_value = 130;
-		}
+	}
 }
 
 void	update_status_sigquit(int sig)
