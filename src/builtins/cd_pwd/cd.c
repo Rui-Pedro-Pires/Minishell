@@ -60,9 +60,22 @@ void	err_num_chdir(char *str) //#TODO erros with no permission
 		print_error(str);
 		print_error("\n");
 	}
+	else if (errno == EACCES)
+	{
+		print_error("cd: permission denied: ");
+		print_error(str);
+		print_error("\n");
+	}
 	else if (errno == ENOTDIR)
-		printf("\nruiolive&&jorteixe@minishell: cd: %s: Not a directory\n",
-			str);
+	{
+		print_error("cd: not a directory: ");
+		print_error(str);
+		print_error("\n");
+	}
+	else
+	{
+		perror("minishell");
+	}
 }
 
 void	update_old_pwd(t_pipes *node)
