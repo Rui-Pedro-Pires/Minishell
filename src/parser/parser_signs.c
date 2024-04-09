@@ -29,12 +29,12 @@ int	ft_return_check(char *input, int *i, int *x)
 {
 	int	checker;
 
-	checker = check_cmd_aft_heardoc_case(input + (*x));
+	checker = check_cmd_aft(input + (*x));
 	if (*x - (*i) == 1 && input[(*x)] == '>' && \
-	!check_cmd_aft_heardoc_case(input + ((*x) + 1)))
+	!check_cmd_aft(input + ((*x) + 1)))
 		return (0);
 	if (*x - (*i) == 1 && input[(*x)] == '>' && \
-	check_cmd_aft_heardoc_case(input + ((*x) + 1)) == -1)
+	check_cmd_aft(input + ((*x) + 1)) == -1)
 		return (-1);
 	if (checker == 0)
 		return (0);

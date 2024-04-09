@@ -68,10 +68,8 @@ int	signs_parser(char *input, int *i)
 		checker = check_signs(input, i, &errorch);
 		if (!checker)
 			return (error_handler(ERROR_NEWLINE, "newline", NULL), 0);
-		else if (checker == -1 && errorch)
-			return (err_hlr_2(ERR_STR, errorch, NULL), 0);
 		else if (checker == -1)
-			return (0);
+			return (err_hlr_2(ERR_STR, errorch, NULL), 0);
 		return (1);
 	}
 	else if (ft_strchr("\\;", input[(*i)]))

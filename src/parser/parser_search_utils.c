@@ -19,8 +19,6 @@ char	*search_char(char *input)
 	i = 0;
 	while (input[i] && input[i] == ' ')
 		i++;
-	if (input[i] && input[i] == '*')
-		return (err_hlr_2(ERR_WILDCARD, NULL, NULL), NULL);
 	if (input[i] && (input[i] == '>' || input[i] == '<'))
 		return (signs_search(input + i));
 	if (input[i] && (input[i] == '|' || input[i] == '&'))

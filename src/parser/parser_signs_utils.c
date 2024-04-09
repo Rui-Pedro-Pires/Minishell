@@ -55,7 +55,7 @@ int	minor_sig_count(char *input, int *i)
 	if (x - (*i) > 2)
 		return (-1);
 	if (x - (*i) == 1 && input[(x)] == '>' && \
-	check_cmd_aft_heardoc_case(input + (x + 1)) == 1)
+	check_cmd_aft(input + (x + 1)) == 1)
 	{
 		*i = x;
 		return (1);
