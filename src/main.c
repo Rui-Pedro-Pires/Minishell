@@ -28,9 +28,9 @@ int	main(int argc, char **argv, char **env)
 	init.sorted_envs = bubble_sort(init.sorted_envs);
 	(void) argv;
 	(void) argc;
-	handle_iterative_mode();
 	while (1)
 	{
+		handle_iterative_mode();
 		count_struc.i = 0;
 		count_struc.counter = 0;
 		init.heardocs = NULL;
