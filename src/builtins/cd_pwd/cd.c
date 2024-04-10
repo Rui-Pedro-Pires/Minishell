@@ -133,7 +133,7 @@ int	cd_home(t_pipes *node, char **str)
 	{
 		new_dir = ft_getenv(current, "HOME");
 	}
-	else if (strcmp(str[1], "") == 0 || strcmp(str[1], "~") == 0)
+	else if (ft_strcmp(str[1], "") == 0 ||ft_strcmp(str[1], "~") == 0)
 		new_dir = getenv("HOME");
 	if (new_dir != NULL)
 	{

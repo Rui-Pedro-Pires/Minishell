@@ -90,7 +90,7 @@ t_envs	*bubble_sort(t_envs *head)
 		prev = NULL;
 		while (current && current->next)
 		{
-			if (strcmp(current->whole_str, current->next->whole_str) > 0)
+			if (ft_strcmp(current->whole_str, current->next->whole_str) > 0)
 			{
 				swapped = 1;
 				current = swap_nodes(prev, current, current->next);

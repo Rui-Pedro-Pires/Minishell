@@ -82,7 +82,7 @@ char	*copy_inside_quotes(char *str)
 	double_open = false;
 	i = 0;
 	j = 0;
-	clean_str = malloc(strlen(str) + 1);
+	clean_str = malloc(ft_strlen(str) + 1);
 	while (str[i])
 	{
 		if (str[i] == '\'' && !double_open)

@@ -78,7 +78,7 @@ bool	str_is_number(char *str)
 
 void	print_error(char *str)
 {
-	write(2, str, strlen(str));
+	write(2, str, ft_strlen(str));
 }
 
 void	print_error_char(char str)
