@@ -32,7 +32,7 @@
 # define D_QUOTES 34
 # define S_QUOTES 39
 
-extern int			global_return_value;
+extern int			g_return_value;
 
 typedef enum e_command_type
 {

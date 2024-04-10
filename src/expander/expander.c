@@ -142,7 +142,7 @@ char	*expand_questionmark(t_init init, char *before, char *after)
 	char *var_value;
 	(void) init;
 
-	var_value = ft_itoa(global_return_value);
+	var_value = ft_itoa(g_return_value);
 	full_string_count = ft_strlen(before) + ft_strlen(var_value)
 		+ ft_strlen(after) + 2;
 	new_str = ft_calloc(full_string_count, sizeof(char));

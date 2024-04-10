@@ -20,7 +20,7 @@ void	error_handler(int error_msg, void *param, void **param2)
 		print_error("minishell: syntax error near unexpected token `");
 		print_error_char(*(char *)param);
 		print_error("'\n");
-		global_return_value = 2;
+		g_return_value = 2;
 	}
 	else if (error_msg == ERROR_SPECIAL_CHAR)
 	{
@@ -28,7 +28,7 @@ void	error_handler(int error_msg, void *param, void **param2)
 		print_error("minishell: syntax error near unexpected token `");
 		print_error_char(*(char *)param);
 		print_error("'\n");
-		global_return_value = 2;
+		g_return_value = 2;
 	}
 	else if (error_msg == ERROR_SPECIAL_CHAR_DOUBLE)
 	{
@@ -36,7 +36,7 @@ void	error_handler(int error_msg, void *param, void **param2)
 		print_error_char(*(char *)param);
 		print_error_char(*(char *)param);
 		print_error("'\n");
-		global_return_value = 2;
+		g_return_value = 2;
 	}
 	else if (error_msg == ERROR_NEWLINE)
 	{
@@ -44,7 +44,7 @@ void	error_handler(int error_msg, void *param, void **param2)
 		print_error("minishell: syntax error near unexpected token `");
 		print_error((char *)param);
 		print_error("'\n");
-		global_return_value = 2;
+		g_return_value = 2;
 	}
 }
 
@@ -55,7 +55,7 @@ void	err_hlr_2(int error_msg, void *param, void **param2)
 		(void)param2;
 		print_error(" ambiguous redirect");
 		print_error("\n");
-		global_return_value = 1;
+		g_return_value = 1;
 	}
 	if (error_msg == ERR_STR)
 	{
@@ -63,7 +63,7 @@ void	err_hlr_2(int error_msg, void *param, void **param2)
 		print_error("minishell: syntax error near unexpected token `");
 		print_error((char *)param);
 		print_error("'\n");
-		global_return_value = 2;
+		g_return_value = 2;
 	}
 	if (error_msg == ERR_READ)
 	{
@@ -71,7 +71,7 @@ void	err_hlr_2(int error_msg, void *param, void **param2)
 		print_error("minishell: warning: here-document delimited by end-of-file (wanted `");
 		print_error((char *)param);
 		print_error("')\n");
-		global_return_value = 0;
+		g_return_value = 0;
 	}
 	if (error_msg == ERR_STR_FREE)
 	{
@@ -88,7 +88,7 @@ void	err_hlr_2(int error_msg, void *param, void **param2)
 			print_error("'\n");
 		}
 		free(param);
-		global_return_value = 2;
+		g_return_value = 2;
 	}
 }
 

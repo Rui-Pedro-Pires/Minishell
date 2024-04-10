@@ -27,7 +27,7 @@ int	heardoc_check(t_init *init, char *input, t_counter *itr, int i)
 		{
 			init->heardocs = ft_realloc(init, itr);
 			new_str = process_heardoc(input, itr, init);
-			if (!new_str && (global_return_value == 130 || global_return_value == 131))
+			if (!new_str && (g_return_value == 130 || g_return_value == 131))
 				return (0);
 			else if (!new_str)
 				continue;

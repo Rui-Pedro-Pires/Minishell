@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	global_return_value;
+int	g_return_value;
 
 int	main(int argc, char **argv, char **env)
 {
@@ -44,12 +44,12 @@ int	main(int argc, char **argv, char **env)
 		if (check_for_dbpipe_dbamper(input))
 		{
 			creat_list(&head, input, &init, 1);
-			global_return_value = recursive_executer(head, 0);
+			g_return_value = recursive_executer(head, 0);
 		}
 		else
 		{
 			creat_list(&head, input, &init, 0);
-			global_return_value = list_iterator_executer(head);
+			g_return_value = list_iterator_executer(head);
 		}
 		free_input(&input);
 		free_heardoc(head);
