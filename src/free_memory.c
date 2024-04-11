@@ -56,7 +56,7 @@ void	free_heardoc(t_pipes *head)
 
 	i = 0;
 	if (!head || !(head->init->heardocs))
-			return ;
+		return ;
 	while (head->init->heardocs[i])
 	{
 		free(head->init->heardocs[i]);
@@ -68,10 +68,12 @@ void	free_heardoc(t_pipes *head)
 
 void	free_envs(t_envs *envs)
 {
+	struct s_envs	*current;
+	struct s_envs	*next;
+
 	if (envs)
 	{
-		struct s_envs *current = envs;
-		struct s_envs *next;
+		current = envs;
 		while (current)
 		{
 			next = current->next;
