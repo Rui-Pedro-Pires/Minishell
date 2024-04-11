@@ -105,25 +105,11 @@ static int	print_export_list(t_envs *head)
 		printf("declare -x %s", current->name);
 		if (current->value && current->has_equal)
 			printf("=%s\n", current->value);
-		else if (!current->value  && current->has_equal)
+		else if (!current->value && current->has_equal)
 			printf("=\"\"\n");
 		else
 			printf("\n");
 		current = current->next;
 	}
 	return (EXIT_SUCCESS);
-}
-
-int	ft_is_only_digit(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
 }
