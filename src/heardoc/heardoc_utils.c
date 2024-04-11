@@ -59,15 +59,14 @@ int	quotes_ignore(char *input)
 
 char	*expande_heardoc(t_init init, char *str)
 {
-	int		j;
+	int	j;
 
 	j = 0;
 	while (str[j])
 	{
 		if (str[j] == '$' && str[j + 1] == '?')
 			str = handle_questionmark(init, str, j);
-		if (str[j] == '$' && (ft_isalnum(str[j + 1]) || str[j
-				+ 1] == '_'))
+		if (str[j] == '$' && (ft_isalnum(str[j + 1]) || str[j + 1] == '_'))
 			str = handle_dollar_sign_heardoc(init, str, j);
 		j++;
 	}
