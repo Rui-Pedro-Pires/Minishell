@@ -99,9 +99,9 @@ char    *listfiles(char *dirname)
     
     files = NULL;
     dirp = opendir(dirname);
-    entity = readdir(dirp);
     if (dirp == NULL)
         return (NULL);
+    entity = readdir(dirp);
     files = iterate_files(dirp, entity);
     closedir(dirp);
     return (files);

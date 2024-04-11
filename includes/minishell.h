@@ -263,8 +263,8 @@ char				*line_read(t_init *init, t_counter *counter_struc);
 int					unfinished_command_line(char *input);
 char				*str_join_with_space(char *s1, char *s2, int free_type);
 char				*str_join_with_newline(char *s1, char *s2);
-char				*add_nl(char *s1, char *s2);
 char				*creat_cwd(void);
+char				*trim_cwd(char *trimmed_cwd);
 char				*keep_reading(char *input_rec, t_counter *c_struc,
 						t_init *init);
 
@@ -412,5 +412,11 @@ void				handle_sigint_status(void);
 void				update_status_sigquit(int sig);
 void				update_status_sigint(int sig);
 void				handle_sigint(int sig);
+
+/****************************************/
+/*				WILDCARDS				*/
+/****************************************/
+
+int					wildcards(t_pipes *node);
 
 #endif

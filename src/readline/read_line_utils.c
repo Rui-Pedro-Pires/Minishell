@@ -12,8 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-static char	*trim_cwd(char *trimmed_cwd);
-
 int	unfinished_command_line(char *input)
 {
 	int	i;
@@ -36,7 +34,10 @@ char	*creat_cwd(void)
 	char	*cwd_complete;
 	char	*trimmed_cwd;
 
+	trimmed_cwd = NULL;
 	trimmed_cwd = getcwd(NULL, 0);
+	if (!trimmed_cwd)
+		return (NULL);
 	trimmed_cwd = trim_cwd(trimmed_cwd);
 	cwd = ft_strjoin("ruiolive&&jorteixe@minishell:~", trimmed_cwd);
 	cwd_complete = ft_strjoin(cwd, "$ ");
