@@ -427,6 +427,6 @@ void				handle_sigint(int sig);
 /*				WILDCARDS				*/
 /****************************************/
 
-int					wildcards(t_pipes *node);
+char				*wildcards(t_pipes *node);
 
 #endif

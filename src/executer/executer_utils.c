@@ -18,13 +18,20 @@ int	init_data(t_pipes *node)
 {
 	int		i;
 	int		status;
+	char	*return_value;
 
 	node->in_out.input_type = NO_INPUT;
 	node->in_out.output_type = NO_OUTPUT;
-	if (!wildcards(node))
+	return_value = wildcards(node);
+	if (!return_value)
 		status = define_input_and_output(node);
 	else
+	{
 		status = 1;
+		print_error("minishell: ");
+		print_error(return_value);
+		print_error(": ambiguos redirect\n");
+	}
 	node->data.command_n_args = ft_split_ignore_quotes(node->input_string,
 			" \t\n");
 	i = 0;
