@@ -66,6 +66,7 @@ SOURCES := main.c \
 			builtins/echo/echo.c\
 			builtins/exit/exit.c\
 			expander/expander_utils.c\
+			expander/expander_utils2.c\
 			expander/expander.c\
 			executer/executer.c\
 			executer/executer_utils.c\
