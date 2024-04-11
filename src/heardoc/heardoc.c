@@ -13,13 +13,14 @@
 #include "../../includes/minishell.h"
 
 static char	**ft_realloc(t_init *init, t_counter *iter);
-static int	add_to_line(char **new_line, char *str, char **new_str, t_init init);
-static void		child_process_heardoc(t_init *init, char *str_condition, int *fd);
-static char		*process_heardoc(char *input, t_counter *iter, t_init *init);
+static int	add_to_line(char **new_line, char *str, char **new_str,
+				t_init init);
+static void	child_process_heardoc(t_init *init, char *str_condition, int *fd);
+static char	*process_heardoc(char *input, t_counter *iter, t_init *init);
 
 int	heardoc_check(t_init *init, char *input, t_counter *itr, int i)
 {
-	char *new_str;
+	char	*new_str;
 
 	while (input[itr->i] && itr->i < i)
 	{
@@ -30,7 +31,7 @@ int	heardoc_check(t_init *init, char *input, t_counter *itr, int i)
 			if (!new_str && (g_return_value == 130 || g_return_value == 131))
 				return (0);
 			else if (!new_str)
-				continue;
+				continue ;
 			init->heardocs[itr->counter] = ft_strdup(new_str);
 			free(new_str);
 			itr->counter++;
@@ -73,7 +74,8 @@ static int	add_to_line(char **new_ln, char *str, char **new_str, t_init init)
 		return (0);
 	}
 	else
-	{	*new_ln = expande_heardoc(init, *new_ln);
+	{
+		*new_ln = expande_heardoc(init, *new_ln);
 		*new_str = str_join_with_newline(*new_str, *new_ln);
 	}
 	return (1);
@@ -82,7 +84,7 @@ static int	add_to_line(char **new_ln, char *str, char **new_str, t_init init)
 static char	*process_heardoc(char *input, t_counter *iter, t_init *init)
 {
 	int		fd[2];
-	char 	*str_condition;
+	char	*str_condition;
 	char	*buffer;
 	char	*new_str;
 	int		status;

@@ -12,16 +12,16 @@
 
 #include "../includes/minishell.h"
 
-int     array_size(char **file)
+int	array_size(char **file)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (!file)
-        return (0);
-    while (file[i])
-        i++;
-    return (i);
+	i = 0;
+	if (!file)
+		return (0);
+	while (file[i])
+		i++;
+	return (i);
 }
 
 // char	**ft_strjoin_files(char **s1, char **s2)
@@ -72,26 +72,27 @@ int     array_size(char **file)
 //     return (new_files);
 // }
 
-char    *iterate_files(DIR *dirp, struct dirent *entity)
+char	*iterate_files(DIR *dirp, struct dirent *entity)
 {
-    char    *files;
+	char	*files;
 
-    files = NULL;
-    while (entity)
-    {
-        if (ft_strncmp(entity->d_name, ".", 1) && ft_strncmp(entity->d_name, "..", 2))
-        {
-            if (!files)
-                files = ft_strdup(entity->d_name);
-            else
-                files = str_join_with_space(files, entity->d_name, 1);
-        }
-        entity = readdir(dirp);
-    }
-    return (files);
+	files = NULL;
+	while (entity)
+	{
+		if (ft_strncmp(entity->d_name, ".", 1) && ft_strncmp(entity->d_name,
+				"..", 2))
+		{
+			if (!files)
+				files = ft_strdup(entity->d_name);
+			else
+				files = str_join_with_space(files, entity->d_name, 1);
+		}
+		entity = readdir(dirp);
+	}
+	return (files);
 }
 
-char    *listfiles(char *dirname)
+char	*listfiles(char *dirname)
 {
     DIR *dirp;
     struct dirent   *entity;

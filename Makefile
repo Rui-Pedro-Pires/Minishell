@@ -56,6 +56,7 @@ SOURCES := main.c \
 			parser/parser_diff_signs.c\
 			parser/parser_parenthesis.c\
 			builtins/cd_pwd/cd.c\
+			builtins/cd_pwd/cd_utils.c\
 			builtins/cd_pwd/pwd.c\
 			builtins/envs/create_env_list.c\
 			builtins/envs/free_env.c\
@@ -65,7 +66,9 @@ SOURCES := main.c \
 			builtins/envs/getenv.c\
 			builtins/echo/echo.c\
 			builtins/exit/exit.c\
+			builtins/exit/exit_utils.c\
 			expander/expander_utils.c\
+			expander/expander_utils2.c\
 			expander/expander.c\
 			expander/expand_wildcards.c\
 			executer/executer.c\

@@ -12,65 +12,38 @@
 
 #include "../../../includes/minishell.h"
 
-void	update_old_pwd(t_pipes *node);
-void	update_current_pwd(t_pipes *node);
-int		cd_home(t_pipes *node, char **str);
-
 int	ft_cd(t_pipes *node, char **str)
 {
 	char	*new_dir;
 
 	update_old_pwd(node);
 	if (str[1] == NULL || str[1][0] == '~')
-	{
-		if (cd_home(node, str) == EXIT_SUCCESS)
-			return (EXIT_SUCCESS);
-		else
-		{
-			print_error("minishell: cd: HOME not set\n");
-			return (EXIT_FAILURE);
-		}
-	}
+		return (handle_cd_home(node, str));
 	if (str[2] != NULL)
-	{
-		print_error("bash: cd: too many arguments\n");
-		return (EXIT_FAILURE);
-	}
-	else
-	{
-		new_dir = ft_strdup(str[1]);
-		if (chdir(new_dir) == (-1))
-		{
-			err_num_chdir(new_dir);
-			free(new_dir);
-			update_current_pwd(node);
-			return (EXIT_FAILURE);
-		}
-		update_current_pwd(node);
-		free(new_dir);
-	}
-	return (EXIT_SUCCESS);
+		return (handle_cd_too_many_args());
+	new_dir = ft_strdup(str[1]);
+	return (handle_cd_new_dir(node, new_dir));
 }
 
 void	err_num_chdir(char *str) //#TODO erros with no permission
 {
 	if (errno == ENOENT)
 	{
-		print_error("cd: no such file or directory: ");
+		print_error("minishell: cd: ");
 		print_error(str);
-		print_error("\n");
+		print_error(": No such file or directory\n");
 	}
 	else if (errno == EACCES)
 	{
-		print_error("cd: permission denied: ");
+		print_error("minishell: cd: ");
 		print_error(str);
-		print_error("\n");
+		print_error(": permission denied\n");
 	}
 	else if (errno == ENOTDIR)
 	{
-		print_error("cd: not a directory: ");
+		print_error("minishell: cd: ");
 		print_error(str);
-		print_error("\n");
+		print_error(": not a directory\n");
 	}
 	else
 	{
@@ -133,7 +106,7 @@ int	cd_home(t_pipes *node, char **str)
 	{
 		new_dir = ft_getenv(current, "HOME");
 	}
-	else if (ft_strcmp(str[1], "") == 0 ||ft_strcmp(str[1], "~") == 0)
+	else if (ft_strcmp(str[1], "") == 0 || ft_strcmp(str[1], "~") == 0)
 		new_dir = getenv("HOME");
 	if (new_dir != NULL)
 	{

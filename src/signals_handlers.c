@@ -13,7 +13,7 @@
 #include "../includes/minishell.h"
 
 void	handle_sigint(int sig)
-{	
+{
 	if (sig == SIGINT)
 	{
 		rl_replace_line("", 0);
