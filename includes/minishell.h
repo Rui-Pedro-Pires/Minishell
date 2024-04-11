@@ -261,7 +261,7 @@ void				free_heardoc(t_pipes *head);
 
 char				*line_read(t_init *init, t_counter *counter_struc);
 int					unfinished_command_line(char *input);
-char				*str_join_with_space(char *s1, char *s2);
+char				*str_join_with_space(char *s1, char *s2, int free_type);
 char				*str_join_with_newline(char *s1, char *s2);
 char				*add_nl(char *s1, char *s2);
 char				*creat_cwd(void);
@@ -396,12 +396,10 @@ void				write_pipe_heardoc(t_pipes *head);
 
 int					list_size(t_pipes *head);
 void				check_for_execution_to_file(t_pipes *node, int *status);
-void				check_for_execution_to_file_one_case(t_pipes *node, int *status);
 char				**ft_split_ignore_quotes(char *s, char *c);
 int					all_quotes_ignore(char *s);
-
-char				**ft_strjoin_files(char **s1, char **s2);
-char    			**listfiles(char *dirname, char *str_condition);
+char				*ft_strjoin_files(char **s1, char **s2);
+char    			*listfiles(char *dirname);
 int    				array_size(char **file);
 
 /****************************************/

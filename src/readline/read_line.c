@@ -96,7 +96,7 @@ static void	child_process_keep_reading(t_init *init, char *input, t_counter *c_s
 				free(new_line);
 				continue ;
 			}
-			input = str_join_with_space(input, new_line);
+			input = str_join_with_space(input, new_line, 2);
 			if (!parse_input(input, c_struc, init))
 				ft_exit_keep_reading(init, input, 1, true);
 		}
