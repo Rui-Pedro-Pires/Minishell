@@ -29,7 +29,7 @@ char	*check_quotes_n_expand(t_init init, char *str)
 		if (str[j] == '$' && !single_open && str[j + 1] == '?')
 			str = handle_questionmark(init, str, j);
 		if (str[j] == '$' && !single_open && (ft_isalnum(str[j + 1]) || str[j
-				+ 1] == '_'))
+					+ 1] == '_'))
 			str = handle_dollar_sign(init, str, j, single_open);
 		j++;
 	}
