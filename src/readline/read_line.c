@@ -13,10 +13,10 @@
 #include "../../includes/minishell.h"
 
 static char	*get_input(t_init init);
-static void	child_process_keep_reading(t_init *init, char *input, \
-			t_counter *c_struc, int *fd);
-static void	ft_exit_keep_reading(t_init *init, char *input, \
-			int	exit_type, bool add_to_history);
+static void	child_process_keep_reading(t_init *init, char *input,
+				t_counter *c_struc, int *fd);
+static void	ft_exit_keep_reading(t_init *init, char *input, int exit_type,
+				bool add_to_history);
 
 char	*line_read(t_init *init, t_counter *counter_struc)
 {
@@ -76,9 +76,10 @@ char	*keep_reading(char *input, t_counter *c_struc, t_init *init)
 	return (input);
 }
 
-static void	child_process_keep_reading(t_init *init, char *input, t_counter *c_struc, int *fd)
+static void	child_process_keep_reading(t_init *init, char *input,
+		t_counter *c_struc, int *fd)
 {
-	char 	*new_line;
+	char	*new_line;
 	int		pid;
 
 	pid = fork();
@@ -105,10 +106,11 @@ static void	child_process_keep_reading(t_init *init, char *input, t_counter *c_s
 	}
 }
 
-static void	ft_exit_keep_reading(t_init *init, char *input, int	exit_type, bool add_to_history)
+static void	ft_exit_keep_reading(t_init *init, char *input, int exit_type,
+		bool add_to_history)
 {
 	if (add_to_history == true)
-		add_history(input);	
+		add_history(input);
 	free(input);
 	free_args(init->heardocs);
 	free_env_list(init->envs);
