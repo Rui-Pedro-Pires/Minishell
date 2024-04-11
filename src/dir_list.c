@@ -46,16 +46,16 @@ char	*iterate_files(DIR *dirp, struct dirent *entity)
 
 char	*listfiles(char *dirname)
 {
-    DIR *dirp;
-    struct dirent   *entity;
-    char    *files;
-    
-    files = NULL;
-    dirp = opendir(dirname);
-    if (dirp == NULL)
-        return (NULL);
-    entity = readdir(dirp);
-    files = iterate_files(dirp, entity);
-    closedir(dirp);
-    return (files);
+	DIR				*dirp;
+	struct dirent	*entity;
+	char			*files;
+
+	files = NULL;
+	dirp = opendir(dirname);
+	if (dirp == NULL)
+		return (NULL);
+	entity = readdir(dirp);
+	files = iterate_files(dirp, entity);
+	closedir(dirp);
+	return (files);
 }

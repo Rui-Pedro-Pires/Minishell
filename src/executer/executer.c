@@ -1,18 +1,18 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 15:17:21 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/04/06 14:25:37 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/02/16 09:47:46 by jorteixe          #+#    #+#             */
+/*   Updated: 2024/03/26 11:42:40 by ruiolive         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	child_process(t_pipes *head, int *fd, int i, int stdin);
+int		child_process(t_pipes *head, int *fd, int i, int stdin);
 void	loop_list_and_execute(t_pipes *head, int size, int *status);
 int		single_command(t_pipes *head);
 
@@ -136,8 +136,8 @@ int	child_process(t_pipes *head, int *fd, int i, int stdin)
 {
 	int	pid;
 	int	status;
-	status = 0;
 
+	status = 0;
 	pipe(fd);
 	pid = fork();
 	if (pid == 0)
@@ -176,7 +176,8 @@ int	execute_command(t_pipes *node)
 	if (cmd == EXPORT)
 		return (ft_export(node, args_array));
 	if (cmd == UNSET)
-		return (ft_unset(&node->init->envs, &node->init->sorted_envs, args_array), 0);
+		return (ft_unset(&node->init->envs, &node->init->sorted_envs,
+				args_array), 0);
 	if (cmd == ENV)
 		return (ft_env(node->init->envs));
 	if (cmd == EXIT)

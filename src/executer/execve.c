@@ -13,21 +13,27 @@
 #include "../../includes/minishell.h"
 
 int		error_message_execve(t_pipes *node, char **env_array);
+int		err_message_eaccess(t_pipes *node);
+int		err_message_enoent(t_pipes *node);
 
 int	executens_ve(t_pipes *node)
 {
 	char	**env_array;
+	char	*temp_str;
 
 	env_array = NULL;
 	if (!ft_strchr(node->data.command_n_args[0], '/'))
-		create_path_to_execve(node);
+		temp_str = create_path_to_execve(node);
+	else
+		temp_str = ft_strdup(node->data.command_n_args[0]);
 	if (node->in_out.input_type == HEARDOC)
 		write_pipe_heardoc(node);
 	else if (node->in_out.input_type == REDIRECT_INPUT)
 		write_pipe_stdin(node);
 	handle_reset_signals();
 	env_array = envlist_to_array(node->init->envs);
-	execve(node->data.command_n_args[0], node->data.command_n_args, env_array);
+	execve(temp_str, node->data.command_n_args, env_array);
+	free(temp_str);
 	return (error_message_execve(node, env_array));
 }
 
@@ -51,26 +57,49 @@ char	*create_error_str(t_pipes *node)
 
 int	error_message_execve(t_pipes *node, char **env_array)
 {
-	char	*path;
-
 	free_args(env_array);
 	if (errno == ENOENT)
 	{
-		path = ft_getenv(node->init->envs, "PATH");
-		if (path != NULL)
-			node->data.command_n_args[0] = create_error_str(node);
-		print_error(node->data.command_n_args[0]);
-		print_error(": command not found\n");
-		if (path)
-			free(path);
-		return (127);
+		return (err_message_enoent(node));
 	}
 	if (errno == EACCES)
+	{
+		return (err_message_eaccess(node));
+	}
+	return (127);
+}
+
+int	err_message_eaccess(t_pipes *node)
+{
+	if (opendir(node->data.command_n_args[0]) == NULL)
+	{
+		print_error("minishell: ");
+		print_error(node->data.command_n_args[0]);
+		print_error(": Permission denied\n");
+		return (126);
+	}
+	else
 	{
 		print_error("minishell: ");
 		print_error(node->data.command_n_args[0]);
 		print_error(": Is a directory\n");
 		return (126);
 	}
-	return (127);
+}
+
+int	err_message_enoent(t_pipes *node)
+{
+	if (ft_strchr(node->data.command_n_args[0], '/'))
+	{
+		print_error("minishell: ");
+		print_error(node->data.command_n_args[0]);
+		print_error(": No such file or directory\n");
+		return (127);
+	}
+	else
+	{
+		print_error(node->data.command_n_args[0]);
+		print_error(": command not found\n");
+		return (127);
+	}
 }
