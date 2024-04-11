@@ -73,11 +73,11 @@ static int	string_size(char *s, char *c)
 	return (i);
 }
 
-int  all_quotes_ignore(char *s)
+int	all_quotes_ignore(char *s)
 {
-    if (*s == '\"')
-        return (quote_ignore(s, D_QUOTES) + 1);
+	if (*s == '\"')
+		return (quote_ignore(s, D_QUOTES) + 1);
 	else if (*s == '\'')
-	    return (quote_ignore(s, S_QUOTES) + 1);
-    return (1);
+		return (quote_ignore(s, S_QUOTES) + 1);
+	return (1);
 }
