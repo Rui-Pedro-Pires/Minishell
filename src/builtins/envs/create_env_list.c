@@ -12,7 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
-char *add_rest_of_array(char **array);
+char	*add_rest_of_array(char **array);
 
 t_envs	*create_env_node(char *env_var)
 {
@@ -23,7 +23,7 @@ t_envs	*create_env_node(char *env_var)
 	if (!node)
 		return (NULL);
 	node->whole_str = ft_strdup(env_var);
-	if(ft_strchr(node->whole_str, '='))
+	if (ft_strchr(node->whole_str, '='))
 		node->has_equal = true;
 	else
 		node->has_equal = false;
@@ -104,10 +104,10 @@ t_envs	*bubble_sort(t_envs *head)
 	return (head);
 }
 
-char *add_rest_of_array(char **array)
+char	*add_rest_of_array(char **array)
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
 	i = 2;
 	str = ft_strdup(array[1]);
