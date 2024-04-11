@@ -13,11 +13,13 @@
 #include "../../includes/minishell.h"
 
 int		error_message_execve(t_pipes *node, char **env_array);
+int		err_message_eaccess(t_pipes *node);
+int		err_message_enoent(t_pipes *node);
 
 int	executens_ve(t_pipes *node)
 {
 	char	**env_array;
-	char *temp_str;
+	char	*temp_str;
 
 	env_array = NULL;
 	if (!ft_strchr(node->data.command_n_args[0], '/'))
@@ -55,40 +57,49 @@ char	*create_error_str(t_pipes *node)
 
 int	error_message_execve(t_pipes *node, char **env_array)
 {
-
 	free_args(env_array);
 	if (errno == ENOENT)
 	{
-		if (ft_strchr(node->data.command_n_args[0], '/'))
-		{
-			print_error("minishell: ");
-			print_error(node->data.command_n_args[0]);
-			print_error(": No such file or directory\n");
-			return (127);
-		}
-		else
-		{
-			print_error(node->data.command_n_args[0]);
-			print_error(": command not found\n");
-			return (127);
-		}
+		return (err_message_enoent(node));
 	}
 	if (errno == EACCES)
 	{
-		if (opendir(node->data.command_n_args[0]) == NULL)
-		{
-			print_error("minishell: ");
-			print_error(node->data.command_n_args[0]);
-			print_error(": Permission denied\n");
-			return (126);
-		}
-		else
-		{
-			print_error("minishell: ");
-			print_error(node->data.command_n_args[0]);
-			print_error(": Is a directory\n");
-			return (126);
-		}
+		return (err_message_eaccess(node));
 	}
 	return (127);
+}
+
+int	err_message_eaccess(t_pipes *node)
+{
+	if (opendir(node->data.command_n_args[0]) == NULL)
+	{
+		print_error("minishell: ");
+		print_error(node->data.command_n_args[0]);
+		print_error(": Permission denied\n");
+		return (126);
+	}
+	else
+	{
+		print_error("minishell: ");
+		print_error(node->data.command_n_args[0]);
+		print_error(": Is a directory\n");
+		return (126);
+	}
+}
+
+int	err_message_enoent(t_pipes *node)
+{
+	if (ft_strchr(node->data.command_n_args[0], '/'))
+	{
+		print_error("minishell: ");
+		print_error(node->data.command_n_args[0]);
+		print_error(": No such file or directory\n");
+		return (127);
+	}
+	else
+	{
+		print_error(node->data.command_n_args[0]);
+		print_error(": command not found\n");
+		return (127);
+	}
 }
