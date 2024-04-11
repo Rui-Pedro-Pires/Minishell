@@ -291,6 +291,12 @@ void				tester(t_pipes *head);
 /************************************/
 
 int					ft_cd(t_pipes *node, char **str);
+int					handle_cd_home(t_pipes *node, char **str);
+int					handle_cd_too_many_args(void);
+int					handle_cd_new_dir(t_pipes *node, char *new_dir);
+void				update_old_pwd(t_pipes *node);
+void				update_current_pwd(t_pipes *node);
+int					cd_home(t_pipes *node, char **str);
 int					ft_pwd(void);
 int					ft_echo(char **str_array);
 
@@ -336,6 +342,7 @@ void				remove_node(t_envs **head, t_envs *prev, t_envs *current);
 void				free_nodes(t_envs *node);
 char				*ft_getenv(t_envs *head, char *str);
 t_envs				*bubble_sort(t_envs *head);
+int					ft_is_only_digit(char *str);
 
 /****************************/
 /*			EXECUTOR		*/

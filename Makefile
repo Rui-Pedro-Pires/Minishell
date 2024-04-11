@@ -56,6 +56,7 @@ SOURCES := main.c \
 			parser/parser_diff_signs.c\
 			parser/parser_parenthesis.c\
 			builtins/cd_pwd/cd.c\
+			builtins/cd_pwd/cd_utils.c\
 			builtins/cd_pwd/pwd.c\
 			builtins/envs/create_env_list.c\
 			builtins/envs/free_env.c\
