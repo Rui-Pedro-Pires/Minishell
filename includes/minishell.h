@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe  <jorteixe@student.42.fr   >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/06 20:42:44 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/04/11 10:50:15 by jorteixe          #+#    #+#             */
+/*   Updated: 2024/04/11 10:50:15 by jorteixe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -19,15 +19,14 @@
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdarg.h>
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <signal.h>
 # include <sys/wait.h>
 # include <unistd.h>
-#include <signal.h>
 
 # define D_QUOTES 34
 # define S_QUOTES 39
@@ -364,6 +363,10 @@ void				free_pnts(void **pnts);
 void				free_ppnts(void ***ppnts);
 void				type_free(va_list args, const char format);
 void				multiple_free(const char *format, ...);
+void				free_resources(t_pipes *head);
+void				handle_too_many_args(int *exit_type);
+void				handle_numeric_arg(int *exit_type, char *arg);
+bool				ft_str_is_number(char *str);
 
 char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strjoin_free_v2(char *s1, char *s2);
@@ -399,8 +402,8 @@ void				check_for_execution_to_file(t_pipes *node, int *status);
 char				**ft_split_ignore_quotes(char *s, char *c);
 int					all_quotes_ignore(char *s);
 char				*ft_strjoin_files(char **s1, char **s2);
-char    			*listfiles(char *dirname);
-int    				array_size(char **file);
+char				*listfiles(char *dirname);
+int					array_size(char **file);
 
 /****************************************/
 /*				SIGNALS					*/
