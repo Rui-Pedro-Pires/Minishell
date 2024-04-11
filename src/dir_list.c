@@ -24,54 +24,6 @@ int	array_size(char **file)
 	return (i);
 }
 
-// char	**ft_strjoin_files(char **s1, char **s2)
-// {
-// 	char	**new_str;
-// 	int		i;
-// 	int		n;
-
-//     if (!s2)
-//         return (s1);
-//     new_str = ft_calloc(sizeof(char *), array_size(s1) + array_size(s2) + 1);
-// 	i = 0;
-// 	n = 0;
-// 	while (s1[i])
-// 		new_str[n++] = ft_strdup(s1[i++]);
-// 	i = 0;
-// 	while (s2[i])
-// 		new_str[n++] = ft_strdup(s2[i++]);
-//     free_args(s1);
-//     free_args(s2);
-// 	return (new_str);
-// }
-
-// char    **push(char **files, char *str_to_add)
-// {
-//     char    **new_files;
-//     int size;
-//     int i;
-
-//     i = 0;
-//     if (!files)
-//     {
-//         new_files = ft_calloc(sizeof(char *), 2);
-//         new_files[0] = ft_strdup(str_to_add);
-//         return (new_files);
-//     }
-//     size = array_size(files);
-//     new_files = ft_calloc(sizeof(char *), size + 2);
-//     if (!new_files)
-//         return (NULL);
-//     while (files[i])
-//     {
-//         new_files[i] = ft_strdup(files[i]);
-//         i++;
-//     }
-//     new_files[i] = ft_strdup(str_to_add);
-//     free_args(files);
-//     return (new_files);
-// }
-
 char	*iterate_files(DIR *dirp, struct dirent *entity)
 {
 	char	*files;
@@ -94,16 +46,16 @@ char	*iterate_files(DIR *dirp, struct dirent *entity)
 
 char	*listfiles(char *dirname)
 {
-    DIR *dirp;
-    struct dirent   *entity;
-    char    *files;
-    
-    files = NULL;
-    dirp = opendir(dirname);
-    if (dirp == NULL)
-        return (NULL);
-    entity = readdir(dirp);
-    files = iterate_files(dirp, entity);
-    closedir(dirp);
-    return (files);
+	DIR				*dirp;
+	struct dirent	*entity;
+	char			*files;
+
+	files = NULL;
+	dirp = opendir(dirname);
+	if (dirp == NULL)
+		return (NULL);
+	entity = readdir(dirp);
+	files = iterate_files(dirp, entity);
+	closedir(dirp);
+	return (files);
 }
