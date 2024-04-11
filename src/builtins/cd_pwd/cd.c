@@ -29,21 +29,21 @@ void	err_num_chdir(char *str) //#TODO erros with no permission
 {
 	if (errno == ENOENT)
 	{
-		print_error("cd: no such file or directory: ");
+		print_error("minishell: cd: ");
 		print_error(str);
-		print_error("\n");
+		print_error(": No such file or directory\n");
 	}
 	else if (errno == EACCES)
 	{
-		print_error("cd: permission denied: ");
+		print_error("minishell: cd: ");
 		print_error(str);
-		print_error("\n");
+		print_error(": permission denied\n");
 	}
 	else if (errno == ENOTDIR)
 	{
-		print_error("cd: not a directory: ");
+		print_error("minishell: cd: ");
 		print_error(str);
-		print_error("\n");
+		print_error(": not a directory\n");
 	}
 	else
 	{
