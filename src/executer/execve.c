@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int	error_message_execve(t_pipes *node, char **env_array);
+int		error_message_execve(t_pipes *node, char **env_array);
 
 int	executens_ve(t_pipes *node)
 {
@@ -27,16 +27,15 @@ int	executens_ve(t_pipes *node)
 		write_pipe_stdin(node);
 	handle_reset_signals();
 	env_array = envlist_to_array(node->init->envs);
-	execve(node->data.command_n_args[0],
-		node->data.command_n_args, env_array);
+	execve(node->data.command_n_args[0], node->data.command_n_args, env_array);
 	return (error_message_execve(node, env_array));
 }
 
-char *create_error_str(t_pipes *node)
+char	*create_error_str(t_pipes *node)
 {
-	int	i;
-	int	x;
-	char *new_str;
+	int		i;
+	int		x;
+	char	*new_str;
 
 	i = ft_strlen(node->data.command_n_args[0]) - 1;
 	x = i;
@@ -52,7 +51,8 @@ char *create_error_str(t_pipes *node)
 
 int	error_message_execve(t_pipes *node, char **env_array)
 {
-	char *path;
+	char	*path;
+
 	free_args(env_array);
 	if (errno == ENOENT)
 	{
