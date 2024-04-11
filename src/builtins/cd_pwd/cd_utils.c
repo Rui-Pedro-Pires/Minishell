@@ -40,5 +40,5 @@ int	handle_cd_new_dir(t_pipes *node, char *new_dir)
 	}
 	update_current_pwd(node);
 	free(new_dir);
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

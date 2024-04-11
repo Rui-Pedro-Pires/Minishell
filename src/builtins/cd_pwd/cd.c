@@ -14,15 +14,15 @@
 
 int	ft_cd(t_pipes *node, char **str)
 {
-    char	*new_dir;
+	char	*new_dir;
 
-    update_old_pwd(node);
-    if (str[1] == NULL || str[1][0] == '~')
-        return handle_cd_home(node, str);
-    if (str[2] != NULL)
-        return handle_cd_too_many_args();
-    new_dir = ft_strdup(str[1]);
-    return handle_cd_new_dir(node, new_dir);
+	update_old_pwd(node);
+	if (str[1] == NULL || str[1][0] == '~')
+		return (handle_cd_home(node, str));
+	if (str[2] != NULL)
+		return (handle_cd_too_many_args());
+	new_dir = ft_strdup(str[1]);
+	return (handle_cd_new_dir(node, new_dir));
 }
 
 void	err_num_chdir(char *str) //#TODO erros with no permission
