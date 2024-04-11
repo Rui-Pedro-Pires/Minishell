@@ -12,11 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-int	create_path_to_execve(t_pipes *node)
+char *	create_path_to_execve(t_pipes *node)
 {
 	char	*path_str;
 	char	**paths_array;
 	char	*temp_str;
+	char *return_str;
 	int		i;
 
 	path_str = ft_getenv(node->init->envs, "PATH");
@@ -26,20 +27,21 @@ int	create_path_to_execve(t_pipes *node)
 	free(path_str);
 	i = 0;
 	temp_str = ft_strdup(node->data.command_n_args[0]);
+	return_str = ft_strdup(node->data.command_n_args[0]);
 	paths_array[i] = ft_strjoin_free(paths_array[i], "/");
-	node->data.command_n_args[0] = ft_strjoin_free_v2(paths_array[i],
-			node->data.command_n_args[0]);
-	while (access(node->data.command_n_args[0], F_OK) != 0
+	return_str = ft_strjoin_free_v2(paths_array[i],
+			return_str);
+	while (access(return_str, F_OK) != 0
 		&& paths_array[i] != NULL)
 	{
 		paths_array[i] = ft_strjoin_free(paths_array[i], "/");
-		free(node->data.command_n_args[0]);
-		node->data.command_n_args[0] = ft_strjoin(paths_array[i], temp_str);
+		free(return_str);
+		return_str = ft_strjoin(paths_array[i], temp_str);
 		i++;
 	}
 	free(temp_str);
 	free_args(paths_array);
-	return (1);
+	return (return_str);
 }
 
 char	**envlist_to_array(t_envs *envs)

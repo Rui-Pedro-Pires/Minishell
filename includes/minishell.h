@@ -359,7 +359,7 @@ int					list_iterator_executer(t_pipes *head);
 void				command_decider(t_pipes *node);
 void				command_decider2(t_pipes *node);
 int					init_data(t_pipes *node);
-int					create_path_to_execve(t_pipes *node);
+char				*create_path_to_execve(t_pipes *node);
 
 /****************************/
 /*			FREE			*/
