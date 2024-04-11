@@ -67,10 +67,20 @@ int	error_message_execve(t_pipes *node, char **env_array)
 	}
 	if (errno == EACCES)
 	{
-		print_error("minishell: ");
-		print_error(node->data.command_n_args[0]);
-		print_error(": Is a directory\n");
-		return (126);
+		if (opendir(node->data.command_n_args[0]) == NULL)
+		{
+			print_error("minishell: ");
+			print_error(node->data.command_n_args[0]);
+			print_error(": Permission denied\n");
+			return (126);
+		}
+		else
+		{
+			print_error("minishell: ");
+			print_error(node->data.command_n_args[0]);
+			print_error(": Is a directory\n");
+			return (126);
+		}
 	}
 	return (127);
 }
