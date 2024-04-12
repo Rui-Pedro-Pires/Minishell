@@ -275,6 +275,7 @@ int					heardoc_check(t_init *init, char *input,
 						t_counter *count_struc, int i);
 char				*search_heardoc_condition(char *input, t_counter *iter);
 int					quotes_ignore(char *input);
+char			*read_heardoc_buffer(int fd);
 char				*expande_heardoc(t_init init, char *str);
 int					maxlen(size_t new, size_t str_cond);
 char				*handle_dollar_sign_heardoc(t_init init, char *str, int j);

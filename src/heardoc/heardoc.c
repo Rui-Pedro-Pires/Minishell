@@ -85,7 +85,6 @@ static char	*process_heardoc(char *input, t_counter *iter, t_init *init)
 {
 	int		fd[2];
 	char	*str_condition;
-	char	*buffer;
 	char	*new_str;
 	int		status;
 
@@ -103,15 +102,7 @@ static char	*process_heardoc(char *input, t_counter *iter, t_init *init)
 		return (NULL);
 	}
 	close(fd[1]);
-	buffer = ft_calloc(sizeof(char), 2);
-	new_str = ft_strdup("");
-	while (1)
-	{
-		if (read(fd[0], buffer, 1) <= 0)
-			break ;
-		new_str = ft_strjoin_free(new_str, buffer);
-	}
-	free(buffer);
+	new_str = read_heardoc_buffer(fd[0]);
 	free(str_condition);
 	return (new_str);
 }

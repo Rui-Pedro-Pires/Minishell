@@ -37,6 +37,7 @@ SOURCES := main.c \
 			signals_handlers.c\
 			heardoc/heardoc.c\
 			heardoc/heardoc_utils.c\
+			heardoc/heardoc_utils2.c\
 			lists/create_list.c\
 			lists/create_list_utils.c\
 			lists/build_str_list.c\
