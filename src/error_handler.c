@@ -12,6 +12,11 @@
 
 #include "../includes/minishell.h"
 
+void	err_hlr_2(int error_msg, void *param, void **param2);
+void	err_hndlr_3(int error_msg, void *param, void **param2);
+void	err_hndlr_4(int error_msg, void *param, void **param2);
+
+
 void	error_handler(int error_msg, void *param, void **param2)
 {
 	if (error_msg == ERROR_UNFINISHED_QUOTE)
