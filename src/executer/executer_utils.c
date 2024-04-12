@@ -30,7 +30,7 @@ int	init_data(t_pipes *node)
 		status = 1;
 		print_error("minishell: ");
 		print_error(return_value);
-		print_error(": ambiguos redirect\n");
+		print_error(": ambiguous redirect\n");
 	}
 	node->data.command_n_args = ft_split_ignore_quotes(node->input_string,
 			" \t\n");
