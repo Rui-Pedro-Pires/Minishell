@@ -275,7 +275,7 @@ int					heardoc_check(t_init *init, char *input,
 						t_counter *count_struc, int i);
 char				*search_heardoc_condition(char *input, t_counter *iter);
 int					quotes_ignore(char *input);
-char			*read_heardoc_buffer(int fd);
+char				*read_heardoc_buffer(int fd);
 char				*expande_heardoc(t_init init, char *str);
 int					maxlen(size_t new, size_t str_cond);
 char				*handle_dollar_sign_heardoc(t_init init, char *str, int j);
@@ -429,5 +429,23 @@ void				handle_sigint(int sig);
 /****************************************/
 
 char				*wildcards(t_pipes *node);
-
+char				*trim_files(char *files, char *str_condition);
+int					search_redir(char *str, int i);
+int					redir_wildcard(t_pipes *node, int *i, char *files,
+						char **str_condition);
+char				*wildcards(t_pipes *node);
+void				insert_trimmed_files(char **trimmed_files,
+						char *file_to_add);
+int					starts_with_file_name(char *file, char *condition);
+char				*get_mid(char *str, int *i);
+int					middle_with_file_name(char *file, char *condition);
+int					all_cases_file_name(char *file, char *condition);
+int					check_to_add(char *file, char *condition);
+char				*push_char(char *str, char to_push);
+char				*remove_dupp_wild(char *condition);
+int					ends_with_file_name(char *file, char *condition);
+char				*wildcard_checker(char *str, int *i);
+int					check_only_wildcard(char *str_condition);
+int					insert_files_into_str(t_pipes *node, char *files, int *i,
+						int save_redir);
 #endif

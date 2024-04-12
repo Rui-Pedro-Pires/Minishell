@@ -72,6 +72,9 @@ SOURCES := main.c \
 			expander/expander_utils2.c\
 			expander/expander.c\
 			expander/expand_wildcards.c\
+			expander/wildcardenz_utils.c\
+			expander/wildcardenz_utils2.c\
+			expander/wildcardenz_utils3.c\
 			executer/executer.c\
 			executer/executer_utils.c\
 			executer/execve.c\
