@@ -50,9 +50,7 @@ int     check_only_wildcard(char *str_condition)
 char	*wildcard_checker(char *str, int *i)
 {
 	char	*str_condition;
-	int		x;
-
-	x = 0;
+	
 	while (*i > 0 && str[(*i)] != ' ' && str[(*i)] != '\'' && str[(*i)] != '\"')
 		(*i)--;
 	(*i)++;
@@ -272,10 +270,8 @@ int all_cases_file_name(char *file, char *condition)
 
 int check_to_add(char *file, char *condition)
 {
-    int i;
     int size_condition;
 
-    i = 0;
     size_condition = ft_strlen(condition);
     if (ft_strchr("*", condition[0]) && !ft_strchr(condition + 1, '*'))
         return (ends_with_file_name(file, condition));
