@@ -1,146 +1,178 @@
-==80893== Memcheck, a memory error detector
-==80893== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==80893== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==80893== Command: ./minishell
-==80893== Parent PID: 80890
-==80893== 
-==80917== 
-==80917== Process terminating with default action of signal 2 (SIGINT)
-==80917==    at 0x490275B: kill (syscall-template.S:120)
-==80917==    by 0x489FF39: _rl_signal_handler (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==80917==    by 0x48A0BEC: rl_getc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==80917==    by 0x48A0460: rl_read_key (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==80917==    by 0x4884C86: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==80917==    by 0x488DD14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==80917==    by 0x10CC89: child_process_keep_reading (read_line.c:100)
-==80917==    by 0x10CB8D: keep_reading (read_line.c:69)
-==80917==    by 0x10CA39: line_read (read_line.c:29)
-==80917==    by 0x109617: main (main.c:39)
-==80917== 
-==80917== HEAP SUMMARY:
-==80917==     in use at exit: 241,887 bytes in 1,031 blocks
-==80917==   total heap usage: 2,625 allocs, 1,594 frees, 663,846 bytes allocated
-==80917== 
-==80917== 10 bytes in 10 blocks are still reachable in loss record 7 of 100
-==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
-==80917==    by 0x10F6BE: create_env_node (create_env_list.c:35)
-==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
-==80917==    by 0x10967B: initialize (main.c:51)
-==80917==    by 0x1095D2: main (main.c:27)
-==80917== 
-==80917== 10 bytes in 10 blocks are still reachable in loss record 8 of 100
-==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
-==80917==    by 0x10F6BE: create_env_node (create_env_list.c:35)
-==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
-==80917==    by 0x10968E: initialize (main.c:52)
-==80917==    by 0x1095D2: main (main.c:27)
-==80917== 
-==80917== 1,518 bytes in 95 blocks are still reachable in loss record 61 of 100
-==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
-==80917==    by 0x10F681: create_env_node (create_env_list.c:31)
-==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
-==80917==    by 0x10967B: initialize (main.c:51)
-==80917==    by 0x1095D2: main (main.c:27)
-==80917== 
-==80917== 1,518 bytes in 95 blocks are still reachable in loss record 62 of 100
-==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
-==80917==    by 0x10F681: create_env_node (create_env_list.c:31)
-==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
-==80917==    by 0x10968E: initialize (main.c:52)
-==80917==    by 0x1095D2: main (main.c:27)
-==80917== 
-==80917== 1,652 bytes in 4 blocks are still reachable in loss record 65 of 100
-==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==80917==    by 0x11426B: ft_calloc (in /home/ruiolive/CommonCore/Minishell/minishell)
-==80917==    by 0x10A063: ft_strjoin_free (str_join.c:72)
-==80917==    by 0x10F8F3: add_rest_of_array (create_env_list.c:117)
-==80917==    by 0x10F6A5: create_env_node (create_env_list.c:33)
-==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
-==80917==    by 0x10967B: initialize (main.c:51)
-==80917==    by 0x1095D2: main (main.c:27)
-==80917== 
-==80917== 1,652 bytes in 4 blocks are still reachable in loss record 66 of 100
-==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==80917==    by 0x11426B: ft_calloc (in /home/ruiolive/CommonCore/Minishell/minishell)
-==80917==    by 0x10A063: ft_strjoin_free (str_join.c:72)
-==80917==    by 0x10F8F3: add_rest_of_array (create_env_list.c:117)
-==80917==    by 0x10F6A5: create_env_node (create_env_list.c:33)
-==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
-==80917==    by 0x10968E: initialize (main.c:52)
-==80917==    by 0x1095D2: main (main.c:27)
-==80917== 
-==80917== 1,982 bytes in 81 blocks are still reachable in loss record 68 of 100
-==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
-==80917==    by 0x10F8AD: add_rest_of_array (create_env_list.c:113)
-==80917==    by 0x10F6A5: create_env_node (create_env_list.c:33)
-==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
-==80917==    by 0x10967B: initialize (main.c:51)
-==80917==    by 0x1095D2: main (main.c:27)
-==80917== 
-==80917== 1,982 bytes in 81 blocks are still reachable in loss record 69 of 100
-==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
-==80917==    by 0x10F8AD: add_rest_of_array (create_env_list.c:113)
-==80917==    by 0x10F6A5: create_env_node (create_env_list.c:33)
-==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
-==80917==    by 0x10968E: initialize (main.c:52)
-==80917==    by 0x1095D2: main (main.c:27)
-==80917== 
-==80917== 3,800 bytes in 95 blocks are still reachable in loss record 73 of 100
-==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==80917==    by 0x10F60A: create_env_node (create_env_list.c:22)
-==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
-==80917==    by 0x10967B: initialize (main.c:51)
-==80917==    by 0x1095D2: main (main.c:27)
-==80917== 
-==80917== 3,800 bytes in 95 blocks are still reachable in loss record 74 of 100
-==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==80917==    by 0x10F60A: create_env_node (create_env_list.c:22)
-==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
-==80917==    by 0x10968E: initialize (main.c:52)
-==80917==    by 0x1095D2: main (main.c:27)
-==80917== 
-==80917== 5,162 bytes in 95 blocks are still reachable in loss record 85 of 100
-==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
-==80917==    by 0x10F62B: create_env_node (create_env_list.c:25)
-==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
-==80917==    by 0x10967B: initialize (main.c:51)
-==80917==    by 0x1095D2: main (main.c:27)
-==80917== 
-==80917== 5,162 bytes in 95 blocks are still reachable in loss record 86 of 100
-==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
-==80917==    by 0x10F62B: create_env_node (create_env_list.c:25)
-==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
-==80917==    by 0x10968E: initialize (main.c:52)
-==80917==    by 0x1095D2: main (main.c:27)
-==80917== 
-==80917== LEAK SUMMARY:
-==80917==    definitely lost: 0 bytes in 0 blocks
-==80917==    indirectly lost: 0 bytes in 0 blocks
-==80917==      possibly lost: 0 bytes in 0 blocks
-==80917==    still reachable: 28,248 bytes in 760 blocks
-==80917==         suppressed: 213,639 bytes in 271 blocks
-==80917== 
-==80917== For lists of detected and suppressed errors, rerun with: -s
-==80917== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==80893== 
-==80893== HEAP SUMMARY:
-==80893==     in use at exit: 204,249 bytes in 221 blocks
-==80893==   total heap usage: 2,632 allocs, 2,411 frees, 668,211 bytes allocated
-==80893== 
-==80893== LEAK SUMMARY:
-==80893==    definitely lost: 0 bytes in 0 blocks
-==80893==    indirectly lost: 0 bytes in 0 blocks
-==80893==      possibly lost: 0 bytes in 0 blocks
-==80893==    still reachable: 0 bytes in 0 blocks
-==80893==         suppressed: 204,249 bytes in 221 blocks
-==80893== 
-==80893== For lists of detected and suppressed errors, rerun with: -s
-==80893== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==94749== Memcheck, a memory error detector
+==94749== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==94749== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==94749== Command: ./minishell
+==94749== Parent PID: 94746
+==94749== 
+==94816== 
+==94816== HEAP SUMMARY:
+==94816==     in use at exit: 208,320 bytes in 223 blocks
+==94816==   total heap usage: 2,780 allocs, 2,557 frees, 708,570 bytes allocated
+==94816== 
+==94816== LEAK SUMMARY:
+==94816==    definitely lost: 0 bytes in 0 blocks
+==94816==    indirectly lost: 0 bytes in 0 blocks
+==94816==      possibly lost: 0 bytes in 0 blocks
+==94816==    still reachable: 0 bytes in 0 blocks
+==94816==         suppressed: 208,320 bytes in 223 blocks
+==94816== 
+==94816== For lists of detected and suppressed errors, rerun with: -s
+==94816== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==94817== 
+==94817== HEAP SUMMARY:
+==94817==     in use at exit: 208,320 bytes in 223 blocks
+==94817==   total heap usage: 2,799 allocs, 2,576 frees, 742,382 bytes allocated
+==94817== 
+==94817== LEAK SUMMARY:
+==94817==    definitely lost: 0 bytes in 0 blocks
+==94817==    indirectly lost: 0 bytes in 0 blocks
+==94817==      possibly lost: 0 bytes in 0 blocks
+==94817==    still reachable: 0 bytes in 0 blocks
+==94817==         suppressed: 208,320 bytes in 223 blocks
+==94817== 
+==94817== For lists of detected and suppressed errors, rerun with: -s
+==94817== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==94818== 
+==94818== HEAP SUMMARY:
+==94818==     in use at exit: 208,320 bytes in 223 blocks
+==94818==   total heap usage: 2,818 allocs, 2,595 frees, 776,184 bytes allocated
+==94818== 
+==94818== LEAK SUMMARY:
+==94818==    definitely lost: 0 bytes in 0 blocks
+==94818==    indirectly lost: 0 bytes in 0 blocks
+==94818==      possibly lost: 0 bytes in 0 blocks
+==94818==    still reachable: 0 bytes in 0 blocks
+==94818==         suppressed: 208,320 bytes in 223 blocks
+==94818== 
+==94818== For lists of detected and suppressed errors, rerun with: -s
+==94818== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==94819== 
+==94819== HEAP SUMMARY:
+==94819==     in use at exit: 208,320 bytes in 223 blocks
+==94819==   total heap usage: 2,837 allocs, 2,614 frees, 809,941 bytes allocated
+==94819== 
+==94819== LEAK SUMMARY:
+==94819==    definitely lost: 0 bytes in 0 blocks
+==94819==    indirectly lost: 0 bytes in 0 blocks
+==94819==      possibly lost: 0 bytes in 0 blocks
+==94819==    still reachable: 0 bytes in 0 blocks
+==94819==         suppressed: 208,320 bytes in 223 blocks
+==94819== 
+==94819== For lists of detected and suppressed errors, rerun with: -s
+==94819== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==94860== 
+==94860== HEAP SUMMARY:
+==94860==     in use at exit: 208,243 bytes in 225 blocks
+==94860==   total heap usage: 2,749 allocs, 2,524 frees, 808,418 bytes allocated
+==94860== 
+==94860== LEAK SUMMARY:
+==94860==    definitely lost: 0 bytes in 0 blocks
+==94860==    indirectly lost: 0 bytes in 0 blocks
+==94860==      possibly lost: 0 bytes in 0 blocks
+==94860==    still reachable: 0 bytes in 0 blocks
+==94860==         suppressed: 208,243 bytes in 225 blocks
+==94860== 
+==94860== For lists of detected and suppressed errors, rerun with: -s
+==94860== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==94861== 
+==94861== HEAP SUMMARY:
+==94861==     in use at exit: 208,343 bytes in 225 blocks
+==94861==   total heap usage: 2,966 allocs, 2,741 frees, 850,849 bytes allocated
+==94861== 
+==94861== 53 bytes in 1 blocks are still reachable in loss record 16 of 66
+==94861==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==94861==    by 0x114285: ft_calloc (in /home/ruiolive/CommonCore/Minishell/minishell)
+==94861==    by 0x10A063: ft_strjoin_free (str_join.c:72)
+==94861==    by 0x10CC22: keep_reading (read_line.c:82)
+==94861==    by 0x10CA39: line_read (read_line.c:29)
+==94861==    by 0x109617: main (main.c:39)
+==94861== 
+==94861== LEAK SUMMARY:
+==94861==    definitely lost: 0 bytes in 0 blocks
+==94861==    indirectly lost: 0 bytes in 0 blocks
+==94861==      possibly lost: 0 bytes in 0 blocks
+==94861==    still reachable: 53 bytes in 1 blocks
+==94861==         suppressed: 208,290 bytes in 224 blocks
+==94861== 
+==94861== For lists of detected and suppressed errors, rerun with: -s
+==94861== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==94862== 
+==94862== HEAP SUMMARY:
+==94862==     in use at exit: 208,343 bytes in 225 blocks
+==94862==   total heap usage: 2,985 allocs, 2,760 frees, 884,661 bytes allocated
+==94862== 
+==94862== 53 bytes in 1 blocks are still reachable in loss record 16 of 66
+==94862==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==94862==    by 0x114285: ft_calloc (in /home/ruiolive/CommonCore/Minishell/minishell)
+==94862==    by 0x10A063: ft_strjoin_free (str_join.c:72)
+==94862==    by 0x10CC22: keep_reading (read_line.c:82)
+==94862==    by 0x10CA39: line_read (read_line.c:29)
+==94862==    by 0x109617: main (main.c:39)
+==94862== 
+==94862== LEAK SUMMARY:
+==94862==    definitely lost: 0 bytes in 0 blocks
+==94862==    indirectly lost: 0 bytes in 0 blocks
+==94862==      possibly lost: 0 bytes in 0 blocks
+==94862==    still reachable: 53 bytes in 1 blocks
+==94862==         suppressed: 208,290 bytes in 224 blocks
+==94862== 
+==94862== For lists of detected and suppressed errors, rerun with: -s
+==94862== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==94863== 
+==94863== HEAP SUMMARY:
+==94863==     in use at exit: 208,343 bytes in 225 blocks
+==94863==   total heap usage: 3,004 allocs, 2,779 frees, 918,463 bytes allocated
+==94863== 
+==94863== 53 bytes in 1 blocks are still reachable in loss record 16 of 66
+==94863==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==94863==    by 0x114285: ft_calloc (in /home/ruiolive/CommonCore/Minishell/minishell)
+==94863==    by 0x10A063: ft_strjoin_free (str_join.c:72)
+==94863==    by 0x10CC22: keep_reading (read_line.c:82)
+==94863==    by 0x10CA39: line_read (read_line.c:29)
+==94863==    by 0x109617: main (main.c:39)
+==94863== 
+==94863== LEAK SUMMARY:
+==94863==    definitely lost: 0 bytes in 0 blocks
+==94863==    indirectly lost: 0 bytes in 0 blocks
+==94863==      possibly lost: 0 bytes in 0 blocks
+==94863==    still reachable: 53 bytes in 1 blocks
+==94863==         suppressed: 208,290 bytes in 224 blocks
+==94863== 
+==94863== For lists of detected and suppressed errors, rerun with: -s
+==94863== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==94864== 
+==94864== HEAP SUMMARY:
+==94864==     in use at exit: 208,343 bytes in 225 blocks
+==94864==   total heap usage: 2,895 allocs, 2,670 frees, 945,656 bytes allocated
+==94864== 
+==94864== 53 bytes in 1 blocks are still reachable in loss record 16 of 66
+==94864==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==94864==    by 0x114285: ft_calloc (in /home/ruiolive/CommonCore/Minishell/minishell)
+==94864==    by 0x10A063: ft_strjoin_free (str_join.c:72)
+==94864==    by 0x10CC22: keep_reading (read_line.c:82)
+==94864==    by 0x10CA39: line_read (read_line.c:29)
+==94864==    by 0x109617: main (main.c:39)
+==94864== 
+==94864== LEAK SUMMARY:
+==94864==    definitely lost: 0 bytes in 0 blocks
+==94864==    indirectly lost: 0 bytes in 0 blocks
+==94864==      possibly lost: 0 bytes in 0 blocks
+==94864==    still reachable: 53 bytes in 1 blocks
+==94864==         suppressed: 208,290 bytes in 224 blocks
+==94864== 
+==94864== For lists of detected and suppressed errors, rerun with: -s
+==94864== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==94749== 
+==94749== HEAP SUMMARY:
+==94749==     in use at exit: 208,434 bytes in 228 blocks
+==94749==   total heap usage: 2,903 allocs, 2,675 frees, 950,032 bytes allocated
+==94749== 
+==94749== LEAK SUMMARY:
+==94749==    definitely lost: 0 bytes in 0 blocks
+==94749==    indirectly lost: 0 bytes in 0 blocks
+==94749==      possibly lost: 0 bytes in 0 blocks
+==94749==    still reachable: 0 bytes in 0 blocks
+==94749==         suppressed: 208,434 bytes in 228 blocks
+==94749== 
+==94749== For lists of detected and suppressed errors, rerun with: -s
+==94749== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

@@ -59,7 +59,6 @@ int	list_iterator_executer(t_pipes *curr, t_pipes *head)
 	int	size;
 
 	status = 0;
-	(void)	head;	
 	size = list_size(curr);
 	if (size == 1)
 		return (single_command(curr, head));

@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **env)
 		init.pid = NULL;
 		init.heardocs = NULL;
 		init.heardoc_index = &heardoc_index;
-		input = line_read(&init, &count_struc);
+		input = line_read(&init, &count_struc);		
 		process_input(&head, input, &init);
 		free_input(&input);
 		free_heardoc(head);

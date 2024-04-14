@@ -70,6 +70,8 @@ char	*keep_reading(char *input, t_counter *c_struc, t_init *init)
 		handle_sigint_status();
 		wait(&status);
 		close(fd[1]);
+		if (status != 0)
+			return (free(input), NULL);
 		buffer = ft_calloc(sizeof(char), 2);
 		free(input);
 		input = ft_strdup("");

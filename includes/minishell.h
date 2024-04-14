@@ -239,8 +239,7 @@ t_pipes				*find_last_node(t_pipes *head);
 int					parenthesis_ignore(char *input);
 void				parenthesis_add(char **formated, char *input, int *i,
 						int *x);
-void				init_node(t_pipes *next_node, t_pipes *down_node,
-						t_sign_type sign_type, t_init *init);
+void				init_node(t_pipes *next_node, t_pipes *down_node, t_init *init);
 int					define_input_and_output(t_pipes *node);
 int					check_for_dbpipe_dbamper(char *input);
 char				*create_str_bet_parent(char *formated);
