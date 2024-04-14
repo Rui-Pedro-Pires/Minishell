@@ -65,14 +65,14 @@ int	ends_with_file_name(char *file, char *condition)
 		if (file[i] == condition[x])
 			return (1);
 	}
-	while (x > 0 && i > 0)
+	while (x >= 0 && i >= 0 && condition[x] != '*')
 	{
 		if (file[i] != condition[x])
 			return (0);
 		i--;
 		x--;
 	}
-	if (x != 0)
+	if (x != 0 && condition[x] != '*')
 		return (0);
 	return (1);
 }

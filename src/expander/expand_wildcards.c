@@ -20,7 +20,7 @@ char	*get_str_condition(char *str, int i)
 
 	x = i;
 	y = 0;
-	while (str[x] && str[x] != ' ' && str[x] != '\'' && str[x] != '\"')
+	while (str[x] && !ft_strchr(" <>\'\"", str[x]))
 	{
 		x++;
 		y++;
@@ -28,7 +28,7 @@ char	*get_str_condition(char *str, int i)
 	str_condition = ft_calloc(sizeof(char), y + 1);
 	x = i;
 	y = 0;
-	while (str[x] && str[x] != ' ' && str[x] != '\'' && str[x] != '\"')
+	while (str[x] && !ft_strchr(" <>\'\"", str[x]))
 		str_condition[y++] = str[x++];
 	return (str_condition);
 }
@@ -51,7 +51,7 @@ char	*wildcard_checker(char *str, int *i)
 {
 	char	*str_condition;
 
-	while (*i > 0 && str[(*i)] != ' ' && str[(*i)] != '\'' && str[(*i)] != '\"')
+	while (*i > 0 && !ft_strchr(" <>\'\"", str[*i]))
 		(*i)--;
 	(*i)++;
 	str_condition = get_str_condition(str, *i);
@@ -91,7 +91,7 @@ int	insert_files_into_str(t_pipes *node, char *files, int *i, int save_redir)
 		return (1);
 	else
 	{
-		while (node->input_string[x] && !ft_strchr(" \'\"",
+		while (node->input_string[x] && !ft_strchr(" <>\'\"",
 				node->input_string[x]))
 			x++;
 		new_str = ft_calloc(sizeof(char), ft_strlen(node->input_string) - (x
