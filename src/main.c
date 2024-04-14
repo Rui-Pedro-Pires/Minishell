@@ -21,6 +21,7 @@ int	main(int argc, char **argv, char **env)
 	t_counter	count_struc;
 	t_pipes		*head;
 	t_init		init;
+	int	heardoc_index;
 
 	head = NULL;
 	initialize(&init, env);
@@ -31,6 +32,10 @@ int	main(int argc, char **argv, char **env)
 		handle_iterative_mode();
 		count_struc.i = 0;
 		count_struc.counter = 0;
+		heardoc_index = -1;
+		init.pid = NULL;
+		init.heardocs = NULL;
+		init.heardoc_index = &heardoc_index;
 		input = line_read(&init, &count_struc);
 		process_input(&head, input, &init);
 		free_input(&input);
@@ -50,23 +55,18 @@ void	initialize(t_init *init, char **env)
 
 void	process_input(t_pipes **head, char *input, t_init *init)
 {
-	int	heardoc_index;
-
-	heardoc_index = -1;
-	init->heardocs = NULL;
-	init->heardoc_index = &heardoc_index;
 	if (input && *input)
 		add_history(input);
 	else
-		return ;
+		return;
 	if (check_for_dbpipe_dbamper(input))
 	{
 		creat_list(head, input, init, 1);
-		g_return_value = recursive_executer(*head, 0);
+		g_return_value = recursive_executer(*head, 0, *head);
 	}
 	else
 	{
 		creat_list(head, input, init, 0);
-		g_return_value = list_iterator_executer(*head);
+		g_return_value = list_iterator_executer(*head, *head);
 	}
 }

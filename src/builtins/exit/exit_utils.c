@@ -17,7 +17,8 @@ void	free_resources(t_pipes *head)
 	free_heardoc(head);
 	free_env_list(head->init->envs);
 	free_env_list(head->init->sorted_envs);
-	free_args(head->data.command_n_args);
+	if (head->init->pid)
+		free(head->init->pid);
 	free_list(&head);
 	rl_clear_history();
 }
@@ -32,7 +33,7 @@ void	handle_numeric_arg(int *exit_type, char *arg)
 {
 	int	number;
 
-	number = atoi(arg);
+	number = ft_atoi(arg);
 	if (!ft_str_is_number(arg))
 	{
 		*exit_type = 2;

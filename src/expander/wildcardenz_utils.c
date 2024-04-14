@@ -36,8 +36,10 @@ char	*trim_files(char *files, char *str_condition)
 
 int	search_redir(char *str, int i)
 {
-	while (i > 0)
+	while (i >= 0)
 	{
+		if (i - 1 >= 0 && str[i] == '<' && str[i - 1] == '<')
+			return (2);
 		if (ft_strchr("|><", str[i]))
 			return (1);
 		i--;
@@ -51,11 +53,16 @@ int	redir_wildcard(t_pipes *node, int *i, char *files, char **str_condition)
 	int		save_if_redir;
 
 	save_if_redir = search_redir(node->input_string, *i);
+	if (save_if_redir == 2)
+	{
+		*i += ft_strlen(*str_condition);
+		return (2);
+	}
 	*str_condition = wildcard_checker(node->input_string, i);
 	if (check_only_wildcard(*str_condition) == 0)
 	{
 		if (insert_files_into_str(node, files, i, save_if_redir))
-			return (free(*str_condition), 1);
+			return (1);
 	}
 	else
 	{
@@ -63,10 +70,10 @@ int	redir_wildcard(t_pipes *node, int *i, char *files, char **str_condition)
 		if (!trimmed_files)
 		{
 			*i += ft_strlen(*str_condition);
-			return (free(*str_condition), 2);
+			return (2);
 		}
 		if (insert_files_into_str(node, trimmed_files, i, save_if_redir))
-			return (free(*str_condition), 1);
+			return (1);
 		free(trimmed_files);
 	}
 	return (0);
@@ -93,12 +100,13 @@ char	*wildcards(t_pipes *node)
 				if (save_return == 2)
 					continue ;
 				else if (save_return == 1)
-					return (str_condition);
+					return (free(files), str_condition);
 				free(str_condition);
 			}
 			i += all_quotes_ignore(node->input_string + i);
 		}
 	}
+	free(files);
 	return (NULL);
 }
 

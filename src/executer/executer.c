@@ -12,75 +12,75 @@
 
 #include "../../includes/minishell.h"
 
-int		child_process(t_pipes *head, int *fd, int i, int stdin);
-void	loop_list_and_execute(t_pipes *head, int size, int *status);
-int		single_command(t_pipes *head);
+int		child_process(t_pipes *curr, t_pipes *head, int *fd, int i, int stdin);
+void	loop_list_and_execute(t_pipes *curr, t_pipes *head, int size, int *status);
+int		single_command(t_pipes *curr, t_pipes *head);
 
-int	recursive_executer(t_pipes *head, int recursive)
+int	recursive_executer(t_pipes *current, int recursive, t_pipes *head)
 {
-	int	status;
+	int		status;
+	t_pipes	*curr;
 
 	status = 0;
-	while (head)
+	curr = current;
+	while (curr)
 	{
-		status = recursive_down(head);
-		if (status == 0 && head->pipe_type == D_PIPE)
+		status = recursive_down(curr, head);
+		if (status == 0 && curr->pipe_type == D_PIPE)
 		{
-			while (head && head->pipe_type != AMPER)
-				head = head->next;
+			while (curr && curr->pipe_type != AMPER)
+				curr = curr->next;
 		}
-		if (head)
-			head = head->next;
+		if (curr)
+			curr = curr->next;
 	}
 	if (status != 0 && recursive == 1)
 		return (status);
 	return (status);
 }
 
-int	recursive_down(t_pipes *head)
+int	recursive_down(t_pipes *curr, t_pipes *head)
 {
 	int	status;
 
-	if (!head)
+	if (!curr)
 		return (-1);
-	if (check_for_dbpipe_dbamper(head->input_string))
-		return (recursive_executer(head->down, 1));
-	status = recursive_down(head->down);
+	if (check_for_dbpipe_dbamper(curr->input_string))
+		return (recursive_executer(curr->down, 1, head));
+	status = recursive_down(curr->down, head);
 	if (status != -1)
 		return (status);
-	return (list_iterator_executer(head));
+	return (list_iterator_executer(curr, head));
 }
 
-int	list_iterator_executer(t_pipes *head)
+int	list_iterator_executer(t_pipes *curr, t_pipes *head)
 {
 	int	status;
 	int	size;
 
 	status = 0;
-	size = list_size(head);
+	(void)	head;	
+	size = list_size(curr);
 	if (size == 1)
-		return (single_command(head));
-	loop_list_and_execute(head, size, &status);
+		return (single_command(curr, head));
+	loop_list_and_execute(curr, head, size, &status);
 	return (status);
 }
 
-int	single_command(t_pipes *head)
+int	single_command(t_pipes *curr, t_pipes *head)
 {
 	int	status;
 	int	pid;
 
 	status = 0;
-	if (init_data(head) != 0)
-	{
-		free_args(head->data.command_n_args);
+	if (init_data(curr) != 0)
 		return (1);
-	}
-	if (head->data.command_type != CD && head->data.command_type != EXIT)
+	if (curr->data.command_type != CD && curr->data.command_type != EXIT)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
-			check_for_execution_to_file(head, &status);
+			check_for_execution_to_file(curr, &status);
 			ft_exit(head, status, NULL);
 		}
 		handle_sigint_status();
@@ -92,25 +92,23 @@ int	single_command(t_pipes *head)
 		status = WEXITSTATUS(status);
 	}
 	else
-		check_for_execution_to_file(head, &status);
-	free_args(head->data.command_n_args);
+		check_for_execution_to_file(curr, &status);
 	return (status);
 }
 
-void	loop_list_and_execute(t_pipes *head, int size, int *status)
+void	loop_list_and_execute(t_pipes *curr, t_pipes *head, int size, int *status)
 {
 	int	i;
 	int	stdin;
 	int	fd[2];
-	int	*pid;
 
 	i = 0;
 	stdin = dup(STDIN_FILENO);
-	pid = malloc(sizeof(int) * size);
-	while (head)
+	curr->init->pid = malloc(sizeof(int) * size);
+	while (curr)
 	{
-		pid[i] = child_process(head, fd, i, stdin);
-		head = head->next;
+		curr->init->pid[i] = child_process(curr, head, fd, i, stdin);
+		curr = curr->next;
 		i++;
 	}
 	i = 0;
@@ -119,12 +117,12 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status)
 	while (i < size)
 	{
 		if (i == size - 1)
-			waitpid(pid[i], status, 0);
+			waitpid(head->init->pid[i], status, 0);
 		else
-			waitpid(pid[i], NULL, 0);
+			waitpid(head->init->pid[i], NULL, 0);
 		i++;
 	}
-	free(pid);
+	free(head->init->pid);
 	if (*status == 2)
 		*status = 33280;
 	else if (*status == 131)
@@ -132,7 +130,7 @@ void	loop_list_and_execute(t_pipes *head, int size, int *status)
 	*status = WEXITSTATUS(*status);
 }
 
-int	child_process(t_pipes *head, int *fd, int i, int stdin)
+int	child_process(t_pipes *curr, t_pipes *head, int *fd, int i, int stdin)
 {
 	int	pid;
 	int	status;
@@ -144,14 +142,14 @@ int	child_process(t_pipes *head, int *fd, int i, int stdin)
 	{
 		if (i != 0)
 			dup2(stdin, STDIN_FILENO);
-		if (head->pipe_type == S_PIPE)
+		if (curr->pipe_type == S_PIPE)
 			dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		close(stdin);
-		status = init_data(head);
+		status = init_data(curr);
 		if (status == 0)
-			check_for_execution_to_file(head, &status);
+			check_for_execution_to_file(curr, &status);
 		ft_exit(head, status, NULL);
 	}
 	dup2(fd[0], stdin);

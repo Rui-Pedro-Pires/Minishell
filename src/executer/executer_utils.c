@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-char		**empty_element_rem(char **array);
+char		**empty_element_rem(t_pipes *node);
 
 static int	handle_wildcards(t_pipes *node)
 {
@@ -47,7 +47,7 @@ static void	process_command_n_args(t_pipes *node, t_init *init)
 				node->data.command_n_args[i]);
 		i++;
 	}
-	node->data.command_n_args = empty_element_rem(node->data.command_n_args);
+	node->data.command_n_args = empty_element_rem(node);
 }
 
 int	init_data(t_pipes *node)
@@ -62,7 +62,7 @@ int	init_data(t_pipes *node)
 	return (status);
 }
 
-char	**empty_element_rem(char **array)
+char	**empty_element_rem(t_pipes *node)
 {
 	int		i;
 	int		j;
@@ -72,18 +72,20 @@ char	**empty_element_rem(char **array)
 	i = -1;
 	j = 0;
 	size = 0;
-	while (array[++i])
+	if (!node->data.command_n_args)
+		return (NULL);
+	while (node->data.command_n_args[++i])
 	{
-		if (!ft_strcmp(array[i], ""))
+		if (!ft_strcmp(node->data.command_n_args[i], ""))
 			size++;
 	}
 	clean_array = ft_calloc(size + 1, sizeof(char *));
 	i = -1;
-	while (array[++i])
+	while (node->data.command_n_args[++i])
 	{
-		if (!ft_strcmp(array[i], ""))
-			clean_array[j++] = ft_strdup(array[i]);
+		if (!ft_strcmp(node->data.command_n_args[i], ""))
+			clean_array[j++] = ft_strdup(node->data.command_n_args[i]);
 	}
-	free_args(array);
+	free_args(node->data.command_n_args);
 	return (clean_array);
 }

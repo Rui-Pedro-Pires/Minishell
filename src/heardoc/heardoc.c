@@ -29,7 +29,11 @@ int	heardoc_check(t_init *init, char *input, t_counter *itr, int i)
 			init->heardocs = ft_realloc(init, itr);
 			new_str = process_heardoc(input, itr, init);
 			if (!new_str && (g_return_value == 130 || g_return_value == 131))
+			{
+				free_args(init->heardocs);
+				init->heardocs = NULL;
 				return (0);
+			}
 			else if (!new_str)
 				continue ;
 			init->heardocs[itr->counter] = ft_strdup(new_str);
@@ -96,12 +100,12 @@ static char	*process_heardoc(char *input, t_counter *iter, t_init *init)
 	child_process_heardoc(init, str_condition, fd);
 	handle_sigint_status();
 	wait(&status);
+	close(fd[1]);
 	if (status != 0)
 	{
 		free(str_condition);
 		return (NULL);
 	}
-	close(fd[1]);
 	new_str = read_heardoc_buffer(fd[0]);
 	free(str_condition);
 	return (new_str);
@@ -116,8 +120,8 @@ static void	child_process_heardoc(t_init *init, char *str_condition, int *fd)
 	pid = fork();
 	if (pid == 0)
 	{
-		close(fd[0]);
 		handle_reset_signals();
+		close(fd[0]);
 		new_str = ft_strdup("");
 		while (1)
 		{

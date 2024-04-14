@@ -1,0 +1,146 @@
+==80893== Memcheck, a memory error detector
+==80893== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==80893== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==80893== Command: ./minishell
+==80893== Parent PID: 80890
+==80893== 
+==80917== 
+==80917== Process terminating with default action of signal 2 (SIGINT)
+==80917==    at 0x490275B: kill (syscall-template.S:120)
+==80917==    by 0x489FF39: _rl_signal_handler (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==80917==    by 0x48A0BEC: rl_getc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==80917==    by 0x48A0460: rl_read_key (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==80917==    by 0x4884C86: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==80917==    by 0x488DD14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==80917==    by 0x10CC89: child_process_keep_reading (read_line.c:100)
+==80917==    by 0x10CB8D: keep_reading (read_line.c:69)
+==80917==    by 0x10CA39: line_read (read_line.c:29)
+==80917==    by 0x109617: main (main.c:39)
+==80917== 
+==80917== HEAP SUMMARY:
+==80917==     in use at exit: 241,887 bytes in 1,031 blocks
+==80917==   total heap usage: 2,625 allocs, 1,594 frees, 663,846 bytes allocated
+==80917== 
+==80917== 10 bytes in 10 blocks are still reachable in loss record 7 of 100
+==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
+==80917==    by 0x10F6BE: create_env_node (create_env_list.c:35)
+==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
+==80917==    by 0x10967B: initialize (main.c:51)
+==80917==    by 0x1095D2: main (main.c:27)
+==80917== 
+==80917== 10 bytes in 10 blocks are still reachable in loss record 8 of 100
+==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
+==80917==    by 0x10F6BE: create_env_node (create_env_list.c:35)
+==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
+==80917==    by 0x10968E: initialize (main.c:52)
+==80917==    by 0x1095D2: main (main.c:27)
+==80917== 
+==80917== 1,518 bytes in 95 blocks are still reachable in loss record 61 of 100
+==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
+==80917==    by 0x10F681: create_env_node (create_env_list.c:31)
+==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
+==80917==    by 0x10967B: initialize (main.c:51)
+==80917==    by 0x1095D2: main (main.c:27)
+==80917== 
+==80917== 1,518 bytes in 95 blocks are still reachable in loss record 62 of 100
+==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
+==80917==    by 0x10F681: create_env_node (create_env_list.c:31)
+==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
+==80917==    by 0x10968E: initialize (main.c:52)
+==80917==    by 0x1095D2: main (main.c:27)
+==80917== 
+==80917== 1,652 bytes in 4 blocks are still reachable in loss record 65 of 100
+==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==80917==    by 0x11426B: ft_calloc (in /home/ruiolive/CommonCore/Minishell/minishell)
+==80917==    by 0x10A063: ft_strjoin_free (str_join.c:72)
+==80917==    by 0x10F8F3: add_rest_of_array (create_env_list.c:117)
+==80917==    by 0x10F6A5: create_env_node (create_env_list.c:33)
+==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
+==80917==    by 0x10967B: initialize (main.c:51)
+==80917==    by 0x1095D2: main (main.c:27)
+==80917== 
+==80917== 1,652 bytes in 4 blocks are still reachable in loss record 66 of 100
+==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==80917==    by 0x11426B: ft_calloc (in /home/ruiolive/CommonCore/Minishell/minishell)
+==80917==    by 0x10A063: ft_strjoin_free (str_join.c:72)
+==80917==    by 0x10F8F3: add_rest_of_array (create_env_list.c:117)
+==80917==    by 0x10F6A5: create_env_node (create_env_list.c:33)
+==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
+==80917==    by 0x10968E: initialize (main.c:52)
+==80917==    by 0x1095D2: main (main.c:27)
+==80917== 
+==80917== 1,982 bytes in 81 blocks are still reachable in loss record 68 of 100
+==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
+==80917==    by 0x10F8AD: add_rest_of_array (create_env_list.c:113)
+==80917==    by 0x10F6A5: create_env_node (create_env_list.c:33)
+==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
+==80917==    by 0x10967B: initialize (main.c:51)
+==80917==    by 0x1095D2: main (main.c:27)
+==80917== 
+==80917== 1,982 bytes in 81 blocks are still reachable in loss record 69 of 100
+==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
+==80917==    by 0x10F8AD: add_rest_of_array (create_env_list.c:113)
+==80917==    by 0x10F6A5: create_env_node (create_env_list.c:33)
+==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
+==80917==    by 0x10968E: initialize (main.c:52)
+==80917==    by 0x1095D2: main (main.c:27)
+==80917== 
+==80917== 3,800 bytes in 95 blocks are still reachable in loss record 73 of 100
+==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==80917==    by 0x10F60A: create_env_node (create_env_list.c:22)
+==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
+==80917==    by 0x10967B: initialize (main.c:51)
+==80917==    by 0x1095D2: main (main.c:27)
+==80917== 
+==80917== 3,800 bytes in 95 blocks are still reachable in loss record 74 of 100
+==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==80917==    by 0x10F60A: create_env_node (create_env_list.c:22)
+==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
+==80917==    by 0x10968E: initialize (main.c:52)
+==80917==    by 0x1095D2: main (main.c:27)
+==80917== 
+==80917== 5,162 bytes in 95 blocks are still reachable in loss record 85 of 100
+==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
+==80917==    by 0x10F62B: create_env_node (create_env_list.c:25)
+==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
+==80917==    by 0x10967B: initialize (main.c:51)
+==80917==    by 0x1095D2: main (main.c:27)
+==80917== 
+==80917== 5,162 bytes in 95 blocks are still reachable in loss record 86 of 100
+==80917==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==80917==    by 0x1143DE: ft_strdup (in /home/ruiolive/CommonCore/Minishell/minishell)
+==80917==    by 0x10F62B: create_env_node (create_env_list.c:25)
+==80917==    by 0x10F715: create_env_list (create_env_list.c:51)
+==80917==    by 0x10968E: initialize (main.c:52)
+==80917==    by 0x1095D2: main (main.c:27)
+==80917== 
+==80917== LEAK SUMMARY:
+==80917==    definitely lost: 0 bytes in 0 blocks
+==80917==    indirectly lost: 0 bytes in 0 blocks
+==80917==      possibly lost: 0 bytes in 0 blocks
+==80917==    still reachable: 28,248 bytes in 760 blocks
+==80917==         suppressed: 213,639 bytes in 271 blocks
+==80917== 
+==80917== For lists of detected and suppressed errors, rerun with: -s
+==80917== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==80893== 
+==80893== HEAP SUMMARY:
+==80893==     in use at exit: 204,249 bytes in 221 blocks
+==80893==   total heap usage: 2,632 allocs, 2,411 frees, 668,211 bytes allocated
+==80893== 
+==80893== LEAK SUMMARY:
+==80893==    definitely lost: 0 bytes in 0 blocks
+==80893==    indirectly lost: 0 bytes in 0 blocks
+==80893==      possibly lost: 0 bytes in 0 blocks
+==80893==    still reachable: 0 bytes in 0 blocks
+==80893==         suppressed: 204,249 bytes in 221 blocks
+==80893== 
+==80893== For lists of detected and suppressed errors, rerun with: -s
+==80893== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

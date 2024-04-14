@@ -83,6 +83,7 @@ typedef struct s_init
 	t_envs			*sorted_envs;
 	char			**heardocs;
 	int				*heardoc_index;
+	pid_t			*pid;
 	int				status;
 }					t_init;
 
@@ -349,14 +350,14 @@ int					ft_is_only_digit(char *str);
 /*			EXECUTOR		*/
 /****************************/
 
-int					recursive_executer(t_pipes *head, int recursive);
+int					recursive_executer(t_pipes *current, int recursive, t_pipes *head);
 int					execute_command(t_pipes *node);
 int					executens_ve(t_pipes *node);
 char				**envlist_to_array(t_envs *envs);
 int					listlen(t_envs *envs);
 void				ft_exit(t_pipes *head, int exit_type, char **args_array);
-int					recursive_down(t_pipes *head);
-int					list_iterator_executer(t_pipes *head);
+int					recursive_down(t_pipes *curr, t_pipes *head);
+int					list_iterator_executer(t_pipes *curr, t_pipes *head);
 void				command_decider(t_pipes *node);
 void				command_decider2(t_pipes *node);
 int					init_data(t_pipes *node);
