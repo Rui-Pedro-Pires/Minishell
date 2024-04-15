@@ -120,6 +120,9 @@ static void	child_process_heardoc(t_init *init, char *str_condition, int *fd)
 	pid = fork();
 	if (pid == 0)
 	{
+		free_env_list(init->envs);
+		free_env_list(init->sorted_envs);
+		free_args(init->heardocs);
 		handle_reset_signals();
 		close(fd[0]);
 		new_str = ft_strdup("");
@@ -132,9 +135,6 @@ static void	child_process_heardoc(t_init *init, char *str_condition, int *fd)
 		free(str_condition);
 		write(fd[1], new_str, ft_strlen(new_str));
 		free(new_str);
-		free_args(init->heardocs);
-		free_env_list(init->envs);
-		free_env_list(init->sorted_envs);
 		exit(EXIT_SUCCESS);
 	}
 }
