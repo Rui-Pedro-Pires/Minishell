@@ -1,0 +1,27 @@
+==172678== Memcheck, a memory error detector
+==172678== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==172678== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==172678== Command: ./minishell
+==172678== Parent PID: 172676
+==172678== 
+==172678== Invalid read of size 1
+==172678==    at 0x40A663: wildcards (wildcardenz_utils.c:85)
+==172678==    by 0x40B4FB: handle_wildcards (executer_utils.c:24)
+==172678==    by 0x40B49A: init_data (executer_utils.c:59)
+==172678==    by 0x40B02F: single_command (executer.c:24)
+==172678==    by 0x40CDF9: list_iterator_executer (recursive_function.c:60)
+==172678==    by 0x4014D0: process_input (main.c:70)
+==172678==    by 0x401393: main (main.c:37)
+==172678==  Address 0x4b829f5 is 0 bytes after a block of size 133 alloc'd
+==172678==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==172678==    by 0x40D04D: ft_calloc (in /home/ruiolive/commoncore/Minishell/minishell)
+==172678==    by 0x40A22A: insert_files_into_str (expand_wildcards.c:95)
+==172678==    by 0x40A597: redir_wildcard (wildcardenz_utils.c:61)
+==172678==    by 0x40A69D: wildcards (wildcardenz_utils.c:89)
+==172678==    by 0x40B4FB: handle_wildcards (executer_utils.c:24)
+==172678==    by 0x40B49A: init_data (executer_utils.c:59)
+==172678==    by 0x40B02F: single_command (executer.c:24)
+==172678==    by 0x40CDF9: list_iterator_executer (recursive_function.c:60)
+==172678==    by 0x4014D0: process_input (main.c:70)
+==172678==    by 0x401393: main (main.c:37)
+==172678== 

@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int		single_command(t_pipes *curr, t_pipes *head);
+int			single_command(t_pipes *curr, t_pipes *head);
 static void	update_status(int *status);
 
 int	single_command(t_pipes *curr, t_pipes *head)
@@ -23,7 +23,8 @@ int	single_command(t_pipes *curr, t_pipes *head)
 	status = 0;
 	if (init_data(curr) != 0)
 		return (1);
-	if (curr->data.command_type != CD && curr->data.command_type != EXIT)
+	if (curr->data.command_type == NOT_BUILTIN \
+		|| curr->data.command_type == ECHO)
 	{
 		pid = fork();
 		if (pid == 0)
@@ -111,7 +112,7 @@ int	execute_command(t_pipes *node)
 	if (cmd == CD)
 		return (ft_cd(node, args_array));
 	if (cmd == PWD)
-		ft_pwd();
+		ft_pwd(node);
 	if (cmd == EXPORT)
 		return (ft_export(node, args_array));
 	if (cmd == UNSET)
@@ -126,7 +127,7 @@ int	execute_command(t_pipes *node)
 	return (0);
 }
 
-void	update_status(int *status)
+static void	update_status(int *status)
 {
 	if (*status == 2)
 		*status = 33280;

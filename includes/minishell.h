@@ -170,6 +170,13 @@ int					parenthesis_parser(char *input, int *i,
 						t_counter *count_struct);
 
 /****************************/
+/*			MAIN			*/
+/****************************/
+
+void				initialize(t_init *init);
+void				process_input(t_pipes **head, char *input, t_init *init);
+
+/****************************/
 /*			QUOTES			*/
 /****************************/
 
@@ -291,7 +298,7 @@ int					handle_cd_new_dir(t_pipes *node, char *new_dir);
 void				update_old_pwd(t_pipes *node);
 void				update_current_pwd(t_pipes *node);
 int					cd_home(t_pipes *node, char **str);
-int					ft_pwd(void);
+int					ft_pwd(t_pipes *node);
 int					ft_echo(char **str_array);
 
 /****************************/
@@ -424,12 +431,11 @@ void				handle_sigint(int sig);
 /*				WILDCARDS				*/
 /****************************************/
 
-char				*wildcards(t_pipes *node);
 char				*trim_files(char *files, char *str_condition);
 int					search_redir(char *str, int i);
 int					redir_wildcard(t_pipes *node, int *i, char *files,
 						char **str_condition);
-char				*wildcards(t_pipes *node);
+char				*wildcards(t_pipes *node, char **files);
 void				insert_trimmed_files(char **trimmed_files,
 						char *file_to_add);
 int					starts_with_file_name(char *file, char *condition);
@@ -444,4 +450,5 @@ char				*wildcard_checker(char *str, int *i);
 int					check_only_wildcard(char *str_condition);
 int					insert_files_into_str(t_pipes *node, char *files, int *i,
 						int save_redir);
+
 #endif

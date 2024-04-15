@@ -54,10 +54,7 @@ int	redir_wildcard(t_pipes *node, int *i, char *files, char **str_condition)
 
 	save_if_redir = search_redir(node->input_string, *i);
 	if (save_if_redir == 2)
-	{
-		*i += ft_strlen(*str_condition);
 		return (2);
-	}
 	*str_condition = wildcard_checker(node->input_string, i);
 	if (check_only_wildcard(*str_condition) == 0)
 	{
@@ -68,10 +65,7 @@ int	redir_wildcard(t_pipes *node, int *i, char *files, char **str_condition)
 	{
 		trimmed_files = trim_files(files, *str_condition);
 		if (!trimmed_files)
-		{
-			*i += ft_strlen(*str_condition);
 			return (2);
-		}
 		if (insert_files_into_str(node, trimmed_files, i, save_if_redir))
 			return (1);
 		free(trimmed_files);
@@ -79,34 +73,32 @@ int	redir_wildcard(t_pipes *node, int *i, char *files, char **str_condition)
 	return (0);
 }
 
-char	*wildcards(t_pipes *node)
+char	*wildcards(t_pipes *node, char **files)
 {
 	int		i;
-	char	*files;
 	char	*str_condition;
 	int		save_return;
 
 	i = 0;
-	files = listfiles(".");
-	if (!files)
-		return (0);
-	else
+	if (!(*files))
+		return (NULL);
+	while (node->input_string[i])
 	{
-		while (node->input_string[i])
+		if (node->input_string[i] == '*')
 		{
-			if (node->input_string[i] == '*')
+			save_return = redir_wildcard(node, &i, *files, &str_condition);
+			if (save_return == 2)
 			{
-				save_return = redir_wildcard(node, &i, files, &str_condition);
-				if (save_return == 2)
-					continue ;
-				else if (save_return == 1)
-					return (free(files), str_condition);
-				free(str_condition);
+				i += ft_strlen(str_condition);
+				continue ;
 			}
-			i += all_quotes_ignore(node->input_string + i);
+			else if (save_return == 1)
+				return (free(*files), str_condition);
+			free(str_condition);
 		}
+		i += all_quotes_ignore(node->input_string + i);
 	}
-	free(files);
+	free(*files);
 	return (NULL);
 }
 

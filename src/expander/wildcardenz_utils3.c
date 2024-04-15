@@ -76,3 +76,21 @@ int	ends_with_file_name(char *file, char *condition)
 		return (0);
 	return (1);
 }
+
+int	check_to_add(char *file, char *condition)
+{
+	int	size_condition;
+
+	size_condition = ft_strlen(condition);
+	if (ft_strchr("*", condition[0]) && !ft_strchr(condition + 1, '*'))
+		return (ends_with_file_name(file, condition));
+	else if (ft_strchr("*", condition[size_condition - 1])
+		&& !ft_strnstr(condition, "*", size_condition - 1))
+		return (starts_with_file_name(file, condition));
+	else if (ft_strchr("*", condition[0]) && ft_strchr("*",
+			condition[size_condition - 1]))
+		return (middle_with_file_name(file, condition));
+	else
+		return (all_cases_file_name(file, condition));
+	return (0);
+}

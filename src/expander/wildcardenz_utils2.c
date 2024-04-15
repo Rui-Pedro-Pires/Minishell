@@ -12,6 +12,8 @@
 
 #include "../../includes/minishell.h"
 
+int	mid_condition(char **ptr, char *condition, char *file, int *i);
+
 int	starts_with_file_name(char *file, char *condition)
 {
 	int	i;
@@ -90,16 +92,8 @@ int	all_cases_file_name(char *file, char *condition)
 		}
 		else if (condition[i] != '*')
 		{
-			mid_cond = get_mid(condition + i, &i);
-			if (!condition[i])
-			{
-				if (ends_with_file_name(file, mid_cond) == 0)
-					return (0);
-			}
-			ptr = ft_strnstr(file, mid_cond, ft_strlen(file));
-			if (!ptr)
+			if (mid_condition(&ptr, condition, file, &i) == 0)
 				return (0);
-			ptr = file;
 		}
 		else
 			i++;
@@ -107,20 +101,26 @@ int	all_cases_file_name(char *file, char *condition)
 	return (1);
 }
 
-int	check_to_add(char *file, char *condition)
+int	mid_condition(char **ptr, char *condition, char *file, int *i)
 {
-	int	size_condition;
+	char	*mid_cond;
 
-	size_condition = ft_strlen(condition);
-	if (ft_strchr("*", condition[0]) && !ft_strchr(condition + 1, '*'))
-		return (ends_with_file_name(file, condition));
-	else if (ft_strchr("*", condition[size_condition - 1])
-		&& !ft_strnstr(condition, "*", size_condition - 1))
-		return (starts_with_file_name(file, condition));
-	else if (ft_strchr("*", condition[0]) && ft_strchr("*",
-			condition[size_condition - 1]))
-		return (middle_with_file_name(file, condition));
-	else
-		return (all_cases_file_name(file, condition));
-	return (0);
+	mid_cond = get_mid(condition + *i, i);
+	if (!condition[(*i)])
+	{
+		if (ends_with_file_name(file, mid_cond) == 0)
+		{
+			free(mid_cond);
+			return (0);
+		}
+	}
+	*ptr = ft_strnstr(file, mid_cond, ft_strlen(file));
+	if (!(*ptr))
+	{
+		free(mid_cond);
+		return (0);
+	}
+	*ptr = file;
+	free(mid_cond);
+	return (1);
 }

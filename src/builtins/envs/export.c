@@ -27,7 +27,7 @@ int	ft_export(t_pipes *node, char **str_array)
 	current_sorted = bubble_sort(node->init->sorted_envs);
 	if (str_array[1] == NULL)
 		return (print_export_list(current_sorted));
-	i = 0;
+	i = 1;
 	status = 0;
 	while (str_array[++i])
 	{

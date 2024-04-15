@@ -18,12 +18,12 @@ static int	handle_wildcards(t_pipes *node)
 {
 	int		status;
 	char	*return_value;
+	char	*files;
 
-	return_value = wildcards(node);
+	files = listfiles(".");
+	return_value = wildcards(node, &files);
 	if (!return_value)
-	{
 		status = define_input_and_output(node);
-	}
 	else
 	{
 		status = 1;

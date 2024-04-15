@@ -87,24 +87,21 @@ int	insert_files_into_str(t_pipes *node, char *files, int *i, int save_redir)
 	x = *i;
 	j = -1;
 	y = -1;
+	while (node->input_string[x] && !ft_strchr(" <>\'\"",
+			node->input_string[x]))
+		x++;
 	if (save_redir == 1 && count_files(files) > 1)
 		return (1);
-	else
-	{
-		while (node->input_string[x] && !ft_strchr(" <>\'\"",
-				node->input_string[x]))
-			x++;
-		new_str = ft_calloc(sizeof(char), ft_strlen(node->input_string) - (x
-					- *i) + ft_strlen(files) + 1);
-		while (++j < *i)
-			new_str[j] = node->input_string[j];
-		while (files[++y])
-			new_str[j++] = files[y];
-		while (node->input_string[x])
-			new_str[j++] = node->input_string[x++];
-		free(node->input_string);
-		node->input_string = new_str;
-		*i += y;
-	}
+	new_str = ft_calloc(sizeof(char), ft_strlen(node->input_string) - (x
+				- *i) + ft_strlen(files) + 1);
+	while (++j < *i)
+		new_str[j] = node->input_string[j];
+	while (files[++y])
+		new_str[j++] = files[y];
+	while (node->input_string[x])
+		new_str[j++] = node->input_string[x++];
+	free(node->input_string);
+	node->input_string = new_str;
+	*i += y;
 	return (0);
 }

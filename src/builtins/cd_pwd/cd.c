@@ -60,6 +60,8 @@ void	update_old_pwd(t_pipes *node)
 	int		total_size;
 
 	old_dir = getcwd(NULL, 0);
+	if (!old_dir)
+		return ;
 	name = "OLDPWD=";
 	total_size = ft_strlen(name) + ft_strlen(old_dir) + 1;
 	total = malloc(total_size);

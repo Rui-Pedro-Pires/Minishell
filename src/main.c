@@ -11,22 +11,19 @@
 /* ************************************************************************** */
 #include "../includes/minishell.h"
 
-int		g_return_value;
-void	initialize(t_init *init, char **env);
-void	process_input(t_pipes **head, char *input, t_init *init);
+int					g_return_value;
+extern char			**environ;
 
-int	main(int argc, char **argv, char **env)
+int	main(void)
 {
 	char		*input;
 	t_counter	count_struc;
 	t_pipes		*head;
 	t_init		init;
-	int	heardoc_index;
+	int			heardoc_index;
 
 	head = NULL;
-	initialize(&init, env);
-	(void)argv;
-	(void)argc;
+	initialize(&init);
 	while (1)
 	{
 		handle_iterative_mode();
@@ -36,7 +33,7 @@ int	main(int argc, char **argv, char **env)
 		init.pid = NULL;
 		init.heardocs = NULL;
 		init.heardoc_index = &heardoc_index;
-		input = line_read(&init, &count_struc);		
+		input = line_read(&init, &count_struc);
 		process_input(&head, input, &init);
 		free_input(&input);
 		free_heardoc(head);
@@ -46,8 +43,11 @@ int	main(int argc, char **argv, char **env)
 	rl_clear_history();
 }
 
-void	initialize(t_init *init, char **env)
+void	initialize(t_init *init)
 {
+	char	**env;
+
+	env = environ;
 	init->envs = create_env_list(env);
 	init->sorted_envs = create_env_list(env);
 	init->sorted_envs = bubble_sort(init->sorted_envs);
@@ -58,7 +58,7 @@ void	process_input(t_pipes **head, char *input, t_init *init)
 	if (input && *input)
 		add_history(input);
 	else
-		return;
+		return ;
 	if (check_for_dbpipe_dbamper(input))
 	{
 		creat_list(head, input, init, 1);
