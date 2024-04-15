@@ -84,7 +84,7 @@ int	all_cases_file_name(char *file, char *condition)
 	ptr = condition;
 	while (condition[i])
 	{
-		if (condition[i] != '*' && ptr == condition)
+		if (condition[i] != '*' && ptr == condition + i)
 		{
 			mid_cond = get_mid(condition + i, &i);
 			if (ft_strncmp(file, mid_cond, ft_strlen(mid_cond)))

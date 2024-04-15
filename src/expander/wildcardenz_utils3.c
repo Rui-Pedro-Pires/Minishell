@@ -72,6 +72,8 @@ int	ends_with_file_name(char *file, char *condition)
 		i--;
 		x--;
 	}
+	if (x < 0)
+		return (1);
 	if (x != 0 && condition[x] != '*')
 		return (0);
 	return (1);

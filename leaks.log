@@ -1,34 +1,20 @@
-==176486== Memcheck, a memory error detector
-==176486== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==176486== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==176486== Command: ./minishell
-==176486== Parent PID: 176483
-==176486== 
-==176486== 
-==176486== HEAP SUMMARY:
-==176486==     in use at exit: 208,328 bytes in 247 blocks
-==176486==   total heap usage: 1,711 allocs, 1,464 frees, 418,613 bytes allocated
-==176486== 
-==176486== 64 bytes in 16 blocks are definitely lost in loss record 23 of 70
-==176486==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==176486==    by 0x40D05D: ft_calloc (in /home/ruiolive/commoncore/Minishell/minishell)
-==176486==    by 0x40A811: get_mid (wildcardenz_utils2.c:42)
-==176486==    by 0x40A8E1: middle_with_file_name (wildcardenz_utils2.c:63)
-==176486==    by 0x40AFC8: check_to_add (wildcardenz_utils3.c:92)
-==176486==    by 0x40A39A: trim_files (wildcardenz_utils.c:28)
-==176486==    by 0x40A5C1: redir_wildcard (wildcardenz_utils.c:66)
-==176486==    by 0x40A68A: wildcards (wildcardenz_utils.c:90)
-==176486==    by 0x40B4FD: handle_wildcards (executer_utils.c:29)
-==176486==    by 0x40B47A: init_data (executer_utils.c:66)
-==176486==    by 0x40B00F: single_command (executer.c:24)
-==176486==    by 0x40CE09: list_iterator_executer (recursive_function.c:60)
-==176486== 
-==176486== LEAK SUMMARY:
-==176486==    definitely lost: 64 bytes in 16 blocks
-==176486==    indirectly lost: 0 bytes in 0 blocks
-==176486==      possibly lost: 0 bytes in 0 blocks
-==176486==    still reachable: 0 bytes in 0 blocks
-==176486==         suppressed: 208,264 bytes in 231 blocks
-==176486== 
-==176486== For lists of detected and suppressed errors, rerun with: -s
-==176486== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==180835== Memcheck, a memory error detector
+==180835== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==180835== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==180835== Command: ./minishell
+==180835== Parent PID: 180833
+==180835== 
+==180835== 
+==180835== HEAP SUMMARY:
+==180835==     in use at exit: 208,407 bytes in 231 blocks
+==180835==   total heap usage: 1,689 allocs, 1,458 frees, 417,341 bytes allocated
+==180835== 
+==180835== LEAK SUMMARY:
+==180835==    definitely lost: 0 bytes in 0 blocks
+==180835==    indirectly lost: 0 bytes in 0 blocks
+==180835==      possibly lost: 0 bytes in 0 blocks
+==180835==    still reachable: 0 bytes in 0 blocks
+==180835==         suppressed: 208,407 bytes in 231 blocks
+==180835== 
+==180835== For lists of detected and suppressed errors, rerun with: -s
+==180835== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
