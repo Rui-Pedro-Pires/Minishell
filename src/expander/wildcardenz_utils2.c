@@ -34,6 +34,7 @@ char	*get_mid(char *str, int *i)
 	int		x;
 
 	x = 0;
+	str_condition = NULL;
 	while (str[x] && str[x] != '*')
 	{
 		x++;
@@ -63,8 +64,9 @@ int	middle_with_file_name(char *file, char *condition)
 			mid_cond = get_mid(condition + i, &i);
 			ptr = ft_strnstr(file, mid_cond, ft_strlen(file));
 			if (!ptr)
-				return (0);
+				return (free(mid_cond), 0);
 			file = ptr;
+			free(mid_cond);
 		}
 		else
 			i++;
@@ -86,9 +88,10 @@ int	all_cases_file_name(char *file, char *condition)
 		{
 			mid_cond = get_mid(condition + i, &i);
 			if (ft_strncmp(file, mid_cond, ft_strlen(mid_cond)))
-				return (0);
+				return (free(mid_cond), 0);
 			ptr = ft_strnstr(file, mid_cond, ft_strlen(file));
 			ptr = file;
+			free(mid_cond);
 		}
 		else if (condition[i] != '*')
 		{
