@@ -29,7 +29,7 @@ int	ft_export(t_pipes *node, char **str_array)
 		return (print_export_list(current_sorted));
 	i = 0;
 	status = 0;
-	while (str_array[i])
+	while (str_array[++i])
 	{
 		if (!export_is_valid(str_array[i]))
 		{
@@ -37,10 +37,10 @@ int	ft_export(t_pipes *node, char **str_array)
 			print_error(str_array[i]);
 			print_error("': not a valid identifier\n");
 			status = 1;
+			continue;
 		}
 		add_env(current, str_array[i]);
 		add_env(current_sorted, str_array[i]);
-		i++;
 	}
 	return (status);
 }

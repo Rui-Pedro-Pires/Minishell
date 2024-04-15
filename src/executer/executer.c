@@ -74,7 +74,7 @@ int	single_command(t_pipes *curr, t_pipes *head)
 	status = 0;
 	if (init_data(curr) != 0)
 		return (1);
-	if (curr->data.command_type != CD && curr->data.command_type != EXIT)
+	if (curr->data.command_type != CD && curr->data.command_type != EXIT && curr->data.command_type != EXPORT)
 	{
 		pid = fork();
 		if (pid == 0)
