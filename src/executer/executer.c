@@ -130,8 +130,14 @@ int	execute_command(t_pipes *node)
 static void	update_status(int *status)
 {
 	if (*status == 2)
+	{
 		*status = 33280;
+		printf("\n");
+	}
 	else if (*status == 131)
+	{
 		*status = 33536;
+		printf("Quit (core dumped)\n");
+	}
 	*status = WEXITSTATUS(*status);
 }

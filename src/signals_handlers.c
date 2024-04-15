@@ -27,17 +27,11 @@ void	handle_sigint(int sig)
 void	update_status_sigint(int sig)
 {
 	if (sig == SIGINT)
-	{
-		printf("\n");
 		g_return_value = 130;
-	}
 }
 
 void	update_status_sigquit(int sig)
 {
 	if (sig == SIGQUIT)
-	{
-		printf("Quit (core domped)\n");
 		g_return_value = 131;
-	}
 }
