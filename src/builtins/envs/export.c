@@ -84,6 +84,8 @@ void	add_env(t_envs *head, char *str)
 
 	current = head;
 	new_node = create_env_node(str);
+	if (!current)
+		return ;
 	while (current->next != NULL && !ft_strcmp(current->name, new_node->name))
 		current = current->next;
 	if (ft_strcmp(current->name, new_node->name))
