@@ -37,7 +37,7 @@ int	ft_export(t_pipes *node, char **str_array)
 			print_error(str_array[i]);
 			print_error("': not a valid identifier\n");
 			status = 1;
-			continue;
+			continue ;
 		}
 		add_env(current, str_array[i]);
 		add_env(current_sorted, str_array[i]);
@@ -89,7 +89,12 @@ void	add_env(t_envs *head, char *str)
 	if (ft_strcmp(current->name, new_node->name))
 	{
 		free(current->value);
+		free(current->name);
+		free(current->whole_str);
 		current->value = ft_strdup(new_node->value);
+		current->name = ft_strdup(new_node->name);
+		current->whole_str = ft_strdup(new_node->whole_str);
+		current->has_equal = true;
 		free(new_node->value);
 		free(new_node->name);
 		free(new_node->whole_str);

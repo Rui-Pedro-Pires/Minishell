@@ -12,12 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-char *	create_path_to_execve(t_pipes *node)
+char	*create_path_to_execve(t_pipes *node)
 {
 	char	*path_str;
 	char	**paths_array;
 	char	*temp_str;
-	char *return_str;
+	char	*return_str;
 	int		i;
 
 	i = 0;
@@ -30,12 +30,11 @@ char *	create_path_to_execve(t_pipes *node)
 	return_str = ft_strdup(node->data.command_n_args[0]);
 	paths_array[i] = ft_strjoin_free(paths_array[i], "/");
 	return_str = ft_strjoin_free_v2(paths_array[i], return_str);
-	while (access(return_str, F_OK) != 0 && paths_array[i] != NULL)
+	while (access(return_str, F_OK) != 0 && paths_array[++i] != NULL)
 	{
 		paths_array[i] = ft_strjoin_free(paths_array[i], "/");
 		free(return_str);
 		return_str = ft_strjoin(paths_array[i], temp_str);
-		i++;
 	}
 	free(temp_str);
 	free_args(paths_array);

@@ -12,59 +12,8 @@
 
 #include "../../includes/minishell.h"
 
-int		child_process(t_pipes *curr, t_pipes *head, int *fd, int i, int stdin);
-void	loop_list_and_execute(t_pipes *curr, t_pipes *head, int size, int *status);
 int		single_command(t_pipes *curr, t_pipes *head);
-
-int	recursive_executer(t_pipes *current, int recursive, t_pipes *head)
-{
-	int		status;
-	t_pipes	*curr;
-
-	status = 0;
-	curr = current;
-	while (curr)
-	{
-		status = recursive_down(curr, head);
-		if (status == 0 && curr->pipe_type == D_PIPE)
-		{
-			while (curr && curr->pipe_type != AMPER)
-				curr = curr->next;
-		}
-		if (curr)
-			curr = curr->next;
-	}
-	if (status != 0 && recursive == 1)
-		return (status);
-	return (status);
-}
-
-int	recursive_down(t_pipes *curr, t_pipes *head)
-{
-	int	status;
-
-	if (!curr)
-		return (-1);
-	if (check_for_dbpipe_dbamper(curr->input_string))
-		return (recursive_executer(curr->down, 1, head));
-	status = recursive_down(curr->down, head);
-	if (status != -1)
-		return (status);
-	return (list_iterator_executer(curr, head));
-}
-
-int	list_iterator_executer(t_pipes *curr, t_pipes *head)
-{
-	int	status;
-	int	size;
-
-	status = 0;
-	size = list_size(curr);
-	if (size == 1)
-		return (single_command(curr, head));
-	loop_list_and_execute(curr, head, size, &status);
-	return (status);
-}
+static void	update_status(int *status);
 
 int	single_command(t_pipes *curr, t_pipes *head)
 {
@@ -74,7 +23,7 @@ int	single_command(t_pipes *curr, t_pipes *head)
 	status = 0;
 	if (init_data(curr) != 0)
 		return (1);
-	if (curr->data.command_type != CD && curr->data.command_type != EXIT && curr->data.command_type != EXPORT)
+	if (curr->data.command_type != CD && curr->data.command_type != EXIT)
 	{
 		pid = fork();
 		if (pid == 0)
@@ -84,29 +33,25 @@ int	single_command(t_pipes *curr, t_pipes *head)
 		}
 		handle_sigint_status();
 		wait(&status);
-		if (status == 2)
-			status = 33280;
-		else if (status == 131)
-			status = 33536;
-		status = WEXITSTATUS(status);
+		update_status(&status);
 	}
 	else
-		check_for_execution_to_file(curr, &status);
+		status = execute_command(curr);
 	return (status);
 }
 
-void	loop_list_and_execute(t_pipes *curr, t_pipes *head, int size, int *status)
+void	loop_list_and_execute(t_pipes *curr, t_pipes *head, \
+		int size, int *status)
 {
 	int	i;
 	int	stdin;
-	int	fd[2];
 
 	i = 0;
 	stdin = dup(STDIN_FILENO);
 	curr->init->pid = malloc(sizeof(int) * size);
 	while (curr)
 	{
-		curr->init->pid[i] = child_process(curr, head, fd, i, stdin);
+		curr->init->pid[i] = child_process(curr, head, i, stdin);
 		curr = curr->next;
 		i++;
 	}
@@ -122,17 +67,14 @@ void	loop_list_and_execute(t_pipes *curr, t_pipes *head, int size, int *status)
 		i++;
 	}
 	free(head->init->pid);
-	if (*status == 2)
-		*status = 33280;
-	else if (*status == 131)
-		*status = 33536;
-	*status = WEXITSTATUS(*status);
+	update_status(status);
 }
 
-int	child_process(t_pipes *curr, t_pipes *head, int *fd, int i, int stdin)
+int	child_process(t_pipes *curr, t_pipes *head, int i, int stdin)
 {
 	int	pid;
 	int	status;
+	int	fd[2];
 
 	status = 0;
 	pipe(fd);
@@ -182,4 +124,13 @@ int	execute_command(t_pipes *node)
 	if (cmd == NOT_BUILTIN)
 		return (executens_ve(node));
 	return (0);
+}
+
+void	update_status(int *status)
+{
+	if (*status == 2)
+		*status = 33280;
+	else if (*status == 131)
+		*status = 33536;
+	*status = WEXITSTATUS(*status);
 }
