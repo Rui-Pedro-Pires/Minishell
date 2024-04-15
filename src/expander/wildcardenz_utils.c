@@ -67,38 +67,40 @@ int	redir_wildcard(t_pipes *node, int *i, char *files, char **str_condition)
 		if (!trimmed_files)
 			return (2);
 		if (insert_files_into_str(node, trimmed_files, i, save_if_redir))
+		{
+			free(trimmed_files);
 			return (1);
+		}
 		free(trimmed_files);
 	}
 	return (0);
 }
 
-char	*wildcards(t_pipes *node, char **files)
+char	*wildcards(t_pipes *node, char *files)
 {
 	int		i;
 	char	*str_condition;
 	int		save_return;
 
 	i = 0;
-	if (!(*files))
-		return (NULL);
 	while (node->input_string[i])
 	{
 		if (node->input_string[i] == '*')
 		{
-			save_return = redir_wildcard(node, &i, *files, &str_condition);
+			save_return = redir_wildcard(node, &i, files, &str_condition);
 			if (save_return == 2)
 			{
 				i += ft_strlen(str_condition);
+				free(str_condition);
 				continue ;
 			}
 			else if (save_return == 1)
-				return (free(*files), str_condition);
+				return (str_condition);
 			free(str_condition);
 		}
-		i += all_quotes_ignore(node->input_string + i);
+		else
+			i += all_quotes_ignore(node->input_string + i);
 	}
-	free(*files);
 	return (NULL);
 }
 

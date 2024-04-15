@@ -435,7 +435,7 @@ char				*trim_files(char *files, char *str_condition);
 int					search_redir(char *str, int i);
 int					redir_wildcard(t_pipes *node, int *i, char *files,
 						char **str_condition);
-char				*wildcards(t_pipes *node, char **files);
+char				*wildcards(t_pipes *node, char *files);
 void				insert_trimmed_files(char **trimmed_files,
 						char *file_to_add);
 int					starts_with_file_name(char *file, char *condition);

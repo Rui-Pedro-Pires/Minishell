@@ -21,7 +21,13 @@ static int	handle_wildcards(t_pipes *node)
 	char	*files;
 
 	files = listfiles(".");
-	return_value = wildcards(node, &files);
+	if (!files)
+	{
+		status = define_input_and_output(node);
+		return (status);
+	}
+	return_value = wildcards(node, files);
+	free(files);
 	if (!return_value)
 		status = define_input_and_output(node);
 	else
@@ -30,6 +36,7 @@ static int	handle_wildcards(t_pipes *node)
 		print_error("minishell: ");
 		print_error(return_value);
 		print_error(": ambiguous redirect\n");
+		free(return_value);
 	}
 	return (status);
 }
