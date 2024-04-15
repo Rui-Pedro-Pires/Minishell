@@ -380,7 +380,6 @@ void				free_resources(t_pipes *head);
 void				handle_too_many_args(int *exit_type);
 void				handle_numeric_arg(int *exit_type, char *arg);
 bool				ft_str_is_number(char *str);
-
 char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strjoin_free_v2(char *s1, char *s2);
 
