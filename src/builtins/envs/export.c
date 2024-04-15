@@ -28,7 +28,7 @@ int	ft_export(t_pipes *node, char **str_array)
 	if (str_array[1] == NULL)
 		return (print_export_list(current_sorted));
 	i = 0;
-	status = 1;
+	status = 0;
 	while (str_array[i])
 	{
 		if (!export_is_valid(str_array[i]))

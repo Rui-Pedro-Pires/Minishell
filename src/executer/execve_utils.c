@@ -20,19 +20,17 @@ char *	create_path_to_execve(t_pipes *node)
 	char *return_str;
 	int		i;
 
+	i = 0;
 	path_str = ft_getenv(node->init->envs, "PATH");
 	if (path_str == NULL)
 		return (0);
 	paths_array = ft_split(path_str, ':');
 	free(path_str);
-	i = 0;
 	temp_str = ft_strdup(node->data.command_n_args[0]);
 	return_str = ft_strdup(node->data.command_n_args[0]);
 	paths_array[i] = ft_strjoin_free(paths_array[i], "/");
-	return_str = ft_strjoin_free_v2(paths_array[i],
-			return_str);
-	while (access(return_str, F_OK) != 0
-		&& paths_array[i] != NULL)
+	return_str = ft_strjoin_free_v2(paths_array[i], return_str);
+	while (access(return_str, F_OK) != 0 && paths_array[i] != NULL)
 	{
 		paths_array[i] = ft_strjoin_free(paths_array[i], "/");
 		free(return_str);
