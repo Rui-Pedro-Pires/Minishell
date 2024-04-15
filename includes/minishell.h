@@ -211,7 +211,6 @@ int					check_valid_parenthesis(char *input);
 /****************************/
 
 int					check_cmd_aft(char *input);
-int					check_cmd_aft_heardoc_case(char *input);
 int					check_cmd_end(char *input);
 int					check_end(char *input);
 char				*search_char(char *input);
@@ -280,13 +279,6 @@ char				*expande_heardoc(t_init init, char *str);
 int					maxlen(size_t new, size_t str_cond);
 char				*handle_dollar_sign_heardoc(t_init init, char *str, int j);
 
-/****************************/
-/*			TESTERZZZ		*/
-/****************************/
-
-void				input_str_tester(t_pipes *head, int type);
-void				tester(t_pipes *head);
-
 /************************************/
 /*			BUILTINS				*/
 /************************************/
@@ -314,7 +306,6 @@ void				update_quote_status(char c, bool *single_open,
 						bool *double_open);
 char				*expand(t_init init, char *before, char *str, char *after);
 char				*check_chars(const char *str, const char *accept);
-void				ft_print_heardoc(char **heardoc_read);
 char				*copy_inside_quotes(char *str);
 size_t				ft_strnlen(const char *str, size_t maxlen);
 char				*ft_strndup(const char *s, size_t n);
@@ -384,7 +375,6 @@ char				*ft_strjoin_free_v2(char *s1, char *s2);
 /****************************************/
 
 int					redirect_output_case(t_pipes *node, int i);
-int					redirect_input_case(t_pipes *node);
 int					append_output_case(t_pipes *node, int i);
 void				rechange_str(t_pipes *node, int i, int to_skip);
 char				*search_file_name(t_pipes *node, char *str);
@@ -409,7 +399,6 @@ int					list_size(t_pipes *head);
 void				check_for_execution_to_file(t_pipes *node, int *status);
 char				**ft_split_ignore_quotes(char *s, char *c);
 int					all_quotes_ignore(char *s);
-char				*ft_strjoin_files(char **s1, char **s2);
 char				*listfiles(char *dirname);
 int					array_size(char **file);
 

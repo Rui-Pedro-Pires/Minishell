@@ -21,12 +21,14 @@ int	ft_export(t_pipes *node, char **str_array)
 	t_envs	*current;
 	t_envs	*current_sorted;
 	int		i;
+	int		status;
 
 	current = node->init->envs;
 	current_sorted = bubble_sort(node->init->sorted_envs);
 	if (str_array[1] == NULL)
 		return (print_export_list(current_sorted));
-	i = 1;
+	i = 0;
+	status = 1;
 	while (str_array[i])
 	{
 		if (!export_is_valid(str_array[i]))
@@ -34,13 +36,13 @@ int	ft_export(t_pipes *node, char **str_array)
 			print_error("minishell: export: `");
 			print_error(str_array[i]);
 			print_error("': not a valid identifier\n");
-			return (EXIT_FAILURE);
+			status = 1;
 		}
 		add_env(current, str_array[i]);
 		add_env(current_sorted, str_array[i]);
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (status);
 }
 
 bool	export_is_valid(char *str)
@@ -106,7 +108,7 @@ static int	print_export_list(t_envs *head)
 	{
 		printf("declare -x %s", current->name);
 		if (current->value && current->has_equal)
-			printf("=%s\n", current->value);
+			printf("=\"%s\"\n", current->value);
 		else if (!current->value && current->has_equal)
 			printf("=\"\"\n");
 		else

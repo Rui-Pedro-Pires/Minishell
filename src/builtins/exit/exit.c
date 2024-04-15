@@ -12,7 +12,6 @@
 
 #include "../../../includes/minishell.h"
 
-bool	str_is_number(char *str);
 void	print_error(char *str);
 void	free_resources(t_pipes *head);
 void	handle_too_many_args(int *exit_type);
