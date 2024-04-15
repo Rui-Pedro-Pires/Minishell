@@ -13,20 +13,7 @@
 #include "../../includes/minishell.h"
 
 int	mid_condition(char **ptr, char *condition, char *file, int *i);
-
-int	starts_with_file_name(char *file, char *condition)
-{
-	int	i;
-
-	i = 0;
-	while (condition[i + 1])
-	{
-		if (file[i] != condition[i])
-			return (0);
-		i++;
-	}
-	return (1);
-}
+int	mid_condition_begin_case(char **ptr, char *condition, char *file, int *i);
 
 char	*get_mid(char *str, int *i)
 {
@@ -77,7 +64,6 @@ int	middle_with_file_name(char *file, char *condition)
 int	all_cases_file_name(char *file, char *condition)
 {
 	int		i;
-	char	*mid_cond;
 	char	*ptr;
 
 	i = 0;
@@ -86,12 +72,8 @@ int	all_cases_file_name(char *file, char *condition)
 	{
 		if (condition[i] != '*' && ptr == condition + i)
 		{
-			mid_cond = get_mid(condition + i, &i);
-			if (ft_strncmp(file, mid_cond, ft_strlen(mid_cond)))
-				return (free(mid_cond), 0);
-			ptr = ft_strnstr(file, mid_cond, ft_strlen(file));
-			ptr = file;
-			free(mid_cond);
+			if (mid_condition_begin_case(&ptr, condition, file, &i) == 0)
+				return (0);
 		}
 		else if (condition[i] != '*')
 		{
@@ -123,6 +105,19 @@ int	mid_condition(char **ptr, char *condition, char *file, int *i)
 		free(mid_cond);
 		return (0);
 	}
+	*ptr = file;
+	free(mid_cond);
+	return (1);
+}
+
+int	mid_condition_begin_case(char **ptr, char *condition, char *file, int *i)
+{
+	char	*mid_cond;
+
+	mid_cond = get_mid(condition + *i, i);
+	if (ft_strncmp(file, mid_cond, ft_strlen(mid_cond)))
+		return (free(mid_cond), 0);
+	*ptr = ft_strnstr(file, mid_cond, ft_strlen(file));
 	*ptr = file;
 	free(mid_cond);
 	return (1);

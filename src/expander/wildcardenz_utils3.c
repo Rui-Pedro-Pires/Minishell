@@ -79,6 +79,20 @@ int	ends_with_file_name(char *file, char *condition)
 	return (1);
 }
 
+int	starts_with_file_name(char *file, char *condition)
+{
+	int	i;
+
+	i = 0;
+	while (condition[i + 1])
+	{
+		if (file[i] != condition[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	check_to_add(char *file, char *condition)
 {
 	int	size_condition;
