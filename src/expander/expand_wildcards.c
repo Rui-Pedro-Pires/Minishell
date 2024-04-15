@@ -20,7 +20,7 @@ char	*get_str_condition(char *str, int i)
 
 	x = i;
 	y = 0;
-	while (str[x] && !ft_strchr(" <>\'\"", str[x]))
+	while (str[x] && !ft_strchr(" \t\n<>", str[x]))
 	{
 		x++;
 		y++;
@@ -28,7 +28,7 @@ char	*get_str_condition(char *str, int i)
 	str_condition = ft_calloc(sizeof(char), y + 1);
 	x = i;
 	y = 0;
-	while (str[x] && !ft_strchr(" <>\'\"", str[x]))
+	while (str[x] && !ft_strchr(" \t\n<>", str[x]))
 		str_condition[y++] = str[x++];
 	return (str_condition);
 }
@@ -51,7 +51,7 @@ char	*wildcard_checker(char *str, int *i)
 {
 	char	*str_condition;
 
-	while (*i > 0 && !ft_strchr(" <>\'\"", str[*i]))
+	while (*i > 0 && !ft_strchr(" \t\n<>", str[*i]))
 		(*i)--;
 	(*i)++;
 	str_condition = get_str_condition(str, *i);
@@ -87,7 +87,7 @@ int	insert_files_into_str(t_pipes *node, char *files, int *i, int save_redir)
 	x = *i;
 	j = -1;
 	y = -1;
-	while (node->input_string[x] && !ft_strchr(" <>\'\"",
+	while (node->input_string[x] && !ft_strchr(" \t\n<>",
 			node->input_string[x]))
 		x++;
 	if (save_redir == 1 && count_files(files) > 1)
