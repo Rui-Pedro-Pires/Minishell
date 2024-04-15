@@ -53,9 +53,9 @@ int	redir_wildcard(t_pipes *node, int *i, char *files, char **str_condition)
 	int		save_if_redir;
 
 	save_if_redir = search_redir(node->input_string, *i);
+	*str_condition = wildcard_checker(node->input_string, i);
 	if (save_if_redir == 2)
 		return (2);
-	*str_condition = wildcard_checker(node->input_string, i);
 	if (check_only_wildcard(*str_condition) == 0)
 	{
 		if (insert_files_into_str(node, files, i, save_if_redir))
@@ -83,6 +83,7 @@ char	*wildcards(t_pipes *node, char *files)
 	int		save_return;
 
 	i = 0;
+	str_condition = NULL;
 	while (node->input_string[i])
 	{
 		if (node->input_string[i] == '*')
