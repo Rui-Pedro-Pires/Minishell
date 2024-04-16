@@ -78,7 +78,10 @@ int	error_message_execve(t_pipes *node, char **env_array)
 
 int	err_message_eaccess(t_pipes *node)
 {
-	if (opendir(node->data.command_n_args[0]) == NULL)
+	DIR	*dirent;
+
+	dirent = opendir(node->data.command_n_args[0]);
+	if (dirent == NULL)
 	{
 		print_error("minishell: ");
 		print_error(node->data.command_n_args[0]);
@@ -87,6 +90,7 @@ int	err_message_eaccess(t_pipes *node)
 	}
 	else
 	{
+		closedir(dirent);
 		print_error("minishell: ");
 		print_error(node->data.command_n_args[0]);
 		print_error(": Is a directory\n");
