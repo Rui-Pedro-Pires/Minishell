@@ -83,14 +83,14 @@ char	**empty_element_rem(t_pipes *node)
 		return (NULL);
 	while (node->data.command_n_args[++i])
 	{
-		if (!ft_strcmp(node->data.command_n_args[i], ""))
+		if (ft_strcmp(node->data.command_n_args[i], ""))
 			size++;
 	}
 	clean_array = ft_calloc(size + 1, sizeof(char *));
 	i = -1;
 	while (node->data.command_n_args[++i])
 	{
-		if (!ft_strcmp(node->data.command_n_args[i], ""))
+		if (ft_strcmp(node->data.command_n_args[i], ""))
 			clean_array[j++] = ft_strdup(node->data.command_n_args[i]);
 	}
 	free_args(node->data.command_n_args);

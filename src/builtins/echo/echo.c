@@ -49,7 +49,7 @@ bool	is_valid_no_new_line(char *str)
 	int	i;
 
 	i = 0;
-	if (ft_strcmp(str, "-n"))
+	if (!ft_strcmp(str, "-n"))
 		return (true);
 	else if (str[i] == '-' && str[i + 1] == 'n')
 	{

@@ -73,8 +73,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 	while (str1[i] && str1[i] == str2[i])
 		i++;
 	if (str1[i] == '\0' && str2[i] == '\0')
-		return (1);
-	return (0);
+		return (0);
+	return (str1[i] - str2[i]);
 }
 
 void	add_env(t_envs *head, char *str)
@@ -83,12 +83,12 @@ void	add_env(t_envs *head, char *str)
 	t_envs	*new_node;
 
 	current = head;
-	new_node = create_env_node(str);
+	new_node = create_env_node(str, false);
 	if (!current)
 		return ;
-	while (current->next != NULL && !ft_strcmp(current->name, new_node->name))
+	while (current->next != NULL && ft_strcmp(current->name, new_node->name))
 		current = current->next;
-	if (ft_strcmp(current->name, new_node->name))
+	if (!ft_strcmp(current->name, new_node->name))
 	{
 		free(current->value);
 		free(current->name);

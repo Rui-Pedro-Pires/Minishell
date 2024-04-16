@@ -48,8 +48,8 @@ void	initialize(t_init *init)
 	char	**env;
 
 	env = environ;
-	init->envs = create_env_list(env);
-	init->sorted_envs = create_env_list(env);
+	init->envs = create_env_list(env, true);
+	init->sorted_envs = create_env_list(env, false);
 	init->sorted_envs = bubble_sort(init->sorted_envs);
 }
 

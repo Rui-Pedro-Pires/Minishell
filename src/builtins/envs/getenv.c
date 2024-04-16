@@ -19,7 +19,7 @@ char	*ft_getenv(t_envs *head, char *str)
 	current = head;
 	while (current != NULL)
 	{
-		if (ft_strcmp(current->name, str))
+		if (!ft_strcmp(current->name, str))
 			return (ft_strdup(current->value));
 		current = current->next;
 	}

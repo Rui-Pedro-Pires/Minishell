@@ -327,8 +327,8 @@ char				*expand_tilde(t_init init, char *before, char *after);
 /*			ENVS			*/
 /****************************/
 
-t_envs				*create_env_node(char *env_var);
-t_envs				*create_env_list(char **env);
+t_envs				*create_env_node(char *env_var, bool shlvl_to_change);
+t_envs				*create_env_list(char **env, bool shlvl_to_change);
 int					ft_env(t_envs *head);
 void				free_env_list(t_envs *head);
 void				free_split_array(char **array);
@@ -343,6 +343,7 @@ void				free_nodes(t_envs *node);
 char				*ft_getenv(t_envs *head, char *str);
 t_envs				*bubble_sort(t_envs *head);
 int					ft_is_only_digit(char *str);
+void				shlvl_change(char **env_var);
 
 /****************************/
 /*			EXECUTOR		*/

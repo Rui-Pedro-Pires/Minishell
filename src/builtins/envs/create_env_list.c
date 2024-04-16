@@ -14,11 +14,13 @@
 
 char	*add_rest_of_array(char **array);
 
-t_envs	*create_env_node(char *env_var)
+t_envs	*create_env_node(char *env_var, bool shlvl_to_change)
 {
 	t_envs	*node;
 	char	**temp_array;
 
+	if (shlvl_to_change)
+		shlvl_change(&env_var);
 	node = malloc(sizeof(t_envs));
 	if (!node)
 		return (NULL);
@@ -38,7 +40,7 @@ t_envs	*create_env_node(char *env_var)
 	return (node);
 }
 
-t_envs	*create_env_list(char **env)
+t_envs	*create_env_list(char **env, bool shlvl_to_change)
 {
 	t_envs	*head;
 	t_envs	*current;
@@ -48,7 +50,7 @@ t_envs	*create_env_list(char **env)
 	prev = NULL;
 	while (*env)
 	{
-		current = create_env_node(*env);
+		current = create_env_node(*env, shlvl_to_change);
 		if (!head)
 			head = current;
 		else

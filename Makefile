@@ -15,7 +15,7 @@ RES = \033[0m
 
 CC = cc
 
-CFLAGS = -Werror -Wall -Wextra -g 
+CFLAGS = -Werror -Wall -Wextra -g
 
 VG	=	valgrind --leak-check=full --show-leak-kinds=all --suppressions=sup --track-origins=yes --log-file=leaks.log
 

@@ -46,7 +46,7 @@ t_envs	*find_prev_node(t_envs *head, char *str)
 
 	current = head;
 	prev = NULL;
-	while (current && !ft_strcmp(current->name, str))
+	while (current && ft_strcmp(current->name, str))
 	{
 		prev = current;
 		current = current->next;
