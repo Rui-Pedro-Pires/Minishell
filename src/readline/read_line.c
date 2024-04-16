@@ -64,6 +64,7 @@ char	*keep_reading(char *input, t_counter *c_struc, t_init *init)
 		child_process_keep_reading(init, input, c_struc, fd);
 		handle_sigint_status();
 		wait(&status);
+		status_update(status);
 		close(fd[1]);
 		if (status != 0)
 			return (free(input), NULL);

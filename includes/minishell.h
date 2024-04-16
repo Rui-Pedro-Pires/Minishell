@@ -245,8 +245,8 @@ t_pipes				*find_last_node(t_pipes *head);
 int					parenthesis_ignore(char *input);
 void				parenthesis_add(char **formated, char *input, int *i,
 						int *x);
-void				init_node(t_pipes *next_node, \
-					t_pipes *down_node, t_init *init);
+void				init_node(t_pipes *next_node, t_pipes *down_node,
+						t_init *init);
 int					define_input_and_output(t_pipes *node);
 int					check_for_dbpipe_dbamper(char *input);
 char				*create_str_bet_parent(char *formated);
@@ -274,6 +274,7 @@ char				*trim_cwd(char *trimmed_cwd);
 void				create_cwd_from_envs(char **pwd, char **cwd, t_init init);
 char				*keep_reading(char *input_rec, t_counter *c_struc,
 						t_init *init);
+void				status_update(int status);
 
 /****************************/
 /*			HEARDOC			*/
@@ -350,12 +351,12 @@ void				shlvl_change(char **env_var);
 /*			EXECUTOR		*/
 /****************************/
 
-void				loop_list_and_execute(t_pipes *curr, t_pipes *head, \
-					int size, int *status);
-int					recursive_executer(t_pipes *current, \
-					int recursive, t_pipes *head);
-int					child_process(t_pipes *curr, \
-					t_pipes *head, int i, int stdin);
+void				loop_list_and_execute(t_pipes *curr, t_pipes *head,
+						int size, int *status);
+int					recursive_executer(t_pipes *current, int recursive,
+						t_pipes *head);
+int					child_process(t_pipes *curr, t_pipes *head, int i,
+						int stdin);
 int					execute_command(t_pipes *node);
 int					executens_ve(t_pipes *node);
 int					single_command(t_pipes *curr, t_pipes *head);

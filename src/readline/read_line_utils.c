@@ -80,3 +80,11 @@ void	create_cwd_from_envs(char **pwd, char **cwd, t_init init)
 	else
 		*cwd = ft_strdup("ruiolive&&jorteixe@minishell:~ ");
 }
+
+void	status_update(int status)
+{
+	if (status == 2)
+		printf("\n");
+	else if (status == 131)
+		printf("Quit (core dumped)\n");
+}

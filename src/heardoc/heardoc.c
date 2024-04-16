@@ -100,6 +100,7 @@ static char	*process_heardoc(char *input, t_counter *iter, t_init *init)
 	child_process_heardoc(init, str_condition, fd);
 	handle_sigint_status();
 	wait(&status);
+	status_update(status);
 	close(fd[1]);
 	if (status != 0)
 	{
