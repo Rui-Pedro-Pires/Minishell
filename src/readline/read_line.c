@@ -38,12 +38,7 @@ static char	*get_input(t_init init)
 
 	cwd = creat_cwd();
 	if (!cwd)
-	{
-		pwd = ft_getenv(init.envs, "PWD");
-		pwd = trim_cwd(pwd);
-		pwd = ft_strjoin(pwd, "$ ");
-		cwd = ft_strjoin("ruiolive&&jorteixe@minishell:~", pwd);
-	}
+		create_cwd_from_envs(&pwd, &cwd, init);
 	input = readline(cwd);
 	if (!input)
 	{

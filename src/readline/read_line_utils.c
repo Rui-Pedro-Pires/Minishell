@@ -66,3 +66,17 @@ char	*trim_cwd(char *trimmed_cwd)
 	free(trimmed_cwd);
 	return (trimmed);
 }
+
+void	create_cwd_from_envs(char **pwd, char **cwd, t_init init)
+{
+	*pwd = ft_getenv(init.envs, "PWD");
+	if (*pwd)
+	{
+		*pwd = trim_cwd(*pwd);
+		*pwd = ft_strjoin_free(*pwd, "$ ");
+		*cwd = ft_strjoin("ruiolive&&jorteixe@minishell:~", *pwd);
+		free(*pwd);
+	}
+	else
+		*cwd = ft_strdup("ruiolive&&jorteixe@minishell:~ ");
+}

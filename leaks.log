@@ -1,20 +1,62 @@
-==100639== Memcheck, a memory error detector
-==100639== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==100639== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==100639== Command: ./minishell
-==100639== Parent PID: 100636
-==100639== 
-==100639== 
-==100639== HEAP SUMMARY:
-==100639==     in use at exit: 208,396 bytes in 231 blocks
-==100639==   total heap usage: 1,565 allocs, 1,334 frees, 406,839 bytes allocated
-==100639== 
-==100639== LEAK SUMMARY:
-==100639==    definitely lost: 0 bytes in 0 blocks
-==100639==    indirectly lost: 0 bytes in 0 blocks
-==100639==      possibly lost: 0 bytes in 0 blocks
-==100639==    still reachable: 0 bytes in 0 blocks
-==100639==         suppressed: 208,396 bytes in 231 blocks
-==100639== 
-==100639== For lists of detected and suppressed errors, rerun with: -s
-==100639== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==257474== Memcheck, a memory error detector
+==257474== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==257474== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==257474== Command: ./minishell
+==257474== Parent PID: 257462
+==257474== 
+==257517== 
+==257517== HEAP SUMMARY:
+==257517==     in use at exit: 208,268 bytes in 223 blocks
+==257517==   total heap usage: 1,502 allocs, 1,279 frees, 330,333 bytes allocated
+==257517== 
+==257517== LEAK SUMMARY:
+==257517==    definitely lost: 0 bytes in 0 blocks
+==257517==    indirectly lost: 0 bytes in 0 blocks
+==257517==      possibly lost: 0 bytes in 0 blocks
+==257517==    still reachable: 0 bytes in 0 blocks
+==257517==         suppressed: 208,268 bytes in 223 blocks
+==257517== 
+==257517== For lists of detected and suppressed errors, rerun with: -s
+==257517== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==257577== 
+==257577== HEAP SUMMARY:
+==257577==     in use at exit: 208,268 bytes in 223 blocks
+==257577==   total heap usage: 1,801 allocs, 1,578 frees, 576,219 bytes allocated
+==257577== 
+==257577== LEAK SUMMARY:
+==257577==    definitely lost: 0 bytes in 0 blocks
+==257577==    indirectly lost: 0 bytes in 0 blocks
+==257577==      possibly lost: 0 bytes in 0 blocks
+==257577==    still reachable: 0 bytes in 0 blocks
+==257577==         suppressed: 208,268 bytes in 223 blocks
+==257577== 
+==257577== For lists of detected and suppressed errors, rerun with: -s
+==257577== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==257878== 
+==257878== HEAP SUMMARY:
+==257878==     in use at exit: 208,268 bytes in 223 blocks
+==257878==   total heap usage: 2,559 allocs, 2,336 frees, 1,147,631 bytes allocated
+==257878== 
+==257878== LEAK SUMMARY:
+==257878==    definitely lost: 0 bytes in 0 blocks
+==257878==    indirectly lost: 0 bytes in 0 blocks
+==257878==      possibly lost: 0 bytes in 0 blocks
+==257878==    still reachable: 0 bytes in 0 blocks
+==257878==         suppressed: 208,268 bytes in 223 blocks
+==257878== 
+==257878== For lists of detected and suppressed errors, rerun with: -s
+==257878== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==257474== 
+==257474== HEAP SUMMARY:
+==257474==     in use at exit: 209,335 bytes in 297 blocks
+==257474==   total heap usage: 2,888 allocs, 2,591 frees, 1,485,102 bytes allocated
+==257474== 
+==257474== LEAK SUMMARY:
+==257474==    definitely lost: 0 bytes in 0 blocks
+==257474==    indirectly lost: 0 bytes in 0 blocks
+==257474==      possibly lost: 0 bytes in 0 blocks
+==257474==    still reachable: 0 bytes in 0 blocks
+==257474==         suppressed: 209,335 bytes in 297 blocks
+==257474== 
+==257474== For lists of detected and suppressed errors, rerun with: -s
+==257474== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

@@ -31,6 +31,13 @@ int	executens_ve(t_pipes *node)
 	else if (node->in_out.input_type == REDIRECT_INPUT)
 		write_pipe_stdin(node);
 	handle_reset_signals();
+	if (!temp_str)
+	{
+		print_error("minishell: ");
+		print_error(node->data.command_n_args[0]);
+		print_error(": No such file or directory\n");
+		return (127);
+	}
 	env_array = envlist_to_array(node->init->envs);
 	execve(temp_str, node->data.command_n_args, env_array);
 	free(temp_str);
