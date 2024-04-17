@@ -82,6 +82,8 @@ void	update_env_last_arg(t_pipes *node)
 	char	*last_arg;
 
 	i = 0;
+	if (node->init->envs == NULL)
+		return ;
 	while (node->data.command_n_args[i])
 		i++;
 	if (i == 0)
@@ -107,6 +109,8 @@ void	update_sorted_env_last_arg(t_pipes *node)
 	char	*last_arg;
 
 	i = 0;
+	if (node->init->sorted_envs == NULL)
+		return ;
 	while (node->data.command_n_args[i])
 		i++;
 	if (i == 0)
