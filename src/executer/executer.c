@@ -32,7 +32,7 @@ int	single_command(t_pipes *curr, t_pipes *head)
 			check_for_execution_to_file(curr, &status);
 			ft_exit(head, status, NULL);
 		}
-		handle_sigint_status();
+		update_signals_status();
 		wait(&status);
 		update_status(&status);
 	}
@@ -58,7 +58,7 @@ void	loop_list_and_execute(t_pipes *curr, t_pipes *head, \
 	}
 	i = 0;
 	close(stdin);
-	handle_sigint_status();
+	update_signals_status();
 	while (i < size)
 	{
 		if (i == size - 1)
@@ -132,12 +132,12 @@ static void	update_status(int *status)
 	if (*status == 2)
 	{
 		*status = 33280;
-		printf("\n");
+		print_error("\n");
 	}
 	else if (*status == 131)
 	{
 		*status = 33536;
-		printf("Quit (core dumped)\n");
+		print_error("Quit (core dumped)\n");
 	}
 	*status = WEXITSTATUS(*status);
 }

@@ -12,20 +12,32 @@
 
 #include "../includes/minishell.h"
 
-void	handle_iterative_mode(void)
+void	iterative_mode(void)
 {
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	handle_sigint_status(void)
+void	update_signals_status(void)
 {
-	signal(SIGINT, update_status_sigint);
-	signal(SIGQUIT, update_status_sigquit);
+	signal(SIGINT, handle_status_sigint);
+	signal(SIGQUIT, handle_status_sigquit);
 }
 
-void	handle_reset_signals(void)
+void	reset_signals(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+}
+
+void	reset_sigint(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	update_sigint_status(void)
+{
+	signal(SIGINT, handle_status_sigint);
+	signal(SIGQUIT, SIG_IGN);
 }

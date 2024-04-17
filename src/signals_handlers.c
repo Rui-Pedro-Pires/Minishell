@@ -24,13 +24,13 @@ void	handle_sigint(int sig)
 	}
 }
 
-void	update_status_sigint(int sig)
+void	handle_status_sigint(int sig)
 {
 	if (sig == SIGINT)
 		g_return_value = 130;
 }
 
-void	update_status_sigquit(int sig)
+void	handle_status_sigquit(int sig)
 {
 	if (sig == SIGQUIT)
 		g_return_value = 131;

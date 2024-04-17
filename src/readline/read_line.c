@@ -21,12 +21,13 @@ static void	ft_exit_keep_reading(t_init *init, char *input, int exit_type,
 char	*line_read(t_init *init, t_counter *counter_struc)
 {
 	char	*input;
+	int		fd[2];
 
 	counter_struc->prnt = 0;
 	input = get_input(*init);
 	if (!parse_input(input, counter_struc, init))
 		return (add_history(input), free(input), NULL);
-	input = keep_reading(input, counter_struc, init);
+	input = keep_reading(input, counter_struc, init, fd);
 	return (input);
 }
 
@@ -52,17 +53,16 @@ static char	*get_input(t_init init)
 	return (input);
 }
 
-char	*keep_reading(char *input, t_counter *c_struc, t_init *init)
+char	*keep_reading(char *input, t_counter *c_struc, t_init *init, int *fd)
 {
 	char	*buffer;
-	int		fd[2];
 	int		status;
 
 	if (unfinished_command_line(input) || c_struc->prnt > 0)
 	{
 		pipe(fd);
 		child_process_keep_reading(init, input, c_struc, fd);
-		handle_sigint_status();
+		update_sigint_status();
 		wait(&status);
 		status_update(status);
 		close(fd[1]);
@@ -91,8 +91,8 @@ static void	child_process_keep_reading(t_init *init, char *input,
 	pid = fork();
 	if (pid == 0)
 	{
+		reset_sigint();
 		close(fd[0]);
-		handle_reset_signals();
 		while (unfinished_command_line(input) || c_struc->prnt > 0)
 		{
 			new_line = readline("> ");

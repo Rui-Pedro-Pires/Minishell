@@ -273,7 +273,7 @@ char				*creat_cwd(void);
 char				*trim_cwd(char *trimmed_cwd);
 void				create_cwd_from_envs(char **pwd, char **cwd, t_init init);
 char				*keep_reading(char *input_rec, t_counter *c_struc,
-						t_init *init);
+						t_init *init, int *fd);
 void				status_update(int status);
 
 /****************************/
@@ -422,11 +422,13 @@ int					array_size(char **file);
 /*				SIGNALS					*/
 /****************************************/
 
-void				handle_iterative_mode(void);
-void				handle_reset_signals(void);
-void				handle_sigint_status(void);
-void				update_status_sigquit(int sig);
-void				update_status_sigint(int sig);
+void				iterative_mode(void);
+void				reset_signals(void);
+void				update_signals_status(void);
+void				update_sigint_status(void);
+void				reset_sigint(void);
+void				handle_status_sigquit(int sig);
+void				handle_status_sigint(int sig);
 void				handle_sigint(int sig);
 
 /****************************************/
