@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe  <jorteixe@student.42.fr   >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 12:02:05 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/06 20:42:44 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/04/11 10:50:15 by jorteixe          #+#    #+#             */
+/*   Updated: 2024/04/11 10:50:15 by jorteixe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -19,20 +19,19 @@
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdarg.h>
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <signal.h>
 # include <sys/wait.h>
 # include <unistd.h>
-#include <signal.h>
 
 # define D_QUOTES 34
 # define S_QUOTES 39
 
-extern int			global_return_value;
+extern int			g_return_value;
 
 typedef enum e_command_type
 {
@@ -84,6 +83,7 @@ typedef struct s_init
 	t_envs			*sorted_envs;
 	char			**heardocs;
 	int				*heardoc_index;
+	pid_t			*pid;
 	int				status;
 }					t_init;
 
@@ -152,7 +152,8 @@ typedef enum e_error
 	ERR_STR,
 	ERR_READ,
 	ERR_STR_FREE,
-	ERR_FORK
+	ERR_FORK,
+	ERR_WILDCARD
 }					t_error;
 
 /****************************/
@@ -167,6 +168,13 @@ int					signs_parser(char *input, int *i);
 int					quotes_parser(char *input, int *i);
 int					parenthesis_parser(char *input, int *i,
 						t_counter *count_struct);
+
+/****************************/
+/*			MAIN			*/
+/****************************/
+
+void				initialize(t_init *init);
+void				process_input(t_pipes **head, char *input, t_init *init);
 
 /****************************/
 /*			QUOTES			*/
@@ -238,7 +246,7 @@ int					parenthesis_ignore(char *input);
 void				parenthesis_add(char **formated, char *input, int *i,
 						int *x);
 void				init_node(t_pipes *next_node, t_pipes *down_node,
-						t_sign_type sign_type, t_init *init);
+						t_init *init);
 int					define_input_and_output(t_pipes *node);
 int					check_for_dbpipe_dbamper(char *input);
 char				*create_str_bet_parent(char *formated);
@@ -259,12 +267,14 @@ void				free_heardoc(t_pipes *head);
 
 char				*line_read(t_init *init, t_counter *counter_struc);
 int					unfinished_command_line(char *input);
-char				*str_join_with_space(char *s1, char *s2);
+char				*str_join_with_space(char *s1, char *s2, int free_type);
 char				*str_join_with_newline(char *s1, char *s2);
-char				*add_nl(char *s1, char *s2);
 char				*creat_cwd(void);
+char				*trim_cwd(char *trimmed_cwd);
+void				create_cwd_from_envs(char **pwd, char **cwd, t_init init);
 char				*keep_reading(char *input_rec, t_counter *c_struc,
 						t_init *init);
+void				status_update(int status);
 
 /****************************/
 /*			HEARDOC			*/
@@ -274,23 +284,23 @@ int					heardoc_check(t_init *init, char *input,
 						t_counter *count_struc, int i);
 char				*search_heardoc_condition(char *input, t_counter *iter);
 int					quotes_ignore(char *input);
+char				*read_heardoc_buffer(int fd);
 char				*expande_heardoc(t_init init, char *str);
 int					maxlen(size_t new, size_t str_cond);
 char				*handle_dollar_sign_heardoc(t_init init, char *str, int j);
-
-/****************************/
-/*			TESTERZZZ		*/
-/****************************/
-
-void				input_str_tester(t_pipes *head, int type);
-void				tester(t_pipes *head);
 
 /************************************/
 /*			BUILTINS				*/
 /************************************/
 
 int					ft_cd(t_pipes *node, char **str);
-int					ft_pwd(void);
+int					handle_cd_home(t_pipes *node, char **str);
+int					handle_cd_too_many_args(void);
+int					handle_cd_new_dir(t_pipes *node, char *new_dir);
+void				update_old_pwd(t_pipes *node);
+void				update_current_pwd(t_pipes *node);
+int					cd_home(t_pipes *node, char **str);
+int					ft_pwd(t_pipes *node);
 int					ft_echo(char **str_array);
 
 /****************************/
@@ -306,7 +316,6 @@ void				update_quote_status(char c, bool *single_open,
 						bool *double_open);
 char				*expand(t_init init, char *before, char *str, char *after);
 char				*check_chars(const char *str, const char *accept);
-void				ft_print_heardoc(char **heardoc_read);
 char				*copy_inside_quotes(char *str);
 size_t				ft_strnlen(const char *str, size_t maxlen);
 char				*ft_strndup(const char *s, size_t n);
@@ -320,8 +329,8 @@ char				*expand_tilde(t_init init, char *before, char *after);
 /*			ENVS			*/
 /****************************/
 
-t_envs				*create_env_node(char *env_var);
-t_envs				*create_env_list(char **env);
+t_envs				*create_env_node(char *env_var, bool shlvl_to_change);
+t_envs				*create_env_list(char **env, bool shlvl_to_change);
 int					ft_env(t_envs *head);
 void				free_env_list(t_envs *head);
 void				free_split_array(char **array);
@@ -335,23 +344,31 @@ void				remove_node(t_envs **head, t_envs *prev, t_envs *current);
 void				free_nodes(t_envs *node);
 char				*ft_getenv(t_envs *head, char *str);
 t_envs				*bubble_sort(t_envs *head);
+int					ft_is_only_digit(char *str);
+void				shlvl_change(char **env_var);
 
 /****************************/
 /*			EXECUTOR		*/
 /****************************/
 
-int					recursive_executer(t_pipes *head, int recursive);
+void				loop_list_and_execute(t_pipes *curr, t_pipes *head,
+						int size, int *status);
+int					recursive_executer(t_pipes *current, int recursive,
+						t_pipes *head);
+int					child_process(t_pipes *curr, t_pipes *head, int i,
+						int stdin);
 int					execute_command(t_pipes *node);
 int					executens_ve(t_pipes *node);
+int					single_command(t_pipes *curr, t_pipes *head);
 char				**envlist_to_array(t_envs *envs);
 int					listlen(t_envs *envs);
 void				ft_exit(t_pipes *head, int exit_type, char **args_array);
-int					recursive_down(t_pipes *head);
-int					list_iterator_executer(t_pipes *head);
+int					recursive_down(t_pipes *curr, t_pipes *head);
+int					list_iterator_executer(t_pipes *curr, t_pipes *head);
 void				command_decider(t_pipes *node);
 void				command_decider2(t_pipes *node);
 int					init_data(t_pipes *node);
-int					create_path_to_execve(t_pipes *node);
+char				*create_path_to_execve(t_pipes *node);
 
 /****************************/
 /*			FREE			*/
@@ -362,7 +379,10 @@ void				free_pnts(void **pnts);
 void				free_ppnts(void ***ppnts);
 void				type_free(va_list args, const char format);
 void				multiple_free(const char *format, ...);
-
+void				free_resources(t_pipes *head);
+void				handle_too_many_args(int *exit_type);
+void				handle_numeric_arg(int *exit_type, char *arg);
+bool				ft_str_is_number(char *str);
 char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strjoin_free_v2(char *s1, char *s2);
 
@@ -371,7 +391,6 @@ char				*ft_strjoin_free_v2(char *s1, char *s2);
 /****************************************/
 
 int					redirect_output_case(t_pipes *node, int i);
-int					redirect_input_case(t_pipes *node);
 int					append_output_case(t_pipes *node, int i);
 void				rechange_str(t_pipes *node, int i, int to_skip);
 char				*search_file_name(t_pipes *node, char *str);
@@ -394,13 +413,10 @@ void				write_pipe_heardoc(t_pipes *head);
 
 int					list_size(t_pipes *head);
 void				check_for_execution_to_file(t_pipes *node, int *status);
-void				check_for_execution_to_file_one_case(t_pipes *node, int *status);
 char				**ft_split_ignore_quotes(char *s, char *c);
 int					all_quotes_ignore(char *s);
-
-char				**ft_strjoin_files(char **s1, char **s2);
-char    			**listfiles(char *dirname, char *str_condition);
-int    				array_size(char **file);
+char				*listfiles(char *dirname);
+int					array_size(char **file);
 
 /****************************************/
 /*				SIGNALS					*/
@@ -412,5 +428,29 @@ void				handle_sigint_status(void);
 void				update_status_sigquit(int sig);
 void				update_status_sigint(int sig);
 void				handle_sigint(int sig);
+
+/****************************************/
+/*				WILDCARDS				*/
+/****************************************/
+
+char				*trim_files(char *files, char *str_condition);
+int					search_redir(char *str, int i);
+int					redir_wildcard(t_pipes *node, int *i, char *files,
+						char **str_condition);
+char				*wildcards(t_pipes *node, char *files);
+void				insert_trimmed_files(char **trimmed_files,
+						char *file_to_add);
+int					starts_with_file_name(char *file, char *condition);
+char				*get_mid(char *str, int *i);
+int					middle_with_file_name(char *file, char *condition);
+int					all_cases_file_name(char *file, char *condition);
+int					check_to_add(char *file, char *condition);
+char				*push_char(char *str, char to_push);
+char				*remove_dupp_wild(char *condition);
+int					ends_with_file_name(char *file, char *condition);
+char				*wildcard_checker(char *str, int *i);
+int					check_only_wildcard(char *str_condition);
+int					insert_files_into_str(t_pipes *node, char *files, int *i,
+						int save_redir);
 
 #endif

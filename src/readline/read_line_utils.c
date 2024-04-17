@@ -12,8 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-static char	*trim_cwd(char *trimmed_cwd);
-
 int	unfinished_command_line(char *input)
 {
 	int	i;
@@ -36,7 +34,10 @@ char	*creat_cwd(void)
 	char	*cwd_complete;
 	char	*trimmed_cwd;
 
+	trimmed_cwd = NULL;
 	trimmed_cwd = getcwd(NULL, 0);
+	if (!trimmed_cwd)
+		return (NULL);
 	trimmed_cwd = trim_cwd(trimmed_cwd);
 	cwd = ft_strjoin("ruiolive&&jorteixe@minishell:~", trimmed_cwd);
 	cwd_complete = ft_strjoin(cwd, "$ ");
@@ -64,4 +65,26 @@ char	*trim_cwd(char *trimmed_cwd)
 	trimmed = ft_substr(trimmed_cwd, i, (ft_strlen(trimmed_cwd) - i));
 	free(trimmed_cwd);
 	return (trimmed);
+}
+
+void	create_cwd_from_envs(char **pwd, char **cwd, t_init init)
+{
+	*pwd = ft_getenv(init.envs, "PWD");
+	if (*pwd)
+	{
+		*pwd = trim_cwd(*pwd);
+		*pwd = ft_strjoin_free(*pwd, "$ ");
+		*cwd = ft_strjoin("ruiolive&&jorteixe@minishell:~", *pwd);
+		free(*pwd);
+	}
+	else
+		*cwd = ft_strdup("ruiolive&&jorteixe@minishell:~ ");
+}
+
+void	status_update(int status)
+{
+	if (status == 2)
+		printf("\n");
+	else if (status == 131)
+		printf("Quit (core dumped)\n");
 }

@@ -13,13 +13,14 @@
 #include "../../includes/minishell.h"
 
 static char	**ft_realloc(t_init *init, t_counter *iter);
-static int	add_to_line(char **new_line, char *str, char **new_str, t_init init);
-static void		child_process_heardoc(t_init *init, char *str_condition, int *fd);
-static char		*process_heardoc(char *input, t_counter *iter, t_init *init);
+static int	add_to_line(char **new_line, char *str, char **new_str,
+				t_init init);
+static void	child_process_heardoc(t_init *init, char *str_condition, int *fd);
+static char	*process_heardoc(char *input, t_counter *iter, t_init *init);
 
 int	heardoc_check(t_init *init, char *input, t_counter *itr, int i)
 {
-	char *new_str;
+	char	*new_str;
 
 	while (input[itr->i] && itr->i < i)
 	{
@@ -27,10 +28,14 @@ int	heardoc_check(t_init *init, char *input, t_counter *itr, int i)
 		{
 			init->heardocs = ft_realloc(init, itr);
 			new_str = process_heardoc(input, itr, init);
-			if (!new_str && (global_return_value == 130 || global_return_value == 131))
+			if (!new_str && (g_return_value == 130 || g_return_value == 131))
+			{
+				free_args(init->heardocs);
+				init->heardocs = NULL;
 				return (0);
+			}
 			else if (!new_str)
-				continue;
+				continue ;
 			init->heardocs[itr->counter] = ft_strdup(new_str);
 			free(new_str);
 			itr->counter++;
@@ -73,7 +78,8 @@ static int	add_to_line(char **new_ln, char *str, char **new_str, t_init init)
 		return (0);
 	}
 	else
-	{	*new_ln = expande_heardoc(init, *new_ln);
+	{
+		*new_ln = expande_heardoc(init, *new_ln);
 		*new_str = str_join_with_newline(*new_str, *new_ln);
 	}
 	return (1);
@@ -82,8 +88,7 @@ static int	add_to_line(char **new_ln, char *str, char **new_str, t_init init)
 static char	*process_heardoc(char *input, t_counter *iter, t_init *init)
 {
 	int		fd[2];
-	char 	*str_condition;
-	char	*buffer;
+	char	*str_condition;
 	char	*new_str;
 	int		status;
 
@@ -95,21 +100,14 @@ static char	*process_heardoc(char *input, t_counter *iter, t_init *init)
 	child_process_heardoc(init, str_condition, fd);
 	handle_sigint_status();
 	wait(&status);
+	status_update(status);
+	close(fd[1]);
 	if (status != 0)
 	{
 		free(str_condition);
 		return (NULL);
 	}
-	close(fd[1]);
-	buffer = ft_calloc(sizeof(char), 2);
-	new_str = ft_strdup("");
-	while (1)
-	{
-		if (read(fd[0], buffer, 1) <= 0)
-			break ;
-		new_str = ft_strjoin_free(new_str, buffer);
-	}
-	free(buffer);
+	new_str = read_heardoc_buffer(fd[0]);
 	free(str_condition);
 	return (new_str);
 }
@@ -123,8 +121,11 @@ static void	child_process_heardoc(t_init *init, char *str_condition, int *fd)
 	pid = fork();
 	if (pid == 0)
 	{
-		close(fd[0]);
+		free_env_list(init->envs);
+		free_env_list(init->sorted_envs);
+		free_args(init->heardocs);
 		handle_reset_signals();
+		close(fd[0]);
 		new_str = ft_strdup("");
 		while (1)
 		{
@@ -135,9 +136,6 @@ static void	child_process_heardoc(t_init *init, char *str_condition, int *fd)
 		free(str_condition);
 		write(fd[1], new_str, ft_strlen(new_str));
 		free(new_str);
-		free_args(init->heardocs);
-		free_env_list(init->envs);
-		free_env_list(init->sorted_envs);
 		exit(EXIT_SUCCESS);
 	}
 }

@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-char	*str_join_with_space(char *s1, char *s2)
+char	*str_join_with_space(char *s1, char *s2, int free_type)
 {
 	char	*new_str;
 	int		i;
@@ -31,7 +31,8 @@ char	*str_join_with_space(char *s1, char *s2)
 		new_str[n++] = s2[i++];
 	new_str[n] = '\0';
 	free(s1);
-	free(s2);
+	if (free_type == 2)
+		free(s2);
 	return (new_str);
 }
 
@@ -44,14 +45,10 @@ char	*str_join_with_newline(char *s1, char *s2)
 	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
 	if (!new_str)
 		return (NULL);
-	i = 0;
+	i = -1;
 	n = 0;
-	while (s1[i] != '\0')
-	{
-		new_str[n] = s1[i];
-		i++;
-		n++;
-	}
+	while (s1[++i] != '\0')
+		new_str[n++] = s1[i];
 	i = 0;
 	while (s2[i] != '\0')
 	{

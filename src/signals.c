@@ -29,4 +29,3 @@ void	handle_reset_signals(void)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }
-

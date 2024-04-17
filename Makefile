@@ -1,5 +1,7 @@
 NAME = minishell
 
+NAME_BONUS = minishell_bonus
+
 LIBFT = ./includes/Libft/libft.a
 
 RED = \033[0;31m
@@ -13,7 +15,7 @@ RES = \033[0m
 
 CC = cc
 
-CFLAGS = -Werror -Wall -Wextra -g 
+CFLAGS = -Werror -Wall -Wextra -g
 
 VG	=	valgrind --leak-check=full --show-leak-kinds=all --suppressions=sup --track-origins=yes --log-file=leaks.log
 
@@ -35,6 +37,7 @@ SOURCES := main.c \
 			signals_handlers.c\
 			heardoc/heardoc.c\
 			heardoc/heardoc_utils.c\
+			heardoc/heardoc_utils2.c\
 			lists/create_list.c\
 			lists/create_list_utils.c\
 			lists/build_str_list.c\
@@ -54,6 +57,7 @@ SOURCES := main.c \
 			parser/parser_diff_signs.c\
 			parser/parser_parenthesis.c\
 			builtins/cd_pwd/cd.c\
+			builtins/cd_pwd/cd_utils.c\
 			builtins/cd_pwd/pwd.c\
 			builtins/envs/create_env_list.c\
 			builtins/envs/free_env.c\
@@ -63,8 +67,14 @@ SOURCES := main.c \
 			builtins/envs/getenv.c\
 			builtins/echo/echo.c\
 			builtins/exit/exit.c\
+			builtins/exit/exit_utils.c\
 			expander/expander_utils.c\
+			expander/expander_utils2.c\
 			expander/expander.c\
+			expander/expand_wildcards.c\
+			expander/wildcardenz_utils.c\
+			expander/wildcardenz_utils2.c\
+			expander/wildcardenz_utils3.c\
 			executer/executer.c\
 			executer/executer_utils.c\
 			executer/execve.c\
@@ -75,14 +85,21 @@ SOURCES := main.c \
 			executer/read_stdin_heardoc_utils.c\
 			executer/stdin_out_pipe_case.c\
 			executer/split_ignore_quotes.c\
+			executer/recursive_function.c\
 			
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
 all : ${NAME}
 
+bonus : ${NAME_BONUS}
+
 ${NAME} : ${OBJECTS} ${LIBFT}
 	@${CC} ${CFLAGS} ${OBJECTS} ${LIBFT} -o ${NAME} $(LFLAG)
 	@echo "\n$(GRN)➾ Minishell created$(RES)"
+
+${NAME_BONUS} : ${OBJECTS} ${LIBFT}
+	@${CC} ${CFLAGS} ${OBJECTS} ${LIBFT} -o ${NAME_BONUS} $(LFLAG)
+	@echo "\n$(GRN)➾ minishell_bonus created$(RES)"
 
 $(LIBFT):
 	@make bonus -C ./includes/Libft/ -s

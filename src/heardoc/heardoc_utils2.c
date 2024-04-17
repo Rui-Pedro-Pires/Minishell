@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   heardoc_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jorteixe  <jorteixe@student.42porto.>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/14 15:22:23 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/02/14 15:22:23 by jorteixe         ###   ########.fr       */
+/*   Created: 2024/04/12 12:09:40 by jorteixe          #+#    #+#             */
+/*   Updated: 2024/04/12 12:09:43 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	ft_pwd(t_pipes *node) //#TODO Return EXIT_FAILURE or EXIT_SUCCESS
+char	*read_heardoc_buffer(int fd)
 {
-	char	*pwd;
+	char	*buffer;
+	char	*new_str;
 
-	pwd = getcwd(NULL, 0);
-	if (pwd == NULL)
+	buffer = ft_calloc(sizeof(char), 2);
+	new_str = ft_strdup("");
+	while (1)
 	{
-		pwd = ft_getenv(node->init->envs, "PWD");
-		if (!pwd)
-		{
-			perror("minishell");
-			return (EXIT_FAILURE);
-		}
+		if (read(fd, buffer, 1) <= 0)
+			break ;
+		new_str = ft_strjoin_free(new_str, buffer);
 	}
-	printf("%s\n", pwd);
-	free(pwd);
-	return (EXIT_SUCCESS);
+	free(buffer);
+	return (new_str);
 }

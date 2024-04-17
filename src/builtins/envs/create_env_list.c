@@ -12,18 +12,20 @@
 
 #include "../../../includes/minishell.h"
 
-char *add_rest_of_array(char **array);
+char	*add_rest_of_array(char **array);
 
-t_envs	*create_env_node(char *env_var)
+t_envs	*create_env_node(char *env_var, bool shlvl_to_change)
 {
 	t_envs	*node;
 	char	**temp_array;
 
+	if (shlvl_to_change)
+		shlvl_change(&env_var);
 	node = malloc(sizeof(t_envs));
 	if (!node)
 		return (NULL);
 	node->whole_str = ft_strdup(env_var);
-	if(ft_strchr(node->whole_str, '='))
+	if (ft_strchr(node->whole_str, '='))
 		node->has_equal = true;
 	else
 		node->has_equal = false;
@@ -38,7 +40,7 @@ t_envs	*create_env_node(char *env_var)
 	return (node);
 }
 
-t_envs	*create_env_list(char **env)
+t_envs	*create_env_list(char **env, bool shlvl_to_change)
 {
 	t_envs	*head;
 	t_envs	*current;
@@ -48,7 +50,7 @@ t_envs	*create_env_list(char **env)
 	prev = NULL;
 	while (*env)
 	{
-		current = create_env_node(*env);
+		current = create_env_node(*env, shlvl_to_change);
 		if (!head)
 			head = current;
 		else
@@ -90,7 +92,7 @@ t_envs	*bubble_sort(t_envs *head)
 		prev = NULL;
 		while (current && current->next)
 		{
-			if (strcmp(current->whole_str, current->next->whole_str) > 0)
+			if (ft_strcmp(current->whole_str, current->next->whole_str) > 0)
 			{
 				swapped = 1;
 				current = swap_nodes(prev, current, current->next);
@@ -104,10 +106,10 @@ t_envs	*bubble_sort(t_envs *head)
 	return (head);
 }
 
-char *add_rest_of_array(char **array)
+char	*add_rest_of_array(char **array)
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
 	i = 2;
 	str = ft_strdup(array[1]);

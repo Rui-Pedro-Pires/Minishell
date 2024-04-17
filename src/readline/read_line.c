@@ -13,10 +13,10 @@
 #include "../../includes/minishell.h"
 
 static char	*get_input(t_init init);
-static void	child_process_keep_reading(t_init *init, char *input, \
-			t_counter *c_struc, int *fd);
-static void	ft_exit_keep_reading(t_init *init, char *input, \
-			int	exit_type, bool add_to_history);
+static void	child_process_keep_reading(t_init *init, char *input,
+				t_counter *c_struc, int *fd);
+static void	ft_exit_keep_reading(t_init *init, char *input, int exit_type,
+				bool add_to_history);
 
 char	*line_read(t_init *init, t_counter *counter_struc)
 {
@@ -34,8 +34,11 @@ static char	*get_input(t_init init)
 {
 	char	*cwd;
 	char	*input;
+	char	*pwd;
 
 	cwd = creat_cwd();
+	if (!cwd)
+		create_cwd_from_envs(&pwd, &cwd, init);
 	input = readline(cwd);
 	if (!input)
 	{
@@ -61,7 +64,10 @@ char	*keep_reading(char *input, t_counter *c_struc, t_init *init)
 		child_process_keep_reading(init, input, c_struc, fd);
 		handle_sigint_status();
 		wait(&status);
+		status_update(status);
 		close(fd[1]);
+		if (status != 0)
+			return (free(input), NULL);
 		buffer = ft_calloc(sizeof(char), 2);
 		free(input);
 		input = ft_strdup("");
@@ -76,9 +82,10 @@ char	*keep_reading(char *input, t_counter *c_struc, t_init *init)
 	return (input);
 }
 
-static void	child_process_keep_reading(t_init *init, char *input, t_counter *c_struc, int *fd)
+static void	child_process_keep_reading(t_init *init, char *input,
+		t_counter *c_struc, int *fd)
 {
-	char 	*new_line;
+	char	*new_line;
 	int		pid;
 
 	pid = fork();
@@ -96,7 +103,7 @@ static void	child_process_keep_reading(t_init *init, char *input, t_counter *c_s
 				free(new_line);
 				continue ;
 			}
-			input = str_join_with_space(input, new_line);
+			input = str_join_with_space(input, new_line, 2);
 			if (!parse_input(input, c_struc, init))
 				ft_exit_keep_reading(init, input, 1, true);
 		}
@@ -105,10 +112,11 @@ static void	child_process_keep_reading(t_init *init, char *input, t_counter *c_s
 	}
 }
 
-static void	ft_exit_keep_reading(t_init *init, char *input, int	exit_type, bool add_to_history)
+static void	ft_exit_keep_reading(t_init *init, char *input, int exit_type,
+		bool add_to_history)
 {
 	if (add_to_history == true)
-		add_history(input);	
+		add_history(input);
 	free(input);
 	free_args(init->heardocs);
 	free_env_list(init->envs);

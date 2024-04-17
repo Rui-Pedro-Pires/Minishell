@@ -1,118 +1,98 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executer_utils.c                                   :+:      :+:    :+:   */
+/*   heardoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 09:55:35 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/04/06 20:49:58 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/02/06 15:55:58 by ruiolive          #+#    #+#             */
+/*   Updated: 2024/04/06 12:17:35 by ruiolive         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	**join_args_wildcards(char **s1, char **s2, int i);
-static int	check_for_wildcard(char *str);
-char		**empty_element_remover(char **array);
+char		**empty_element_rem(t_pipes *node);
 
-int	init_data(t_pipes *node)
+static int	handle_wildcards(t_pipes *node)
 {
-	int		i;
 	int		status;
-	char	**files;
+	char	*return_value;
+	char	*files;
 
-	node->in_out.input_type = NO_INPUT;
-	node->in_out.output_type = NO_OUTPUT;
-	status = define_input_and_output(node);
+	files = listfiles(".");
+	if (!files)
+	{
+		status = define_input_and_output(node);
+		return (status);
+	}
+	return_value = wildcards(node, files);
+	free(files);
+	if (!return_value)
+		status = define_input_and_output(node);
+	else
+	{
+		status = 1;
+		print_error("minishell: ");
+		print_error(return_value);
+		print_error(": ambiguous redirect\n");
+		free(return_value);
+	}
+	return (status);
+}
+
+static void	process_command_n_args(t_pipes *node, t_init *init)
+{
+	int	i;
+
 	node->data.command_n_args = ft_split_ignore_quotes(node->input_string,
 			" \t\n");
-	files = NULL;
 	i = 0;
 	while (node->data.command_n_args[i] != NULL)
 	{
-		if (check_for_wildcard(node->data.command_n_args[i]) == 0)
-		{
-			files = listfiles(".", node->data.command_n_args[i]);
-			node->data.command_n_args = join_args_wildcards(node->data.command_n_args,
-					files, i);
-		}
-		node->data.command_n_args[i] = check_quotes_n_expand(*node->init,
+		node->data.command_n_args[i] = check_quotes_n_expand(*init,
 				node->data.command_n_args[i]);
 		i++;
 	}
-	node->data.command_n_args = empty_element_remover(node->data.command_n_args);
+	node->data.command_n_args = empty_element_rem(node);
+}
+
+int	init_data(t_pipes *node)
+{
+	int	status;
+
+	node->in_out.input_type = NO_INPUT;
+	node->in_out.output_type = NO_OUTPUT;
+	status = handle_wildcards(node);
+	process_command_n_args(node, node->init);
 	command_decider(node);
 	return (status);
 }
 
-static char	**join_args_wildcards(char **s1, char **s2, int x)
+char	**empty_element_rem(t_pipes *node)
 {
-	char	**after_args;
-	char	**before_args;
-	char	**new_str;
 	int		i;
-	int		n;
+	int		j;
+	int		size;
+	char	**clean_array;
 
-	if (!s2)
-		return (s1);
-	before_args = ft_calloc(sizeof(char *), x + 1);
-	after_args = ft_calloc(sizeof(char *), array_size(s1) - x + 1);
-	new_str = ft_calloc(sizeof(char *), array_size(s1) + array_size(s2));
-	i = 0;
-	n = 0;
-	while (s1[i] && i < x)
-		before_args[n++] = ft_strdup(s1[i++]);
-	x++;
-	n = 0;
-	while (s1[x])
-		after_args[n++] = ft_strdup(s1[x++]);
-	new_str = ft_strjoin_files(before_args, s2);
-	new_str = ft_strjoin_files(new_str, after_args);
-	free_args(s1);
-	return (new_str);
-}
-
-static int	check_for_wildcard(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (ft_strchr("*", str[i]))
-			return (0);
-		i += all_quotes_ignore(str + i);
-	}
-	return (1);
-}
-
-char	**empty_element_remover(char **array)
-{
-	int i;
-	int j;
-	int size;
-	char **clean_array;
-	i = 0;
+	i = -1;
 	j = 0;
 	size = 0;
-	while (array[i])
+	if (!node->data.command_n_args)
+		return (NULL);
+	while (node->data.command_n_args[++i])
 	{
-		if (!ft_strcmp(array[i], ""))
+		if (ft_strcmp(node->data.command_n_args[i], ""))
 			size++;
-		i++;
 	}
 	clean_array = ft_calloc(size + 1, sizeof(char *));
-	i = 0;
-	while (array[i])
+	i = -1;
+	while (node->data.command_n_args[++i])
 	{
-		if (!ft_strcmp(array[i], ""))
-		{
-			clean_array[j] = ft_strdup(array[i]);
-			j++;
-		}
-		i++;
+		if (ft_strcmp(node->data.command_n_args[i], ""))
+			clean_array[j++] = ft_strdup(node->data.command_n_args[i]);
 	}
-	free_args(array);
+	free_args(node->data.command_n_args);
 	return (clean_array);
 }

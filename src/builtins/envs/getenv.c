@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getenv.c                                           :+:      :+:    :+:   */
+/*   create_env_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 10:39:36 by jorteixe          #+#    #+#             */
-/*   Updated: 2024/04/06 14:58:26 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/02/16 09:47:46 by jorteixe          #+#    #+#             */
+/*   Updated: 2024/03/26 11:42:40 by ruiolive         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
@@ -19,7 +19,7 @@ char	*ft_getenv(t_envs *head, char *str)
 	current = head;
 	while (current != NULL)
 	{
-		if (ft_strcmp(current->name, str))
+		if (!ft_strcmp(current->name, str))
 			return (ft_strdup(current->value));
 		current = current->next;
 	}

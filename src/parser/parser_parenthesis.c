@@ -39,8 +39,6 @@ int	check_for_error_bf_parenthesis(char *input, int i)
 	if (i == 0)
 		return (1);
 	i--;
-	if (i >= 0 && input[i] == '*')
-		return (1);
 	while (i >= 0 && input[i] == ' ')
 		i--;
 	if (input[i] && (ft_strchr("&()", input[i]) \

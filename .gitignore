@@ -1,3 +1,7 @@
 *.o
 *.a
 minishell
+minishell_bonus
+leaks-old.log
+sup
+leaks.log
