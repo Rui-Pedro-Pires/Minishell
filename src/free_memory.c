@@ -28,26 +28,12 @@ void	free_args(char **args)
 	args = NULL;
 }
 
-// void	coador(t_pipes **head)
-// {
-// 	t_pipes	*next;
-// 	t_pipes *current;
-
-// 	current = (*head);
-
-// 	while (current)
-// 	{
-// 		next = current->next;
-// 		free(current->input_string);
-// 		free_data(current->data);
-// 		free(current);
-// 		current = next;
-// 	}
-// }
-
 void	free_input(char **input)
 {
+	if (!(*input))
+		return ;
 	free(*input);
+	*input = NULL;
 }
 
 void	free_heardoc(t_pipes *head)
@@ -83,12 +69,18 @@ void	free_envs(t_envs *envs)
 			current = next;
 		}
 	}
+	envs = NULL;
 }
 
 void	free_list(t_pipes **head)
 {
 	if (!(*head))
 		return ;
+	if ((*head)->init->pid)
+	{
+		free((*head)->init->pid);
+		(*head)->init->pid = NULL;
+	}
 	free_list(&(*head)->down);
 	free_list(&(*head)->next);
 	free_args((*head)->data.command_n_args);

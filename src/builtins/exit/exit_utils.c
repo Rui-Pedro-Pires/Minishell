@@ -18,7 +18,10 @@ void	free_resources(t_pipes *head)
 	free_env_list(head->init->envs);
 	free_env_list(head->init->sorted_envs);
 	if (head->init->pid)
+	{
 		free(head->init->pid);
+		head->init->pid = NULL;
+	}
 	free_list(&head);
 	rl_clear_history();
 }

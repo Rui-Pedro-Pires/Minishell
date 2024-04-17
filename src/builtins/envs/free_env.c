@@ -27,6 +27,7 @@ void	free_env_list(t_envs *head)
 		free(current);
 		current = next;
 	}
+	head = NULL;
 }
 
 void	free_split_array(char **array)

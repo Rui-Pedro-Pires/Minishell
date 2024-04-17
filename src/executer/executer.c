@@ -67,7 +67,6 @@ void	loop_list_and_execute(t_pipes *curr, t_pipes *head, \
 			waitpid(head->init->pid[i], NULL, 0);
 		i++;
 	}
-	free(head->init->pid);
 	update_status(status);
 }
 
