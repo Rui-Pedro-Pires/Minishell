@@ -1,9 +1,4 @@
-NAME = minishell
-
-NAME_BONUS = minishell_bonus
-
-LIBFT = ./includes/Libft/libft.a
-
+# Color variables
 RED = \033[0;31m
 GRN = \033[0;32m
 YEL = \033[0;33m
@@ -13,19 +8,21 @@ CYN = \033[0;36m
 WHT = \033[0;37m
 RES = \033[0m
 
+# Compiler-related variables
 CC = cc
-
 CFLAGS = -Werror -Wall -Wextra -g
-
-VG	=	valgrind --leak-check=full --show-leak-kinds=all --suppressions=sup --track-origins=yes --log-file=leaks.log
-
 LFLAG = -lreadline
+VG = valgrind --leak-check=full --show-leak-kinds=all --suppressions=sup --track-origins=yes --log-file=leaks.log
 
+# File-related variables
+NAME = minishell
+NAME_BONUS = minishell_bonus
+LIBFT = ./includes/Libft/libft.a
 RM = rm -rf
-
 SDIR := src
 ODIR := obj
 
+# Source files
 SOURCES := main.c \
 			error_handler.c\
 			free_memory.c\
@@ -86,37 +83,64 @@ SOURCES := main.c \
 			executer/stdin_out_pipe_case.c\
 			executer/split_ignore_quotes.c\
 			executer/recursive_function.c\
-			
+
+# Object files
 OBJECTS := $(patsubst %.c,$(ODIR)/%.o,$(SOURCES))
 
+TOTAL_FILES := $(words $(SOURCES))
+COMPILED_FILES := $(shell if [ -d "$(ODIR)" ]; then find $(ODIR) -name "*.o" | wc -l; else echo 0; fi)
+
+# Targets
 all : ${NAME}
 
 bonus : ${NAME_BONUS}
 
 ${NAME} : ${OBJECTS} ${LIBFT}
 	@${CC} ${CFLAGS} ${OBJECTS} ${LIBFT} -o ${NAME} $(LFLAG)
+	@printf "$(GRN)➾ Compilation progress: $$(echo "$(shell find $(ODIR) -name "*.o" | wc -l) $(TOTAL_FILES)" | awk '{printf "%.2f", $$1/$$2 * 100}')%%$(RES)\r"
 	@echo "\n$(GRN)➾ Minishell created$(RES)"
+	@printf "\n"
 
 ${NAME_BONUS} : ${OBJECTS} ${LIBFT}
+
 	@${CC} ${CFLAGS} ${OBJECTS} ${LIBFT} -o ${NAME_BONUS} $(LFLAG)
 	@echo "\n$(GRN)➾ minishell_bonus created$(RES)"
 
 $(LIBFT):
 	@make bonus -C ./includes/Libft/ -s
-	@echo "${GRN}➾ $@ created ${RES}"
 
 $(ODIR)/%.o: $(SDIR)/%.c | $(ODIR)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c -o $@ $<
-	@echo "${GRN}➾ $@ created ${RES}"
+	@printf "$(GRN)➾ Compilation progress: $$(echo "$(shell find $(ODIR) -name "*.o" | wc -l) $(TOTAL_FILES)" | awk '{printf "%.2f", $$1/$$2 * 100}')%%$(RES)\r"
 
+# Rest of your Makefile
 $(ODIR):
+	@printf "\n\
+	 _____                                                                       _____ \n\
+	( ___ )                                                                     ( ___ )\n\
+	 |   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   | \n\
+	 |   |                                                                       |   | \n\
+	 |   |                                                                       |   | \n\
+	 |   |  ___ ___    ___   ____   ____  ____    ___   _____ _____   ___  _____ |   | \n\
+	 |   | |   |   |  /  _] /    | /    ||    \  /   \ / ___// ___/  /  _]/ ___/ |   | \n\
+	 |   | | _   _ | /  [_ |   __||  o  ||  o  )|     (   \_(   \_  /  [_(   \_  |   | \n\
+	 |   | |  \_/  ||    _]|  |  ||     ||     ||  O  |\__  |\__  ||    _]\__  | |   | \n\
+	 |   | |   |   ||   [_ |  |_ ||  _  ||  O  ||     |/  \ |/  \ ||   [_ /  \ | |   | \n\
+	 |   | |   |   ||     ||     ||  |  ||     ||     |\    |\    ||     |\    | |   | \n\
+	 |   | |___|___||_____||___,_||__|__||_____| \___/  \___| \___||_____| \___| |   | \n\
+	 |   |                                                                       |   | \n\
+	 |   |                                                                       |   | \n\
+	 |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___| \n\
+	(_____)                                                                     (_____)\n"
+	@printf "\n"
+	@printf "\n"
+
 	@mkdir -p $@	
 
 clean :
 	@${RM} ${OBJECTS}
 	@${RM} ${ODIR}
-	@echo "${RED}➾ Minishell objects deleted${RES}"
 	@make clean -C./includes/Libft/ -s
 
 fclean : clean
@@ -124,10 +148,8 @@ fclean : clean
 	@${RM} ${NAME_BONUS}
 	@echo "${RED}➾ Minishell deleted${RES}"
 	@${RM} sup
-	@echo "${RED}➾ Sup File deleted${RES}"
 	@${RM} leaks.log
 	@${RM} leaks-old.log
-	@echo "${RED}➾ Leaks.log deleted${RES}"
 	@make fclean -C ./includes/Libft/ -s
 
 re : fclean all
@@ -142,7 +164,7 @@ leaks: ./minishell
 gdb: re
 	gdb --tui $(NAME)
 
-.PHONY: bonus
+.PHONY: all bonus clean fclean re debug leaks gdb sup_file
 
 define SUP_BODY
 {
@@ -154,19 +176,40 @@ define SUP_BODY
    ...
 }
 {
-    leak readline
-    Memcheck:Leak
-    ...
-    fun:readline
+	leak readline
+	Memcheck:Leak
+	...
+	fun:readline
 }
 {
-    leak add_history
-    Memcheck:Leak
-    ...
-    fun:add_history
+	leak add_history
+	Memcheck:Leak
+	...
+	fun:add_history
 }
 endef
 
 sup_file:
 	$(file > sup,$(SUP_BODY))
 	@echo "$(MAG)Created suppression file to use with valgrind --suppressions=sup$(RES)"
+
+header:
+	@printf "\n\
+	 _____                                                                       _____ \n\
+	( ___ )                                                                     ( ___ )\n\
+	 |   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   | \n\
+	 |   |                                                                       |   | \n\
+	 |   |                                                                       |   | \n\
+	 |   |  ___ ___    ___   ____   ____  ____    ___   _____ _____   ___  _____ |   | \n\
+	 |   | |   |   |  /  _] /    | /    ||    \  /   \ / ___// ___/  /  _]/ ___/ |   | \n\
+	 |   | | _   _ | /  [_ |   __||  o  ||  o  )|     (   \_(   \_  /  [_(   \_  |   | \n\
+	 |   | |  \_/  ||    _]|  |  ||     ||     ||  O  |\__  |\__  ||    _]\__  | |   | \n\
+	 |   | |   |   ||   [_ |  |_ ||  _  ||  O  ||     |/  \ |/  \ ||   [_ /  \ | |   | \n\
+	 |   | |   |   ||     ||     ||  |  ||     ||     |\    |\    ||     |\    | |   | \n\
+	 |   | |___|___||_____||___,_||__|__||_____| \___/  \___| \___||_____| \___| |   | \n\
+	 |   |                                                                       |   | \n\
+	 |   |                                                                       |   | \n\
+	 |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___| \n\
+	(_____)                                                                     (_____)\n"
+	@printf "\n"
+	@printf "\n"
