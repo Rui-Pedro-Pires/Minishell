@@ -84,5 +84,5 @@ void	create_cwd_from_envs(char **pwd, char **cwd, t_init init)
 void	status_update(int status)
 {
 	if (status == 2)
-		printf("\n");
+		print_error("\n");
 }
