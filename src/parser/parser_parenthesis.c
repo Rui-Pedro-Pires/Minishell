@@ -39,9 +39,9 @@ int	check_for_error_bf_parenthesis(char *input, int i)
 	if (i == 0)
 		return (1);
 	i--;
-	while (i > 0 && input[i] == ' ')
+	while (i > 0 && ft_strchr(" \t\n", input[i]))
 		i--;
-	if (input[i] && (ft_strchr("&() ", input[i]) \
+	if (input[i] && (ft_strchr("&() \t\n", input[i]) \
 	|| ft_strnstr(input + (i - 1), "||", 2)))
 		return (1);
 	return (0);
@@ -52,11 +52,11 @@ int	check_for_error_af_parenthesis(char *input, int i)
 	i++;
 	if (!input[i])
 		return (1);
-	while (input[i] && input[i] == ' ')
+	while (input[i] && ft_strchr(" \t\n", input[i]))
 		i++;
 	if (!input[i])
 		return (1);
-	if (input[i] && (ft_strchr("&)", input[i]) \
+	if (input[i] && (ft_strchr("&) \t\n", input[i]) \
 	|| ft_strnstr(input + i, "||", 2)))
 		return (1);
 	return (0);

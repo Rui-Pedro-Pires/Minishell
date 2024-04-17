@@ -17,7 +17,7 @@ int	check_cmd_end(char *input)
 	int	i;
 
 	i = 0;
-	while (input[i] && input[i] == ' ')
+	while (input[i] && ft_strchr(" \t\n", input[i]))
 		i++;
 	if (input[i] && ft_strchr("&|", input[i]))
 		return (0);
@@ -31,7 +31,7 @@ int	check_end(char *input)
 	i = 0;
 	while (input[i + 1])
 		i++;
-	while (i >= 0 && input[i] == ' ')
+	while (i >= 0 && ft_strchr(" \t\n", input[i]))
 		i--;
 	if (!ft_strchr("<>&|", input[i]))
 		return (1);
@@ -49,7 +49,7 @@ int	check_cmd_aft(char *input)
 	int	i;
 
 	i = 0;
-	while (input[i] && input[i] == ' ')
+	while (input[i] && ft_strchr(" \t\n", input[i]))
 		i++;
 	if (!input[i])
 		return (0);

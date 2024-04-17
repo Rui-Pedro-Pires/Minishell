@@ -17,7 +17,7 @@ char	*search_char(char *input)
 	int	i;
 
 	i = 0;
-	while (input[i] && input[i] == ' ')
+	while (input[i] && ft_strchr(" \t\n", input[i]))
 		i++;
 	if (input[i] && (input[i] == '>' || input[i] == '<'))
 		return (signs_search(input + i));

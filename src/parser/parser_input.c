@@ -29,8 +29,7 @@ int	check_begin_case_parser(char *input, int *i)
 {
 	int	checker;
 
-	while (input[(*i)] && (input[(*i)] == ' ' \
-	|| input[(*i)] == '\t' || input[(*i)] == '\n'))
+	while (ft_strchr(" \t\n", input[(*i)]))
 		(*i)++;
 	if (!input[(*i)])
 		return (0);
