@@ -55,6 +55,8 @@ static void	process_command_n_args(t_pipes *node, t_init *init)
 		i++;
 	}
 	node->data.command_n_args = empty_element_rem(node);
+	update_env_last_arg(node);
+	update_sorted_env_last_arg(node);
 }
 
 int	init_data(t_pipes *node)
