@@ -58,7 +58,10 @@ void	process_input(t_pipes **head, char *input, t_init *init)
 	if (input && *input)
 		add_history(input);
 	else
+	{
+		free_args(init->heardocs);
 		return ;
+	}
 	if (check_for_dbpipe_dbamper(input))
 	{
 		creat_list(head, input, init, 1);
