@@ -265,7 +265,7 @@ void				free_heardoc(t_pipes *head);
 /*			READ LINE		*/
 /****************************/
 
-char				*line_read(t_init *init, t_counter *counter_struc);
+char				*line_read(t_init *init);
 int					unfinished_command_line(char *input);
 char				*str_join_with_space(char *s1, char *s2, int free_type);
 char				*str_join_with_newline(char *s1, char *s2);
@@ -346,6 +346,8 @@ char				*ft_getenv(t_envs *head, char *str);
 t_envs				*bubble_sort(t_envs *head);
 int					ft_is_only_digit(char *str);
 void				shlvl_change(char **env_var);
+void				update_env_last_arg(t_pipes *node);
+void				update_sorted_env_last_arg(t_pipes *node);
 
 /****************************/
 /*			EXECUTOR		*/

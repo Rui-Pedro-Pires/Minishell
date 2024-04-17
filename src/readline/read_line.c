@@ -18,16 +18,19 @@ static void	child_process_keep_reading(t_init *init, char *input,
 static void	ft_exit_keep_reading(t_init *init, char *input, int exit_type,
 				bool add_to_history);
 
-char	*line_read(t_init *init, t_counter *counter_struc)
+char	*line_read(t_init *init)
 {
-	char	*input;
-	int		fd[2];
+	char		*input;
+	int			fd[2];
+	t_counter	count_struc;
 
-	counter_struc->prnt = 0;
+	count_struc.prnt = 0;
+	count_struc.i = 0;
+	count_struc.counter = 0;
 	input = get_input(*init);
-	if (!parse_input(input, counter_struc, init))
+	if (!parse_input(input, &count_struc, init))
 		return (add_history(input), free(input), NULL);
-	input = keep_reading(input, counter_struc, init, fd);
+	input = keep_reading(input, &count_struc, init, fd);
 	return (input);
 }
 

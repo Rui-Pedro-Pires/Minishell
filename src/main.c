@@ -12,12 +12,10 @@
 #include "../includes/minishell.h"
 
 int					g_return_value;
-extern char			**environ;
 
 int	main(void)
 {
 	char		*input;
-	t_counter	count_struc;
 	t_pipes		*head;
 	t_init		init;
 	int			heardoc_index;
@@ -27,13 +25,11 @@ int	main(void)
 	while (1)
 	{
 		iterative_mode();
-		count_struc.i = 0;
-		count_struc.counter = 0;
 		heardoc_index = -1;
 		init.pid = NULL;
 		init.heardocs = NULL;
 		init.heardoc_index = &heardoc_index;
-		input = line_read(&init, &count_struc);
+		input = line_read(&init);
 		process_input(&head, input, &init);
 		free_input(&input);
 		free_heardoc(head);
@@ -47,7 +43,7 @@ void	initialize(t_init *init)
 {
 	char	**env;
 
-	env = environ;
+	env = __environ;
 	init->envs = create_env_list(env, true);
 	init->sorted_envs = create_env_list(env, false);
 	init->sorted_envs = bubble_sort(init->sorted_envs);

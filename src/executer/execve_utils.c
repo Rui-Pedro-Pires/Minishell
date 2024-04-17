@@ -74,3 +74,53 @@ int	listlen(t_envs *envs)
 	}
 	return (len);
 }
+
+void	update_env_last_arg(t_pipes *node)
+{
+	int		i;
+	t_envs	*envs;
+	char	*last_arg;
+
+	i = 0;
+	while (node->data.command_n_args[i])
+		i++;
+	if (i == 0)
+		return ;
+	last_arg = node->data.command_n_args[i - 1];
+	envs = node->init->envs;
+	while (envs)
+	{
+		if (!ft_strcmp(envs->name, "_"))
+		{
+			free(envs->value);
+			envs->value = ft_strdup(last_arg);
+			break ;
+		}
+		envs = envs->next;
+	}
+}
+
+void	update_sorted_env_last_arg(t_pipes *node)
+{
+	int		i;
+	t_envs	*envs;
+	char	*last_arg;
+
+	i = 0;
+	while (node->data.command_n_args[i])
+		i++;
+	if (i == 0)
+		return ;
+	last_arg = node->data.command_n_args[i - 1];
+	envs = node->init->sorted_envs;
+	while (envs)
+	{
+		if (!ft_strcmp(envs->name, "_"))
+		{
+			free(envs->value);
+			envs->value = ft_strdup(last_arg);
+			break ;
+		}
+		envs = envs->next;
+	}
+}
