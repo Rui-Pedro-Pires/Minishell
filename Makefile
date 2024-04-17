@@ -146,10 +146,12 @@ clean :
 
 fclean : clean
 	@${RM} ${NAME}
+	@${RM} ${NAME_BONUS}
 	@echo "${RED}➾ Minishell deleted${RES}"
 	@${RM} sup
 	@echo "${RED}➾ Sup File deleted${RES}"
 	@${RM} leaks.log
+	@${RM} leaks-old.log
 	@echo "${RED}➾ Leaks.log deleted${RES}"
 	@make fclean -C ./includes/Libft/ -s
 
