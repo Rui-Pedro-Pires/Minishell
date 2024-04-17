@@ -91,8 +91,8 @@ static void	child_process_keep_reading(t_init *init, char *input,
 	pid = fork();
 	if (pid == 0)
 	{
+		handle_reset_sigint();
 		close(fd[0]);
-		handle_reset_signals();
 		while (unfinished_command_line(input) || c_struc->prnt > 0)
 		{
 			new_line = readline("> ");
