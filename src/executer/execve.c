@@ -21,6 +21,7 @@ int	executens_ve(t_pipes *node)
 	char	**env_array;
 	char	*temp_str;
 
+	reset_signals();
 	env_array = NULL;
 	if (!ft_strchr(node->data.command_n_args[0], '/'))
 		temp_str = create_path_to_execve(node);
@@ -30,7 +31,6 @@ int	executens_ve(t_pipes *node)
 		write_pipe_heardoc(node);
 	else if (node->in_out.input_type == REDIRECT_INPUT)
 		write_pipe_stdin(node);
-	handle_reset_signals();
 	if (!temp_str)
 	{
 		print_error("minishell: ");

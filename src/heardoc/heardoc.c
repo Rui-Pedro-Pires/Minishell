@@ -98,7 +98,7 @@ static char	*process_heardoc(char *input, t_counter *iter, t_init *init)
 	str_condition = copy_inside_quotes(str_condition);
 	pipe(fd);
 	child_process_heardoc(init, str_condition, fd);
-	handle_sigint_status();
+	update_sigint_status();
 	wait(&status);
 	status_update(status);
 	close(fd[1]);
@@ -121,7 +121,7 @@ static void	child_process_heardoc(t_init *init, char *str_condition, int *fd)
 	pid = fork();
 	if (pid == 0)
 	{
-		handle_reset_sigint();
+		reset_sigint();
 		free_args(init->heardocs);
 		free_env_list(init->sorted_envs);
 		close(fd[0]);

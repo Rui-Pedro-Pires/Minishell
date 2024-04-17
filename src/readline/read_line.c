@@ -62,7 +62,7 @@ char	*keep_reading(char *input, t_counter *c_struc, t_init *init)
 	{
 		pipe(fd);
 		child_process_keep_reading(init, input, c_struc, fd);
-		handle_sigint_status();
+		update_sigint_status();
 		wait(&status);
 		status_update(status);
 		close(fd[1]);
@@ -91,7 +91,7 @@ static void	child_process_keep_reading(t_init *init, char *input,
 	pid = fork();
 	if (pid == 0)
 	{
-		handle_reset_sigint();
+		reset_sigint();
 		close(fd[0]);
 		while (unfinished_command_line(input) || c_struc->prnt > 0)
 		{

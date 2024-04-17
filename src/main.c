@@ -26,7 +26,7 @@ int	main(void)
 	initialize(&init);
 	while (1)
 	{
-		handle_iterative_mode();
+		iterative_mode();
 		count_struc.i = 0;
 		count_struc.counter = 0;
 		heardoc_index = -1;

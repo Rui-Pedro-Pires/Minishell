@@ -422,13 +422,13 @@ int					array_size(char **file);
 /*				SIGNALS					*/
 /****************************************/
 
-void				handle_iterative_mode(void);
-void				handle_reset_signals(void);
-void				handle_signals_status(void);
-void				handle_sigint_status(void);
-void				handle_reset_sigint(void);
-void				update_status_sigquit(int sig);
-void				update_status_sigint(int sig);
+void				iterative_mode(void);
+void				reset_signals(void);
+void				update_signals_status(void);
+void				update_sigint_status(void);
+void				reset_sigint(void);
+void				handle_status_sigquit(int sig);
+void				handle_status_sigint(int sig);
 void				handle_sigint(int sig);
 
 /****************************************/
