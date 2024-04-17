@@ -56,7 +56,7 @@ char	*check_minor_case_special_error(char *input, int i)
 		return (NULL);
 	if (input[i] && input[i] == '<')
 		i++;
-	while (input[i] && input[i] == ' ')
+	while (input[i] && ft_strchr(" \t\n", input[i]))
 		i++;
 	if (input[i] && ft_strchr("|&<", input[i]))
 		return (search_char(input + i));

@@ -46,10 +46,10 @@ int	minor_sig_count(char *input, int *i)
 	int	x;
 	int	checker;
 
-	x = *i;
+	x = *i + 1;
 	checker = 0;
-	while (input[++x] == '<')
-		;
+	while (input[x] && input[x] == '<')
+		x++;
 	if (x - (*i) == 3 && ft_strchr(">", input[x]))
 		return (-3);
 	if (x - (*i) > 2)
