@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parenthesis_case.c                                 :+:      :+:    :+:   */
+/*   parenthesis_in_node.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruiolive  <ruiolive@student.42.fr   >      +#+  +:+       +#+        */
+/*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 11:47:19 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/03/12 11:47:19 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:00:37 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*create_str_bet_parent(char *formated)
 
 	i = 0;
 	x = 0;
-	while (formated[i] && formated[i] == ' ')
+	while (formated[i] && ft_strchr(" \t\n", formated[i]))
 		i++;
 	if (formated[i] != '(')
 		return (NULL);
