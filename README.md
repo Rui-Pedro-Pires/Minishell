@@ -2,9 +2,9 @@
 # Minishell
 
 ## Description
-Minishell is a simple, custom shell written in C, designed to emulate the functionality of the bash shell. The project involves handling various processes, file descriptors, and command-line inputs, giving you an opportunity to delve into key concepts related to system programming.
+Minishell is a simple, custom shell written in C, designed to emulate the functionality of the bash shell. The project involves handling various processes, file descriptors, and command-line inputs, giving me an opportunity to delve into key concepts related to system programming.
 
-This shell includes support for a command-line interface, pipes, redirections, environment variable handling, and a few built-in commands. You will experience the nuances of building your own little bash from scratch.
+This shell includes support for a command-line interface, pipes, redirections, environment variable handling, and a few built-in commands.
 
 ## Features
 - Displays a command prompt waiting for user input.
