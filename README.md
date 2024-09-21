@@ -35,11 +35,11 @@ This shell includes support for a command-line interface, pipes, redirections, e
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/minishell.git
+   git clone git@github.com:Rui-Pedro-Pires/Minishell.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd minishell
+   cd Minishell
    ```
 3. Compile the project using the provided `Makefile`:
    ```bash
