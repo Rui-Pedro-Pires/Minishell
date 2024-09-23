@@ -77,6 +77,3 @@ The shell makes use of the following external functions:
 ## Future Improvements
 - Better error handling and more built-in commands.
 - Expand upon wildcard support and improve the robustness of logical operators.
-
-## License
-This project is licensed under the MIT License.
