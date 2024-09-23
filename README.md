@@ -70,10 +70,3 @@ export PATH=/usr/local/bin
 The shell makes use of the following external functions:
 - `readline`, `rl_clear_history`, `rl_on_new_line`, `rl_replace_line`, `rl_redisplay`, `add_history`
 - Standard system functions like `printf`, `malloc`, `free`, `write`, `fork`, `wait`, `execve`, `dup`, `pipe`, and more.
-
-## Known Limitations
-- Memory leaks caused by the `readline()` function are not handled as per project requirements. However, all other memory allocations are managed and freed correctly.
-
-## Future Improvements
-- Better error handling and more built-in commands.
-- Expand upon wildcard support and improve the robustness of logical operators.
